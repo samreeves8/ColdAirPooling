@@ -40,7 +40,7 @@
     
     
     if($_SERVER['REQUEST_METHOD']==='POST'){
-        $sensors = $_POST['sensors'];
+        $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
         $dateStart = $_POST['dateStart'];
         $dateEnd = $_POST['dateEnd'];
         $timeStart = $_POST['timeStart'];
@@ -69,7 +69,7 @@
             }else{
                 $table = "TempData";
             }
-            
+
             $stmt = $conn->prepare("SELECT Temperature FROM $table WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?");
             $stmt->bind_param("ssddd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
             $stmt->execute();
