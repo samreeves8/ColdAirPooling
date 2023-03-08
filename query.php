@@ -75,6 +75,7 @@
             $sql = "SELECT Temperature FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
+            $stmt->debugDumpParams();
             $stmt->execute();
             $result = $stmt->get_result();
 
