@@ -61,6 +61,7 @@
         }
         
         $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+        
         foreach($sensors as $sensor){
             $table = null;
             if(in_array($sensor, $humidity)){
@@ -68,11 +69,7 @@
             }else{
                 $table = "TempData";
             }
-        }
-        
-        foreach($sensors as $sensor){
-            // $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
-            // echo $sql;
+            
             $stmt = $conn->prepare("SELECT Temperature FROM $table WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?");
             $stmt->bind_param("ssddd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
             $stmt->execute();
@@ -83,14 +80,7 @@
                     echo "Temp at " . $row["DateTime"] . " = " . $row["Temperature"];
                 }
             }
-
-            // $stmt = $conn->prepare("SELECT * FROM TempData WHERE Sensor = ?");
-            // $stmt->bind_param("s", $sensorID);
-            // $stmt->execute();
-            // $result = $stmt->get_result();
-            
-
-
+        
         }
         
         
