@@ -74,7 +74,7 @@
             $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND Datetime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
             echo $sql;
             $stmt = $conn->prepare("SELECT Temperature FROM ? WHERE Sensor IS ? AND Datetime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?;");
-            $stmt->bind_param($table, $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
+            $stmt->bind_param("ssssdd", $table, $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
             $stmt->execute();
             $result = $stmt->get_result();
 
