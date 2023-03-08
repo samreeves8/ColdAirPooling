@@ -8,37 +8,86 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo '<form>';
+        echo '<form action="query.php" method="POST">';
         while($row = $result->fetch_assoc()) {
             echo '<label><input type="checkbox" name="sensors[]" value="' . $row['Sensor'] . '">' . $row['Sensor'] . '</label><br>';
         }
-        echo '<input type="submit" value="Submit"></form>';
+        
     } else {
         echo "0 results";
     }
+    
+    echo 
+    '<label for="dateStart">Select a start date:</label>
+    <input type="date" id="dateStart" name="dateStart">
+    <label for="timeStart">Select a start time:</label>
+    <input type="time" id="timeStart" name="timeStart">
+
+    <br>
+
+    <label for="dateEnd">Select an end date:</label>
+    <input type="date" id="dateEnd" name="dateEnd">
+
+    <label for="timeEnd">Select an end time:</label>
+    <input type="time" id="timeEnd" name="timeEnd"><br>
+
+    <label for="tempStart">Select a temperature range (Celcius):</label>
+    <input type="number" id="tempMin" name="tempMin">
+
+    <input type="number" id="tempMax" name="tempMax">
+
+    <input type="submit" value="Submit"></form>';
+    
+    
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        $sensors = $_POST['sensors'];
+        $dateStart = $_POST['dateStart'];
+        $dateEnd = $_POST['dateEnd'];
+        $timeStart = $_POST['timeStart'];
+        $timeEnd = $_POST['timeEnd'];
+        $tempMin = $_POST['tempStart'];
+        $tempMax = $_POST['tempEnd'];
+        
+        echo "Start date: " . $dateStart . "<br>";
+        echo "Start time: " .$timeStart . "<br>";
+        echo "End date: " . $dateEnd . "<br>";
+        echo "End time: " . $timeEnd . "<br>";
+        echo "Min temp: " . $tempMin . "<br>";
+        echo "Max temp: " . $tempMax . "<br>";
+        foreach($sensors as $sensor) {
+            echo $sensor . "<br>";
+        }
+        
+        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+        foreach($sensors as $sensor){
+            $table = null;
+            if(in_array($sensor, $humidity)){
+                $table = "HumidData";
+            }else{
+                $table = "TempData";
+            }
+        }
+        
+        foreach($sensors as $sensor){
+            $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND Datetime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND "..;
+        }
+        
+        
+        WHERE Sensor IS NULL 
+        AND Date BETWEEN '2022-01-01' AND '2022-01-31'
+        AND TIME(Date) BETWEEN '08:00:00' AND '18:00:00'
+        AND Temperature BETWEEN 20 AND 30
+
+    }
+    
+
+    
 ?>
 
 
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
-</head>
 
 
-<label for="dateStart">Select a start date:</label>
-<input type="date" id="dateStart" name="dateStart">
 
-<label for="timeStart">Select a start time:</label>
-<input type="time" id="timeStart" name="timeStart">
-
-<br>
-
-<label for="dateEnd">Select an end date:</label>
-<input type="date" id="dateEnd" name="dateEnd">
-
-<label for="timeEnd">Select an end time:</label>
-<input type="time" id="timeEnd" name="timeEnd">
 
 
 
