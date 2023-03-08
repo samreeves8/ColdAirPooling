@@ -70,8 +70,6 @@
                 $table = "TempData";
             }
 
-            $sql = "SELECT Temperature FROM ".$table." WHERE Sensor = '".$sensor."' AND DateTime BETWEEN '".$dateTimeStart."' AND '".$dateTimeEnd."' AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
-            echo $sql;
             $sql = "SELECT Temperature FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
@@ -79,13 +77,11 @@
             $stmt->execute();
             $result = $stmt->get_result();
 
-            echo "Testing";
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
+                    print_r($row);
                 }
             }
-            echo "Testing";
         
         }
 
