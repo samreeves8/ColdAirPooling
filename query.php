@@ -79,7 +79,9 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo $result;
+                while ($row = $result->fetch_assoc()) {
+                    echo $row;
+                }
             }
 
             // $stmt = $conn->prepare("SELECT * FROM TempData WHERE Sensor = ?");
