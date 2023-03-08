@@ -72,7 +72,7 @@
             $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND Datetime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND "..;
         }
         
-        
+        // comment
         WHERE Sensor IS NULL 
         AND Date BETWEEN '2022-01-01' AND '2022-01-31'
         AND TIME(Date) BETWEEN '08:00:00' AND '18:00:00'
