@@ -24,12 +24,15 @@
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         if (isset($_GET['sensorID'])) {
             $sensorID = $_GET['sensorID'];
-            $stmt = $conn->prepare("SELECT * FROM TempData WHERE Sensor = ?");
-            $h = false;
+            $stmt = null;
+            $h = null;
             
             if(in_array($sensorID, $humidity)){
                  $stmt = $conn->prepare("SELECT * FROM HumidData WHERE Sensor = ?");
                  $h = true;
+            }else{
+                $stmt = $conn->prepare("SELECT * FROM TempData WHERE Sensor = ?");
+                $h = false;
             }
             
             $stmt->bind_param("s", $sensorID);
