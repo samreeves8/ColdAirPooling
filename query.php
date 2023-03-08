@@ -45,10 +45,15 @@
         $dateEnd = $_POST['dateEnd'];
         $timeStart = $_POST['timeStart'];
         $timeEnd = $_POST['timeEnd'];
+<<<<<<< HEAD
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+=======
+        $tempMin = $_POST['tempStart'];
+        $tempMax = $_POST['tempEnd'];
+>>>>>>> 98861ddd89bd5ede25dff2b66b2c1803b40f311e
         
         echo "Start date: " . $dateStart . "<br>";
         echo "Start time: " .$timeStart . "<br>";
@@ -71,6 +76,7 @@
         }
         
         foreach($sensors as $sensor){
+<<<<<<< HEAD
             $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND Datetime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
             echo $sql;
         }
@@ -78,6 +84,16 @@
         
         
         
+=======
+            $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND Datetime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND "..;
+        }
+        
+        // comment
+        WHERE Sensor IS NULL 
+        AND Date BETWEEN '2022-01-01' AND '2022-01-31'
+        AND TIME(Date) BETWEEN '08:00:00' AND '18:00:00'
+        AND Temperature BETWEEN 20 AND 30
+>>>>>>> 98861ddd89bd5ede25dff2b66b2c1803b40f311e
 
     }
     
