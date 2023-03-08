@@ -71,8 +71,26 @@
         }
         
         foreach($sensors as $sensor){
-            $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND Datetime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
+            $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
             echo $sql;
+            $stmt = $conn->prepare("SELECT Temperature FROM ? WHERE Sensor IS ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?;");
+            $stmt->bind_param("ssssdd", $table, $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "Temp at " . $row["Datetime"] . " = " . $row["Temperature"];
+                }
+            }
+
+            // $stmt = $conn->prepare("SELECT * FROM TempData WHERE Sensor = ?");
+            // $stmt->bind_param("s", $sensorID);
+            // $stmt->execute();
+            // $result = $stmt->get_result();
+            
+
+
         }
         
         
