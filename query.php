@@ -78,11 +78,13 @@
             $stmt->execute();
             $result = $stmt->get_result();
 
+            echo "Testing";
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>";
+                    echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
                 }
             }
+            echo "Testing";
         
         }
 
