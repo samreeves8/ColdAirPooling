@@ -89,6 +89,36 @@
             }
         
         }
+        
+        // SELECT 
+        // Sensor,
+        // FLOOR((@row_number:=@row_number+1)/x) AS GroupNum,
+        // MIN(DateTime) AS StartDateTime,
+        // MAX(DateTime) AS EndDateTime,
+        // MIN(Temperature) AS MinTemperature, 
+        // MAX(Temperature) AS MaxTemperature, 
+        // ROUND(AVG(Temperature),2) AS AvgTemperature
+        // FROM TempData, (SELECT @row_number:=0) AS t
+        // WHERE Sensor IN ("S")
+        // AND DateTime BETWEEN startDate AND endDate
+        // GROUP BY Sensor, GroupNum  
+        // ORDER BY `Sensor`  DESC
+
+        // 3 minutes - x is 1 or 2
+        // 6 minutes - x is 3
+        // 15 minutes - x is 6
+        // 30 minutes - x is 11
+        // 1 hour - x is 21
+        // 2 hours - x is 41
+        // 4 hours - x is 81
+        // 12 hours - x is 241
+        // 1 day - x is 481
+        // 2 day - x is 961
+        // Weekly - x is 3361
+        // Bi-Weekly - x is 6721
+        // S is sensor
+        // startDate and endDate are variables
+
 
     }
     
