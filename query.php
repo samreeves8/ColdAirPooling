@@ -90,6 +90,33 @@
         
         }
         
+        $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
+        if ($timedif <= 10800) {
+            echo "Less than 3 hours";
+            exit();
+        }else if($timedif <= 21600){
+            echo "Between 3 hours and 6 hours"
+            exit();
+        }else if($timedif <= 86400){
+            echo "Between 6 hours and 1 day"
+            exit();
+        }else if($timedif <= 604800){
+            echo "Between 1 day and 1 week"
+            exit();
+        }else if($timedif <= 5184000){
+            echo "Between 1 week and 2 months"
+            exit();
+        }else if($timedif <= 31536000){
+            echo "Between 2 months and 1 year"
+            exit();
+        }else if($timedif <= 63072000){
+            echo "Between 1 year and 2 years"
+            exit();
+        }else{
+            echo "Greater than 2 years"
+            exit();
+        }
+
         // SELECT 
         // Sensor,
         // FLOOR((@row_number:=@row_number+1)/x) AS GroupNum,
