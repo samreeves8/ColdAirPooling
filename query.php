@@ -50,9 +50,9 @@
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
-        if(isset($dateTimeEnd) && $dateTimeEnd <= $dateTimeStart){
-            echo "Error: End date must be after start date";
-        }
+        // if(isset($dateTimeEnd) && $dateTimeEnd <= $dateTimeStart){
+        //     echo "Error: End date must be after start date";
+        // }
         
         echo "Start date: " . $dateStart . "<br>";
         echo "Start time: " .$timeStart . "<br>";
@@ -66,30 +66,34 @@
         
         $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
         
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
+        // foreach($sensors as $sensor){
+        //     $table = null;
+        //     if(in_array($sensor, $humidity)){
+        //         $table = "HumidData";
+        //     }else{
+        //         $table = "TempData";
+        //     }
 
-            $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
+        //     $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
+        //     $stmt = $conn->prepare($sql);
+        //     $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
             
-            $stmt->execute();
-            $result = $stmt->get_result();
+        //     $stmt->execute();
+        //     $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
-                }
-            }
+        //     if ($result->num_rows > 0) {
+        //         while ($row = $result->fetch_assoc()) {
+        //             echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
+        //         }
+        //     }
         
-        }
+        // }
         
         $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
+        if($timedif <= 0){
+            echo "Start date is greater than end date";
+            exit();
+        }
         if ($timedif <= 10800) {
             echo "Less than 3 hours";
             exit();
