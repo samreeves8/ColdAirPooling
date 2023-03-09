@@ -49,6 +49,11 @@
         $tempMax = $_POST['tempMax'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+
+        if (strtotime($dateTimeEnd) <= strtotime($dateTimeStart)) {
+            echo "End date and time must be after start date and time";
+            exit();
+        }
         
         echo "Start date: " . $dateStart . "<br>";
         echo "Start time: " .$timeStart . "<br>";
