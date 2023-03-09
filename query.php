@@ -50,9 +50,8 @@
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
-        if (strtotime($dateTimeEnd) <= strtotime($dateTimeStart)) {
-            echo "End date and time must be after start date and time";
-            exit();
+        if(isset($dateTimeEnd) && $dateTimeEnd <= $dateTimeStart){
+            echo "Error: End date must be after start date";
         }
         
         echo "Start date: " . $dateStart . "<br>";
