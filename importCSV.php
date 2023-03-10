@@ -18,7 +18,8 @@
             echo "File upload error.";
             exit;
         }
-        
+
+        // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
             if($_FILES['file']['error'][$key] == UPLOAD_ERR_OK){
                 $filename = $_FILES['file']['name'][$key]; 
@@ -26,6 +27,7 @@
                 echo $filename."<br>";
                 $file = fopen($tmpfilename, "r");
             
+                //Check each file for existance
                 if ($file) {
                 
                     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
@@ -35,6 +37,8 @@
                     
                     $conn->autocommit(FALSE);
                     
+                    //Bind indices for excel documents
+
                     $dateTimeIndex=1;
                     $tempIndex = 2;
                     $rhIndex = 3;
@@ -49,6 +53,8 @@
                     $DewPoint = NULL;
                     
                     
+                    //Checks which table to access (HumidData or TempData)
+
                     if(in_array($Sensor, $humidity)){
                         
                         $sql = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
@@ -63,10 +69,14 @@
                         $h = false;
                     }
                     
+                    //Begins accessing files
+
                     fgetcsv($file);
                 
                     while (($row = fgetcsv($file)) !== false) {
-                       
+                        
+                        //Accounts for date time differences
+
                         $DateTime = DateTime::createFromFormat('m/d/Y H:i:s', $row[$dateTimeIndex]);
                         if (!$DateTime) {
                             $DateTime = DateTime::createFromFormat('m/d/Y H:i', $row[$dateTimeIndex]);
@@ -88,6 +98,9 @@
                             $RH = $row[$rhIndex];
                             $DewPoint = $row[$dewPointIndex];
                         }
+
+                        //Adds to database if there is a value
+                        
                         if($Temperature!=null){
                             mysqli_stmt_execute($stmt);
                         }
