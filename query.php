@@ -40,7 +40,7 @@
     
     
     if($_SERVER['REQUEST_METHOD']==='POST'){
-        $sensors = $_POST['sensors'];
+        $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
         $dateStart = $_POST['dateStart'];
         $dateEnd = $_POST['dateEnd'];
         $timeStart = $_POST['timeStart'];
@@ -49,6 +49,10 @@
         $tempMax = $_POST['tempMax'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+
+        // if(isset($dateTimeEnd) && $dateTimeEnd <= $dateTimeStart){
+        //     echo "Error: End date must be after start date";
+        // }
         
         echo "Start date: " . $dateStart . "<br>";
         echo "Start time: " .$timeStart . "<br>";
@@ -61,45 +65,92 @@
         }
         
         $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
-        }
         
-        foreach($sensors as $sensor){
-            $sql = "SELECT Temperature FROM ".$table." WHERE Sensor IS ".$sensor." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd." AND Temperature BETWEEN ".$tempMin." AND " .$tempMax."";
-            echo $sql;
-            $stmt = $conn->prepare("SELECT Temperature FROM ? WHERE Sensor IS ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?;");
-            $stmt->bind_param("ssssdd", $table, $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
-            $stmt->execute();
-            $result = $stmt->get_result();
+        // foreach($sensors as $sensor){
+        //     $table = null;
+        //     if(in_array($sensor, $humidity)){
+        //         $table = "HumidData";
+        //     }else{
+        //         $table = "TempData";
+        //     }
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "Temp at " . $row["Datetime"] . " = " . $row["Temperature"];
-                }
-            }
-
-            // $stmt = $conn->prepare("SELECT * FROM TempData WHERE Sensor = ?");
-            // $stmt->bind_param("s", $sensorID);
-            // $stmt->execute();
-            // $result = $stmt->get_result();
+        //     $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
+        //     $stmt = $conn->prepare($sql);
+        //     $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
             
+        //     $stmt->execute();
+        //     $result = $stmt->get_result();
 
-
+        //     if ($result->num_rows > 0) {
+        //         while ($row = $result->fetch_assoc()) {
+        //             echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
+        //         }
+        //     }
+        
+        // }
+        
+        $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
+        if($timedif <= 0 && ($dateTimeStart != "" && $dateTimeEnd != "")){
+            echo "Start date is greater than end date";
+            exit();
         }
-        
-        
-        
-        
+        if ($timedif <= 10800) {
+            echo "Less than 3 hours";
+            exit();
+        }else if($timedif <= 21600){
+            echo "Between 3 hours and 6 hours";
+            exit();
+        }else if($timedif <= 86400){
+            echo "Between 6 hours and 1 day";
+            exit();
+        }else if($timedif <= 604800){
+            echo "Between 1 day and 1 week";
+            exit();
+        }else if($timedif <= 5184000){
+            echo "Between 1 week and 2 months";
+            exit();
+        }else if($timedif <= 31536000){
+            echo "Between 2 months and 1 year";
+            exit();
+        }else if($timedif <= 63072000){
+            echo "Between 1 year and 2 years";
+            exit();
+        }else{
+            echo "Greater than 2 years";
+            exit();
+        }
+
+        // SELECT 
+        // Sensor,
+        // FLOOR((@row_number:=@row_number+1)/x) AS GroupNum,
+        // MIN(DateTime) AS StartDateTime,
+        // MAX(DateTime) AS EndDateTime,
+        // MIN(Temperature) AS MinTemperature, 
+        // MAX(Temperature) AS MaxTemperature, 
+        // ROUND(AVG(Temperature),2) AS AvgTemperature
+        // FROM TempData, (SELECT @row_number:=0) AS t
+        // WHERE Sensor IN ("S")
+        // AND DateTime BETWEEN startDate AND endDate
+        // GROUP BY Sensor, GroupNum  
+        // ORDER BY `Sensor`  DESC
+
+        // 3 minutes - x is 1 or 2
+        // 6 minutes - x is 3
+        // 15 minutes - x is 6
+        // 30 minutes - x is 11
+        // 1 hour - x is 21
+        // 2 hours - x is 41
+        // 4 hours - x is 81
+        // 12 hours - x is 241
+        // 1 day - x is 481
+        // 2 day - x is 961
+        // Weekly - x is 3361
+        // Bi-Weekly - x is 6721
+        // S is sensor
+        // startDate and endDate are variables
+
 
     }
-    
-
     
 ?>
 
