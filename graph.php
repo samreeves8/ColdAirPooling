@@ -55,7 +55,7 @@
             data: {
                 labels: dates,
                 datasets: [{
-                    data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+                    data: temps,
                     borderColor: "red",
                     fill: false
                 },{
