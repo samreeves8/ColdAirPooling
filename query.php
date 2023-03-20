@@ -79,6 +79,7 @@
             $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
             
             $stmt->execute();
+            echo $stmt."<br>";
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
