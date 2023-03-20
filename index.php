@@ -1,6 +1,26 @@
-<form action="./query.php" method="post" name="query" id="query">
-    <button type="submit" id="submit" name="query" class="btn-submit"> Query </button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="#">Log In</a></li>
+         </ul>
+    </div>
+</body>
+</html>
+
 <?php
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
     if ($conn->connect_error) {
