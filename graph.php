@@ -39,7 +39,7 @@
   <body>
     <canvas id="myChart"></canvas>
     <script>
-        const xValues = [100,200,300,400,500,600,700,800,900,1000];
+        const intArray = temps.map(str => parseInt(str));
 
         // Initialize an empty array with length 480/3 = 160
         const arr = new Array(160);
