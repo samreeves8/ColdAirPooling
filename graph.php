@@ -39,16 +39,9 @@
   <body>
     <canvas id="myChart"></canvas>
     <script>
-        const intArray = temps.map(str => parseInt(str));
+        temps = temps.map(Number);
 
-        // Initialize an empty array with length 480/3 = 160
-        const arr = new Array(160);
-
-        // Loop through the array and populate it with values
-        for (let i = 0; i < 160; i++) {
-            arr[i] = i * 3;
-        }
-        
+        console.log(temps);
         new Chart("myChart", {
             
             type: "line",
@@ -57,14 +50,6 @@
                 datasets: [{
                     data: temps,
                     borderColor: "red",
-                    fill: false
-                },{
-                    data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
-                    borderColor: "green",
-                    fill: false
-                },{
-                    data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
-                    borderColor: "blue",
                     fill: false
                 }]
             },
