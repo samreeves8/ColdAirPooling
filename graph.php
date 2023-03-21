@@ -62,9 +62,9 @@
                 while ($row = $result->fetch_assoc()) {
                     $temp[] = $row['Temperature'];
                     $date[] = $row['DateTime'];
-                    $allArrays[] = $temp;
-                    $allArrays[] = $date;
                 }
+                $allArrays[] = $temp;
+                $allArrays[] = $date;
             }
 
         }
