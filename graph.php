@@ -10,6 +10,33 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
+    $sql = "SELECT DISTINCT Sensor FROM SensorData"; // only select unique sensor names
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        echo '<form action="query.php" method="POST">';
+        while($row = $result->fetch_assoc()) {
+            echo '<label><input type="checkbox" name="sensors[]" value="' . $row['Sensor'] . '">' . $row['Sensor'] . '</label><br>';
+        }
+        
+    } else {
+        echo "0 results";
+    }
+
+    echo 
+    '<label for="dateStart">Select a start date:</label>
+    <input type="date" id="dateStart" name="dateStart">
+    <label for="timeStart">Select a start time:</label>
+    <input type="time" id="timeStart" name="timeStart">
+
+    <br>
+
+    <label for="dateEnd">Select an end date:</label>
+    <input type="date" id="dateEnd" name="dateEnd">
+
+    <label for="timeEnd">Select an end time:</label>
+    <input type="time" id="timeEnd" name="timeEnd"><br>';
+
     $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
             AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
     $stmt = $conn->prepare($sql);
@@ -28,25 +55,6 @@
     $myArrayJsonDates = json_encode($dates);
     echo "<script>var temps = JSON.parse('" . $myArrayJsonTemps . "');</script>";
     echo "<script>var dates = JSON.parse('" . $myArrayJsonDates . "');</script>";
-
-    $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '06MYS' 
-            AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    echo $sql."<br>";
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $temps2[] = $row["Temperature"];
-            $dates2[] = $row["DateTime"]; 
-        }
-    }
-
-    $myArrayJsonTemps2 = json_encode($temps2);
-    $myArrayJsonDates2 = json_encode($dates2);
-    echo "<script>var temps2 = JSON.parse('" . $myArrayJsonTemps2 . "');</script>";
-    echo "<script>var dates2 = JSON.parse('" . $myArrayJsonDates2 . "');</script>";
 ?>
 
 
