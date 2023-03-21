@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Temperature Sensor Readings</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        
+  </head>
+</html>
 <?php
 
     $temps = array();  
@@ -8,7 +16,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT DISTINCT Sensor FROM SensorData"; // only select unique sensor names
+    $sql = "SELECT DISTINCT Sensor FROM SensorData";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -26,12 +34,9 @@
     <input type="date" id="dateStart" name="dateStart">
     <label for="timeStart">Select a start time:</label>
     <input type="time" id="timeStart" name="timeStart">
-
     <br>
-
     <label for="dateEnd">Select an end date:</label>
     <input type="date" id="dateEnd" name="dateEnd">
-
     <label for="timeEnd">Select an end time:</label>
     <input type="time" id="timeEnd" name="timeEnd"><br>
     <input type="submit" value="Submit"></form>';
@@ -70,27 +75,44 @@
             }
 
         }
-        // foreach($allArrays as $sensor => $values){
-        //     if(is_array($values)){
-        //         $myArrayJsonTemps = json_encode($values);
-        //         $myArrayJsonDates = json_encode($values);
-        //         echo "<script>var temps".$sensor." = JSON.parse('" . $myArrayJsonTemps . "');</script>";
-        //         echo "<script>var dates".$sensor." = JSON.parse('" . $myArrayJsonDates . "');</script>";
-        //     }
-        // }
-    }
+        echo '<canvas id="myChart"></canvas>
+        <script>
+            var datasets = [];
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i]['temp'].map(Number);
+                var labels = allArrays[i]['date'];
+                datasets.push({
+                    label: allArrays[i]['label'],
+                    data: data,
+                    borderColor: getRandomColor(),
+                    fill: false
+                });
+            }
     
+            new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    legend: {display: true}
+                }
+            });
+    
+            function getRandomColor() {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        </script>';
+    } 
 ?>
 
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Temperature Sensor Readings</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        
-  </head>
-  <body>
+  <!-- <body>
     <canvas id="myChart"></canvas>
     <script>
         var datasets = [];
@@ -125,5 +147,5 @@
             return color;
         }
     </script>
-  </body>
-</html>
+  </body> -->
+
