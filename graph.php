@@ -79,6 +79,14 @@
                 }]
             },
             options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            stepSize: 2
+                        }
+                    }]
+                },
                 legend: {display: false}
             }
         });
