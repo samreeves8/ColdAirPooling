@@ -117,9 +117,9 @@
             
             type: "line",
             data: {
-                labels: dates,
+                labels: dates0,
                 datasets: [{
-                    data: temps,
+                    data: temps0,
                     borderColor: "red",
                     fill: false
                 }]
