@@ -35,7 +35,40 @@
     <input type="date" id="dateEnd" name="dateEnd">
 
     <label for="timeEnd">Select an end time:</label>
-    <input type="time" id="timeEnd" name="timeEnd"><br>';
+    <input type="time" id="timeEnd" name="timeEnd"><br>
+    <input type="submit" value="Submit"></form>';
+
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
+        $dateStart = $_POST['dateStart'];
+        $dateEnd = $_POST['dateEnd'];
+        $timeStart = $_POST['timeStart'];
+        $timeEnd = $_POST['timeEnd'];
+        $dateTimeStart = $dateStart . ' '.$timeStart;
+        $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+
+        foreach($sensors as $sensor){
+            $table = null;
+            if(in_array($sensor, $humidity)){
+                $table = "HumidData";
+            }else{
+                $table = "TempData";
+            }
+
+            $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    
+                }
+            }
+        
+        }
+    }
 
     $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
             AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
