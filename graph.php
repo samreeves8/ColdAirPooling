@@ -2,8 +2,6 @@
 
     $temps = array();  
     $dates = array();
-    $temps2 = array();
-    $dates2 = array();
 
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
     if ($conn->connect_error) {
@@ -47,8 +45,12 @@
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
+        $allArrays = array();
+
         foreach($sensors as $sensor){
             $table = null;
+            $temp = array();
+            $date = array();
             if(in_array($sensor, $humidity)){
                 $table = "HumidData";
             }else{
@@ -63,31 +65,39 @@
     
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    
+                    $temp[] = $row['Temperature'];
+                    $date[] = $row['DateTime'];
+                    $allArrays[] = $temp;
+                    $allArrays[] = $date;
                 }
             }
+
+        }
+        foreach($allArrays as $sensor){
+            $myArrayJsonTemps = json_encode($allArrays[$sensor]);
+            $myArrayJsonDates = json_encode($allArrays[$sensor]);
+            echo "<script>var temps".$sensor." = JSON.parse('" . $myArrayJsonTemps . "');</script>";
+            echo "<script>var dates".$sensor." = JSON.parse('" . $myArrayJsonDates . "');</script>";
+        }
         
-        }
+        
     }
 
-    $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
-            AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    echo $sql."<br>";
-    $result = $stmt->get_result();
+    // $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
+    //         AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
+    // echo $sql."<br>";
+    // $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $temps[] = $row["Temperature"];
-            $dates[] = $row["DateTime"]; 
-        }
-    }
+    // if ($result->num_rows > 0) {
+    //     while ($row = $result->fetch_assoc()) {
+    //         $temps[] = $row["Temperature"];
+    //         $dates[] = $row["DateTime"]; 
+    //     }
+    // }
 
-    $myArrayJsonTemps = json_encode($temps);
-    $myArrayJsonDates = json_encode($dates);
-    echo "<script>var temps = JSON.parse('" . $myArrayJsonTemps . "');</script>";
-    echo "<script>var dates = JSON.parse('" . $myArrayJsonDates . "');</script>";
+    
 ?>
 
 
