@@ -48,7 +48,6 @@
         $allArrays = array();
 
         foreach($sensors as $sensor){
-            $table = null;
             $temp = array();
             $date = array();
 
@@ -63,8 +62,11 @@
                     $temp[] = $row['Temperature'];
                     $date[] = $row['DateTime'];
                 }
-                $allArrays[] = $temp;
-                $allArrays[] = $date;
+                $allArrays[] = array(
+                    'label' => $sensor,
+                    'temp' => $temp,
+                    'date' => $date
+                );
             }
 
         }
@@ -110,23 +112,37 @@
   <body>
     <canvas id="myChart"></canvas>
     <script>
-        temps = temps.map(Number);
-    
+        var datasets = [];
+        for (var i = 0; i < allArrays.length; i++) {
+            var data = allArrays[i]['temp'].map(Number);
+            var labels = allArrays[i]['date'];
+            datasets.push({
+                label: allArrays[i]['label'],
+                data: data,
+                borderColor: getRandomColor(),
+                fill: false
+            });
+        }
+
         new Chart("myChart", {
-            
             type: "line",
             data: {
-                labels: dates,
-                datasets: [{
-                    data: temps,
-                    borderColor: "red",
-                    fill: false
-                }]
+                labels: labels,
+                datasets: datasets
             },
             options: {
-                legend: {display: false}
+                legend: {display: true}
             }
         });
+
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
     </script>
   </body>
 </html>
