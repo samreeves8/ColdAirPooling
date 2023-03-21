@@ -12,7 +12,7 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo '<form action="query.php" method="POST">';
+        echo '<form action="graph.php" method="POST">';
         while($row = $result->fetch_assoc()) {
             echo '<label><input type="checkbox" name="sensors[]" value="' . $row['Sensor'] . '">' . $row['Sensor'] . '</label><br>';
         }
