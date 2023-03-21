@@ -69,7 +69,6 @@
     <canvas id="myChart"></canvas>
     <script>
         temps = temps.map(Number);
-        temps2 = temps2.map(Number);
     
         new Chart("myChart", {
             
@@ -79,10 +78,6 @@
                 datasets: [{
                     data: temps,
                     borderColor: "red",
-                    fill: false
-                },{
-                    data: temps2,
-                    borderColor: "blue",
                     fill: false
                 }]
             },
