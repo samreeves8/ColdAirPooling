@@ -51,11 +51,6 @@
             $table = null;
             $temp = array();
             $date = array();
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
 
             $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ?";
             $stmt = $conn->prepare($sql);
