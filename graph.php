@@ -78,26 +78,7 @@
         //         echo "<script>var dates".$sensor." = JSON.parse('" . $myArrayJsonDates . "');</script>";
         //     }
         // }
-        $myArrayJsonTemps = json_encode($allArrays[0]);
-        $myArrayJsonDates = json_encode($allArrays[1]);
-        echo "<script>var temps = JSON.parse('" . $myArrayJsonTemps . "');</script>";
-        echo "<script>var dates = JSON.parse('" . $myArrayJsonDates . "');</script>";
     }
-
-    // $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
-    //         AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
-    // $stmt = $conn->prepare($sql);
-    // $stmt->execute();
-    // echo $sql."<br>";
-    // $result = $stmt->get_result();
-
-    // if ($result->num_rows > 0) {
-    //     while ($row = $result->fetch_assoc()) {
-    //         $temps[] = $row["Temperature"];
-    //         $dates[] = $row["DateTime"]; 
-    //     }
-    // }
-
     
 ?>
 
