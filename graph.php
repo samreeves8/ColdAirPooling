@@ -68,17 +68,18 @@
             }
 
         }
-        foreach($allArrays as $sensor => $values){
-            if(is_array($values)){
-                $myArrayJsonTemps = json_encode($values);
-                $myArrayJsonDates = json_encode($values);
-                echo "temps".$sensor;
-                echo "<script>var temps".$sensor." = JSON.parse('" . $myArrayJsonTemps . "');</script>";
-                echo "<script>var dates".$sensor." = JSON.parse('" . $myArrayJsonDates . "');</script>";
-            }
-        }
-        
-        
+        // foreach($allArrays as $sensor => $values){
+        //     if(is_array($values)){
+        //         $myArrayJsonTemps = json_encode($values);
+        //         $myArrayJsonDates = json_encode($values);
+        //         echo "<script>var temps".$sensor." = JSON.parse('" . $myArrayJsonTemps . "');</script>";
+        //         echo "<script>var dates".$sensor." = JSON.parse('" . $myArrayJsonDates . "');</script>";
+        //     }
+        // }
+        $myArrayJsonTemps = json_encode($allArrays[0]);
+        $myArrayJsonDates = json_encode($allArrays[1]);
+        echo "<script>var temps = JSON.parse('" . $myArrayJsonTemps . "');</script>";
+        echo "<script>var dates = JSON.parse('" . $myArrayJsonDates . "');</script>";
     }
 
     // $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
@@ -115,9 +116,9 @@
             
             type: "line",
             data: {
-                labels: dates0,
+                labels: dates,
                 datasets: [{
-                    data: temps0,
+                    data: temps,
                     borderColor: "red",
                     fill: false
                 }]
