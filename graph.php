@@ -52,7 +52,7 @@
             $temp = array();
             $date = array();
 
-            $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ?";
+            $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = ? AND DateTime BETWEEN ? AND ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
             $stmt->execute();
