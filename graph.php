@@ -76,6 +76,7 @@
         foreach($allArrays as $sensor){
             $myArrayJsonTemps = json_encode($allArrays[$sensor]);
             $myArrayJsonDates = json_encode($allArrays[$sensor]);
+            echo "temps".$sensor;
             echo "<script>var temps".$sensor." = JSON.parse('" . $myArrayJsonTemps . "');</script>";
             echo "<script>var dates".$sensor." = JSON.parse('" . $myArrayJsonDates . "');</script>";
         }
