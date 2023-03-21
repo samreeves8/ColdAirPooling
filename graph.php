@@ -83,7 +83,7 @@
                     xAxes: [{
                         ticks: {
                             autoSkip: false,
-                            stepSize: 2
+                            stepSize: 50
                         }
                     }]
                 },
