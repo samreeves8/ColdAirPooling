@@ -11,7 +11,7 @@
     }
 
     $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '05VAN' 
-            AND DateTime BETWEEN '2022-12-20 00:00:00' AND '2022-12-22 00:00:00';";
+            AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     echo $sql."<br>";
@@ -30,7 +30,7 @@
     echo "<script>var dates = JSON.parse('" . $myArrayJsonDates . "');</script>";
 
     $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = '06MYS' 
-            AND DateTime BETWEEN '2022-12-20 00:00:00' AND '2022-12-22 00:00:00';";
+            AND DateTime BETWEEN '2022-12-20 07:00:00' AND '2022-12-20 22:00:00';";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     echo $sql."<br>";
