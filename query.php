@@ -122,19 +122,20 @@
             exit();
         }
 
-        // SELECT 
-        // Sensor,
-        // FLOOR((@row_number:=@row_number+1)/x) AS GroupNum,
-        // MIN(DateTime) AS StartDateTime,
-        // MAX(DateTime) AS EndDateTime,
-        // MIN(Temperature) AS MinTemperature, 
-        // MAX(Temperature) AS MaxTemperature, 
-        // ROUND(AVG(Temperature),2) AS AvgTemperature
-        // FROM TempData, (SELECT @row_number:=0) AS t
-        // WHERE Sensor IN ("S")
-        // AND DateTime BETWEEN startDate AND endDate
-        // GROUP BY Sensor, GroupNum  
-        // ORDER BY `Sensor`  DESC
+
+        "SELECT 
+        Sensor,
+        FLOOR((@row_number:=@row_number+1)/" . $x . ") AS GroupNum,
+        MIN(DateTime) AS StartDateTime,
+        MAX(DateTime) AS EndDateTime,
+        MIN(Temperature) AS MinTemperature, 
+        MAX(Temperature) AS MaxTemperature, 
+        ROUND(AVG(Temperature),2) AS AvgTemperature
+        FROM" . $table . ", (SELECT @row_number:=0) AS t
+        WHERE Sensor IN ('S')
+        AND DateTime BETWEEN " . $dateTimeStart . " AND " . $dateTimeEnd . "
+        GROUP BY Sensor, GroupNum  
+        ORDER BY `Sensor`  DESC"
 
         // 3 minutes - x is 1 or 2
         // 6 minutes - x is 3
