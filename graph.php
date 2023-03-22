@@ -75,8 +75,10 @@
             }
 
         }
+        $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>
         <script>
+            var allArrays = ' . $data . ';
             var datasets = [];
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
