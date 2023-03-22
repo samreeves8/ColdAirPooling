@@ -93,6 +93,7 @@
 
 
         $x = 0;
+        $rangeArr = null;
         $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
         if($timedif <= 0 && ($dateTimeStart != "" && $dateTimeEnd != "")){
             echo "Start date is greater than end date";
