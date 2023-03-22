@@ -130,7 +130,7 @@
         echo "<select id = 'range'>";
         $counter = 1;
         foreach($rangeArr as $currRange){
-            echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
+            echo "<option value = '" . $counter . "'>" . $currRange[0] . "</option>";
             $counter += 1;
         }
         echo "</select>";
