@@ -75,14 +75,16 @@
             }
 
         }
+        $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>
         <script>
+            var allArrays = ' . $data . ';
             var datasets = [];
             for (var i = 0; i < allArrays.length; i++) {
-                var data = allArrays[i]['.$temp.'].map(Number);
-                var labels = allArrays[i]['.$date.'];
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
                 datasets.push({
-                    label: allArrays[i]['.$label.'],
+                    label: allArrays[i].label,
                     data: data,
                     borderColor: getRandomColor(),
                     fill: false
