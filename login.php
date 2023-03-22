@@ -58,9 +58,9 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	$stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bindColumn('id', $id);
-        $stmt->bindColumn('password', $password);
-        $stmt->fetch();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id = $row['id'];
+        $password = $row['password'];
         // Account exists, now we verify the password.
         if ($_POST['password'] === $password) {
             // Verification success! User has logged-in!
