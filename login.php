@@ -52,7 +52,7 @@ if ( !isset($_POST['username'], $_POST['password']) ) {
 
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
 	// Bind parameters.
-	$stmt->bindParam('s', $_POST['username']);
+	$stmt->bindParam(1, $_POST['username']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
 	$stmt->store_result();
@@ -81,9 +81,5 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 
 	$stmt->close();
 }
-
-
-
-
 
 ?>
