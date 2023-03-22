@@ -55,9 +55,8 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	$stmt->bindParam(1, $_POST['username']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
-	$stmt->store_result();
 
-    if ($stmt->num_rows > 0) {
+    if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $row['id'];
         $password = $row['password'];
