@@ -125,13 +125,19 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<br><select id = 'range', style = 'font-size: 48px;'>";
+        echo "<br><select id = 'range' style = 'font-size: 48px; onchange='rangeSelected(this)'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select><br>";
+        echo "</select><br>
+        <script>
+            function rangeSelected(select) {
+            var val = select.options[select.selectedIndex].value;
+            document.write('Selected value: ' + val);
+            }
+        </script>";
 
 
         // $sqlString = 
