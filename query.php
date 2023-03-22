@@ -125,13 +125,13 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<select id = 'range'>";
+        echo "<br><select id = 'range', style = 'font-size: 48px;'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select>";
+        echo "</select><br>";
 
 
         // $sqlString = 
