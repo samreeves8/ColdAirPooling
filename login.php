@@ -1,45 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Document</title>
-</head>
-<body>
-<div class="navbar">
-         <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="query.php">Query</a></li>
-            <li><a href="#">Members</a></li>
-            <li><a href="login.php">Log In</a></li>
-            <li><a href="graph.php">Graph's</a></li>
-         </ul>
-    </div>
-
-    <form action="login.php" method="POST">
-        <div class="loginbox">
-            <h1>Login</h1>
-
-            <div class="textbox">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <input type="text" placeholder="Username" name="username" value="">
-            </div>
-
-            <div class="textbox">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-                <input type="password" placeholder="Password" name="password" value="">
-            </div>
-
-            <input class="button" type="submit" name="login" value="Sign In">
-        </div>
-    </form>
-</body>
-</html>
-
 <?php
 session_start();
 $conn = "";
@@ -91,3 +49,45 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	$stmt->closeCursor();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="login.php">Log In</a></li>
+            <li><a href="graph.php">Graph's</a></li>
+         </ul>
+    </div>
+
+    <form action="login.php" method="POST">
+        <div class="loginbox">
+            <h1>Login</h1>
+
+            <div class="textbox">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <input type="text" placeholder="Username" name="username" value="">
+            </div>
+
+            <div class="textbox">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <input type="password" placeholder="Password" name="password" value="">
+            </div>
+
+            <input class="button" type="submit" name="login" value="Sign In">
+        </div>
+    </form>
+</body>
+</html>
