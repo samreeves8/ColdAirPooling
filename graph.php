@@ -84,7 +84,7 @@
                 var data = allArrays[i].temp.map(Number);
                 var labels = allArrays[i].date;
                 datasets.push({
-                    label: allArrays[i][labels],
+                    label: allArrays[i].label,
                     data: data,
                     borderColor: getRandomColor(),
                     fill: false
