@@ -90,7 +90,10 @@
             }
         
         }
-        
+
+
+        $x = 0;
+        $rangeArr = null;
         $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
         if($timedif <= 0 && ($dateTimeStart != "" && $dateTimeEnd != "")){
             echo "Start date is greater than end date";
@@ -98,44 +101,57 @@
         }
         if ($timedif <= 10800) {
             echo "Less than 3 hours";
-            exit();
+            $rangeArr = array(['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes']);
+
         }else if($timedif <= 21600){
             echo "Between 3 hours and 6 hours";
-            exit();
+            $rangeArr = array(['6 Minutes', '15 Minutes', '30 Minutes', '1 Hour']);
+
         }else if($timedif <= 86400){
             echo "Between 6 hours and 1 day";
-            exit();
+            $rangeArr = array(['15 Minutes', '30 Minutes', '1 Hour', '2 Hours']);
         }else if($timedif <= 604800){
             echo "Between 1 day and 1 week";
-            exit();
+            $rangeArr = array(['1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily']);
         }else if($timedif <= 5184000){
             echo "Between 1 week and 2 months";
-            exit();
+            $rangeArr = array(['12 Hours', 'Daily', 'Bi-Daily', 'Weekly']);
         }else if($timedif <= 31536000){
             echo "Between 2 months and 1 year";
-            exit();
+            $rangeArr = array(['Daily', 'Bi-Daily', 'Weekly', 'Monthly']);
         }else if($timedif <= 63072000){
             echo "Between 1 year and 2 years";
-            exit();
+            $rangeArr = array(['Weekly', 'Bi-Weekly', 'Monthly']);
         }else{
             echo "Greater than 2 years";
-            exit();
+            $rangeArr = array(['Monthly', 'Yearly']);
         }
 
+        echo "<select id = 'range'>";
+        $counter = 1;
+        foreach($rangeArr as $currRange){
+            echo "<option value = '" . $counter . "'>" . $currRange[0] . "</option>";
+            $counter += 1;
+        }
+        echo "</select>";
 
-        "SELECT 
-        Sensor,
-        FLOOR((@row_number:=@row_number+1)/" . $x . ") AS GroupNum,
-        MIN(DateTime) AS StartDateTime,
-        MAX(DateTime) AS EndDateTime,
-        MIN(Temperature) AS MinTemperature, 
-        MAX(Temperature) AS MaxTemperature, 
-        ROUND(AVG(Temperature),2) AS AvgTemperature
-        FROM" . $table . ", (SELECT @row_number:=0) AS t
-        WHERE Sensor IN ('S')
-        AND DateTime BETWEEN " . $dateTimeStart . " AND " . $dateTimeEnd . "
-        GROUP BY Sensor, GroupNum  
-        ORDER BY `Sensor`  DESC"
+
+        // $sqlString = 
+        // "SELECT Sensor,
+        // FLOOR((@row_number:=@row_number+1)/?) AS GroupNum,
+        // MIN(DateTime) AS StartDateTime,
+        // MAX(DateTime) AS EndDateTime,
+        // MIN(Temperature) AS MinTemperature, 
+        // MAX(Temperature) AS MaxTemperature, 
+        // ROUND(AVG(Temperature),2) AS AvgTemperature
+        // FROM ?, (SELECT @row_number:=0) AS t
+        // WHERE Sensor IN ("S")
+        // AND DateTime BETWEEN ? AND ?
+        // GROUP BY Sensor, GroupNum  
+        // ORDER BY `Sensor`  DESC";
+
+
+        //x, table, startdatetime, endadatetime
 
         // 3 minutes - x is 1 or 2
         // 6 minutes - x is 3

@@ -3,7 +3,6 @@
   <head>
     <title>Temperature Sensor Readings</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        
   </head>
 </html>
 <?php
@@ -114,40 +113,4 @@
     } 
 ?>
 
-  <!-- <body>
-    <canvas id="myChart"></canvas>
-    <script>
-        var datasets = [];
-        for (var i = 0; i < allArrays.length; i++) {
-            var data = allArrays[i]['temp'].map(Number);
-            var labels = allArrays[i]['date'];
-            datasets.push({
-                label: allArrays[i]['label'],
-                data: data,
-                borderColor: getRandomColor(),
-                fill: false
-            });
-        }
-
-        new Chart("myChart", {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: datasets
-            },
-            options: {
-                legend: {display: true}
-            }
-        });
-
-        function getRandomColor() {
-            var letters = "0123456789ABCDEF";
-            var color = "#";
-            for (var i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-    </script>
-  </body> -->
 
