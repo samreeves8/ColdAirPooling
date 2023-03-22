@@ -19,34 +19,6 @@
             exit;
         }
 
-        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        
-        $conn->autocommit(FALSE);
-
-        $Sensor = NULL;
-        $DateTime = NULL;
-        $Temperature = NULL;
-        $RH = NULL;
-        $DewPoint = NULL;
-
-        //Bind indices for excel documents
-
-        $dateTimeIndex=1;
-        $tempIndex = 2;
-        $rhIndex = 3;
-        $dewPointIndex = 4;        
-
-        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
-        $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
-        mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
-
-        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
-        $stmt_temp = mysqli_prepare($conn, $sql_temp);
-        mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
-
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
             if($_FILES['file']['error'][$key] == UPLOAD_ERR_OK){
@@ -54,16 +26,46 @@
                 $tmpfilename = $_FILES['file']['tmp_name'][$key];
                 echo $filename."<br>";
                 $file = fopen($tmpfilename, "r");
-                $Sensor = substr($filename, 0, 5);
+            
                 //Check each file for existance
                 if ($file) {
+                
+                    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+                    
+                    $conn->autocommit(FALSE);
+                    
+                    //Bind indices for excel documents
+
+                    $dateTimeIndex=1;
+                    $tempIndex = 2;
+                    $rhIndex = 3;
+                    $dewPointIndex = 4;
+                    
+                    // Bind the parameters
+                
+                    $Sensor = substr($filename, 0, 5);
+                    $DateTime = NULL;
+                    $Temperature = NULL;
+                    $RH = NULL;
+                    $DewPoint = NULL;
+                    
                     
                     //Checks which table to access (HumidData or TempData)
-                    $stmt = in_array($Sensor, $humidity) ? $stmt_humidity : $stmt_temp;
 
-                    if(in_array($Sensor, $humidity) == true){
+                    if(in_array($Sensor, $humidity)){
+                        
+                        $sql = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
                         $h = true;
+                        
                     } else {
+                        $sql = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ssd", $Sensor, $DateTime, $Temperature);
                         $h = false;
                     }
                     
@@ -104,7 +106,7 @@
                         }
                     }
                 
-                    // Close the statement and file
+                    // Close the statement and connection
                     mysqli_stmt_close($stmt);
                     fclose($file);
                     
