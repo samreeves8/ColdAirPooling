@@ -7,6 +7,18 @@
     <title>Document</title>
 </head>
 <body>
+<div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="login.php">Log In</a></li>
+            <li><a href="graph.php">Graph's</a></li>
+         </ul>
+    </div>
+    
     <form action="login.php" method="POST">
         <div class="loginbox">
             <h1>Login</h1>
@@ -62,7 +74,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
         $password = $row['password'];
         // Account exists, now we verify the password.
         if ($_POST['password'] === $password) {
-            // Verification success! User has logged-in!
+            // Verification success
             // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
             session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
@@ -70,15 +82,11 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['id'] = $id;
             echo 'Welcome ' . $_SESSION['name'] . '!';
         } else {
-            // Incorrect password
             echo 'Incorrect username and/or password!';
         }
     } else {
-        // Incorrect username
         echo 'Incorrect username and/or password!';
     }
-
-	$stmt->close();
+	$stmt->closeCursor();
 }
-
 ?>
