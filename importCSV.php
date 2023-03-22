@@ -19,60 +19,60 @@
             exit;
         }
 
-        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-                    
-        $conn->autocommit(FALSE);
-                    
-        //Bind indices for excel documents
-
-        $dateTimeIndex=1;
-        $tempIndex = 2;
-        $rhIndex = 3;
-        $dewPointIndex = 4;
-                    
-        // Bind the parameters
-        $Sensor = NULL; 
-        $DateTime = NULL;
-        $Temperature = NULL;
-        $RH = NULL;
-        $DewPoint = NULL;
-
-        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
-        $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
-        mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
-
-        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
-        $stmt_temp = mysqli_prepare($conn, $sql_temp);
-        mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
-
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
             if($_FILES['file']['error'][$key] == UPLOAD_ERR_OK){
                 $filename = $_FILES['file']['name'][$key]; 
                 $tmpfilename = $_FILES['file']['tmp_name'][$key];
                 echo $filename."<br>";
-                $Sensor = substr($filename, 0, 5);
                 $file = fopen($tmpfilename, "r");
             
                 //Check each file for existance
                 if ($file) {
+                
+                    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+                    if ($conn->connect_error) {
+                        die("Connection failed: " . $conn->connect_error);
+                    }
+                    
+                    $conn->autocommit(FALSE);
+                    
+                    //Bind indices for excel documents
+
+                    $dateTimeIndex=1;
+                    $tempIndex = 2;
+                    $rhIndex = 3;
+                    $dewPointIndex = 4;
+                    
+                    // Bind the parameters
+                
+                    $Sensor = substr($filename, 0, 5);
+                    $DateTime = NULL;
+                    $Temperature = NULL;
+                    $RH = NULL;
+                    $DewPoint = NULL;
+                    
                     
                     //Checks which table to access (HumidData or TempData)
-                    $Sensor = substr($filename, 0, 5);
-                    $stmt = in_array($Sensor, $humidity) ? $stmt_humidity : $stmt_temp;
-                    if(in_array($Sensor, $humidity) == true){
+
+                    if(in_array($Sensor, $humidity)){
+                        
+                        $sql = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
                         $h = true;
+                        
                     } else {
+                        $sql = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ssd", $Sensor, $DateTime, $Temperature);
                         $h = false;
                     }
                     
-                    $data = array();
+                    //Begins accessing files
 
                     fgetcsv($file);
-                    
+                
                     while (($row = fgetcsv($file)) !== false) {
                         
                         //Accounts for date time differences
