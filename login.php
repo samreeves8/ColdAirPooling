@@ -1,12 +1,29 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
 <body>
+<div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="login.php">Log In</a></li>
+            <li><a href="graph.php">Graph's</a></li>
+         </ul>
+    </div>
+
     <form action="login.php" method="POST">
         <div class="loginbox">
             <h1>Login</h1>
@@ -28,7 +45,6 @@
 </html>
 
 <?php
-session_start();
 $conn = "";
 
 try {
@@ -55,15 +71,14 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	$stmt->bindParam(1, $_POST['username']);
 	$stmt->execute();
 	// Store the result so we can check if the account exists in the database.
-	$stmt->store_result();
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bindColumn('id', $id);
-        $stmt->bindColumn('password', $password);
-        $stmt->fetch();
+    if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id = $row['id'];
+        $password = $row['password'];
         // Account exists, now we verify the password.
         if ($_POST['password'] === $password) {
-            // Verification success! User has logged-in!
+            // Verification success
             // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
             session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
@@ -71,15 +86,11 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['id'] = $id;
             echo 'Welcome ' . $_SESSION['name'] . '!';
         } else {
-            // Incorrect password
             echo 'Incorrect username and/or password!';
         }
     } else {
-        // Incorrect username
         echo 'Incorrect username and/or password!';
     }
-
-	$stmt->close();
+	$stmt->closeCursor();
 }
-
 ?>

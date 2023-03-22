@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Temperature Sensor Readings</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-  </head>
+    <head>
+        <title>Temperature Sensor Readings</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+    <div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="login.php">Log In</a></li>
+            <li><a href="graph.php">Graph's</a></li>
+         </ul>
+    </div>
+    </body>
 </html>
 <?php
 

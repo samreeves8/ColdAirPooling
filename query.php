@@ -1,3 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="login.php">Log In</a></li>
+            <li><a href="graph.php">Graph's</a></li>
+         </ul>
+    </div>
+</body>
+</html>
+
 <?php
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
     if ($conn->connect_error) {
@@ -101,39 +125,43 @@
         }
         if ($timedif <= 10800) {
             echo "Less than 3 hours";
-            $rangeArr = array(['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes']);
-
+            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes');
         }else if($timedif <= 21600){
             echo "Between 3 hours and 6 hours";
-            $rangeArr = array(['6 Minutes', '15 Minutes', '30 Minutes', '1 Hour']);
-
+            $rangeArr = array('6 Minutes', '15 Minutes', '30 Minutes', '1 Hour');
         }else if($timedif <= 86400){
             echo "Between 6 hours and 1 day";
-            $rangeArr = array(['15 Minutes', '30 Minutes', '1 Hour', '2 Hours']);
+            $rangeArr = array('15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
         }else if($timedif <= 604800){
             echo "Between 1 day and 1 week";
-            $rangeArr = array(['1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily']);
+            $rangeArr = array('1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
         }else if($timedif <= 5184000){
             echo "Between 1 week and 2 months";
-            $rangeArr = array(['12 Hours', 'Daily', 'Bi-Daily', 'Weekly']);
+            $rangeArr = array('12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
         }else if($timedif <= 31536000){
             echo "Between 2 months and 1 year";
-            $rangeArr = array(['Daily', 'Bi-Daily', 'Weekly', 'Monthly']);
+            $rangeArr = array('Daily', 'Bi-Daily', 'Weekly', 'Monthly');
         }else if($timedif <= 63072000){
             echo "Between 1 year and 2 years";
-            $rangeArr = array(['Weekly', 'Bi-Weekly', 'Monthly']);
+            $rangeArr = array('Weekly', 'Bi-Weekly', 'Monthly');
         }else{
             echo "Greater than 2 years";
-            $rangeArr = array(['Monthly', 'Yearly']);
+            $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<select id = 'range'>";
+        echo "<br><select id = 'range' style = 'font-size: 48px; onchange='rangeSelected(this)'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
-            echo "<option value = '" . $counter . "'>" . $currRange[$counter] . "</option>";
+            echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select>";
+        echo "</select><br>
+        <script>
+            function rangeSelected(select) {
+            var val = select.options[select.selectedIndex].value;
+            document.write('Selected value: ' + val);
+            }
+        </script>";
 
 
         // $sqlString = 
