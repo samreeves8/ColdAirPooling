@@ -32,6 +32,13 @@
         $RH = NULL;
         $DewPoint = NULL;
 
+        //Bind indices for excel documents
+
+        $dateTimeIndex=1;
+        $tempIndex = 2;
+        $rhIndex = 3;
+        $dewPointIndex = 4;        
+
         $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
         $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
         mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
