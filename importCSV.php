@@ -114,8 +114,9 @@
                     echo "Failed to open file: $filename";
                 }
             }
+            $conn->commit();
         }
     }
-    $conn->commit();
+    
     mysqli_close($conn);
 ?>
