@@ -23,6 +23,8 @@
 </html>
 
 <?php
+    session_start();
+    echo $_SESSION["name"];
     //get's connection to database
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
     if ($conn->connect_error) {
