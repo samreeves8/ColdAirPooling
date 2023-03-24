@@ -62,9 +62,9 @@ catch(PDOException $e){
     echo "Connection Failed: " . $e->getMessage();
 }
 
-if ( !isset($_POST['username'], $_POST['password']) ) {
-	exit('Please fill both the username and password fields!');
-}
+//if ( !isset($_POST['username'], $_POST['password']) ) {
+	//exit('Please fill both the username and password fields!');
+//}
 
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
 	// Bind parameters.
