@@ -77,7 +77,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
         $id = $row['id'];
         $hashed_password = $row['password'];
         // Account exists, now we verify the password.
-        if (password_varify($_POST['password'], $hashed_password)) {
+        if (password_verify($_POST['password'], $hashed_password)) {
             // Verification success
             // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
             session_regenerate_id();
