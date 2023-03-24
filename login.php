@@ -62,9 +62,9 @@ catch(PDOException $e){
     echo "Connection Failed: " . $e->getMessage();
 }
 
-if ( !isset($_POST['username'], $_POST['password']) ) {
-	exit('Please fill both the username and password fields!');
-}
+//if ( !isset($_POST['username'], $_POST['password']) ) {
+	//exit('Please fill both the username and password fields!');
+//}
 
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
 	// Bind parameters.
@@ -84,9 +84,8 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $id;
-            echo $_SESSION['name'];
             header("location: index.php");
-            echo 'Welcome ' . $_SESSION['name'] . '!';
+            //echo 'Welcome ' . $_SESSION['name'] . '!';
         } else {
             echo 'Incorrect username and/or password!';
         }
