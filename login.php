@@ -87,10 +87,10 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             header("location: index.php");
             //echo 'Welcome ' . $_SESSION['name'] . '!';
         } else {
-            echo 'Incorrect username and/or password!';
+            //echo 'Incorrect username and/or password!';
         }
     } else {
-        echo 'Incorrect username and/or password!';
+        //echo 'Incorrect username and/or password!';
     }
 	$stmt->closeCursor();
 }
