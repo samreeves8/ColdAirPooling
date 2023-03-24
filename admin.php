@@ -9,6 +9,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
     exit;
 }
 
+//$conn = "";
+
+
 try {
     $servername = "localhost";
     $dbname = "gunniso1_SensorData";
@@ -29,7 +32,7 @@ if (isset($_POST['submit'])) {
     $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT); // hash password
 
     // prepare SQL statement to insert new admin user into database
-    $stmt = $conn->prepare("INSERT INTO accounts (username, password) VALUES (:username, :password)");
+    $stmt = $con->prepare("INSERT INTO accounts (username, password) VALUES (:username, :password)");
     $stmt->bindParam(':username', $new_username);
     $stmt->bindParam(':password', $new_password);
 
