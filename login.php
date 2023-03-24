@@ -45,7 +45,7 @@ session_start();
 </html>
 
 <?php
-$conn = "";
+//$conn = "";
 
 try {
     $servername = "localhost";
