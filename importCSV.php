@@ -70,6 +70,8 @@
                     //Skip the first line
                     fgetcsv($file);
                 
+                    $batch_params = array(); // initialize array to hold batch parameters
+
                     while (($row = fgetcsv($file)) !== false) {
                         
                         //Accounts for date time differences
@@ -90,19 +92,36 @@
                         // Set the parameter values
                         $DateTime = $DateTime->format('Y-m-d H:i:s');
                         $Temperature = $row[$tempIndex];
-                        if($h){
+                        if($h && $Temperature!=null){
                             $RH = $row[$rhIndex];
                             $DewPoint = $row[$dewPointIndex];
-                        }
+                            $batch_params[] = array($Sensor, $DateTime, $Temperature, $RH, $DewPoint);
 
-                        //Adds to database if there is a value
-                        if($Temperature!=null){
-                            mysqli_stmt_execute($stmt);
+                        } else if(!$h && $Temperature!=null) {
+                            $batch_params[] = array($Sensor, $DateTime, $Temperature);
                         }
                     }
-                
+
+                    //Insert the data in a batch
+                    if(!empty($batch_params) && $h){
+                        $types = str_repeat('ssddd', count($batch_params));
+                        $params = array();
+                        foreach($batch_params as $row_params){
+                            $params = array_merge($params, $row_params);
+                        }                        
+                        mysqli_stmt_bind_param($stmt, $types, ...$params);
+                        mysqli_stmt_execute($stmt);
+                    } else if (!empty($batch_params) && !$h){
+                        $types = str_repeat('ssd', count($batch_params));
+                        $params = array();
+                        foreach($batch_params as $row_params){
+                            $params = array_merge($params, $row_params);
+                        }
+                        mysqli_stmt_bind_param($stmt, $types, ...$params);
+                        mysqli_stmt_execute($stmt);
+                    }
+
                     // Close the statement and connection
-                    
                     fclose($file);
                     
                 } else {
