@@ -65,11 +65,19 @@
 
         $allArrays = array();
 
+        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+
         foreach($sensors as $sensor){
             $temp = array();
             $date = array();
 
-            $sql = "SELECT Temperature, DateTime FROM TempData WHERE Sensor = ? AND DateTime BETWEEN ? AND ?";
+            if(in_array($sensor, $humidity)){
+                $table = "HumidData";
+            }else{
+                $table = "TempData";
+            }
+
+            $sql = "SELECT Temperature, DateTime FROM " . $table . " TempData WHERE Sensor = ? AND DateTime BETWEEN ? AND ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
             $stmt->execute();
