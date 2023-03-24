@@ -81,7 +81,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             // Verification success
             // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
             session_regenerate_id();
-            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['loggedin'] = 1;
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $id;
             echo "<script>location.href='admin.php';</script>";

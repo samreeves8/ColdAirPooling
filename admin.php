@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
     // user is not logged in, redirect to login page
     echo "<script>location.href='login.php';</script>";
 
