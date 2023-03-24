@@ -75,9 +75,9 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $row['id'];
-        $password = $row['password'];
+        $hashed_password = $row['password'];
         // Account exists, now we verify the password.
-        if ($_POST['password'] === $password) {
+        if (password_varify($_POST['password'], $hashed_password)) {
             // Verification success
             // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
             session_regenerate_id();
