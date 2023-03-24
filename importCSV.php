@@ -102,7 +102,7 @@
                     }
                 
                     // Close the statement and connection
-                    mysqli_stmt_close($stmt);
+                    
                     fclose($file);
                     
                 } else {
@@ -111,6 +111,7 @@
             }
             $conn->commit();
         }
+        mysqli_stmt_close($stmt);
         mysqli_close($conn);
     }
 ?>
