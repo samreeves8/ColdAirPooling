@@ -84,7 +84,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $id;
-            echo "<script>location.href='index.php';</script>";
+            echo "<script>location.href='admin.php';</script>";
 
             //header("location: query.php");
             //exit();
