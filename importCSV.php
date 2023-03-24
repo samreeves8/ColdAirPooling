@@ -55,6 +55,7 @@
                     $Temperature = NULL;
                     $RH = NULL;
                     $DewPoint = NULL;
+                    $h = NULL;
                     
                     //Checks which table to access (HumidData or TempData)
                     if(in_array($Sensor, $humidity)){
