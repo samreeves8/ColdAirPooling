@@ -83,8 +83,8 @@
                                         if (!$DateTime) {
                                             $DateTime = DateTime::createFromFormat('m-d-Y H:i', $row[$dateTimeIndex]);
                                                 if (!$DateTime) {
-                                                    echo "Invalid datetime value: " . $row[$dateTimeIndex] . "\n";
-                                                    continue;
+                                                    echo "Invalid file format";
+                                                    exit();
                                                 }
                                         }
                                 }
