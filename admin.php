@@ -29,8 +29,8 @@ catch(PDOException $e){
 
 if (isset($_POST['submit'])) {
     $new_username = $_POST['new_username'];
-    $new_password = $_POST['new_password'];
-
+    $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+    
     // prepare SQL statement to insert new admin user into database
     $stmt = $con->prepare("INSERT INTO accounts (username, password) VALUES (:username, :password)");
     $stmt->bindParam(':username', $new_username);
