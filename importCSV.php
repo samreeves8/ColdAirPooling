@@ -19,6 +19,11 @@
             exit;
         }
 
+        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
             if($_FILES['file']['error'][$key] == UPLOAD_ERR_OK){
@@ -29,13 +34,6 @@
             
                 //Check each file for existance
                 if ($file) {
-                
-                    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    
-                    $conn->autocommit(FALSE);
                     
                     //Bind indices for excel documents
 
@@ -100,7 +98,6 @@
                         }
 
                         //Adds to database if there is a value
-                        
                         if($Temperature!=null){
                             mysqli_stmt_execute($stmt);
                         }
