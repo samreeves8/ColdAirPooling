@@ -11,6 +11,12 @@
 
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
     
+    //Bind indices for excel documents
+    $dateTimeIndex=1;
+    $tempIndex = 2;
+    $rhIndex = 3;
+    $dewPointIndex = 4;
+    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Check if file was uploaded successfully
@@ -24,6 +30,14 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
+        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
+        $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
+        mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
+
+        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
+        $stmt_temp = mysqli_prepare($conn, $sql_temp);
+        mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
+
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
             if($_FILES['file']['error'][$key] == UPLOAD_ERR_OK){
@@ -35,46 +49,29 @@
                 //Check each file for existance
                 if ($file) {
                     
-                    //Bind indices for excel documents
-
-                    $dateTimeIndex=1;
-                    $tempIndex = 2;
-                    $rhIndex = 3;
-                    $dewPointIndex = 4;
-                    
                     // Bind the parameters
-                
                     $Sensor = substr($filename, 0, 5);
                     $DateTime = NULL;
                     $Temperature = NULL;
                     $RH = NULL;
                     $DewPoint = NULL;
                     
-                    
                     //Checks which table to access (HumidData or TempData)
-
                     if(in_array($Sensor, $humidity)){
-                        
-                        $sql = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
-                        $stmt = mysqli_prepare($conn, $sql);
-                        mysqli_stmt_bind_param($stmt, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
+                        $stmt = $stmt_humidity
                         $h = true;
                         
                     } else {
-                        $sql = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
-                        $stmt = mysqli_prepare($conn, $sql);
-                        mysqli_stmt_bind_param($stmt, "ssd", $Sensor, $DateTime, $Temperature);
+                        $stmt = $stmt_temp
                         $h = false;
                     }
                     
-                    //Begins accessing files
-
+                    //Skip the first line
                     fgetcsv($file);
                 
                     while (($row = fgetcsv($file)) !== false) {
                         
                         //Accounts for date time differences
-
                         $DateTime = DateTime::createFromFormat('m/d/Y H:i:s', $row[$dateTimeIndex]);
                         if (!$DateTime) {
                             $DateTime = DateTime::createFromFormat('m/d/Y H:i', $row[$dateTimeIndex]);
