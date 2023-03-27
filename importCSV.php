@@ -30,20 +30,20 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES ";
-        //$stmt_humidity = mysqli_prepare($conn, $sql_humidity);
-        //mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
+        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
+        $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
+        mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
 
-        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES ";
-        //$stmt_temp = mysqli_prepare($conn, $sql_temp);
-        //mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
+        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
+        $stmt_temp = mysqli_prepare($conn, $sql_temp);
+        mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
             if($_FILES['file']['error'][$key] == UPLOAD_ERR_OK){
                 $filename = $_FILES['file']['name'][$key]; 
                 $tmpfilename = $_FILES['file']['tmp_name'][$key];
-                echo $filename."<br>";
+                
                 $file = fopen($tmpfilename, "r");
             
                 //Check each file for existance
@@ -59,18 +59,16 @@
                     
                     //Checks which table to access (HumidData or TempData)
                     if(in_array($Sensor, $humidity)){
-                        $sql = $sql_humidity;
+                        $stmt = $stmt_humidity;
                         $h = true;
                         
                     } else {
-                        $stmt = $sql_temp;
+                        $stmt = $stmt_temp;
                         $h = false;
                     }
                     
                     //Skip the first line
                     fgetcsv($file);
-                
-                    $batch_params = array(); // initialize array to hold batch parameters
 
                     while (($row = fgetcsv($file)) !== false) {
                         
@@ -95,42 +93,17 @@
                         if($h && $Temperature!=null){
                             $RH = $row[$rhIndex];
                             $DewPoint = $row[$dewPointIndex];
-                            $batch_params[] = array($Sensor, $DateTime, $Temperature, $RH, $DewPoint);
+                            mysqli_stmt_execute($stmt);
+                            
 
                         } else if(!$h && $Temperature!=null) {
-                            $batch_params[] = array($Sensor, $DateTime, $Temperature);
+                            mysqli_stmt_execute($stmt);
                         }
-                    }
-
-                    //Insert the data in a batch
-                    if(!empty($batch_params) && $h){
-                        $numValues = count($batch_params) * 5;
-                        $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
-                        $stmt_batch = $sql . $placeholders;
-                        echo $stmt_batch;
-                        $stmt_humidity = mysqli_prepare($conn, $stmt_batch);
-                        
-                        $types = str_repeat('ssddd', count($batch_params));
-                        $params = array();
-                        foreach($batch_params as $row_params){
-                            $params = array_merge($params, $row_params);
-                        }                        
-                        mysqli_stmt_bind_param($stmt_humidity, $types, ...$params);
-                        mysqli_stmt_execute($stmt_humidity);
-                    } else if (!empty($batch_params) && !$h){
-
-
-                        $types = str_repeat('ssd', count($batch_params));
-                        $params = array();
-                        foreach($batch_params as $row_params){
-                            $params = array_merge($params, $row_params);
-                        }
-                        mysqli_stmt_bind_param($stmt, $types, ...$params);
-                        mysqli_stmt_execute($stmt);
                     }
 
                     // Close the statement and connection
                     fclose($file);
+                    echo $filename."<br>";
                     
                 } else {
                     echo "Failed to open file: $filename";
