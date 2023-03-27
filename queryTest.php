@@ -5,6 +5,7 @@
         $currentFormIndex = $_POST['currentFormIndex'];
 
         if(isset($_POST['next'])){
+            
             $currentFormIndex++;
 
         }elseif(isset($_POST['previous'])){
