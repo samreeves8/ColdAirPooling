@@ -31,12 +31,12 @@
         }
 
         $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES ";
-        $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
-        mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
+        //$stmt_humidity = mysqli_prepare($conn, $sql_humidity);
+        //mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
 
         $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES ";
-        $stmt_temp = mysqli_prepare($conn, $sql_temp);
-        mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
+        //$stmt_temp = mysqli_prepare($conn, $sql_temp);
+        //mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
@@ -59,11 +59,11 @@
                     
                     //Checks which table to access (HumidData or TempData)
                     if(in_array($Sensor, $humidity)){
-                        $stmt = $stmt_humidity;
+                        $sql = $sql_humidity;
                         $h = true;
                         
                     } else {
-                        $stmt = $stmt_temp;
+                        $stmt = $sql_temp;
                         $h = false;
                     }
                     
@@ -106,7 +106,9 @@
                     if(!empty($batch_params) && $h){
                         $numValues = count($batch_params * 5);
                         $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
-                        $stmt_batch = $stmt . $placeholders; 
+                        echo $placeholders . "<br>";
+                        $stmt_batch = $sql . $placeholders;
+                        echo $stmt_batch ."<br>"; 
                         $types = str_repeat('ssddd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
