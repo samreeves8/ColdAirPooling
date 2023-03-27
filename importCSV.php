@@ -104,7 +104,7 @@
 
                     //Insert the data in a batch
                     if(!empty($batch_params) && $h){
-                        $numValues = count($batch_params * 5);
+                        $numValues = count($batch_params) * 5;
                         $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
                         echo $placeholders . "<br>";
                         $stmt_batch = $sql . $placeholders;
