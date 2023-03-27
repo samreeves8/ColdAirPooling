@@ -28,10 +28,10 @@
         if($currentFormIndex > 0){
             echo "<input type = 'submit' name = 'previous' value = 'Previous'>";
         }
-        if($currentFormIndex < 3){
+        if($currentFormIndex < 2){
             echo "<input type = 'submit' name = 'next' value = 'Next'>";
         }else{
-            echo "<input type = 'submit' name = 'next' value = 'Graph'>";
+            echo "<input type = 'submit' name = 'graph' value = 'Graph'>";
         }
         echo "</form>";
     }
