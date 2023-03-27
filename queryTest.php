@@ -23,7 +23,7 @@
             echo "<h1> index 3 </h1>";
         }
 
-        echo "<input type='hidden' name='currentQuestionIndex' value='$currentQuestionIndex'>";
+        echo "<input type='hidden' name='currentQuestionIndex' value=' . $currentQuestionIndex . '>";
 
         if($currentFormIndex > 0){
             echo "<input type = 'submit' name = 'previous' value = 'Previous'>";
