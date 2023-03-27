@@ -109,7 +109,7 @@
                         $stmt_batch = $sql . $placeholders;
                         echo $stmt_batch;
                         $stmt_humidity = mysqli_prepare($conn, $stmt_batch);
-                        echo $stmt_humidity; 
+                        
                         $types = str_repeat('ssddd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
