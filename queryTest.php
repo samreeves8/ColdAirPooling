@@ -28,7 +28,9 @@
             <label for="dateEnd">Select an end date:</label>
             <input type="date" id="dateEnd" name="dateEnd">
             <label for="timeEnd">Select an end time:</label>
-            <input type="time" id="timeEnd" name="timeEnd">';
+            <input type="time" id="timeEnd" name="timeEnd">
+            <br>'
+            ;
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
