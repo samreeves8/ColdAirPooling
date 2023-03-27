@@ -31,7 +31,7 @@
         if($currentFormIndex < 3){
             echo "<input type = 'submit' name = 'next' value = 'Next'>";
         }else{
-            echo "<input type = 'submit' name = 'next' value = 'Graph'>";
+            echo "<input type = 'submit' name = 'graph' value = 'Graph'>";
         }
         echo "</form>";
     }
