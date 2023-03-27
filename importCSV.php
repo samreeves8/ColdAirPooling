@@ -6,8 +6,6 @@
 
 <?php 
     
-    ini_set('max_execution_time', 300); // Set maximum execution time to 5 minutes
-    ini_set('memory_limit', '512M'); // Set memory limit to 512 MB
 
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
     
