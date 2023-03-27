@@ -30,7 +30,7 @@ catch(PDOException $e){
 if (isset($_POST['submit'])) {
     $new_username = $_POST['new_username'];
     $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-    
+
     // prepare SQL statement to insert new admin user into database
     $stmt = $con->prepare("INSERT INTO accounts (username, password) VALUES (:username, :password)");
     $stmt->bindParam(':username', $new_username);
@@ -69,5 +69,27 @@ if (isset($_POST['submit'])) {
     <br>
     <input type="submit" name="submit" value="Create User">
 </form>
+
+<h2>Existing Admin Users</h2><br>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Password Hash</th>
+        </tr>
+        <?php
+        // prepare SQL statement to select existing admin users from database
+        $stmt = $con->prepare("SELECT username, password FROM accounts");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+
+        // loop through each row of the result and display the data in a table
+        foreach ($result as $row) {
+            echo "<tr>";
+            echo "<td>" . $row['username'] . "</td>";
+            echo "<td>" . $row['password'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
 </body>
 </html>
