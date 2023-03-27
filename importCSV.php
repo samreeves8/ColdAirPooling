@@ -106,14 +106,14 @@
                     if(!empty($batch_params) && $h){
                         $numValues = count($batch_params * 5);
                         $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
-                        $stmt = $stmt . $placeholders; 
+                        $stmt_batch = $stmt . $placeholders; 
                         $types = str_repeat('ssddd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
                             $params = array_merge($params, $row_params);
                         }                        
-                        mysqli_stmt_bind_param($stmt, $types, ...$params);
-                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_bind_param($stmt_batch, $types, ...$params);
+                        mysqli_stmt_execute($stmt_batch);
                     } else if (!empty($batch_params) && !$h){
 
 
