@@ -30,13 +30,13 @@
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES (?, ?, ?, ?, ?)";
+        $sql_humidity = "INSERT INTO HumidData (Sensor, DateTime, Temperature, RH, DewPoint) VALUES ";
         $stmt_humidity = mysqli_prepare($conn, $sql_humidity);
-        //mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
+        mysqli_stmt_bind_param($stmt_humidity, "ssddd", $Sensor, $DateTime, $Temperature, $RH, $DewPoint);
 
-        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, ?)";
+        $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES ";
         $stmt_temp = mysqli_prepare($conn, $sql_temp);
-        //mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
+        mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
         // Checks all of the files that are uploaded
         foreach($_FILES['file']['name'] as $key=>$value){
@@ -104,14 +104,19 @@
 
                     //Insert the data in a batch
                     if(!empty($batch_params) && $h){
+                        $numValues = count($batch_params * 5);
+                        $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
+                        $stmt_batch = $stmt . $placeholders; 
                         $types = str_repeat('ssddd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
                             $params = array_merge($params, $row_params);
                         }                        
-                        mysqli_stmt_bind_param($stmt, $types, ...$params);
-                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_bind_param($stmt_batch, $types, ...$params);
+                        mysqli_stmt_execute($stmt_batch);
                     } else if (!empty($batch_params) && !$h){
+
+
                         $types = str_repeat('ssd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
