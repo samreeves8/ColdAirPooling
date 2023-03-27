@@ -5,10 +5,10 @@
         $currentFormIndex = $_POST['currentFormIndex'];
 
         if(isset($_POST['next'])){
-            $currentFormIndex ++;
+            $currentFormIndex++;
 
         }elseif(isset($_POST['previous'])){
-            $currentFormIndex --;
+            $currentFormIndex--;
         }
     }
 
@@ -23,7 +23,7 @@
             echo "<h1> index 3 </h1>";
         }
 
-        echo "<input type='hidden' name='currentQuestionIndex' value=' . $currentQuestionIndex . '>";
+        echo "<input type='hidden' name='currentQuestionIndex' value=" . $currentQuestionIndex . ">";
 
         if($currentFormIndex > 0){
             echo "<input type = 'submit' name = 'previous' value = 'Previous'>";
