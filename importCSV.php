@@ -107,9 +107,9 @@
                         $numValues = count($batch_params) * 5;
                         $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
                         $stmt_batch = $sql . $placeholders;
-                        
+                        echo $stmt_batch;
                         $stmt_humidity = mysqli_prepare($conn, $stmt_batch);
-                        echo $stmt_humidity ."<br>"; 
+                        echo $stmt_humidity; 
                         $types = str_repeat('ssddd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
