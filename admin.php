@@ -44,22 +44,32 @@ if (isset($_POST['submit'])) {
     }
 }
 
-if (isset($_POST['Update User'])) {
-    $id = $_POST['id'];
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+if (isset($_POST['update'])) {
+    $existing_username = $_POST['existing_username'];
+    $update_username = $_POST['update_username'];
+    $update_password = password_hash($_POST['update_password'], PASSWORD_DEFAULT);
 
-    // prepare SQL statement to update admin user in database
-    $stmt = $con->prepare("UPDATE accounts SET username = :username, password = :password WHERE id = :id");
-    $stmt->bindParam(':username', $username);
-    $stmt->bindParam(':password', $password);
-    $stmt->bindParam(':id', $id);
+    // prepare SQL statement to check if existing username is in the database
+    $stmt = $con->prepare("SELECT COUNT(*) FROM accounts WHERE username = :existing_username");
+    $stmt->bindParam(':existing_username', $existing_username);
+    $stmt->execute();
+    $result = $stmt->fetchColumn();
 
-    // execute SQL statement and display success or error message
-    if ($stmt->execute()) {
-        echo "Admin user updated successfully.";
+    if ($result > 0) {
+        // prepare SQL statement to update the username and password in the database
+        $stmt = $con->prepare("UPDATE accounts SET username = :update_username, password = :update_password WHERE username = :existing_username");
+        $stmt->bindParam(':existing_username', $existing_username);
+        $stmt->bindParam(':update_username', $update_username);
+        $stmt->bindParam(':update_password', $update_password);
+
+        // execute SQL statement and display success or error message
+        if ($stmt->execute()) {
+            echo "Admin user updated successfully.";
+        } else {
+            echo "Error updating admin user: " . $stmt->errorInfo()[2];
+        }
     } else {
-        echo "Error updating admin user: " . $stmt->errorInfo()[2];
+        echo "Admin user with username " . $existing_username . " does not exist in the database.";
     }
 }
 
@@ -78,7 +88,7 @@ if (isset($_POST['Update User'])) {
 <h1>Welcome, <?php echo $_SESSION['name']; ?>!</h1><br>
 
 <h2>Create New Admin User</h2><br>
-<form method="post">
+<form method="POST">
     <label for="new_username">Username:</label>
     <input type="text" id="new_username" name="new_username" required>
     <br>
@@ -111,15 +121,15 @@ if (isset($_POST['Update User'])) {
     </table>
 
 <h2>Update Admin User</h2><br>
-<form method="post">
+<form method="POST">
     <label for="existing_username">Existing Username:</label>
     <input type="text" id="existing_username" name="existing_username" required>
     <br>
-    <label for="new_username">New Username:</label>
-    <input type="text" id="new_username" name="new_username" required>
+    <label for="update_username">New Username:</label>
+    <input type="text" id="update_username" name="update_username" required>
     <br>
-    <label for="new_password">New Password:</label>
-    <input type="password" id="new_password" name="new_password" required>
+    <label for="update_password">New Password:</label>
+    <input type="password" id="update_password" name="update_password" required>
     <br>
     <input type="submit" name="update" value="Update User">
 </form>
