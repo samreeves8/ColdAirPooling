@@ -1,7 +1,7 @@
 <?php
     $currentFormIndex = 0;
 
-    if($SERVER['REQUEST_METHOD'] === 'POST'){
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
 
         if(isset($_POST['next'])){
