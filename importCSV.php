@@ -106,16 +106,16 @@
                     if(!empty($batch_params) && $h){
                         $numValues = count($batch_params) * 5;
                         $placeholders = "(" . implode(",", array_fill(0, $numValues, "?")) . ")";
-                        echo $placeholders . "<br>";
                         $stmt_batch = $sql . $placeholders;
-                        echo $stmt_batch ."<br>"; 
+                        $stmt_humidity = mysqli_prepare($conn, $stmt_batch);
+                        echo $stmt_humidity ."<br>"; 
                         $types = str_repeat('ssddd', count($batch_params));
                         $params = array();
                         foreach($batch_params as $row_params){
                             $params = array_merge($params, $row_params);
                         }                        
-                        mysqli_stmt_bind_param($stmt_batch, $types, ...$params);
-                        mysqli_stmt_execute($stmt_batch);
+                        mysqli_stmt_bind_param($stmt_humidity, $types, ...$params);
+                        mysqli_stmt_execute($stmt_humidity);
                     } else if (!empty($batch_params) && !$h){
 
 
