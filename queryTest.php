@@ -24,8 +24,11 @@
             <input type="date" id="dateStart" name="dateStart">
             <label for="timeStart">Select a start time:</label>
             <input type="time" id="timeStart" name="timeStart">
-
-            <br>';
+            <br>
+            <label for="dateEnd">Select an end date:</label>
+            <input type="date" id="dateEnd" name="dateEnd">
+            <label for="timeEnd">Select an end time:</label>
+            <input type="time" id="timeEnd" name="timeEnd">';
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
