@@ -11,7 +11,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
 
 //$conn = "";
 
-
 try {
     $servername = "localhost";
     $dbname = "gunniso1_SensorData";
@@ -113,7 +112,7 @@ if (isset($_POST['update'])) {
         // loop through each row of the result and display the data in a table
         foreach ($result as $row) {
             echo "<tr>";
-            echo "<td>" . $row['username'] . "</td>";
+            echo "<td>" . $row['username'] . "<input type="checkbox" id="username" name="username">" . "</td>";
             echo "<td>" . $row['password'] . "</td>";
             echo "</tr>";
         }
