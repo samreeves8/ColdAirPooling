@@ -14,7 +14,7 @@
 
     if($currentFormIndex >= 0 && $currentFormIndex < 3){
         
-        echo "<form methods = 'POST'>";
+        echo "<form method = 'POST'>";
         if($currentFormIndex == 0){
             echo "<h1> index 1 </h1>";
         }else if($currentFormIndex == 1){
