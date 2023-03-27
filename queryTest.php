@@ -14,7 +14,7 @@
 
     if($currentFormIndex >= 0 && $currentFormIndex < 3){
 
-        echo "<form methods = 'POST'>"
+        echo "<form methods = 'POST'>";
         if($currentFormIndex == 0){
             echo "<h1> index 1 </h1>";
         }else if($currentFormIndex == 1){
@@ -25,14 +25,14 @@
 
 
         if($currentFormIndex > 0){
-            echo "<input type = 'submit' name = 'previous' value = 'Previous'>"
+            echo "<input type = 'submit' name = 'previous' value = 'Previous'>";
         }
         if($currentFromIndex < 3){
-            echo "<input type = 'submit' name = 'next' value = 'Next'>"
+            echo "<input type = 'submit' name = 'next' value = 'Next'>";
         }else{
-            echo "<input type = 'submit' name = 'next' value = 'Graph'>"
+            echo "<input type = 'submit' name = 'next' value = 'Graph'>";
         }
-        echo "</form>"
+        echo "</form>";
     }
 
 ?>
