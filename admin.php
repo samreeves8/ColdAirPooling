@@ -44,6 +44,24 @@ if (isset($_POST['submit'])) {
     }
 }
 
+if (isset($_POST['Update User'])) {
+    $id = $_POST['id'];
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    // prepare SQL statement to update admin user in database
+    $stmt = $con->prepare("UPDATE accounts SET username = :username, password = :password WHERE id = :id");
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':password', $password);
+    $stmt->bindParam(':id', $id);
+
+    // execute SQL statement and display success or error message
+    if ($stmt->execute()) {
+        echo "Admin user updated successfully.";
+    } else {
+        echo "Error updating admin user: " . $stmt->errorInfo()[2];
+    }
+}
 
 
 ?>
@@ -91,5 +109,19 @@ if (isset($_POST['submit'])) {
         }
         ?>
     </table>
+
+<h2>Update Admin User</h2><br>
+<form method="post">
+    <label for="existing_username">Existing Username:</label>
+    <input type="text" id="existing_username" name="existing_username" required>
+    <br>
+    <label for="new_username">New Username:</label>
+    <input type="text" id="new_username" name="new_username" required>
+    <br>
+    <label for="new_password">New Password:</label>
+    <input type="password" id="new_password" name="new_password" required>
+    <br>
+    <input type="submit" name="update" value="Update User">
+</form>
 </body>
 </html>
