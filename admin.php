@@ -128,7 +128,7 @@ if (isset($_POST['delete'])) {
             echo "<tr>";
             echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['password'] . "</td>";
-            echo "<td>" "<input type='checkbox' id='delete' name='delete[]' value='" . $row['id'] . "'></td>"; 
+            echo "<td><input type='checkbox' id='delete' name='delete[]' value='" . $row['id'] . "'></td>"; 
             echo "</tr>";
         }
         ?>
