@@ -119,7 +119,7 @@ if (isset($_POST['delete'])) {
         </tr>
         <?php
         // prepare SQL statement to select existing admin users from database
-        $stmt = $con->prepare("SELECT username, password FROM accounts");
+        $stmt = $con->prepare("SELECT username, password, id FROM accounts");
         $stmt->execute();
         $result = $stmt->fetchAll();
 
