@@ -72,6 +72,19 @@ if (isset($_POST['update'])) {
     }
 }
 
+if (isset($_POST['delete'])) {
+    $ids = $_POST['delete'];
+    if (!empty($ids)) {
+        $id_list = implode(",", $ids);
+        $stmt = $con->prepare("DELETE FROM accounts WHERE id IN ($id_list)");
+        if ($stmt->execute()) {
+            echo "Selected users deleted successfully.";
+        } else {
+            echo "Error deleting selected users: " . $stmt->errorInfo()[2];
+        }
+    }
+}
+
 
 ?>
 
@@ -102,6 +115,7 @@ if (isset($_POST['update'])) {
         <tr>
             <th>Username</th>
             <th>Password Hash</th>
+            <th>Select</th>
         </tr>
         <?php
         // prepare SQL statement to select existing admin users from database
@@ -112,12 +126,14 @@ if (isset($_POST['update'])) {
         // loop through each row of the result and display the data in a table
         foreach ($result as $row) {
             echo "<tr>";
-            echo "<td>" . $row['username'] . "<input type='checkbox' id='username' name='username'>" . "</td>";
+            echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['password'] . "</td>";
+            echo "<td>" "<input type='checkbox' id='delete' name='delete[]' value='" . $row['id'] . "'></td>"; 
             echo "</tr>";
         }
         ?>
     </table>
+    <input type="submit" name="delete" value="Delete Selected">
 
 <h2>Update Admin User</h2><br>
 <form method="POST">
