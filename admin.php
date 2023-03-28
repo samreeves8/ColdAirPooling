@@ -111,6 +111,7 @@ if (isset($_POST['delete'])) {
 </form>
 
 <h2>Existing Admin Users</h2><br>
+    <form method="POST">
     <table>
         <tr>
             <th>Username</th>
@@ -134,7 +135,8 @@ if (isset($_POST['delete'])) {
         ?>
     </table>
     <input type="submit" name="delete" value="Delete Selected">
-
+    </form>
+    
 <h2>Update Admin User</h2><br>
 <form method="POST">
     <label for="existing_username">Existing Username:</label>
