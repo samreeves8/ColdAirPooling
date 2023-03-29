@@ -18,7 +18,8 @@
         echo "<form method = 'POST'>";
         if($currentFormIndex == 0){
             echo "<h1> index 1 </h1>";
-            echo '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12482.25822116872!2d-106.92406695!3d38.543804699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1680104185724!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+            echo '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12482.25822116872!2d-106.92406695!3d38.543804699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1680104185724!5m2!1sen!2sus" 
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';
         }else if($currentFormIndex == 1){
             echo "<h1> Insert date and time range for data you want to see: </h1>";
             echo 
