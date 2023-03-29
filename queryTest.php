@@ -27,10 +27,7 @@
             <input type="time" id="timeStart" name="timeStart">
             <br>
             <label for="dateEnd">Select an end date:</label>
-            <input type="date" id="dateEnd" name="dateEnd" value = "<?= date("Y-m-d") ?>">
-            <script>
-                document.getElementById("dateEnd").value = moment().format("YYYY-MM-DD");
-            </script>
+            <input type="date" id="dateEnd" name="dateEnd" value = "<?= date(\'Y-m-d\') ?>">
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd">
             <br>'
