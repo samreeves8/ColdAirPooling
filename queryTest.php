@@ -24,12 +24,12 @@
             '<label for="dateStart">Select a start date:</label>
             <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
             <label for="timeStart">Select a start time:</label>
-            <input type="time" id="timeStart" name="timeStart">
+            <input type="time" id="timeStart" name="timeStart" value = "00:00">
             <br>
             <label for="dateEnd">Select an end date:</label>
             <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
             <label for="timeEnd">Select an end time:</label>
-            <input type="time" id="timeEnd" name="timeEnd">
+            <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>'
             ;
         }else if($currentFormIndex == 2){
