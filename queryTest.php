@@ -18,6 +18,8 @@
         echo "<form method = 'POST'>";
         if($currentFormIndex == 0){
             echo "<h1> index 1 </h1>";
+            echo '<iframe src="https://www.google.com/maps/d/embed?mid=1QKCUJdVptPLWD9xI8WVnY4fxXUM5NmBl&ehbc=2E312F" width="1280" height="960"
+                style="border:none; z-index:1; margin:-150px; position:relative; padding-left: 150px" frameborder="0" allowfullscreen="false" ></iframe>';
         }else if($currentFormIndex == 1){
             echo "<h1> Insert date and time range for data you want to see: </h1>";
             echo 
