@@ -22,12 +22,12 @@
             echo "<h1> Insert date and time range for data you want to see: </h1>";
             echo 
             '<label for="dateStart">Select a start date:</label>
-            <input type="date" id="dateStart" name="dateStart">
+            <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
             <label for="timeStart">Select a start time:</label>
             <input type="time" id="timeStart" name="timeStart">
             <br>
             <label for="dateEnd">Select an end date:</label>
-            <input type="date" id="dateEnd" name="dateEnd">
+            <input type="date" id="dateEnd" name="dateEnd" value="<?php echo date("Y-m-d");?>">
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd">
             <br>'
@@ -35,6 +35,7 @@
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
+
 
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
