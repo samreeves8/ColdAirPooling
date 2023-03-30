@@ -75,7 +75,7 @@ if (isset($_POST['update'])) {
 // check if the delete button has been pressed
 if (isset($_POST['delete'])) {
     // get the IDs of the selected rows as an array
-    $selected_rows = $_POST['delete[]'];
+    $selected_rows = $_POST['delete'] ?? array();
     
     if (!empty($selected_rows)) {
         // convert the array of IDs into a comma-separated string
