@@ -78,22 +78,21 @@ if (isset($_POST['delete'])) {
     $selected_rows = $_POST['delete'] ?? array();
     
     if (count($selected_rows) == 1) {
-        $stmt = $con->prepare("DELETE FROM accounts WHERE id = " . $selected_rows[0]);
-    } else if {
+        $stmt = $con->prepare("DELETE FROM accounts WHERE id = ?");
+        $stmt->bindParam(1, $selected_rows[0]);
+    } else {
         // convert the array of IDs into a comma-separated string
         $id_list = implode(',', $selected_rows);
         
         // prepare SQL statement to delete selected rows from the database
         $stmt = $con->prepare("DELETE FROM accounts WHERE id IN ($id_list)");
-        
-        // execute SQL statement and display success or error message
-        if ($stmt->execute()) {
-            echo "Selected rows deleted successfully.";
-        } else {
-            echo "Error deleting selected rows: " . $stmt->errorInfo()[2];
-        }
+    }
+    
+    // execute SQL statement and display success or error message
+    if ($stmt->execute()) {
+        echo "Selected rows deleted successfully.";
     } else {
-        echo "No rows selected.";
+        echo "Error deleting selected rows: " . $stmt->errorInfo()[2];
     }
 }
 
