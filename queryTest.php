@@ -53,10 +53,7 @@
             }).addTo(mymap);
           
 
-            function removeFromSet(id, sensorSet) {
-                sensorSet.delete(id);
-                sidebar.innerHTML = \'\';
-            }
+            
 
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
@@ -77,8 +74,6 @@
                     <br>\
                     <br>\
                     Current sensors selected: \' + temp + \'\
-                    <br>\
-                    <button onclick=\'removeFromSet(\'\' + id + \'\', \'\' + sensorSet + \'\')\'>Remove from set</button>\
                     <\p>\';
                 });
             }
