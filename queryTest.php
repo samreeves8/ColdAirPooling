@@ -22,9 +22,22 @@
             '<head>
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
                 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                <style>
+                    #sidebar {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 200px;
+                    height: 100%;
+                    background-color: #f0f0f0;
+                    padding: 10px;
+                    box-sizing: border-box;
+                    overflow: auto;
+                }
+            </style>
             </head>
             <body>
-                <div id="map" style="height: 640px; width: 480px;"></div>
+                <div id="map" style="height: 640px; width: 960px;"></div>
             </body>
             <script>
                 // Initialize the map
@@ -39,7 +52,7 @@
             // Add the marker and on-click listener
             var marker01 = L.marker([38.50949, -106.93991]).addTo(mymap);
             marker01.on(\'click\', function(e) {
-            alert(\'01OBS\');
+                sidebar.innerHTML = \'<h2>01OBS</h2><p>Here is some additional information about the location.</p>\';
             });
           </script>';
 
