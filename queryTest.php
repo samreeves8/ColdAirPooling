@@ -72,6 +72,7 @@
                     <br>\
                     <br>\
                     Current sensors selected: \' + temp + \'\
+                    <\p>\';
                 });
             }
 
