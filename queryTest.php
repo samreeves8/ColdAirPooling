@@ -38,6 +38,7 @@
             </head>
             <body>
                 <div id="map" style="height: 640px; width: 960px;"></div>
+                <div id="sidebar"></div>
             </body>
             <script>
                 // Initialize the map
