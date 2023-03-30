@@ -34,7 +34,7 @@
                     box-sizing: border-box;
                     overflow: auto;
                 }
-                </style>
+            </style>
             </head>
             <body>
                 <div id="map" style="height: 640px; width: 960px;"></div>
