@@ -28,7 +28,7 @@
             </body>
             <script>
                 // Initialize the map
-                var mymap = L.map('map').setView([38.64955, -106.94685], 10);
+                var mymap = L.map(\'map\').setView([38.64955, -106.94685], 10);
           
                 // Add the tile layer
                 L.tileLayer(\'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\', {
