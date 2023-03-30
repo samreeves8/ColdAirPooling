@@ -171,9 +171,9 @@
                 $table = "TempData";
             }
 
-            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/?) AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/count($sensors)) AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
             MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            FROM ?, (SELECT @row_number:=0) AS t WHERE Sensor IN ($sensor) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC";
+            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ($sensor) AND DateTime BETWEEN $dateTimeStart AND $dateTimeEnd GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
 
             echo $sqlString;
         }
