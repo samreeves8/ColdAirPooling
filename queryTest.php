@@ -18,14 +18,30 @@
         echo "<form method = 'POST'>";
         if($currentFormIndex == 0){
             echo "<h1> index 1 </h1>";
-            echo "<div id = 'map'> </div>
+            echo
+            '<head>
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+                <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+            </head>
+            <body>
+                <div id="map" style="height: 640px; width: 480px;"></div>
+            </body>
             <script>
-                src = 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12482.25822116872!2d-106.92406695!3d38.543804699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1680104185724!5m2!1sen!2sus'
-                defer
-            </script>";
-            //'<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d12482.25822116872!2d-106.92406695!3d38.543804699999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1680104185724!5m2!1sen!2sus" 
-            //    width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            //    <br>';
+                // Initialize the map
+                var mymap = L.map('map').setView([38.64955, -106.94685], 10);
+          
+                // Add the tile layer
+                L.tileLayer(\'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\', {
+                attribution: \'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors\',
+                maxZoom: 18,
+            }).addTo(mymap);
+          
+            // Add the marker and on-click listener
+            var marker01 = L.marker([38.50949, -106.93991]).addTo(mymap);
+            marker01.on(\'click\', function(e) {
+            alert(\'01OBS\');
+            });
+          </script>'';
 
             
         }else if($currentFormIndex == 1){
