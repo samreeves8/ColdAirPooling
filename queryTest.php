@@ -52,26 +52,42 @@
                 maxZoom: 18,
             }).addTo(mymap);
           
-            var marker01 = L.marker([38.50949, -106.93991]).addTo(mymap);
-            marker01.on(\'click\', function(e) {
-                sensorSet.add(\'01OBS\');
-                const temp = Array.from(sensorSet).join(", ");
-                sidebar.innerHTML = \'<h2>Sensor 01OBS</h2>\
-                <p>\
-                Latitude: 38.50949\
-                <br>\
-                Longitude: -106.93991\
-                <br>\
-                Elevation: 7457 ft.\
-                <br>\
-                Date installed: 02/16/2022\
-                <br>\
-                Records Humidity: Yes\
-                <br>\
-                <br>\
-                Current sensors selected: \' + temp + \' \
-                </p>\';
-            });
+
+            function removeFromSet(id, sensorSet) {
+                sensorSet.delete(id);
+                sidebar.innerHTML = \'\';
+            }
+            
+            function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
+                var marker = L.marker([lat, lng]).addTo(map);
+                marker.on(\'click\', function(e) {
+                    sensorSet.add(id);
+                    const temp = Array.from(sensorSet).join(", ");
+                    sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
+                    <p>\
+                    Latitude: \' + lat + \'\
+                    <br>\
+                    Longitude: \' + lng + \'\
+                    <br>\
+                    Elevation: \' + elevation + \'\
+                    <br>\
+                    Date installed: \' + dateInstalled + \'\
+                    <br>\
+                    Records humidity: \' + recordsHumidity + \'\
+                    <br>\
+                    <br>\
+                    Current sensors selected: \' + temp + \'\
+                    <br>\
+                    <button onclick="removeFromSet(\'\' + id + \'\', \'\' + sensorSet + \'\')">Remove from set</button>\
+                    <\p>\';
+                });
+            }
+
+            
+
+            addMarker(\'01OBS\', 38.50949, -106.93991, 7457, \'02/16/2022\', \'Yes\', mymap, sensorSet);
+            
+
 
             
           </script>';
