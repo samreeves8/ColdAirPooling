@@ -54,11 +54,13 @@
           
 
             
-            function removeFromSet(id, sensorSet){
+            function removeFromSet(id, sensorSet, event){
+                event.preventDefault();
                 sensorSet.delete(id);
             }
 
-            function addToSet(id, sensorSet){
+            function addToSet(id, sensorSet, event){
+                event.preventDefault();
                 sensorSet.add(id);
             };
 
@@ -66,24 +68,24 @@
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
                     const temp = Array.from(sensorSet).join(", ");
-                    sidebar.innerHTML = \'<h2>Sensor: ${id}</h2>\
+                    sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
-                    Latitude: ${lat}\
+                    Latitude: \' + lat + \'\
                     <br>\
-                    Longitude: ${lng}\
+                    Longitude: \' + lng + \'\
                     <br>\
-                    Elevation: ${elevation}\
+                    Elevation: \' + elevation + \'\
                     <br>\
-                    Date installed: ${dateInstalled}\
+                    Date installed: \' + dateInstalled + \'\
                     <br>\
-                    Records humidity: ${recordsHumidity}\
+                    Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: ${temp}\
+                    Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button onclick="removeFromSet(\'${id}\', \'${sensorSet}\')">Remove from set</button>\
+                    <button onclick="removeFromSet(" + id + ", " + sensorSet + ", event)">Remove from set</button>\
                     <br>\
-                    <button onclick="addToSet(\'${id}\', \'${sensorSet}\')">Add to set</button>\
+                    <button onclick="addToSet(" + id + ", " + sensorSet + ", event)">Add to set</button>\
                     <br>\
                     <\p>\';
                 });
