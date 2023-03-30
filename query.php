@@ -138,13 +138,13 @@
             }
         </script>";
 
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
+        // foreach($sensors as $sensor){
+        //     $table = null;
+        //     if(in_array($sensor, $humidity)){
+        //         $table = "HumidData";
+        //     }else{
+        //         $table = "TempData";
+        //     }
 
             // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
             // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
@@ -161,7 +161,7 @@
             //     }
             // }
         
-        }
+        // }
 
         foreach($sensors as $sensor){
             $table = null;
@@ -170,7 +170,7 @@
             }else{
                 $table = "TempData";
             }
-            
+
             $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/?) AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
             MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
             FROM ?, (SELECT @row_number:=0) AS t WHERE Sensor IN ("$sensor") AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC";
