@@ -90,32 +90,6 @@
         
         $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
         
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
-
-            $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
-            $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
-            
-            $stmt->execute();
-            echo $sqlString."<br>";
-            $result = $stmt->get_result();
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
-                }
-            }
-        
-        }
-
-
         $x = 0;
         $rangeArr = null;
         $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
@@ -157,8 +131,6 @@
         }
         echo "</select><br> 
 
-       
-
         <script>
             function rangeSelected(select) {
             var val = select.options[select.selectedIndex].value;
@@ -166,21 +138,37 @@
             }
         </script>";
 
+        foreach($sensors as $sensor){
+            $table = null;
+            if(in_array($sensor, $humidity)){
+                $table = "HumidData";
+            }else{
+                $table = "TempData";
+            }
 
-        // $sqlString = 
-        // "SELECT Sensor,
-        // FLOOR((@row_number:=@row_number+1)/?) AS GroupNum,
-        // MIN(DateTime) AS StartDateTime,
-        // MAX(DateTime) AS EndDateTime,
-        // MIN(Temperature) AS MinTemperature, 
-        // MAX(Temperature) AS MaxTemperature, 
-        // ROUND(AVG(Temperature),2) AS AvgTemperature
-        // FROM ?, (SELECT @row_number:=0) AS t
-        // WHERE Sensor IN ("S")
-        // AND DateTime BETWEEN ? AND ?
-        // GROUP BY Sensor, GroupNum  
-        // ORDER BY `Sensor`  DESC";
+            // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
+            // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
+            // $stmt = $conn->prepare($sql);
+            // $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
+            
+            // $stmt->execute();
+            // echo $sqlString."<br>";
+            // $result = $stmt->get_result();
 
+            // if ($result->num_rows > 0) {
+            //     while ($row = $result->fetch_assoc()) {
+            //         echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
+            //     }
+            // }
+        
+        }
+
+        $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/?) AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+                    MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
+                    FROM ?, (SELECT @row_number:=0) AS t WHERE Sensor IN ("S") AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC";
+
+
+        echo $sqlString;
 
         //x, table, startdatetime, endadatetime
 
