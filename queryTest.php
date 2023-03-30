@@ -55,10 +55,12 @@
 
             
             function removeFromSet(id, sensorSet){
+                event.preventDefault();
                 sensorSet.delete(id);
             }
 
             function addToSet(id, sensorSet){
+                event.preventDefault();
                 sensorSet.add(id);
             };
 
