@@ -54,11 +54,17 @@
           
 
             
+            function removeFromSet(id, sensorSet){
+                sensorSet.delete(id);
+            }
+
+            function addToSet(id, sensorSet){
+                sensorSet.add(id);
+            };
 
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
-                    sensorSet.add(id);
                     const temp = Array.from(sensorSet).join(", ");
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
@@ -75,7 +81,10 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button onclick=\'removeFromSet(\'\' + id + \'\', \'\' + sensorSet + \'\')\'>Remove from set</button>\
+                    <button onclick="removeFromSet(" + id + ", " + sensorSet + ")">Remove from set</button>\
+                    <br>\
+                    <button onclick="addToSet(" + id + ", " + sensorSet + ")">Add to set</button>\
+                    <br>\
                     <\p>\';
                 });
             }
