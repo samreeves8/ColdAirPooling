@@ -75,7 +75,7 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button onclick="removeFromSet(\'\' + id + \'\', \'\' + sensorSet + \'\')">Remove from set</button>\
+                    <button onclick=\'removeFromSet(\'\' + id + \'\', \'\' + sensorSet + \'\')\'>Remove from set</button>\
                     <\p>\';
                 });
             }
