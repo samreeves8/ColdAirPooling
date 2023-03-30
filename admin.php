@@ -73,7 +73,7 @@ if (isset($_POST['update'])) {
 }
 
 // check if the delete button has been pressed
-if (isset($_POST['delete'])) {
+if (isset($_POST['toDelete'])) {
     // get the IDs of the selected rows as an array
     $selected_rows = $_POST['delete'] ?? array();
 
@@ -147,7 +147,7 @@ if (isset($_POST['delete'])) {
         }
         ?>
     </table>
-    <input type="submit" name="delete" value="Delete Selected">
+    <input type="submit" name="toDelete" value="Delete Selected">
     </form>
 
 <h2>Update Admin User</h2><br>
