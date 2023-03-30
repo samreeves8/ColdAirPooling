@@ -3,7 +3,7 @@
     <head>
         <title>Temperature Sensor Readings</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="nav.css">
     </head>
     <body>
     <div class="navbar">
