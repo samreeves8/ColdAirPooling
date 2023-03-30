@@ -60,7 +60,7 @@
 
             function addToSet(id){
                 sensorSet.add(id);
-            };
+            }
 
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
