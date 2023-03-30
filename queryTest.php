@@ -82,7 +82,7 @@
             }
             function removeFromSet(id, sensorSet) {
                 sensorSet.delete(id);
-                document.getElementById(sidebarId).innerHTML = '';
+                document.getElementById(sidebarId).innerHTML = \'\';
             }
 
             
