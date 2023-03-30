@@ -80,9 +80,15 @@
 
             
 
-            addMarker(\'01OBS\', 38.50949, -106.93991, 7457, \'02/16/2022\', \'Yes\', mymap, sensorSet);
-            
+            const markers = [
+                {id = \'01OBS\', lat = 38.50949, lng = -106.93991, elevation = 7457, dateInstalled: \'02/16/2022\', recordsHumidity: \'Yes\' }
+            ];
 
+            markers.forEach(marker => {
+                addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
+            });
+                
+            
 
             
           </script>';
