@@ -77,7 +77,9 @@ if (isset($_POST['delete'])) {
     // get the IDs of the selected rows as an array
     $selected_rows = $_POST['delete'] ?? array();
     
-    if (!empty($selected_rows)) {
+    if (count($selected_rows) == 1) {
+        $stmt = $con->prepare("DELETE FROM accounts WHERE id = " . $selected_rows[0]);
+    } else if {
         // convert the array of IDs into a comma-separated string
         $id_list = implode(',', $selected_rows);
         
