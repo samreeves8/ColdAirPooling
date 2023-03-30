@@ -76,6 +76,8 @@ if (isset($_POST['update'])) {
 if (isset($_POST['delete'])) {
     // get the IDs of the selected rows as an array
     $selected_rows = $_POST['delete'] ?? array();
+
+    echo $selected_rows;
     
     if (count($selected_rows) == 1) {
         $stmt = $con->prepare("DELETE FROM accounts WHERE id = ?");
