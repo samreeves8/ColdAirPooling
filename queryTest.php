@@ -53,8 +53,7 @@
             // Add the marker and on-click listener
             var marker01 = L.marker([38.50949, -106.93991]).addTo(mymap);
             marker01.on(\'click\', function(e) {
-                sidebar.innerHTML = 
-                \'<h2>Sensor 01OBS</h2>
+                sidebar.innerHTML = \'<h2>Sensor 01OBS</h2>
                 <p>
                 Latitude: 38.50949
                 <br>
@@ -65,7 +64,6 @@
                 Date installed: 02/16/2022
                 <br>
                 Records Humidity: Yes
-                information about the location.
                 </p>\';
             });
           </script>';
