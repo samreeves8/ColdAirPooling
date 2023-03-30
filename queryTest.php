@@ -68,7 +68,7 @@
                     const temp = Array.from(sensorSet).join(", ");
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
-                    Latitude: \' + lat + \'\
+                    Latitude: ${lat}\
                     <br>\
                     Longitude: \' + lng + \'\
                     <br>\
