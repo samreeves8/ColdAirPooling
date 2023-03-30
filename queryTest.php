@@ -41,7 +41,7 @@
             marker01.on(\'click\', function(e) {
             alert(\'01OBS\');
             });
-          </script>'';
+          </script>';
 
             
         }else if($currentFormIndex == 1){
