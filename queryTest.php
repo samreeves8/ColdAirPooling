@@ -80,7 +80,7 @@
 
             function removeFromSet(id, sensorSet) {
                 sensorSet.delete(id);
-                sidebar.innerHTML = '';
+                sidebar.innerHTML = \'\';
             }
 
             addMarker(\'01OBS\', 38.50949, -106.93991, 7457, \'02/16/2022\', \'Yes\', mymap, sensorSet);
