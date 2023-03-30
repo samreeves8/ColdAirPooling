@@ -27,7 +27,7 @@
                     position: absolute;
                     top: 0;
                     right: 0;
-                    width: 400px;
+                    width: 200px;
                     height: 100%;
                     background-color: #f0f0f0;
                     padding: 10px;
@@ -41,6 +41,8 @@
                 <div id="sidebar"></div>
             </body>
             <script>
+                var sensorSet = new Set();
+
                 // Initialize the map
                 var mymap = L.map(\'map\').setView([38.64955, -106.94685], 10);
           
@@ -53,6 +55,8 @@
             // Add the marker and on-click listener
             var marker01 = L.marker([38.50949, -106.93991]).addTo(mymap);
             marker01.on(\'click\', function(e) {
+                sensorSet.add(\'01OBS\');
+                const temp = Array.from(sensorSet).join(", ");
                 sidebar.innerHTML = \'<h2>Sensor 01OBS</h2>\
                 <p>\
                 Latitude: 38.50949\
@@ -64,6 +68,8 @@
                 Date installed: 02/16/2022\
                 <br>\
                 Records Humidity: Yes\
+                <br>\
+                Current sensors selected: ${temp}\
                 </p>\';
             });
           </script>';
@@ -87,7 +93,7 @@
             echo "<h1> index 3 </h1>";
         }
 
-
+        echo "<input type = 'hidden' name = 'sensorList' value = sensorSet>";
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
 
