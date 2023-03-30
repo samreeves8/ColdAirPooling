@@ -69,7 +69,7 @@
                 <br>\
                 Records Humidity: Yes\
                 <br>\
-                Current sensors selected: ${temp}\
+                Current sensors selected: \' + temp + \' \
                 </p>\';
             });
           </script>';
