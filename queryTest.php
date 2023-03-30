@@ -55,7 +55,7 @@
             // Add the marker and on-click listener
 
             var sidebar = document.getElementById(\'sidebar\');
-            addMarker(\'01OBS\', 38.50949, -106.93991, 7457, \'02/16/2022\', \'Yes\', mymap, sidebar, sensorSet);
+            
 
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sidebar, sensorSet) {
                 var marker = L.marker([lat, lng]).addTo(map);
@@ -86,6 +86,7 @@
                 sidebar.innerHTML = \'\';
             }
 
+            addMarker(\'01OBS\', 38.50949, -106.93991, 7457, \'02/16/2022\', \'Yes\', mymap, sidebar, sensorSet);
             
           </script>';
 
