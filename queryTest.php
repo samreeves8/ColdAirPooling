@@ -53,6 +53,11 @@
             }).addTo(mymap);
           
 
+            function removeFromSet(id, sensorSet) {
+                sensorSet.delete(id);
+                sidebar.innerHTML = \'\';
+            }
+            
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
@@ -78,10 +83,7 @@
                 });
             }
 
-            function removeFromSet(id, sensorSet) {
-                sensorSet.delete(id);
-                sidebar.innerHTML = \'\';
-            }
+            
 
             addMarker(\'01OBS\', 38.50949, -106.93991, 7457, \'02/16/2022\', \'Yes\', mymap, sensorSet);
             
