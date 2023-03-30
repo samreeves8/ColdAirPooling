@@ -81,9 +81,9 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button onclick="event.preventDefault(); removeFromSet(" + id + ", " + sensorSet + ")">Remove from set</button>\
+                    <button type = "button" onclick="removeFromSet(" + id + ", " + sensorSet + ")">Remove from set</button>\
                     <br>\
-                    <button onclick="event.preventDefault(); addToSet(" + id + ", " + sensorSet + ")">Add to set</button>\
+                    <button type = "button" onclick="addToSet(" + id + ", " + sensorSet + ")">Add to set</button>\
                     <br>\
                     <\p>\';
                 });
