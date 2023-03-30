@@ -72,16 +72,26 @@ if (isset($_POST['update'])) {
     }
 }
 
+// check if the delete button has been pressed
 if (isset($_POST['delete'])) {
-    $ids = $_POST['delete'];
-    if (!empty($ids)) {
-        $id_list = implode(",", $ids);
+    // get the IDs of the selected rows as an array
+    $selected_rows = $_POST['delete[]'];
+    
+    if (!empty($selected_rows)) {
+        // convert the array of IDs into a comma-separated string
+        $id_list = implode(',', $selected_rows);
+        
+        // prepare SQL statement to delete selected rows from the database
         $stmt = $con->prepare("DELETE FROM accounts WHERE id IN ($id_list)");
+        
+        // execute SQL statement and display success or error message
         if ($stmt->execute()) {
-            echo "Selected users deleted successfully.";
+            echo "Selected rows deleted successfully.";
         } else {
-            echo "Error deleting selected users: " . $stmt->errorInfo()[2];
+            echo "Error deleting selected rows: " . $stmt->errorInfo()[2];
         }
+    } else {
+        echo "No rows selected.";
     }
 }
 
@@ -136,7 +146,7 @@ if (isset($_POST['delete'])) {
     </table>
     <input type="submit" name="delete" value="Delete Selected">
     </form>
-    
+
 <h2>Update Admin User</h2><br>
 <form method="POST">
     <label for="existing_username">Existing Username:</label>
