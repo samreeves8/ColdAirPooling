@@ -83,7 +83,7 @@
                     <br>\
                     <button onclick="removeFromSet(" + id + ", " + sensorSet + ")">Remove from set</button>\
                     <br>\
-                    <button onclick="removeFromSet(" + id + ", " + sensorSet + ")">Remove from set</button>\
+                    <button onclick="addToSet(" + id + ", " + sensorSet + ")">Add to set</button>\
                     <br>\
                     <\p>\';
                 });
