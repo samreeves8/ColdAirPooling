@@ -110,7 +110,7 @@
                 {id = \'27CHR\', lat = 38.52242, lng = -106.80191, elevation = 7882, dateInstalled: \'10/23/2022\', recordsHumidity: \'No\' },
                 {id = \'28TOM\', lat = 38.54018, lng = -106.8555, elevation = 7765, dateInstalled: \'10/23/2022\', recordsHumidity: \'No\' },
                 {id = \'29CAB\', lat = 38.71671, lng = -107.00556, elevation = 8325, dateInstalled: \'10/23/2022\', recordsHumidity: \'Yes\' },
-                {id = \'30HIN\', lat = 38.6876, lng = -106.9903, elevation = 8148, dateInstalled: \'10/23/2022\', recordsHumidity: \'Yes\' },
+                {id = \'30HIN\', lat = 38.6876, lng = -106.9903, elevation = 8148, dateInstalled: \'10/23/2022\', recordsHumidity: \'No\' }
             ];
 
             markers.forEach(marker => {
