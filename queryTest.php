@@ -34,7 +34,7 @@
                     box-sizing: border-box;
                     overflow: auto;
                 }
-            </style>
+                </style>
             </head>
             <body>
                 <div id="map" style="height: 640px; width: 960px;"></div>
@@ -53,7 +53,20 @@
             // Add the marker and on-click listener
             var marker01 = L.marker([38.50949, -106.93991]).addTo(mymap);
             marker01.on(\'click\', function(e) {
-                sidebar.innerHTML = \'<h2>01OBS</h2><p>Here is some additional information about the location.</p>\';
+                sidebar.innerHTML = 
+                \'<h2>Sensor 01OBS</h2>
+                <p>
+                Latitude: 38.50949
+                <br>
+                Longitude: -106.93991
+                <br>
+                Elevation: 7457 ft.
+                <br>
+                Date installed: 02/16/2022
+                <br>
+                Records Humidity: Yes
+                information about the location.
+                </p>\';
             });
           </script>';
 
