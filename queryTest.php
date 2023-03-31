@@ -57,7 +57,7 @@
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
-                    const temp = Array.from(sensorSet).join(", ");
+                    sensorSet.add(id);
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
                     Latitude: \' + lat + \'\
@@ -71,13 +71,32 @@
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: \' + temp + \'\
+                    Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                     <br>\
-                    <button type = "button" onclick="sensorSet.delete(\'' + id + '\')">Remove from set</button>\
-                    <br>\
-                    <button type = "button" onclick="sensorSet.add(\'' + id + '\')">Add to set</button>\
-                    <br>\
+                    <button type = "button" id="remove-btn">Remove</button>\
                     <\p>\';
+
+                    var removeBtn = document.getElementById(\'remove-btn\');
+                    removeBtn.addEventListener(\'click\', function() {
+                        sensorSet.delete(id);
+                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
+                        <p>\
+                        Latitude: \' + lat + \'\
+                        <br>\
+                        Longitude: \' + lng + \'\
+                        <br>\
+                        Elevation: \' + elevation + \'\
+                        <br>\
+                        Date installed: \' + dateInstalled + \'\
+                        <br>\
+                        Records humidity: \' + recordsHumidity + \'\
+                        <br>\
+                        <br>\
+                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
+                        <br>\
+                        <button type = "button" id="remove-btn">Remove</button>\
+                        <\p>\';
+                    });
                 });
             }
 
