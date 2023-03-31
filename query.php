@@ -23,28 +23,13 @@
         <script>
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
-                const myForm = document.getElementById('rangeForm');
+                const val = mySelect.value;
                 
-                mySelect.addEventListener('change', function(){
-                    var val = mySelect.value;
-                    myForm.submit();
-                    // Create a new XMLHttpRequest object
-                    var xhr = new XMLHttpRequest();
-    
-                    // Define the PHP script URL and the request method
-                    var url = 'query.php';
-                    var method = 'POST';
-    
-                    // Define the data to be sent to the PHP script
-                    val = encodeURIComponent(val);
-    
-                    // Set up the request headers
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-                    // Send the request to the PHP script
-                    xhr.open(method, url, true);
-                    xhr.send(val);            
-                });
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "query.php", true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.send('val=' + encodedURIComponent(val));
             }
         </script>
 </html>
@@ -159,7 +144,7 @@
 
 
         // Get the value of the "val" parameter from the POST request
-        $val = $_POST['val'] ?? NULL;
+        $val = $_POST['val'] ?? 69;
 
         // Do something with the value
         echo "The value is: " . $val;
