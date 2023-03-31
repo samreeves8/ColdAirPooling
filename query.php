@@ -136,6 +136,23 @@
             var val = select.options[select.selectedIndex].value;
                 document.write('Selected value: ' + val);
             }
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Define the PHP script URL and the request method
+            var url = 'query.php';
+            var method = 'POST';
+
+            // Define the data to be sent to the PHP script
+            var data = 'val=' + encodeURIComponent(val);
+
+            // Set up the request headers
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Send the request to the PHP script
+            xhr.open(method, url, true);
+            xhr.send(data);
         </script>";
 
         // foreach($sensors as $sensor){
@@ -162,6 +179,12 @@
             // }
         
         // }
+
+        // Get the value of the "val" parameter from the POST request
+        $val = $_POST["val"];
+
+        // Do something with the value
+        echo "The value is: " . $val;
 
         foreach($sensors as $sensor){
             $table = null;
