@@ -54,11 +54,11 @@
           
 
             
-            function removeFromSet(id){
-                sensorSet.delete(id);
+            function removeFromSet(id, sensorSet){
+                sensorSet.delete(id, sensorSet);
             }
 
-            function addToSet(id){
+            function addToSet(id, sensorSet){
                 sensorSet.add(id);
             }
 
@@ -81,9 +81,9 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button type = \'button\' onclick=\'removeFromSet(\' + id + \')\'>Remove from set</button>\
+                    <button type = "button" onclick="removeFromSet(" + id + "," + sensorSet + ")">Remove from set</button>\
                     <br>\
-                    <button type = \'button\' onclick=\'addToSet(\' + id + \')\'>Add to set</button>\
+                    <button type = "button" onclick="addToSet(" + id + "," + sensorSet + ")">Add to set</button>\
                     <br>\
                     <\p>\';
                 });
