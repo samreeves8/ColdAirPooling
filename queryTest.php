@@ -44,7 +44,7 @@
                 var sensorSet = new Set();
 
                 // Initialize the map
-                var mymap = L.map(\'map\').setView([38.64955, -106.94685], 10);
+                var mymap = L.map(\'map\').setView([38.64955, -106.94685], 11);
           
                 // Add the tile layer
                 L.tileLayer(\'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\', {
@@ -54,14 +54,6 @@
           
 
             
-            function removeFromSet(id){
-                sensorSet.delete(id);
-            }
-
-            function addToSet(id){
-                sensorSet.add(id);
-            };
-
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
@@ -81,9 +73,9 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button type = "button" onclick="removeFromSet(" + id + ")">Remove from set</button>\
+                    <button type = "button" onclick="sensorSet.delete(\'' + id + '\')">Remove from set</button>\
                     <br>\
-                    <button type = "button" onclick="addToSet(" + id + ")">Add to set</button>\
+                    <button type = "button" onclick="sensorSet.add(\'' + id + '\')">Add to set</button>\
                     <br>\
                     <\p>\';
                 });
@@ -98,7 +90,7 @@
                 {id: \'04MIB\', lat: 38.70076, lng: -107.02626, elevation: 8465, dateInstalled: \'02/26/2022\', recordsHumidity: \'No\' },
                 {id: \'05VAN\', lat: 38.55585, lng: -106.93838, elevation: 7758, dateInstalled: \'02/15/2022\', recordsHumidity: \'No\' },
                 {id: \'06MYS\', lat: 38.584, lng: -106.9101, elevation: 7788, dateInstalled: \'02/16/2022\', recordsHumidity: \'No\' },
-                {id: \'07PAR\', lat: 38.5656, lng: -106.94043, elevatio: 7724, dateInstalled: \'02/17/2022\', recordsHumidity: \'No\' },
+                {id: \'07PAR\', lat: 38.5656, lng: -106.94043, elevation: 7724, dateInstalled: \'02/17/2022\', recordsHumidity: \'No\' },
                 {id: \'08CHI\', lat: 38.58282, lng: -106.92633, elevation: 7772, dateInstalled: \'02/15/2022\', recordsHumidity: \'No\' },
                 {id: \'09MIC\', lat: 38.71917, lng: -106.99816, elevation: 8478, dateInstalled: \'02/18/2022\', recordsHumidity: \'No\' },
                 {id: \'10NEM\', lat: 38.59285, lng: -106.92626, elevation: 7807, dateInstalled: \'02/15/2022\', recordsHumidity: \'Yes\' },
