@@ -57,6 +57,7 @@
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
+                    sensorSet.add(id);
                     const temp = Array.from(sensorSet).join(", ");
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
@@ -70,11 +71,6 @@
                     <br>\
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
-                    <br>\
-                    <br>\
-                    <button type = "button" onclick=sensorSet.delete(id)>Remove from set</button>\
-                    <br>\
-                    <button type = "button" onclick=sensorSet.add(id)>Add to set</button>\
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
