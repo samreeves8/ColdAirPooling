@@ -148,8 +148,8 @@
             <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
-            <br>'
-            ;
+            <br>';
+            echo "<p>Current sensors selected: \' + Array.from(sensorList).join(", ") + \'</p>";
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
