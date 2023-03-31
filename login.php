@@ -66,7 +66,7 @@ catch(PDOException $e){
 }
 
 if ( !isset($_POST['username'], $_POST['password']) ) {
-	exit('Please fill both the username and password fields!');
+	//exit('Please fill both the username and password fields!');
 }
 
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
