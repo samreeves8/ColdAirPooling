@@ -36,7 +36,7 @@
                     var method = 'POST';
     
                     // Define the data to be sent to the PHP script
-                    var val = encodeURIComponent(val);
+                    val = encodeURIComponent(val);
     
                     // Set up the request headers
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
