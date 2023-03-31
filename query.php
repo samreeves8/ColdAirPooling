@@ -112,7 +112,7 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px; onchange='rangeSelected()'>";
+        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
