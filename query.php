@@ -130,7 +130,7 @@
                 xhr.open('POST', 'query.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-                xhr.send('val=' + encodURIComponent(val));
+                xhr.send('val=' + encodeURIComponent(val));
             }
         </script>";
         
