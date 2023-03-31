@@ -20,18 +20,6 @@
          </ul>
     </div>
 </body>
-        <script>
-            function rangeSelected() {
-                const mySelect = document.getElementById('range');
-                const val = mySelect.value;
-                
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", "query.php", true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                xhr.send('val=' + encodedURIComponent(val));
-            }
-        </script>
 </html>
 
 <?php
@@ -89,16 +77,6 @@
             echo "Error: End date must be after start date";
         }
         
-        // echo "Start date: " . $dateStart . "<br>";
-        // echo "Start time: " .$timeStart . "<br>";
-        // echo "End date: " . $dateEnd . "<br>";
-        // echo "End time: " . $timeEnd . "<br>";
-        // echo "Min temp: " . $tempMin . "<br>";
-        // echo "Max temp: " . $tempMax . "<br>";
-        // foreach($sensors as $sensor) {
-        //     echo $sensor . "<br>";
-        // }
-        
         $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
         
         $x = 0;
@@ -142,7 +120,20 @@
         }
         echo "</select><br></form>";
 
+        echo 
+        "<script>
+            function rangeSelected() {
+                const mySelect = document.getElementById('range');
+                const val = mySelect.value;
+            
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'query.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
+                xhr.send('val=' + encodedURIComponent(val));
+            }
+        </script>";
+        
         // Get the value of the "val" parameter from the POST request
         $val = $_POST['val'] ?? 69;
 
