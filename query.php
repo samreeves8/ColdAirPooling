@@ -25,9 +25,9 @@
                 const mySelect = document.getElementById('range');
                 const myForm = document.getElementById('rangeForm');
                 
-
                 mySelect.addEventListener('change', function(){
                     var val = mySelect.value;
+                    document.write(val);
                     myForm.submit();
                     // Create a new XMLHttpRequest object
                     var xhr = new XMLHttpRequest();
@@ -156,7 +156,7 @@
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select><br></form>";
+        echo "</select><br><input type='submit'></form>";
 
 
         // Get the value of the "val" parameter from the POST request
