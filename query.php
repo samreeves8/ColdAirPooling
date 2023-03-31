@@ -154,6 +154,14 @@
 
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
+            $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
+            $dateStart = $_POST['dateStart'];
+            $dateEnd = $_POST['dateEnd'];
+            $timeStart = $_POST['timeStart'];
+            $timeEnd = $_POST['timeEnd'];
+            $table = $_POST['table'];
+            $dateTimeStart = $dateStart . ' '.$timeStart;
+            $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
             if ($val !== null) {
               // Do something with the value
               echo "The value is: " . $val;
