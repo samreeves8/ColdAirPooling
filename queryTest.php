@@ -58,7 +58,6 @@
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
                     sensorSet.add(id);
-                    const temp = Array.from(sensorSet).join(", ");
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
                     Latitude: \' + lat + \'\
@@ -72,7 +71,7 @@
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: \' + temp + \'\
+                    Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                     <br>\
                     <button type = "button" id="remove-btn">Remove</button>\
                     <\p>\';
@@ -80,7 +79,6 @@
                     var removeBtn = document.getElementById(\'remove-btn\');
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
-                        temp = Array.from(sensorSet).join(", ");
                         sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
                         <p>\
                         Latitude: \' + lat + \'\
@@ -94,7 +92,7 @@
                         Records humidity: \' + recordsHumidity + \'\
                         <br>\
                         <br>\
-                        Current sensors selected: \' + temp + \'\
+                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                         <br>\
                         <button type = "button" id="remove-btn">Remove</button>\
                         <\p>\';
