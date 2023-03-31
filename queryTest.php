@@ -153,7 +153,7 @@
             if(empty($sensorSet)){
                 
             }else{
-                echo "<p>Current sensors selected:" + $sensorSet + "</p>";
+                echo $sensorSet;
             }
             
         }else if($currentFormIndex == 2){
