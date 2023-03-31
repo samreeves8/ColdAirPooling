@@ -69,8 +69,6 @@
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
-                    <br>\
                     <button type = "button" id="remove-btn">Remove</button>\
                     <br>\
                     <button type = "button" id="add-btn">Add</button>\
