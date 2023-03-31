@@ -70,7 +70,6 @@
         $timeEnd = $_POST['timeEnd'];
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
-        $val = $_POST['val'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
@@ -132,13 +131,16 @@
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
             
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'query.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                xhr.send('val=' + encodeURIComponent(val));
+                document.cookie = val;
             }
         </script>";
+
+        if(isset($_COOKIE['val'])) {
+            $val = $_COOKIE['val'];
+            echo $val
+        } else {
+            echo "Cookie not set.";
+        }
 
         // Do something with the value
         echo "The value is: " . $val;
@@ -157,9 +159,8 @@
 
             echo $sqlString;
         }
-
-        
     }
+?>
         //x, table, startdatetime, endadatetime
 
         // 3 minutes - x is 1 or 2
@@ -176,11 +177,6 @@
         // Bi-Weekly - x is 6721
         // S is sensor
         // startDate and endDate are variables
-
-
-
-
-    
 
             // foreach($sensors as $sensor){
         //     $table = null;
