@@ -1,7 +1,21 @@
-.menu li{
-    display: inline;
-}
-
-.menu{
-    padding-left: 0;
-}
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+  }
+  
+  .menu li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  
+  .menu li a {
+    color: red;
+    text-decoration: none;
+    padding: 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .menu li a:hover {
+    color: white;
+  }
