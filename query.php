@@ -134,9 +134,6 @@
         <script>
             function rangeSelected(select) {
             var val = select.options[select.selectedIndex].value;
-                document.write('Selected value: ' + val);
-            }
-
             // Create a new XMLHttpRequest object
             var xhr = new XMLHttpRequest();
 
@@ -153,6 +150,9 @@
             // Send the request to the PHP script
             xhr.open(method, url, true);
             xhr.send(data);
+            }
+
+            
         </script>";
 
         // foreach($sensors as $sensor){
