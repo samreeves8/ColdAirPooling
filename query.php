@@ -161,7 +161,6 @@
             echo $sqlString;
         }
     }
-?>
         //x, table, startdatetime, endadatetime
 
         // 3 minutes - x is 1 or 2
