@@ -80,14 +80,14 @@
 
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
-                        sidebarList.innerHTML = \'<h2>Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'/h2>\';
+                        sidebarList.innerHTML = \'<p>Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'</p>\';
                         
                     });
 
                     var addBtn = document.getElementById(\'add-btn\');
                     addBtn.addEventListener(\'click\', function() {
                         sensorSet.add(id);
-                        sidebarList.innerHTML = \'<h2>Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'/h2>\';
+                        sidebarList.innerHTML = \'<p>Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'</p>\';
 
                     });
                 });
