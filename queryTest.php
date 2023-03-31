@@ -18,6 +18,7 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
+        $sensorSet = $_POST['sensorSet'];
 
         if(isset($_POST['next'])){
             
@@ -69,8 +70,6 @@
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
-                    <br>\
                     <button type = "button" id="remove-btn">Remove</button>\
                     <br>\
                     <button type = "button" id="add-btn">Add</button>\
@@ -80,17 +79,15 @@
 
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
-                        sidebarList.innerHTML = \'<h2>Current sensors selected: </h2>\
-                        <p> Array.from(sensorSet).join(", ") </p>\';
+                        sidebarList.innerHTML = \'<p>Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'</p>\';
                         
                     });
 
                     var addBtn = document.getElementById(\'add-btn\');
                     addBtn.addEventListener(\'click\', function() {
                         sensorSet.add(id);
-                        sidebarList.innerHTML = \'<h2>Current sensors selected: </h2>\
-                        <p> Array.from(sensorSet).join(", ") </p>\';
-                        
+                        sidebarList.innerHTML = \'<p>Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'</p>\';
+
                     });
                 });
             }
@@ -152,13 +149,18 @@
             <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
-            <br>'
-            ;
+            <br>';
+            if(empty($sensorSet)){
+                
+            }else{
+                echo "<p>Current sensors selected:" + $sensorSet + "</p>";
+            }
+            
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
 
-        echo "<input type = 'hidden' name = 'sensorList' value = sensorSet>";
+        echo "<input type = 'hidden' name = 'sensorSet' value = sensorSet>";
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
 

@@ -70,7 +70,6 @@
         $timeEnd = $_POST['timeEnd'];
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
-        $val = $_POST['val'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
@@ -113,7 +112,7 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px; onchange='rangeSelected()'>";
+        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
@@ -132,13 +131,17 @@
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
             
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'query.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                xhr.send('val=' + encodeURIComponent(val));
+                document.cookie = val;
+                console.log('Value set to cookie:', val); // Add this line
             }
         </script>";
+
+        if(isset($_COOKIE['val'])) {
+            $val = $_COOKIE['val'];
+            echo $val;
+        } else {
+            echo "Cookie not set.";
+        }
 
         // Do something with the value
         echo "The value is: " . $val;
@@ -157,8 +160,6 @@
 
             echo $sqlString;
         }
-
-        
     }
         //x, table, startdatetime, endadatetime
 
@@ -176,11 +177,6 @@
         // Bi-Weekly - x is 6721
         // S is sensor
         // startDate and endDate are variables
-
-
-
-
-    
 
             // foreach($sensors as $sensor){
         //     $table = null;
