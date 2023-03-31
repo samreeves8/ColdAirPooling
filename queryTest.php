@@ -57,8 +57,8 @@
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
-                    sensorSet.add(id);
-                    const temp = Array.from(sensorSet).join(", ");
+                    var removeBtnId = \'remove-btn-\' + id;
+                    var addBtnId = \'add-btn-\' + id;
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
                     Latitude: \' + lat + \'\
@@ -72,9 +72,60 @@
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: \' + temp + \'\
+                    Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                     <br>\
+                    <button type = "button" id=removeBtnId>Remove</button>\
+                    <br>\
+                    <button type = "button" id=addBtnId>Add</button>\
                     <\p>\';
+
+                    var removeBtn = document.getElementById(removeBtnId);
+                    removeBtn.addEventListener(\'click\', function() {
+                        sensorSet.delete(id);
+                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
+                        <p>\
+                        Latitude: \' + lat + \'\
+                        <br>\
+                        Longitude: \' + lng + \'\
+                        <br>\
+                        Elevation: \' + elevation + \'\
+                        <br>\
+                        Date installed: \' + dateInstalled + \'\
+                        <br>\
+                        Records humidity: \' + recordsHumidity + \'\
+                        <br>\
+                        <br>\
+                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
+                        <br>\
+                        <button type = "button" id=removeBtnId>Remove</button>\
+                        <br>\
+                        <button type = "button" id=addBtnId>Add</button>\
+                        <\p>\';
+                    });
+
+                    var addBtn = document.getElementById(addBtnId);
+                    addBtn.addEventListener(\'click\', function() {
+                        sensorSet.add(id);
+                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
+                        <p>\
+                        Latitude: \' + lat + \'\
+                        <br>\
+                        Longitude: \' + lng + \'\
+                        <br>\
+                        Elevation: \' + elevation + \'\
+                        <br>\
+                        Date installed: \' + dateInstalled + \'\
+                        <br>\
+                        Records humidity: \' + recordsHumidity + \'\
+                        <br>\
+                        <br>\
+                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
+                        <br>\
+                        <button type = "button" id=removeBtnId>Remove</button>\
+                        <br>\
+                        <button type = "button" id=addBtnId>Add</button>\
+                        <\p>\';
+                    });
                 });
             }
 
