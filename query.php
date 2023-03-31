@@ -124,6 +124,7 @@
         echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
         echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
         echo "<input type='hidden' name='table' value='$table'>";
+        echo "<input type='hidden' name='val' id='valField' value=''>";
         echo "</form>";
 
         echo 
@@ -131,6 +132,7 @@
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
+                document.getElementById('valField').value = val;
         
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'query.php', true);
@@ -141,6 +143,8 @@
                 xhr.send(params);
                 console.log(params);
                 console.log('sent request');
+
+                document.getElementById('rangeForm').submit();
             }
         </script>";
 
