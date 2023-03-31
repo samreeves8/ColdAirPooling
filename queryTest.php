@@ -57,8 +57,6 @@
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
                 var marker = L.marker([lat, lng]).addTo(map);
                 marker.on(\'click\', function(e) {
-                    var removeBtnId = \'remove-btn-\' + id;
-                    var addBtnId = \'add-btn-\' + id;
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
                     Latitude: \' + lat + \'\
@@ -74,12 +72,12 @@
                     <br>\
                     Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                     <br>\
-                    <button type = "button" id=removeBtnId>Remove</button>\
+                    <button type = "button" id="remove-btn">Remove</button>\
                     <br>\
-                    <button type = "button" id=addBtnId>Add</button>\
+                    <button type = "button" id="add-btn">Add</button>\
                     <\p>\';
 
-                    var removeBtn = document.getElementById(removeBtnId);
+                    var removeBtn = document.getElementById(\'remove-btn\');
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
                         sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
@@ -97,13 +95,13 @@
                         <br>\
                         Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                         <br>\
-                        <button type = "button" id=removeBtnId>Remove</button>\
+                        <button type = "button" id="remove-btn">Remove</button>\
                         <br>\
-                        <button type = "button" id=addBtnId>Add</button>\
+                        <button type = "button" id="add-btn">Add</button>\
                         <\p>\';
                     });
 
-                    var addBtn = document.getElementById(addBtnId);
+                    var addBtn = document.getElementById(\'add-btn\');
                     addBtn.addEventListener(\'click\', function() {
                         sensorSet.add(id);
                         sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
@@ -121,9 +119,9 @@
                         <br>\
                         Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
                         <br>\
-                        <button type = "button" id=removeBtnId>Remove</button>\
+                        <button type = "button" id="remove-btn">Remove</button>\
                         <br>\
-                        <button type = "button" id=addBtnId>Add</button>\
+                        <button type = "button" id="add-btn">Add</button>\
                         <\p>\';
                     });
                 });
