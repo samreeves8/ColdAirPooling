@@ -120,7 +120,7 @@
             $counter += 1;
         }
         echo "</select>";
-        echo "<input type='hidden' name='sensors' value='$sensors'>";
+        echo "<input type='hidden' name='sensors' value='" . implode(",", $sensors) . "'>";
         echo "<input type='hidden' name='dateStart' value='$dateStart'>";
         echo "<input type='hidden' name='dateEnd' value='$dateEnd'>";
         echo "<input type='hidden' name='timeStart' value='$timeStart'>";
@@ -154,6 +154,7 @@
 
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
+            $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
             if ($val !== null) {
               // Do something with the value
               echo "The value is: " . $val;
@@ -192,14 +193,6 @@
         // Bi-Weekly - x is 6721
         // S is sensor
         // startDate and endDate are variables
-
-            // foreach($sensors as $sensor){
-        //     $table = null;
-        //     if(in_array($sensor, $humidity)){
-        //         $table = "HumidData";
-        //     }else{
-        //         $table = "TempData";
-        //     }
 
             // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
             // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
