@@ -73,9 +73,9 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button type = "button" onclick="sensorSet.delete(\'' + id + '\')">Remove from set</button>\
+                    <button type = "button" onclick=sensorSet.delete(id)>Remove from set</button>\
                     <br>\
-                    <button type = "button" onclick="sensorSet.add(\'' + id + '\')">Add to set</button>\
+                    <button type = "button" onclick=sensorSet.add(id)>Add to set</button>\
                     <br>\
                     <\p>\';
                 });
