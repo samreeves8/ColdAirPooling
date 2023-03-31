@@ -76,54 +76,36 @@
                     <br>\
                     <button type = "button" id="add-btn">Add</button>\
                     <\p>\';
-
-                    var removeBtn = document.getElementById(\'remove-btn\');
-                    removeBtn.addEventListener(\'click\', function() {
+                
+                sidebar.addEventListener(\'click\', function(event){
+                    if (event.target.classList.contains(\'remove-btn\')) {
                         sensorSet.delete(id);
-                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
-                        <p>\
-                        Latitude: \' + lat + \'\
-                        <br>\
-                        Longitude: \' + lng + \'\
-                        <br>\
-                        Elevation: \' + elevation + \'\
-                        <br>\
-                        Date installed: \' + dateInstalled + \'\
-                        <br>\
-                        Records humidity: \' + recordsHumidity + \'\
-                        <br>\
-                        <br>\
-                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
-                        <br>\
-                        <button type = "button" id="remove-btn">Remove</button>\
-                        <br>\
-                        <button type = "button" id="add-btn">Add</button>\
-                        <\p>\';
-                    });
-
-                    var addBtn = document.getElementById(\'add-btn\');
-                    addBtn.addEventListener(\'click\', function() {
+                    } else if (event.target.classList.contains(\'add-btn\')) {
                         sensorSet.add(id);
-                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
-                        <p>\
-                        Latitude: \' + lat + \'\
-                        <br>\
-                        Longitude: \' + lng + \'\
-                        <br>\
-                        Elevation: \' + elevation + \'\
-                        <br>\
-                        Date installed: \' + dateInstalled + \'\
-                        <br>\
-                        Records humidity: \' + recordsHumidity + \'\
-                        <br>\
-                        <br>\
-                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
-                        <br>\
-                        <button type = "button" id="remove-btn">Remove</button>\
-                        <br>\
-                        <button type = "button" id="add-btn">Add</button>\
-                        <\p>\';
-                    });
+                    }
+                
+                    sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
+                    <p>\
+                    Latitude: \' + lat + \'\
+                    <br>\
+                    Longitude: \' + lng + \'\
+                    <br>\
+                    Elevation: \' + elevation + \'\
+                    <br>\
+                    Date installed: \' + dateInstalled + \'\
+                    <br>\
+                    Records humidity: \' + recordsHumidity + \'\
+                    <br>\
+                    <br>\
+                    Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
+                    <br>\
+                    <button type = "button" id="remove-btn">Remove</button>\
+                    <br>\
+                    <button type = "button" id="add-btn">Add</button>\
+                    <\p>\';
+                }
+                var removeBtn = document.getElementById(\'remove-btn\');
+                
                 });
             }
 
