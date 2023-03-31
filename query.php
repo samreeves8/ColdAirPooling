@@ -122,7 +122,7 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px; onchange='rangeSelected(this)'>";
+        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px; onchange='rangeSelected()'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
@@ -132,28 +132,31 @@
 
         echo 
         "<script>
-            const mySelect = document.getElementById('range');
-            const myForm = document.getElementById('rangeForm');
-            
-            mySelect.addEventListener('change', function(){
-                // Create a new XMLHttpRequest object
-                var xhr = new XMLHttpRequest();
+            function rangeSelected() {
+                const mySelect = document.getElementById('range');
+                const myForm = document.getElementById('rangeForm);
+                var val = mySelect.value;
+                
+                mySelect.addEventListener('change', function(){
+                    myForm.submit();
+                    // Create a new XMLHttpRequest object
+                    var xhr = new XMLHttpRequest();
     
-                // Define the PHP script URL and the request method
-                var url = 'query.php';
-                var method = 'POST';
+                    // Define the PHP script URL and the request method
+                    var url = 'query.php';
+                    var method = 'POST';
     
-                // Define the data to be sent to the PHP script
-                var data = 'val=' + encodeURIComponent(val);
+                    // Define the data to be sent to the PHP script
+                    var data = 'val=' + encodeURIComponent(val);
     
-                // Set up the request headers
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                    // Set up the request headers
+                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
-                // Send the request to the PHP script
-                xhr.open(method, url, true);
-                xhr.send(data);                
-                myForm.submit();
-            });
+                    // Send the request to the PHP script
+                    xhr.open(method, url, true);
+                    xhr.send(data);            
+                });
+            }
         </script>";
 
         // Get the value of the "val" parameter from the POST request
