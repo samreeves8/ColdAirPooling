@@ -26,7 +26,7 @@ session_start();
         </ul>
     </div>
 
-    <form action="login.php" method="POST">
+    <form action="login.php" method="POST" id="login">
         <div class="loginbox">
             <h1>Login</h1>
 
@@ -43,6 +43,7 @@ session_start();
             <input class="button" type="submit" name="login" value="Sign In">
         </div>
     </form>
+    
 </div>    
 </body>
 </html>
@@ -91,10 +92,10 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             //exit();
             //echo 'Welcome ' . $_SESSION['name'] . '!';
         } else {
-            //echo 'Incorrect username and/or password!';
+            echo '<div class="error">Incorrect username and/or password!</div>';
         }
     } else {
-        //echo 'Incorrect username and/or password!';
+        echo '<div class="error">Incorrect username and/or password!</div>';
     }
 	$stmt->closeCursor();
 }
