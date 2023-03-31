@@ -88,14 +88,11 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['id'] = $id;
             echo "<script>location.href='admin.php';</script>";
 
-            //header("location: query.php");
-            //exit();
-            //echo 'Welcome ' . $_SESSION['name'] . '!';
         } else {
             echo '<div class="error">Incorrect username and/or password!</div>';
         }
     } else {
-        echo '<div class="error">Incorrect username and/or password!</div>';
+        //echo '<div class="error">Incorrect username and/or password!</div>';
     }
 	$stmt->closeCursor();
 }
