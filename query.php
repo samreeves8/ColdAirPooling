@@ -121,13 +121,6 @@
         }
         echo "</select>";
         echo "<input type='hidden' name='sensors' value='$sensors'>";
-        echo "<input type='hidden' name='dateStart' value='$dateStart'>";
-        echo "<input type='hidden' name='dateEnd' value='$dateEnd'>";
-        echo "<input type='hidden' name='timeStart' value='$timeStart'>";
-        echo "<input type='hidden' name='timeEnd' value='$timeEnd'>";
-        echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
-        echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
-        echo "<input type='hidden' name='table' value='$table'>";
         echo "<input type='hidden' name='val' id='valField' value='$val'>";
         echo "</form>";
 
@@ -155,13 +148,7 @@
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
             $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
-            $dateStart = $_POST['dateStart'];
-            $dateEnd = $_POST['dateEnd'];
-            $timeStart = $_POST['timeStart'];
-            $timeEnd = $_POST['timeEnd'];
-            $table = $_POST['table'];
-            $dateTimeStart = $dateStart . ' '.$timeStart;
-            $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+
             if ($val !== null) {
               // Do something with the value
               echo "The value is: " . $val;
