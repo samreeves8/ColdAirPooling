@@ -71,11 +71,12 @@
                     Records humidity: \' + recordsHumidity + \'\
                     <br>\
                     <br>\
-                    Current sensors selected: \' + temp + \'\
                     <br>\
                     <button type = "button" onclick=sensorSet.delete(id)>Remove from set</button>\
                     <br>\
                     <button type = "button" onclick=sensorSet.add(id)>Add to set</button>\
+                    <br>\
+                    Current sensors selected: \' + temp + \'\
                     <br>\
                     <\p>\';
                 });
