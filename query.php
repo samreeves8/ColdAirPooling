@@ -20,28 +20,6 @@
          </ul>
     </div>
 </body>
-
-    <script>
-            function rangeSelected(select) {
-            var val = select.options[select.selectedIndex].value;
-            // Create a new XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
-
-            // Define the PHP script URL and the request method
-            var url = 'query.php';
-            var method = 'POST';
-
-            // Define the data to be sent to the PHP script
-            var data = 'val=' + encodeURIComponent(val);
-
-            // Set up the request headers
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            // Send the request to the PHP script
-            xhr.open(method, url, true);
-            xhr.send(data);
-            }
-    </script>
 </html>
 
 <?php
@@ -54,7 +32,7 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo '<form action="query.php" method="POST" onsubmit="rangeSelected()">';
+        echo '<form action="query.php" method="POST">';
         while($row = $result->fetch_assoc()) {
             echo '<label><input type="checkbox" name="sensors[]" value="' . $row['Sensor'] . '">' . $row['Sensor'] . '</label><br>';
         }
@@ -80,7 +58,8 @@
     <label for="tempStart">Select a temperature range (Celcius):</label>
     <input type="number" id="tempMin" name="tempMin">
 
-    <input type="number" id="tempMax" name="tempMax">';
+    <input type="number" id="tempMax" name="tempMax">
+    <input type="submit" value="Submit"></form>';
     
     
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -143,13 +122,39 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        echo "<br><select id = 'range' style = 'font-size: 24px; onchange='rangeSelected(this)'>";
+        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px; onchange='rangeSelected(this)'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select><br> <input type='submit' value='Submit'></form>";
+        echo "</select><br></form>";
+
+        echo 
+        "<script>
+            const mySelect = document.getElementById('range');
+            const myForm = document.getElementById('rangeForm);
+            
+            mySelect.addEventListener('change', function(){
+                // Create a new XMLHttpRequest object
+                var xhr = new XMLHttpRequest();
+    
+                // Define the PHP script URL and the request method
+                var url = 'query.php';
+                var method = 'POST';
+    
+                // Define the data to be sent to the PHP script
+                var data = 'val=' + encodeURIComponent(val);
+    
+                // Set up the request headers
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+                // Send the request to the PHP script
+                xhr.open(method, url, true);
+                xhr.send(data);                
+                myForm.submit();
+            });
+        </script>";
 
         // Get the value of the "val" parameter from the POST request
         $val = $_POST['val'] ?? NULL;
