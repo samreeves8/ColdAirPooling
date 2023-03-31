@@ -130,28 +130,24 @@
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
-            
-          
-
+        
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'query.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send(encodeURIComponent(val));
+        
+                // Set the POST parameters
+                const params = 'val=' + encodeURIComponent(val);
+                xhr.send(params);
+        
                 console.log('sent request');
             }
         </script>";
 
-        if(isset($_COOKIE['val'])) {
-            $val = $_COOKIE['val'];
-            echo $val;
-        } else {
-            echo "Cookie not set.";
+        $val = isset($_POST['val']) ? $_POST['val'] : null;
+        if ($val !== null) {
+          // Do something with the value
+          echo "The value is: " . $val;
         }
-
-        $val = $_POST['val'];
-
-        // Do something with the value
-        echo "The value is: " . $val;
 
         foreach($sensors as $sensor){
             $table = null;
