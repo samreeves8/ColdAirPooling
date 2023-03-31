@@ -74,7 +74,31 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
+                    <button type = "button" id="remove-btn">Remove</button>\
                     <\p>\';
+
+                    var removeBtn = document.getElementById('remove-btn');
+                    removeBtn.addEventListener('click', function() {
+                        sensorSet.delete(id);
+                        temp = Array.from(sensorSet).join(", ");
+                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
+                        <p>\
+                        Latitude: \' + lat + \'\
+                        <br>\
+                        Longitude: \' + lng + \'\
+                        <br>\
+                        Elevation: \' + elevation + \'\
+                        <br>\
+                        Date installed: \' + dateInstalled + \'\
+                        <br>\
+                        Records humidity: \' + recordsHumidity + \'\
+                        <br>\
+                        <br>\
+                        Current sensors selected: \' + temp + \'\
+                        <br>\
+                        <button type = "button" id="remove-btn">Remove</button>\
+                        <\p>\';
+                    });
                 });
             }
 
