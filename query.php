@@ -113,7 +113,7 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
-        $serializedArray = serialize($array);
+        $serializedArray = serialize($sensors);
 
         echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         $counter = 0;
