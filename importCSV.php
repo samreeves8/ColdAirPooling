@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +35,6 @@
 
 <?php
 
-session_start();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
     // user is not logged in, redirect to login page
