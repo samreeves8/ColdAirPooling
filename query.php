@@ -120,7 +120,7 @@
             $counter += 1;
         }
         echo "</select>";
-        echo "<input type='hidden' name='sensors' value='" . implode(",", $sensors) . "'>";
+        echo "<input type='hidden' name='sensors' value='$sensors'>";
         echo "<input type='hidden' name='dateStart' value='$dateStart'>";
         echo "<input type='hidden' name='dateEnd' value='$dateEnd'>";
         echo "<input type='hidden' name='timeStart' value='$timeStart'>";
@@ -154,7 +154,6 @@
 
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
-            $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
             if ($val !== null) {
               // Do something with the value
               echo "The value is: " . $val;
