@@ -130,9 +130,11 @@
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
-            
-                document.cookie = val;
-                console.log('Value set to cookie:', val); // Add this line
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'query.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.send(encodeURIComponent(val));
             }
         </script>";
 
@@ -142,6 +144,8 @@
         } else {
             echo "Cookie not set.";
         }
+
+        $val = $_POST['val'];
 
         // Do something with the value
         echo "The value is: " . $val;
