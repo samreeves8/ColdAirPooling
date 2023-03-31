@@ -79,6 +79,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $row['id'];
         $hashed_password = $row['password'];
+
         // Account exists, now we verify the password.
         if (password_verify($_POST['password'], $hashed_password)) {
             // Verification success
@@ -92,7 +93,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             echo "<script>alert('Incorrect username and/or password!');</script>";
         }
     } else {
-        //echo '<div class="error">Incorrect username and/or password!</div>';
+        echo '<div class="error">Incorrect username and/or password!</div>';
     }
 	$stmt->closeCursor();
 }
