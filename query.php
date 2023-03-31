@@ -157,7 +157,7 @@
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
             $sensors = $_POST['sensors'];
-            $sensors = unserialize($serializedArray);
+            $sensorsArray = unserialize($serializedArray);
             print_r($sensors);
             $dateStart = $_POST['dateStart'];
             $dateEnd = $_POST['dateEnd'];
@@ -171,7 +171,7 @@
               echo "The value is: " . $val;
             }
     
-            foreach($sensors as $sensor){
+            foreach($sensorsArray as $sensor){
                 $table = null;
                 if(in_array($sensor, $humidity)){
                     $table = "HumidData";
