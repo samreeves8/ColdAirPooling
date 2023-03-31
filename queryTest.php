@@ -150,11 +150,6 @@
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
-            if(empty($sensorSet)){
-                
-            }else{
-                echo $sensorSet;
-            }
             
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
