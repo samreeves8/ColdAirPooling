@@ -132,6 +132,7 @@
                 const val = mySelect.value;
             
                 document.cookie = val;
+                console.log('Value set to cookie:', val); // Add this line
             }
         </script>";
 
