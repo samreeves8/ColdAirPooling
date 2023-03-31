@@ -81,7 +81,7 @@
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
                         sidebarList.innerHTML = \'<h2>Current sensors selected: </h2>\
-                        <p> Array.from(sensorSet).join(", ") </p>\';
+                        <p>\'\' + Array.from(sensorSet).join(", ") + \'\'</p>\';
                         
                     });
 
@@ -89,8 +89,8 @@
                     addBtn.addEventListener(\'click\', function() {
                         sensorSet.add(id);
                         sidebarList.innerHTML = \'<h2>Current sensors selected: </h2>\
-                        <p> Array.from(sensorSet).join(", ") </p>\';
-                        
+                        <p>\'\' + Array.from(sensorSet).join(", ") + \'\'</p>\';
+
                     });
                 });
             }
