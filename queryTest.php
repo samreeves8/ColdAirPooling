@@ -1,3 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "query.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    
+</body>
+</html>
 <?php
     $currentFormIndex = 0;
 
@@ -19,24 +34,7 @@
         if($currentFormIndex == 0){
             echo "<h1> index 1 </h1>";
             echo
-            '<head>
-                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-                <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-                <style>
-                    #sidebar {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 200px;
-                    height: 100%;
-                    background-color: #f0f0f0;
-                    padding: 10px;
-                    box-sizing: border-box;
-                    overflow: auto;
-                }
-            </style>
-            </head>
-            <body>
+            '<body>
                 <div id="map" style="height: 640px; width: 960px;"></div>
                 <div id="sidebar"></div>
             </body>
@@ -78,51 +76,17 @@
                     <\p>\';
 
                     var removeBtn = document.getElementById(\'remove-btn\');
+
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
-                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
-                        <p>\
-                        Latitude: \' + lat + \'\
-                        <br>\
-                        Longitude: \' + lng + \'\
-                        <br>\
-                        Elevation: \' + elevation + \'\
-                        <br>\
-                        Date installed: \' + dateInstalled + \'\
-                        <br>\
-                        Records humidity: \' + recordsHumidity + \'\
-                        <br>\
-                        <br>\
-                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
-                        <br>\
-                        <button type = "button" id="remove-btn">Remove</button>\
-                        <br>\
-                        <button type = "button" id="add-btn">Add</button>\
-                        <\p>\';
+                        
+                        
                     });
 
                     var addBtn = document.getElementById(\'add-btn\');
                     addBtn.addEventListener(\'click\', function() {
                         sensorSet.add(id);
-                        sidebar.innerHTML =\'<h2>Sensor \' + id + \'</h2>\
-                        <p>\
-                        Latitude: \' + lat + \'\
-                        <br>\
-                        Longitude: \' + lng + \'\
-                        <br>\
-                        Elevation: \' + elevation + \'\
-                        <br>\
-                        Date installed: \' + dateInstalled + \'\
-                        <br>\
-                        Records humidity: \' + recordsHumidity + \'\
-                        <br>\
-                        <br>\
-                        Current sensors selected: \' + Array.from(sensorSet).join(", ") + \'\
-                        <br>\
-                        <button type = "button" id="remove-btn">Remove</button>\
-                        <br>\
-                        <button type = "button" id="add-btn">Add</button>\
-                        <\p>\';
+                        
                     });
                 });
             }
