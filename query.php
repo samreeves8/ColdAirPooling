@@ -158,6 +158,7 @@
             $val = isset($_POST['val']) ? $_POST['val'] : null;
             $sensors = $_POST['sensors'];
             $sensors = unserialize($serializedArray);
+            print_r($sensors);
             $dateStart = $_POST['dateStart'];
             $dateEnd = $_POST['dateEnd'];
             $timeStart = $_POST['timeStart'];
