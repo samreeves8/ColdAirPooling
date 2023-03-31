@@ -134,10 +134,11 @@
         "<script>
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
-                const myForm = document.getElementById('rangeForm);
-                var val = mySelect.value;
+                const myForm = document.getElementById('rangeForm');
                 
+
                 mySelect.addEventListener('change', function(){
+                    var val = mySelect.value;
                     myForm.submit();
                     // Create a new XMLHttpRequest object
                     var xhr = new XMLHttpRequest();
