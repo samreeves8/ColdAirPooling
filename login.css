@@ -106,5 +106,8 @@
   }
   
   .error {
-    color: red;
-  }
+    background-color: #ffcccc;
+    color: #cc0000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
