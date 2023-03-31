@@ -44,7 +44,7 @@
                 var sensorSet = new Set();
 
                 // Initialize the map
-                var mymap = L.map(\'map\').setView([38.64955, -106.94685], 10);
+                var mymap = L.map(\'map\').setView([38.64955, -106.94685], 11);
           
                 // Add the tile layer
                 L.tileLayer(\'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\', {
@@ -81,9 +81,9 @@
                     <br>\
                     Current sensors selected: \' + temp + \'\
                     <br>\
-                    <button type = "button" onclick="removeFromSet(" + id + ")">Remove from set</button>\
+                    <button type = \'button\' onclick=\'removeFromSet(\' + id + \')\'>Remove from set</button>\
                     <br>\
-                    <button type = "button" onclick="addToSet(" + id + ")">Add to set</button>\
+                    <button type = \'button\' onclick=\'addToSet(\' + id + \')\'>Add to set</button>\
                     <br>\
                     <\p>\';
                 });
