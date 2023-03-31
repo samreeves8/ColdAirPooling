@@ -27,7 +27,6 @@
                 
                 mySelect.addEventListener('change', function(){
                     var val = mySelect.value;
-                    document.write(val);
                     myForm.submit();
                     // Create a new XMLHttpRequest object
                     var xhr = new XMLHttpRequest();
@@ -158,7 +157,7 @@
         }
         echo "</select><br><input type='submit'></form>";
 
-
+        if($_SERVER['REQUEST_METHOD']==='POST'){
         // Get the value of the "val" parameter from the POST request
         $val = $_POST['val'] ?? NULL;
 
@@ -179,6 +178,9 @@
 
             echo $sqlString;
         }
+        
+        }
+        
 
         
     }
