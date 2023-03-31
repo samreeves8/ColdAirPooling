@@ -124,7 +124,7 @@
         echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
         echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
         echo "<input type='hidden' name='table' value='$table'>";
-        echo "<input type='hidden' name='val' id='valField' value=''>";
+        echo "<input type='hidden' name='val' id='valField' value='$val'>";
         echo "</form>";
 
         echo 
