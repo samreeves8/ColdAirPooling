@@ -137,7 +137,7 @@
 
         if(isset($_COOKIE['val'])) {
             $val = $_COOKIE['val'];
-            echo $val
+            echo $val;
         } else {
             echo "Cookie not set.";
         }
