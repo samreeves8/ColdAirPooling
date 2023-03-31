@@ -133,7 +133,7 @@
         echo 
         "<script>
             const mySelect = document.getElementById('range');
-            const myForm = document.getElementById('rangeForm);
+            const myForm = document.getElementById('rangeForm');
             
             mySelect.addEventListener('change', function(){
                 // Create a new XMLHttpRequest object
