@@ -20,33 +20,6 @@
          </ul>
     </div>
 </body>
-        <script>
-            function rangeSelected() {
-                const mySelect = document.getElementById('range');
-                const myForm = document.getElementById('rangeForm');
-                
-                mySelect.addEventListener('change', function(){
-                    var val = mySelect.value;
-                    myForm.submit();
-                    // Create a new XMLHttpRequest object
-                    var xhr = new XMLHttpRequest();
-    
-                    // Define the PHP script URL and the request method
-                    var url = 'query.php';
-                    var method = 'POST';
-    
-                    // Define the data to be sent to the PHP script
-                    val = encodeURIComponent(val);
-    
-                    // Set up the request headers
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-                    // Send the request to the PHP script
-                    xhr.open(method, url, true);
-                    xhr.send(val);            
-                });
-            }
-        </script>
 </html>
 
 <?php
@@ -97,22 +70,13 @@
         $timeEnd = $_POST['timeEnd'];
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
+        $val = $_POST['val'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
         if(isset($dateTimeEnd) && $dateTimeEnd <= $dateTimeStart){
             echo "Error: End date must be after start date";
         }
-        
-        // echo "Start date: " . $dateStart . "<br>";
-        // echo "Start time: " .$timeStart . "<br>";
-        // echo "End date: " . $dateEnd . "<br>";
-        // echo "End time: " . $timeEnd . "<br>";
-        // echo "Min temp: " . $tempMin . "<br>";
-        // echo "Max temp: " . $tempMax . "<br>";
-        // foreach($sensors as $sensor) {
-        //     echo $sensor . "<br>";
-        // }
         
         $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
         
@@ -155,11 +119,26 @@
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select><br></form>";
+        echo "</select>";
+        echo "<input type='hidden' name='sensors' value='$sensors'>";
+        echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
+        echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
+        echo "<input type='hidden' name='table' value='$table'>";
+        echo "</form>";
 
+        echo 
+        "<script>
+            function rangeSelected() {
+                const mySelect = document.getElementById('range');
+                const val = mySelect.value;
+            
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'query.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-        // Get the value of the "val" parameter from the POST request
-        $val = $_POST['val'] ?? NULL;
+                xhr.send('val=' + encodeURIComponent(val));
+            }
+        </script>";
 
         // Do something with the value
         echo "The value is: " . $val;
