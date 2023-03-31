@@ -37,6 +37,7 @@
             '<body>
                 <div id="map" style="height: 640px; width: 960px;"></div>
                 <div id="sidebar"></div>
+                <div id="sidebarList"></div>
             </body>
             <script>
                 var sensorSet = new Set();
@@ -79,13 +80,16 @@
 
                     removeBtn.addEventListener(\'click\', function() {
                         sensorSet.delete(id);
-                        
+                        sidebarList.innerHTML = \'<h2>Current sensors selected: </h2>\
+                        <p> Array.from(sensorSet).join(", ") </p>\';
                         
                     });
 
                     var addBtn = document.getElementById(\'add-btn\');
                     addBtn.addEventListener(\'click\', function() {
                         sensorSet.add(id);
+                        sidebarList.innerHTML = \'<h2>Current sensors selected: </h2>\
+                        <p> Array.from(sensorSet).join(", ") </p>\';
                         
                     });
                 });

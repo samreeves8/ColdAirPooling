@@ -9,3 +9,15 @@
     box-sizing: border-box;
     overflow: auto;
 }
+
+#sidebarList{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #7d3131;
+    padding-left: 210px;
+    box-sizing: border-box;
+    overflow: auto;
+}
