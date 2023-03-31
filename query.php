@@ -130,11 +130,14 @@
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
+            
+          
 
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'query.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.send(encodeURIComponent(val));
+                console.log('sent request');
             }
         </script>";
 
