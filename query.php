@@ -138,12 +138,13 @@
                 // Set the POST parameters
                 const params = 'val=' + encodeURIComponent(val);
                 xhr.send(params);
-        
+                console.log(params);
                 console.log('sent request');
             }
         </script>";
 
         $val = isset($_POST['val']) ? $_POST['val'] : null;
+        print_r($_POST);
         if ($val !== null) {
           // Do something with the value
           echo "The value is: " . $val;
