@@ -18,6 +18,7 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
+        $sensorSet = $_POST['sensorSet'];
 
         if(isset($_POST['next'])){
             
@@ -149,12 +150,17 @@
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
-            echo "<p>Current sensors selected: \' + Array.from(sensorList).join(", ") + \'</p>";
+            if(empty($sensorSet)){
+                
+            }else{
+                echo "<p>Current sensors selected:" + $sensorSet + "</p>";
+            }
+            
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
 
-        echo "<input type = 'hidden' name = 'sensorList' value = sensorSet>";
+        echo "<input type = 'hidden' name = 'sensorSet' value = sensorSet>";
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
 
