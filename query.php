@@ -70,6 +70,7 @@
         $timeEnd = $_POST['timeEnd'];
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
+        $val = $_POST['val'];
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
@@ -118,7 +119,12 @@
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select><br></form>";
+        echo "</select>";
+        echo "<input type='hidden' name='sensors' value='$sensors'>";
+        echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
+        echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
+        echo "<input type='hidden' name='table' value='$table'>";
+        echo "</form>";
 
         echo 
         "<script>
@@ -133,9 +139,6 @@
                 xhr.send('val=' + encodeURIComponent(val));
             }
         </script>";
-        
-        // Get the value of the "val" parameter from the POST request
-        $val = $_POST['val'] ?? 69;
 
         // Do something with the value
         echo "The value is: " . $val;
