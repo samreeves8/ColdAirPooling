@@ -70,6 +70,7 @@
         $timeEnd = $_POST['timeEnd'];
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
+        $val = $_POST['val'] ?? NULL;
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
@@ -143,27 +144,29 @@
             }
         </script>";
 
-        $val = isset($_POST['val']) ? $_POST['val'] : null;
-        print_r($_POST);
-        if ($val !== null) {
-          // Do something with the value
-          echo "The value is: " . $val;
-        }
-
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
+        if (isset($_POST['val'])){
+            $val = isset($_POST['val']) ? $_POST['val'] : null;
+            if ($val !== null) {
+              // Do something with the value
+              echo "The value is: " . $val;
             }
-
-            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-
-            echo $sqlString;
+    
+            foreach($sensors as $sensor){
+                $table = null;
+                if(in_array($sensor, $humidity)){
+                    $table = "HumidData";
+                }else{
+                    $table = "TempData";
+                }
+    
+                $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+                MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
+                FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
+    
+                echo $sqlString;
+            }
         }
+    
     }
         //x, table, startdatetime, endadatetime
 
