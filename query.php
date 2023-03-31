@@ -20,6 +20,28 @@
          </ul>
     </div>
 </body>
+
+    <script>
+            function rangeSelected(select) {
+            var val = select.options[select.selectedIndex].value;
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Define the PHP script URL and the request method
+            var url = 'query.php';
+            var method = 'POST';
+
+            // Define the data to be sent to the PHP script
+            var data = 'val=' + encodeURIComponent(val);
+
+            // Set up the request headers
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Send the request to the PHP script
+            xhr.open(method, url, true);
+            xhr.send(data);
+            }
+    </script>
 </html>
 
 <?php
@@ -32,7 +54,7 @@
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        echo '<form action="query.php" method="POST">';
+        echo '<form action="query.php" method="POST" onsubmit="rangeSelected()">';
         while($row = $result->fetch_assoc()) {
             echo '<label><input type="checkbox" name="sensors[]" value="' . $row['Sensor'] . '">' . $row['Sensor'] . '</label><br>';
         }
@@ -58,9 +80,7 @@
     <label for="tempStart">Select a temperature range (Celcius):</label>
     <input type="number" id="tempMin" name="tempMin">
 
-    <input type="number" id="tempMax" name="tempMax">
-
-    <input type="submit" value="Submit"></form>';
+    <input type="number" id="tempMax" name="tempMax">';
     
     
     if($_SERVER['REQUEST_METHOD']==='POST'){
@@ -129,33 +149,54 @@
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
             $counter += 1;
         }
-        echo "</select><br> 
+        echo "</select><br> <input type='submit' value='Submit'></form>";
 
-        <script>
-            function rangeSelected(select) {
-            var val = select.options[select.selectedIndex].value;
-            // Create a new XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
+        // Get the value of the "val" parameter from the POST request
+        $val = $_POST['val'] ?? NULL;
 
-            // Define the PHP script URL and the request method
-            var url = 'query.php';
-            var method = 'POST';
+        // Do something with the value
+        echo "The value is: " . $val;
 
-            // Define the data to be sent to the PHP script
-            var data = 'val=' + encodeURIComponent(val);
-
-            // Set up the request headers
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            // Send the request to the PHP script
-            xhr.open(method, url, true);
-            xhr.send(data);
+        foreach($sensors as $sensor){
+            $table = null;
+            if(in_array($sensor, $humidity)){
+                $table = "HumidData";
+            }else{
+                $table = "TempData";
             }
 
-            
-        </script>";
+            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/". $val. ") AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
+            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
 
-        // foreach($sensors as $sensor){
+            echo $sqlString;
+        }
+
+        
+    }
+        //x, table, startdatetime, endadatetime
+
+        // 3 minutes - x is 1 or 2
+        // 6 minutes - x is 3
+        // 15 minutes - x is 6
+        // 30 minutes - x is 11
+        // 1 hour - x is 21
+        // 2 hours - x is 41
+        // 4 hours - x is 81
+        // 12 hours - x is 241
+        // 1 day - x is 481
+        // 2 day - x is 961
+        // Weekly - x is 3361
+        // Bi-Weekly - x is 6721
+        // S is sensor
+        // startDate and endDate are variables
+
+
+
+
+    
+
+            // foreach($sensors as $sensor){
         //     $table = null;
         //     if(in_array($sensor, $humidity)){
         //         $table = "HumidData";
@@ -179,51 +220,9 @@
             // }
         
         // }
-
-        // Get the value of the "val" parameter from the POST request
-        $val = $_POST["val"];
-
-        // Do something with the value
-        echo "The value is: " . $val;
-
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
-
-            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/". $val. ") AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-
-            echo $sqlString;
-        }
-
-        
-
-        //x, table, startdatetime, endadatetime
-
-        // 3 minutes - x is 1 or 2
-        // 6 minutes - x is 3
-        // 15 minutes - x is 6
-        // 30 minutes - x is 11
-        // 1 hour - x is 21
-        // 2 hours - x is 41
-        // 4 hours - x is 81
-        // 12 hours - x is 241
-        // 1 day - x is 481
-        // 2 day - x is 961
-        // Weekly - x is 3361
-        // Bi-Weekly - x is 6721
-        // S is sensor
-        // startDate and endDate are variables
-
-
-    }
     
 ?>
+
 
 
 
