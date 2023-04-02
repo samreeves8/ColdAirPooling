@@ -70,6 +70,7 @@
         $timeEnd = $_POST['timeEnd'];
         $tempMin = $_POST['tempMin'];
         $tempMax = $_POST['tempMax'];
+        $val = $_POST['val'] ?? NULL;
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
@@ -112,6 +113,8 @@
             $rangeArr = array('Monthly', 'Yearly');
         }
 
+        $serializedArray = serialize($sensors);
+
         echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
@@ -119,10 +122,15 @@
             $counter += 1;
         }
         echo "</select>";
-        echo "<input type='hidden' name='sensors' value='$sensors'>";
+        echo "<input type='hidden' name='sensors' value='$serializedArray'>";
+        echo "<input type='hidden' name='dateStart' value='$dateStart'>";
+        echo "<input type='hidden' name='dateEnd' value='$dateEnd'>";
+        echo "<input type='hidden' name='timeStart' value='$timeStart'>";
+        echo "<input type='hidden' name='timeEnd' value='$timeEnd'>";
         echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
         echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
         echo "<input type='hidden' name='table' value='$table'>";
+        echo "<input type='hidden' name='val' id='valField' value='$val'>";
         echo "</form>";
 
         echo 
@@ -130,43 +138,55 @@
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
                 const val = mySelect.value;
-            
-          
-
+                document.getElementById('valField').value = val;
+        
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'query.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.send(encodeURIComponent(val));
+        
+                // Set the POST parameters
+                const params = 'val=' + encodeURIComponent(val);
+                xhr.send(params);
+                console.log(params);
                 console.log('sent request');
+
+                document.getElementById('rangeForm').submit();
             }
         </script>";
 
-        if(isset($_COOKIE['val'])) {
-            $val = $_COOKIE['val'];
-            echo $val;
-        } else {
-            echo "Cookie not set.";
-        }
-
-        $val = $_POST['val'];
-
-        // Do something with the value
-        echo "The value is: " . $val;
-
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
+        if (isset($_POST['val'])){
+            $val = isset($_POST['val']) ? $_POST['val'] : null;
+            $sensors = $_POST['sensors'];
+            $sensorsArray = unserialize($serializedArray);
+            print_r($sensorsArray);
+            $dateStart = $_POST['dateStart'];
+            $dateEnd = $_POST['dateEnd'];
+            $timeStart = $_POST['timeStart'];
+            $timeEnd = $_POST['timeEnd'];
+            $table = $_POST['table'];
+            $dateTimeStart = $dateStart . ' '.$timeStart;
+            $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+            if ($val !== null) {
+              // Do something with the value
+              echo "The value is: " . $val;
             }
-
-            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-
-            echo $sqlString;
+    
+            foreach($sensorsArray as $sensor){
+                $table = null;
+                if(in_array($sensor, $humidity)){
+                    $table = "HumidData";
+                }else{
+                    $table = "TempData";
+                }
+    
+                $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+                MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
+                FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
+    
+                echo $sqlString;
+            }
         }
+    
     }
         //x, table, startdatetime, endadatetime
 
@@ -184,14 +204,6 @@
         // Bi-Weekly - x is 6721
         // S is sensor
         // startDate and endDate are variables
-
-            // foreach($sensors as $sensor){
-        //     $table = null;
-        //     if(in_array($sensor, $humidity)){
-        //         $table = "HumidData";
-        //     }else{
-        //         $table = "TempData";
-        //     }
 
             // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
             // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
