@@ -13,7 +13,7 @@ session_start();
     <body>
     <div class="navbar">
          <ul class="menu">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
             <?php
