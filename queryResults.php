@@ -1,4 +1,5 @@
 <?php
+    $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
     if (isset($_POST['val'])){
         $val = isset($_POST['val']) ? $_POST['val'] : null;
         $dateTimeStart = $_POST['dateTimeStart'];
