@@ -129,7 +129,6 @@
         echo "<input type='hidden' name='timeEnd' value='$timeEnd'>";
         echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
         echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
-        echo "<input type='hidden' name='table' value='$table'>";
         echo "<input type='hidden' name='val' id='valField' value='$val'>";
         echo "</form>";
 
@@ -156,9 +155,8 @@
 
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
-            $sensors = $_POST['sensors'];
-            $sensorsArray = unserialize($serializedArray);
-            print_r($sensorsArray);
+            $sensors = unserialize($_POST['sensors']);
+            print_r($sensors);
             $dateStart = $_POST['dateStart'];
             $dateEnd = $_POST['dateEnd'];
             $timeStart = $_POST['timeStart'];
@@ -171,7 +169,7 @@
               echo "The value is: " . $val;
             }
     
-            foreach($sensorsArray as $sensor){
+            foreach($sensors as $sensor){
                 $table = null;
                 if(in_array($sensor, $humidity)){
                     $table = "HumidData";
