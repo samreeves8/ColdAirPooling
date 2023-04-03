@@ -116,7 +116,7 @@
         $serializedArray = serialize($sensors);
     
         echo "<form id = 'rangeForm' action='queryResults.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
-        echo "<option value="" disabled selected>Select an option</option>";
+        echo "<option value='' disabled selected>Select an option</option>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
