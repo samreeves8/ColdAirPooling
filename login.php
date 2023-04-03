@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1) {
+    echo "<script>location.href='admin.php';</script>";
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,9 +70,7 @@ catch(PDOException $e){
     echo "Connection Failed: " . $e->getMessage();
 }
 
-if ( isset($_POST['username'], $_POST['password']) ) {
-	//exit('Please fill both the username and password fields!');
-
+if (isset($_POST['username'], $_POST['password']) ) {
 
     if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
 	    // Bind parameters.
@@ -80,7 +83,7 @@ if ( isset($_POST['username'], $_POST['password']) ) {
             $id = $row['id'];
             $hashed_password = $row['password'];
 
-            // Account exists, now we verify the password.
+            // Account exists -> verify the password.
             if (password_verify($_POST['password'], $hashed_password)) {
                 // Verification success
                 // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
