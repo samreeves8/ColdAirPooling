@@ -1,4 +1,11 @@
 <?php
+
+    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
     if (isset($_POST['val'])){
         $val = isset($_POST['val']) ? $_POST['val'] : null;
