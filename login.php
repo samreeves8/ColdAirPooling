@@ -50,6 +50,47 @@ session_start();
 
 <?php
 
+$servername = "localhost";
+$dbname = "gunniso1_SensorData";
+$username = "gunniso1_Admin";
+$password = "gunnisoncoldair";
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    exit("Connection Failed: " . $e->getMessage());
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? null;
+    $password = $_POST['password'] ?? null;
+
+    if (!empty($username) && !empty($password)) {
+        $stmt = $pdo->prepare('SELECT id, password FROM accounts WHERE username = :username');
+        $stmt->execute(['username' => $username]);
+
+        $account = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        if ($account !== false && password_verify($password, $account['password'])) {
+            session_start();
+            $_SESSION['loggedin'] = 1;
+            $_SESSION['name'] = $username;
+            $_SESSION['id'] = $account['id'];
+            header('Location: admin.php');
+            exit();
+        } else {
+            $error = 'Incorrect username and/or password!';
+        }
+    } else {
+        $error = 'Please fill both the username and password fields!';
+    }
+}
+
+?>
+
+/*
 try {
     $servername = "localhost";
     $dbname = "gunniso1_SensorData";
@@ -91,15 +132,12 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 
         } 
         
-        if(!password_verify($_POST['password'], $hashed_password)){
-            echo '<div class="error">Incorrect username and/or password!</div>';
+        else {
+            echo "<script>alert('Incorrect username and/or password!');</script>";
         }
-        //else {
-            //echo "<script>alert('Incorrect username and/or password!');</script>";
-        //}
-    } //else {
-        //echo '<div class="error">Incorrect username and/or password!</div>';
-    //}
+    } else {
+        echo '<div class="error">Incorrect username and/or password!</div>';
+    }
 	$stmt->closeCursor();
 }
-?>
+?>*/
