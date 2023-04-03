@@ -11,7 +11,7 @@
           echo "The value is: " . $val;
         }
 
-        foreach($sensors as $sensor){
+        foreach($unserializedArray as $sensor){
             $table = null;
             if(in_array($sensor, $humidity)){
                 $table = "HumidData";
