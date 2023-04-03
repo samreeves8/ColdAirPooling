@@ -114,11 +114,7 @@
         }
 
         $serializedArray = serialize($sensors);
-        print_r($sensors);
-        print_r($serializedArray);
-        $unserializedArray = unserialize($serializedArray);
-        print_r($unserializedArray);
-
+    
         echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
@@ -158,39 +154,29 @@
         </script>";
 
         if (isset($_POST['val'])){
-            print_r($_POST);
             $val = isset($_POST['val']) ? $_POST['val'] : null;
-            $sensors = unserialize($_POST['sensors']);
-            print_r($sensors);
-            $dateStart = $_POST['dateStart'];
-            $dateEnd = $_POST['dateEnd'];
-            $timeStart = $_POST['timeStart'];
-            $timeEnd = $_POST['timeEnd'];
-            $table = $_POST['table'];
-            $dateTimeStart = $dateStart . ' '.$timeStart;
-            $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
             if ($val !== null) {
               // Do something with the value
               echo "The value is: " . $val;
             }
-    
-            foreach($sensors as $sensor){
-                $table = null;
-                if(in_array($sensor, $humidity)){
-                    $table = "HumidData";
-                }else{
-                    $table = "TempData";
-                }
-    
-                $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-                MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-                FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-    
-                echo $sqlString;
-            }
         }
+
+        foreach($sensors as $sensor){
+            $table = null;
+            if(in_array($sensor, $humidity)){
+                $table = "HumidData";
+            }else{
+                $table = "TempData";
+            }
     
+            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
+            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
+    
+            echo $sqlString;
+        }
     }
+    
         //x, table, startdatetime, endadatetime
 
         // 3 minutes - x is 1 or 2
