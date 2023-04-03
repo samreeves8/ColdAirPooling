@@ -32,12 +32,12 @@ session_start();
 
             <div class="textbox">
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <input type="text" placeholder="Username" name="username" value="">
+                <input type="text" placeholder="Username" name="username" value="" required>
             </div>
 
             <div class="textbox">
                 <i class="fa fa-lock" aria-hidden="true"></i>
-                <input type="password" placeholder="Password" name="password" value="">
+                <input type="password" placeholder="Password" name="password" value="" required>
             </div>
 
             <input class="button" type="submit" name="login" value="Sign In">
@@ -50,47 +50,6 @@ session_start();
 
 <?php
 
-$servername = "localhost";
-$dbname = "gunniso1_SensorData";
-$username = "gunniso1_Admin";
-$password = "gunnisoncoldair";
-
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    exit("Connection Failed: " . $e->getMessage());
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? null;
-    $password = $_POST['password'] ?? null;
-
-    if (!empty($username) && !empty($password)) {
-        $stmt = $pdo->prepare('SELECT id, password FROM accounts WHERE username = :username');
-        $stmt->execute(['username' => $username]);
-
-        $account = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-
-        if ($account !== false && password_verify($password, $account['password'])) {
-            session_start();
-            $_SESSION['loggedin'] = 1;
-            $_SESSION['name'] = $username;
-            $_SESSION['id'] = $account['id'];
-            header('Location: admin.php');
-            exit();
-        } else {
-            $error = 'Incorrect username and/or password!';
-        }
-    } else {
-        $error = 'Please fill both the username and password fields!';
-    }
-}
-
-?>
-
-/*
 try {
     $servername = "localhost";
     $dbname = "gunniso1_SensorData";
@@ -129,15 +88,14 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['name'] = $_POST['username'];
             $_SESSION['id'] = $id;
             echo "<script>location.href='admin.php';</script>";
-
         } 
         
         else {
-            echo "<script>alert('Incorrect username and/or password!');</script>";
+           // echo "<script>alert('Incorrect username and/or password!');</script>";
         }
     } else {
-        echo '<div class="error">Incorrect username and/or password!</div>';
+        //echo '<div class="error">Incorrect username and/or password!</div>';
     }
 	$stmt->closeCursor();
 }
-?>*/
+?>
