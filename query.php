@@ -115,7 +115,7 @@
 
         $serializedArray = serialize($sensors);
     
-        echo "<form id = 'rangeForm' action='query.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
+        echo "<form id = 'rangeForm' action='queryResults.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         $counter = 0;
         foreach($rangeArr as $currRange){
             echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
@@ -123,10 +123,6 @@
         }
         echo "</select>";
         echo "<input type='hidden' name='sensors' value='$serializedArray'>";
-        echo "<input type='hidden' name='dateStart' value='$dateStart'>";
-        echo "<input type='hidden' name='dateEnd' value='$dateEnd'>";
-        echo "<input type='hidden' name='timeStart' value='$timeStart'>";
-        echo "<input type='hidden' name='timeEnd' value='$timeEnd'>";
         echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
         echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
         echo "<input type='hidden' name='val' id='valField' value='$val'>";
@@ -152,29 +148,6 @@
                 document.getElementById('rangeForm').submit();
             }
         </script>";
-
-        if (isset($_POST['val'])){
-            $val = isset($_POST['val']) ? $_POST['val'] : null;
-            if ($val !== null) {
-              // Do something with the value
-              echo "The value is: " . $val;
-            }
-        }
-
-        foreach($sensors as $sensor){
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
-    
-            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/'$val') AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-    
-            echo $sqlString;
-        }
     }
     
         //x, table, startdatetime, endadatetime
