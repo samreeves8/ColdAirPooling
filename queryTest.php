@@ -34,12 +34,11 @@
         echo "<form method = 'POST'>";
         if($currentFormIndex == 0){
             include("queryIndexOne.html");
-
-            
         }else if($currentFormIndex == 1){
-            echo "<h1> Insert date and time range for data you want to see: </h1>";
+            
             echo 
-            '<label for="dateStart">Select a start date:</label>
+            '<h1> Insert date and time range for data you want to see: </h1>
+            <label for="dateStart">Select a start date:</label>
             <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
             <label for="timeStart">Select a start time:</label>
             <input type="time" id="timeStart" name="timeStart" value = "00:00">
