@@ -65,35 +65,36 @@ catch(PDOException $e){
     echo "Connection Failed: " . $e->getMessage();
 }
 
-if ( !isset($_POST['username'], $_POST['password']) ) {
+if ( isset($_POST['username'], $_POST['password']) ) {
 	//exit('Please fill both the username and password fields!');
-}
 
-if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
-	// Bind parameters.
-	$stmt->bindParam(1, $_POST['username']);
-	$stmt->execute();
-	// Store the result so we can check if the account exists in the database.
 
-    if ($stmt->rowCount() > 0) {
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $id = $row['id'];
-        $hashed_password = $row['password'];
+    if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
+	    // Bind parameters.
+	    $stmt->bindParam(1, $_POST['username']);
+	    $stmt->execute();
+	    // Store the result so we can check if the account exists in the database.
 
-        // Account exists, now we verify the password.
-        if (password_verify($_POST['password'], $hashed_password)) {
-            // Verification success
-            // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
-            $_SESSION['loggedin'] = 1;
-            $_SESSION['name'] = $_POST['username'];
-            $_SESSION['id'] = $id;
-            echo "<script>location.href='admin.php';</script>";
+        if ($stmt->rowCount() > 0) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id = $row['id'];
+            $hashed_password = $row['password'];
+
+            // Account exists, now we verify the password.
+            if (password_verify($_POST['password'], $hashed_password)) {
+                // Verification success
+                // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
+                $_SESSION['loggedin'] = 1;
+                $_SESSION['name'] = $_POST['username'];
+                $_SESSION['id'] = $id;
+                echo "<script>location.href='admin.php';</script>";
+            } else {
+                echo "<div class='error'>Incorrect username and/or password!</div>";
+            }
         } else {
-            echo "<div class='error'>Incorrect username and/or password!</div>";
+            echo '<div class="error">Incorrect username and/or password!</div>';
         }
-    } else {
-        echo '<div class="error">Incorrect username and/or password!</div>';
+	    $stmt->closeCursor();
     }
-	$stmt->closeCursor();
 }
 ?>
