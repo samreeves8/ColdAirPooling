@@ -98,7 +98,6 @@ if (isset($_POST['toDelete'])) {
     }
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -108,6 +107,8 @@ if (isset($_POST['toDelete'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="admin.css">
+
     <title>Document</title>
 </head>
 <body>
