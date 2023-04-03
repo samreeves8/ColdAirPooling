@@ -55,7 +55,14 @@
 
             
             function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
-                var marker = L.marker([lat, lng]).addTo(map);
+                
+                const humidity = [\'01OBS\', \'10NEM\', \'17WIL\', \'21ALM\', \'24CAM\', \'29CAB\'];
+                var marker = null;
+                if(humidity.includes(id)){
+                    marker = L.circleMarker([lat, lng] , {color: \'red\', radius: 10}).addTo(map);
+                }else{
+                    marker = L.circleMarker([lat, lng], {color: \'blue\', radius: 10}).addTo(map);
+                }
                 marker.on(\'click\', function(e) {
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
                     <p>\
