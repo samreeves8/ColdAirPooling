@@ -90,9 +90,9 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             echo "<script>location.href='admin.php';</script>";
         } else {
             echo "<div class='error'>Incorrect username and/or password!</div>";
-    }
+        }
     } else {
-        //echo '<div class="error">Incorrect username and/or password!</div>';
+        echo '<div class="error">Incorrect username and/or password!</div>';
     }
 	$stmt->closeCursor();
 }
