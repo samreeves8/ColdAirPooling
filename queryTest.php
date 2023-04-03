@@ -61,7 +61,7 @@
                 if(humidity.includes(id)){
                     marker = L.circleMarker([lat, lng] , {color: \'red\', radius: 5}).addTo(map);
                 }else{
-                    marker = L.circleMarker([lat, lng], {color: \'blue\', radius: 5).addTo(map);
+                    marker = L.circleMarker([lat, lng], {color: \'blue\', radius: 5}).addTo(map);
                 }
                 marker.on(\'click\', function(e) {
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
