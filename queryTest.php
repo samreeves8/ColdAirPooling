@@ -35,7 +35,7 @@
         if($currentFormIndex == 0){
             include("queryIndexOne.html");
         }else if($currentFormIndex == 1){
-            
+
             echo 
             '<h1> Insert date and time range for data you want to see: </h1>
             <label for="dateStart">Select a start date:</label>
@@ -53,7 +53,6 @@
             echo "<h1> index 3 </h1>";
         }
 
-        echo "<input type = 'hidden' name = 'sensorSet' value = sensorSet>";
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
 
