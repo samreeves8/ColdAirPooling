@@ -158,6 +158,7 @@
         </script>";
 
         if (isset($_POST['val'])){
+            print_r($_POST);
             $val = isset($_POST['val']) ? $_POST['val'] : null;
             $sensors = unserialize($_POST['sensors']);
             print_r($sensors);
