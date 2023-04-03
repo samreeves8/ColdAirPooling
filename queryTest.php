@@ -20,15 +20,7 @@
         $currentFormIndex = $_POST['currentFormIndex'];
         $sensorSet = $_POST['sensor-set-input'];
 
-        if($currentFormIndex == 1 && empty($sensorSet)){
-            // $currentFormIndex = 0;
-            // echo '<meta http-equiv="refresh" content="0">';
-            // echo '<script>alert("Please select at least one sensor.")</script>';
-        }
-
-
         if(isset($_POST['next'])){
-            
             $currentFormIndex++;
 
         }elseif(isset($_POST['previous'])){
@@ -42,7 +34,7 @@
         if($currentFormIndex == 0){
             include("queryIndexOne.html");
         }else if($currentFormIndex == 1){
-
+            
             echo 
             '<h1> Insert date and time range for data you want to see: </h1>
             <label for="dateStart">Select a start date:</label>
@@ -56,6 +48,7 @@
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
 
+            echo $sensorSet;
 
             
         }else if($currentFormIndex == 2){
@@ -63,6 +56,7 @@
         }
 
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
+        echo "<input type='hidden' id='sensor-set-input' value='$sensorSet'>";
         
 
         if($currentFormIndex > 0){
