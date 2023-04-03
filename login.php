@@ -50,47 +50,118 @@ session_start();
 
 <?php
 
-$servername = "localhost";
-$dbname = "gunniso1_SensorData";
-$username = "gunniso1_Admin";
-$password = "gunnisoncoldair";
-
+// Include config file
 try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    exit("Connection Failed: " . $e->getMessage());
+    $servername = "localhost";
+    $dbname = "gunniso1_SensorData";
+    $dbusername = "gunniso1_Admin";
+    $dbpassword = "gunnisoncoldair";
+
+    $con = new PDO("mysql:host=$servername; dbname=gunniso1_SensorData", $dbusername, $dbpassword);
+
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'] ?? null;
-    $password = $_POST['password'] ?? null;
+catch(PDOException $e){
+    echo "Connection Failed: " . $e->getMessage();
+}
+// Define variables and initialize with empty values
+$username = $password = $confirm_password = "";
+$username_err = $password_err = $confirm_password_err = "";
+ 
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    // Validate username
+    if(empty(trim($_POST["username"]))){
+        $username_err = "Please enter a username.";
+    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+        $username_err = "Username can only contain letters, numbers, and underscores.";
+    } else{
+        // Prepare a select statement
+        $sql = "SELECT id FROM accounts WHERE username = :username";
+        
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+            
+            // Set parameters
+            $param_username = trim($_POST["username"]);
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                if($stmt->rowCount() == 1){
+                    $username_err = "This username is already taken.";
+                } else{
+                    $username = trim($_POST["username"]);
+                }
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
 
-    if (!empty($username) && !empty($password)) {
-        $stmt = $pdo->prepare('SELECT id, password FROM accounts WHERE username = :username');
-        $stmt->execute(['username' => $username]);
-
-        $account = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-
-        if ($account !== false && password_verify($password, $account['password'])) {
-            session_start();
-            $_SESSION['loggedin'] = 1;
-            $_SESSION['name'] = $username;
-            $_SESSION['id'] = $account['id'];
-            header('Location: admin.php');
-            exit();
-        } else {
-            $error = 'Incorrect username and/or password!';
+            // Close statement
+            unset($stmt);
         }
-    } else {
-        $error = 'Please fill both the username and password fields!';
     }
-}
+    
+    // Validate password
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password"])) < 6){
+        $password_err = "Password must have atleast 6 characters.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+    
+    // Validate confirm password
+    //if(empty(trim($_POST["confirm_password"]))){
+       // $confirm_password_err = "Please confirm password.";     
+   // } else{
+      //  $confirm_password = trim($_POST["confirm_password"]);
+      //  if(empty($password_err) && ($password != $confirm_password)){
+          //  $confirm_password_err = "Password did not match.";
+      //  }
+  //  }
+    
+    // Check input errors before inserting in database
+    //if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($username_err) && empty($password_err)){
 
+        
+        // Prepare an insert statement
+        $sql = "INSERT INTO accounts (username, password) VALUES (:username, :password)";
+         
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+            $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+            
+            // Set parameters
+            $param_username = $username;
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // Redirect to login page
+                header("location: login.php");
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            unset($stmt);
+        }
+    }
+    
+    // Close connection
+    unset($pdo);
+}
 ?>
 
 /*
+?>
+
+
 try {
     $servername = "localhost";
     $dbname = "gunniso1_SensorData";
@@ -133,11 +204,11 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
         } 
         
         else {
-            echo "<script>alert('Incorrect username and/or password!');</script>";
+           // echo "<script>alert('Incorrect username and/or password!');</script>";
         }
     } else {
-        echo '<div class="error">Incorrect username and/or password!</div>';
+        //echo '<div class="error">Incorrect username and/or password!</div>';
     }
 	$stmt->closeCursor();
 }
-?>*/
+?>
