@@ -133,19 +133,21 @@
         "<script>
             function rangeSelected() {
                 const mySelect = document.getElementById('range');
-                const val = mySelect.value;
-                document.getElementById('valField').value = val;
-        
+                const selectedOption = mySelect.options[mySelect.selectedIndex];
+                const val = selectedOption.value;
+                const selectedRange = selectedOption.text;
+                document.getElementById('valField').value = selectedRange;
+    
                 const xhr = new XMLHttpRequest();
                 xhr.open('POST', 'query.php', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        
+    
                 // Set the POST parameters
                 const params = 'val=' + encodeURIComponent(val);
                 xhr.send(params);
                 console.log(params);
                 console.log('sent request');
-
+    
                 document.getElementById('rangeForm').submit();
             }
         </script>";
