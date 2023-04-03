@@ -156,9 +156,8 @@
 
         if (isset($_POST['val'])){
             $val = isset($_POST['val']) ? $_POST['val'] : null;
-            $sensors = $_POST['sensors'];
-            $sensorsArray = unserialize($serializedArray);
-            print_r($sensorsArray);
+            $sensors = unserialize($_POST['sensors']);
+            print_r($sensors);
             $dateStart = $_POST['dateStart'];
             $dateEnd = $_POST['dateEnd'];
             $timeStart = $_POST['timeStart'];
