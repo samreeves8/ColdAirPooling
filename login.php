@@ -89,12 +89,17 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
             $_SESSION['id'] = $id;
             echo "<script>location.href='admin.php';</script>";
 
-        } else {
-            echo "<script>alert('Incorrect username and/or password!');</script>";
+        } 
+        
+        if(!password_verify($_POST['password'], $hashed_password)){
+            echo '<div class="error">Incorrect username and/or password!</div>';
         }
-    } else {
-        echo '<div class="error">Incorrect username and/or password!</div>';
-    }
+        //else {
+            //echo "<script>alert('Incorrect username and/or password!');</script>";
+        //}
+    } //else {
+        //echo '<div class="error">Incorrect username and/or password!</div>';
+    //}
 	$stmt->closeCursor();
 }
 ?>

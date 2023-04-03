@@ -98,7 +98,6 @@ if (isset($_POST['toDelete'])) {
     }
 }
 
-
 ?>
 
 <!DOCTYPE html>
