@@ -67,10 +67,19 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
+                echo "<table>";
+                echo "<tr><th>Sensor</th><th>Start DateTime</th><th>End DateTime</th><th>Min Temperature</th><th>Max Temperature</th><th>Avg Temperature</th></tr>";
                 while ($row = $result->fetch_assoc()) {
-                    echo "Sensor: " . $sensor . ", StartDateTime: " . $row["StartDateTime"] . ", EndDateTime: " . $row["EndDateTime"] . "
-                    , MinTemperature: " . $row["MinTemperature"] . ", MaxTemperature: " . $row["MaxTemperature"] . ", AvgTemperature: " . $row["AvgTemperature"]. "<br>";
+                    echo "<tr>";
+                    echo "<td>" . $sensor . "</td>";
+                    echo "<td>" . $row["StartDateTime"] . "</td>";
+                    echo "<td>" . $row["EndDateTime"] . "</td>";
+                    echo "<td>" . $row["MinTemperature"] . "</td>";
+                    echo "<td>" . $row["MaxTemperature"] . "</td>";
+                    echo "<td>" . $row["AvgTemperature"] . "</td>";
+                    echo "</tr>";
                 }
+                echo "</table>";
             }
         }
     }
