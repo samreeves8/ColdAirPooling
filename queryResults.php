@@ -47,11 +47,40 @@
                 $table = "TempData";
             }
     
+            // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
+            // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
+            // $stmt = $conn->prepare($sql);
+            // $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
+            
+            // $stmt->execute();
+            // echo $sqlString."<br>";
+            // $result = $stmt->get_result();
+
+            // if ($result->num_rows > 0) {
+            //     while ($row = $result->fetch_assoc()) {
+            //         echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
+            //     }
+            // }
+
             $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/$x) AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
             MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
             FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-    
-            echo $sqlString;
+
+            $sql = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
+            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
+            FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum ORDER BY `Sensor` DESC;";
+               
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
+            $stmt->execute();
+            $result = $stmt->get_results();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "Sensor: " . $sensor . ", StartDateTime: " . $row["StartDateTime"] . ", EndDateTime: " . $row["EndDateTime"] . "
+                    , MinTemperature: " . $row["MinTemperature"] . ", MaxTemperature: " . $row["MaxTemperature"] . ", AvgTemperature: " . $row["AvgTemperature"]. "<br>";
+                }
+            }
         }
     }
 ?>
