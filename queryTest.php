@@ -59,9 +59,9 @@
                 const humidity = [\'01OBS\', \'10NEM\', \'17WIL\', \'24CAM\', \'29CAB\'];
                 var marker = null;
                 if(humidity.includes(id)){
-                    marker = L.marker([lat, lng] , {color: \'red\'}).addTo(map);
+                    marker = L.circleMarker([lat, lng] , {color: \'red\', radius: 5}).addTo(map);
                 }else{
-                    marker = L.marker([lat, lng]).addTo(map);
+                    marker = L.circleMarker([lat, lng], {color: \'blue\', radius: 5).addTo(map);
                 }
                 marker.on(\'click\', function(e) {
                     sidebar.innerHTML = \'<h2>Sensor \' + id + \'</h2>\
