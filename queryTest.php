@@ -18,7 +18,13 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
-        $sensorSet = $_POST['sensorSet'];
+        $sensorSet = $_POST['sensor-set-input'];
+
+        if($currentFormIndex == 1 && empty($sensorSet)){
+            $currentFormIndex = 0;
+            echo '<script>alert("Please select at least one sensor.")</script>';
+        }
+
 
         if(isset($_POST['next'])){
             
@@ -48,6 +54,8 @@
             <label for="timeEnd">Select an end time:</label>
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
+
+
             
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
