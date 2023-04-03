@@ -21,9 +21,9 @@
         $sensorSet = $_POST['sensor-set-input'];
 
         if($currentFormIndex == 1 && empty($sensorSet)){
-            $currentFormIndex = 0;
-            echo '<meta http-equiv="refresh" content="0">';
-            echo '<script>alert("Please select at least one sensor.")</script>';
+            // $currentFormIndex = 0;
+            // echo '<meta http-equiv="refresh" content="0">';
+            // echo '<script>alert("Please select at least one sensor.")</script>';
         }
 
 
