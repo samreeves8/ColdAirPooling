@@ -21,11 +21,16 @@
         $sensorSet = $_POST['sensor-set-input'];
 
         if($currentFormIndex == 1 && empty($sensorSet)){
-            // $currentFormIndex = 0;
-            // echo '<meta http-equiv="refresh" content="0">';
-            // echo '<script>alert("Please select at least one sensor.")</script>';
+            $errorMsg = "Please select at least one sensor";
+            $url = "previous-page-url?errorMsg=" . urlencode($errorMsg);
+            header("Location: $url");
+            exit();
         }
 
+        if (isset($_GET['errorMsg'])) {
+            $errorMsg = $_GET['errorMsg'];
+            echo '<div class="error-message">' . htmlspecialchars($errorMsg) . '</div>';
+        }
 
         if(isset($_POST['next'])){
             
