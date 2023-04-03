@@ -18,7 +18,13 @@
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
-        $sensorSet = $_POST['sensor-set-input'];
+
+        $sensorSet = null;
+        if($currentFormIndex>0){
+            $sensorSet = $_POST['sensor-set-input'];
+            
+        }
+        
 
         if(isset($_POST['next'])){
             $currentFormIndex++;
