@@ -56,11 +56,12 @@
         }
 
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
-        echo "<input type='hidden' id='sensor-set-input' value='$sensorSet'>";
+        
         
 
         if($currentFormIndex > 0){
             echo "<input type = 'submit' name = 'previous' value = 'Previous'>";
+            echo "<input type='hidden' id='sensor-set-input' value='$sensorSet'>";
         }
         if($currentFormIndex < 2){
             echo "<input type = 'submit' name = 'next' value = 'Next'>";
