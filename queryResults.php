@@ -96,7 +96,7 @@
               GROUP BY Sensor, GroupNum
             ) t
             WHERE t.GroupNum = 0
-            ORDER BY t.Sensor DESC;"
+            ORDER BY t.Sensor DESC;";
 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
