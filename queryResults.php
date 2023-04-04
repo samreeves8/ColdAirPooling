@@ -94,14 +94,14 @@
             GROUP BY Sensor, DateTime
             ORDER BY DateTime ASC;";
 
-            SELECT DateTime, Temperature 
-            FROM TempData 
-            WHERE Sensor = '02FAI' 
-            AND DateTime >= '2023-01-01 0:00:00' 
-            AND dateTime <= '2023-01-31 0:00:00' 
-            AND MINUTE(DateTime) % 1440 = 0 
-            GROUP BY Sensor, DateTime 
-            ORDER BY DateTime ASC
+            // SELECT DateTime, Temperature 
+            // FROM TempData 
+            // WHERE Sensor = '02FAI' 
+            // AND DateTime >= '2023-01-01 0:00:00' 
+            // AND dateTime <= '2023-01-31 0:00:00' 
+            // AND MINUTE(DateTime) % 1440 = 0 
+            // GROUP BY Sensor, DateTime 
+            // ORDER BY DateTime ASC
 
 
             // SELECT 
