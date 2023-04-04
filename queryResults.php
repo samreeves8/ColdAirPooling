@@ -82,9 +82,15 @@
             MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
             FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
 
-            $sql = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
-            FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum, DATE(DateTime) ORDER BY `Sensor` DESC;";
+            $sql = "SELECT t.Sensor, t.GroupNum, MIN(t.DateTime) AS StartDateTime, MAX(t.DateTime) AS EndDateTime,
+                MIN(t.Temperature) AS MinTemperature, MAX(t.Temperature) AS MaxTemperature, ROUND(AVG(t.Temperature),2) AS AvgTemperature
+                FROM (
+                SELECT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, DateTime, Temperature
+                FROM " . $table . ", (SELECT @row_number:=0) AS t
+                WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ?
+                ) AS t
+                GROUP BY t.GroupNum
+                ORDER BY t.Sensor DESC, t.GroupNum;";
 
                
             $stmt = $conn->prepare($sql);
