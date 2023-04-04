@@ -109,7 +109,7 @@
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $sensor . "</td>";
-                    echo "<td>" . $row["GroupNum"] . "</td>"
+                    echo "<td>" . $row["GroupNum"] . "</td>";
                     echo "<td>" . $row["StartDateTime"] . "</td>";
                     echo "<td>" . $row["EndDateTime"] . "</td>";
                     echo "<td>" . $row["MinTemperature"] . "</td>";
