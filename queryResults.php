@@ -108,7 +108,7 @@
             // FROM TempData WHERE Sensor = '02FAI' AND dateTime BETWEEN '2023-01-01 0:00:00' AND '2023-01-31 0:00:00' 
             // GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV 24 ORDER BY interval_start ASC
         
-            $sql = "SELECT Sensor, DATE_FOMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, AVG(temperature) AS Temperature
+            $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, AVG(temperature) AS Temperature
                     FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                     GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
 
