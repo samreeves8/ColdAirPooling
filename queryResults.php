@@ -110,17 +110,19 @@
                     echo "<td>" . $row["MaxTemperature"] . "</td>";
                     echo "<td>" . $row["AvgTemperature"] . "</td>";
                     echo "</tr>";
+
+                    $temp[] = $row['AvgTemperature'];
+                    $date[] = $row['StartDateTime'];
+    
+                    $allArrays[] = array(
+                        'label' => $sensor,
+                        'temp' => $temp,
+                        'date' => $date
+                    );
                 }
                 echo "</table>";
 
-                $temp[] = $row['AvgTemperature'];
-                $date[] = $row['StartDateTime'];
 
-                $allArrays[] = array(
-                    'label' => $sensor,
-                    'temp' => $temp,
-                    'date' => $date
-                );
                 
             }
         }
