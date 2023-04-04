@@ -82,10 +82,22 @@
             MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
             FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
 
-            $sql = "SELECT DISTINCT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
-            FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum ORDER BY `Sensor` DESC;";
+            // $sql = "SELECT DISTINCT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
+            // MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
+            // FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum ORDER BY `Sensor` DESC;";
                
+
+            $sql = "SELECT t.Sensor, t.GroupNum, t.StartDateTime, t.EndDateTime, t.MinTemperature, t.MaxTemperature, t.AvgTemperature
+            FROM (
+              SELECT Sensor, FLOOR((@row_number:=@row_number+1)/".$x.") AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
+                MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
+              FROM ". $table. ", (SELECT @row_number:=0) AS t 
+              WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? 
+              GROUP BY Sensor, GroupNum
+            ) t
+            WHERE t.GroupNum = 0
+            ORDER BY t.Sensor DESC;"
+
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
             $stmt->execute();
