@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
     <link rel = "stylesheet" href = "query.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -91,6 +92,7 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
+                echo "";
                 echo "<table>";
                 echo "<tr><th>Sensor</th><th>Start DateTime</th><th>End DateTime</th><th>Min Temperature</th><th>Max Temperature</th><th>Avg Temperature</th></tr>";
                 while ($row = $result->fetch_assoc()) {
@@ -104,7 +106,53 @@
                     echo "</tr>";
                 }
                 echo "</table>";
+
+                while ($row = $result->fetch_assoc()) {
+                    $temp[] = $row['Temperature'];
+                    $date[] = $row['DateTime'];
+                }
+                $allArrays[] = array(
+                    'label' => $sensor,
+                    'temp' => $temp,
+                    'date' => $date
+                );
             }
         }
+        $data = json_encode($allArrays);
+        echo '<canvas id="myChart"></canvas>
+        <script>
+            var allArrays = ' . $data . ';
+            var datasets = [];
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                datasets.push({
+                    label: allArrays[i].label,
+                    data: data,
+                    borderColor: getRandomColor(),
+                    fill: false
+                });
+            }
+    
+            new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    legend: {display: true}
+                }
+            });
+    
+            function getRandomColor() {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        </script>';
     }
 ?>
