@@ -41,32 +41,46 @@
         $dateTimeEnd = $_POST['dateTimeEnd'];
         $serializedArray = $_POST['sensors'];
         $unserializedArray = unserialize($serializedArray);
-        
+        $minute = false;
+        $hour = false;
+
         if ($val !== null) {
             if($val == "3 Minutes"){
-                $x = 0.05;
+                $x = 3;
+                $minute =  true;
             } else if($val == "6 Minutes"){
-                $x = 0.1;
+                $x = 6;
+                $minute = true;
             } else if($val == "15 Minutes"){
-                $x = 0.25;
+                $x = 15;
+                $minute = true;
             } else if($val == "30 Minutes"){
-                $x = 0.5;
+                $x = 30;
+                $minute = true;
             } else if($val == "1 Hour"){
                 $x = 1;
+                $hour = true;
             } else if($val == "2 Hours"){
                 $x = 2;
+                $hour = true;
             } else if($val == "4 Hours"){
                 $x = 4;
+                $hour = true;
             } else if($val == "12 Hours"){
                 $x = 12;
+                $hour = true;
             } else if($val == "Daily"){
                 $x = 24;
+                $hour = true;
             } else if($val == "Bi-Daily"){
                 $x = 48;
+                $hour = true;
             } else if($val == "Weekly"){
                 $x = 168;
+                $hour = true;
             } else if($val == "Bi-Weekly"){
                 $x = 336;
+                $hour = true;
             } else {
                 // handle any other cases or errors here
             }
@@ -82,14 +96,16 @@
             }else{
                 $table = "TempData";
             }
-
-            $sqlString = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/$x) AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-            MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            FROM $table, (SELECT @row_number:=0) AS t WHERE Sensor IN ('$sensor') AND DateTime BETWEEN '$dateTimeStart' AND '$dateTimeEnd' GROUP BY Sensor, GroupNum  ORDER BY `Sensor`  DESC;";
-        
-            $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+            
+            if($minute == true){
+                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+            } else if($hour == true){
+                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+            }    
 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
