@@ -70,6 +70,8 @@
             }
         }
 
+        $allArrays = array();
+
         foreach($unserializedArray as $sensor){
             $table = null;
             if(in_array($sensor, $humidity)){
@@ -152,13 +154,12 @@
 
                     $temp[] = $row['Temperature'];
                     $date[] = $row['DateTime'];
-
-                    $allArrays[] = array(
-                        'label' => $sensor,
-                        'temp' => $temp,
-                        'date' => $date
-                    );
                 }
+                $allArrays[] = array(
+                    'label' => $sensor,
+                    'temp' => $temp,
+                    'date' => $date
+                );
                 echo "</table>";
                 
             }
