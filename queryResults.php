@@ -146,7 +146,7 @@
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $sensor . "</td>";
-                    echo "<td>" . $row["DataTime"] . "</td>";
+                    echo "<td>" . $row["DateTime"] . "</td>";
                     echo "<td>" . $row["Temperature"] . "</td>";
                     echo "</tr>";
 
