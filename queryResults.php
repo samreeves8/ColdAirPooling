@@ -42,29 +42,29 @@
         
         if ($val !== null) {
             if($val == "3 Minutes"){
-                $x = 1;
-            } else if($val == "6 Minutes"){
                 $x = 3;
-            } else if($val == "15 Minutes"){
+            } else if($val == "6 Minutes"){
                 $x = 6;
+            } else if($val == "15 Minutes"){
+                $x = 15;
             } else if($val == "30 Minutes"){
-                $x = 11;
+                $x = 30;
             } else if($val == "1 Hour"){
-                $x = 21;
+                $x = 60;
             } else if($val == "2 Hours"){
-                $x = 41;
+                $x = 120;
             } else if($val == "4 Hours"){
-                $x = 81;
+                $x = 240;
             } else if($val == "12 Hours"){
-                $x = 241;
+                $x = 720;
             } else if($val == "Daily"){
-                $x = 481;
+                $x = 1440;
             } else if($val == "Bi-Daily"){
-                $x = 961;
+                $x = 2880;
             } else if($val == "Weekly"){
-                $x = 3361;
+                $x = 10080;
             } else if($val == "Bi-Weekly"){
-                $x = 6721;
+                $x = 20160;
             } else {
                 // handle any other cases or errors here
             }
@@ -86,28 +86,28 @@
             // MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
             // FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY GroupNum ORDER BY `Sensor` DESC;";
                
-            SELECT DateTime, Temperature
-            FROM TempData
-            WHERE Sensor = '02FAI'
-            AND DateTime >= '2022-01-01 0:00:00' AND dateTime <= '2022-01-31 0:00:00'
-            AND MINUTE(DateTime) % 1440 = 0
+            $sql = "SELECT DateTime, Temperature
+            FROM ".$table."
+            WHERE Sensor = ?
+            AND DateTime >= ? AND DateTime <= ?
+            AND MINUTE(DateTime) % ".$x." = 0
             GROUP BY Sensor, DateTime
-            ORDER BY DateTime DESC;
+            ORDER BY DateTime ASC;";
 
 
-            SELECT 
-                DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i') AS time_interval, 
-                AVG(temperature) AS average_temperature
-            FROM 
-                sensors
-            WHERE 
-                sensor = '02FAI'
-                AND dateTime >= '2023-01-01 0:00:00' AND dateTime <= '2023-01-31 0:00:00'
-                AND MINUTE(dateTime) % 1440 = 0
-            GROUP BY 
-                time_interval
-            ORDER BY 
-                time_interval ASC;
+            // SELECT 
+            //     DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i') AS time_interval, 
+            //     AVG(temperature) AS average_temperature
+            // FROM 
+            //     sensors
+            // WHERE 
+            //     sensor = '02FAI'
+            //     AND dateTime >= '2023-01-01 0:00:00' AND dateTime <= '2023-01-31 0:00:00'
+            //     AND MINUTE(dateTime) % 1440 = 0
+            // GROUP BY 
+            //     time_interval
+            // ORDER BY 
+            //     time_interval ASC;
 
             SELECT DATE(dateTime) AS date, MIN(temperature) AS min_temp, MAX(temperature) AS max_temp
             FROM temperature_sensors
