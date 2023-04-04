@@ -93,7 +93,7 @@
             WHERE Sensor = ?
             AND DateTime >= ? AND DateTime <= ?
             AND MINUTE(DateTime) % ? = 0
-            GROUP BY Sensor, DateTime
+            GROUP BY DateTime
             ORDER BY DateTime ASC;";
 
             // SELECT DateTime, Temperature 
