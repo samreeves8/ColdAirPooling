@@ -27,6 +27,8 @@
 
 <?php
 
+    $temps = array();  
+    $dates = array();
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
     if (isset($_POST['val'])){
 
@@ -117,6 +119,8 @@
             $stmt->execute();
             $result = $stmt->get_result();
 
+            $temp = array();
+            $date = array();
             if ($result->num_rows > 0) {
                 echo "<table>";
                 echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature</th></tr>";
