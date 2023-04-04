@@ -42,29 +42,29 @@
         
         if ($val !== null) {
             if($val == "3 Minutes"){
-                $x = 3;
+                $x = 0.05;
             } else if($val == "6 Minutes"){
-                $x = 6;
+                $x = 0.1;
             } else if($val == "15 Minutes"){
-                $x = 15;
+                $x = 0.25;
             } else if($val == "30 Minutes"){
-                $x = 30;
+                $x = 0.5;
             } else if($val == "1 Hour"){
-                $x = 60;
+                $x = 1;
             } else if($val == "2 Hours"){
-                $x = 120;
+                $x = 2;
             } else if($val == "4 Hours"){
-                $x = 240;
+                $x = 4;
             } else if($val == "12 Hours"){
-                $x = 720;
+                $x = 12;
             } else if($val == "Daily"){
                 $x = 24;
             } else if($val == "Bi-Daily"){
-                $x = 2880;
+                $x = 48;
             } else if($val == "Weekly"){
-                $x = 10080;
+                $x = 168;
             } else if($val == "Bi-Weekly"){
-                $x = 20160;
+                $x = 336;
             } else {
                 // handle any other cases or errors here
             }
