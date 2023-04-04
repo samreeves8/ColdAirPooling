@@ -109,11 +109,11 @@
             // ORDER BY 
             //     time_interval ASC;
 
-            SELECT DATE(dateTime) AS date, MIN(temperature) AS min_temp, MAX(temperature) AS max_temp
-            FROM temperature_sensors
-            WHERE sensor_name = 'your_sensor_name'
-            AND dateTime >= 'your_start_date_time' AND dateTime <= 'your_end_date_time'
-            GROUP BY DATE(dateTime)
+            // SELECT DATE(dateTime) AS date, MIN(temperature) AS min_temp, MAX(temperature) AS max_temp
+            // FROM temperature_sensors
+            // WHERE sensor_name = 'your_sensor_name'
+            // AND dateTime >= 'your_start_date_time' AND dateTime <= 'your_end_date_time'
+            // GROUP BY DATE(dateTime)
 
             // $sql = "SELECT t.Sensor, t.GroupNum, t.StartDateTime, t.EndDateTime, t.MinTemperature, t.MaxTemperature, t.AvgTemperature
             // FROM (
