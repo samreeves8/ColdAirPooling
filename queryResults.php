@@ -93,7 +93,6 @@
             WHERE Sensor = ?
             AND DateTime >= ? AND DateTime <= ?
             AND MINUTE(DateTime) % ? = 0
-            GROUP BY DateTime
             ORDER BY DateTime ASC;";
 
             // SELECT DateTime, Temperature 
@@ -103,39 +102,15 @@
             // AND dateTime <= '2023-01-31 0:00:00' 
             // AND MINUTE(DateTime) % 1440 = 0 
             // GROUP BY Sensor, DateTime 
-            // ORDER BY DateTime ASC
 
-
-            // SELECT 
-            //     DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i') AS time_interval, 
-            //     AVG(temperature) AS average_temperature
-            // FROM 
-            //     sensors
-            // WHERE 
-            //     sensor = '02FAI'
-            //     AND dateTime >= '2023-01-01 0:00:00' AND dateTime <= '2023-01-31 0:00:00'
-            //     AND MINUTE(dateTime) % 1440 = 0
-            // GROUP BY 
-            //     time_interval
-            // ORDER BY 
-            //     time_interval ASC;
-
-            // SELECT DATE(dateTime) AS date, MIN(temperature) AS min_temp, MAX(temperature) AS max_temp
-            // FROM temperature_sensors
-            // WHERE sensor_name = 'your_sensor_name'
-            // AND dateTime >= 'your_start_date_time' AND dateTime <= 'your_end_date_time'
-            // GROUP BY DATE(dateTime)
-
-            // $sql = "SELECT t.Sensor, t.GroupNum, t.StartDateTime, t.EndDateTime, t.MinTemperature, t.MaxTemperature, t.AvgTemperature
-            // FROM (
-            //   SELECT Sensor, FLOOR((@row_number:=@row_number+1)/".$x.") AS GroupNum, MIN(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime, 
-            //     MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
-            //   FROM ". $table. ", (SELECT @row_number:=0) AS t 
-            //   WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? 
-            //   GROUP BY Sensor
-            // ) t
-            // WHERE t.GroupNum = 0
-            // ORDER BY t.Sensor DESC;";
+            // SET @interval = 24; -- Specify the interval length in hours
+            // SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS interval_start, AVG(temperature) AS average_temperature 
+            // FROM TempData WHERE Sensor = '02FAI' AND dateTime BETWEEN '2023-01-01 0:00:00' AND '2023-01-31 0:00:00' 
+            // GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV 24 ORDER BY interval_start ASC
+        
+            $sql = "SELECT Sensor, DATE_FOMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, AVG(temperature) AS Temperature
+                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
 
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
@@ -144,7 +119,7 @@
 
             if ($result->num_rows > 0) {
                 echo "<table>";
-                echo "<tr><th>Sensor</th><th>DateTime</th><th>Temperature</th></tr>";
+                echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature</th></tr>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $sensor . "</td>";
