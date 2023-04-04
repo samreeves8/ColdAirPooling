@@ -73,7 +73,8 @@
         }
 
         $allArrays = array();
-
+        echo "<table>";
+        echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature</th></tr>";
         foreach($unserializedArray as $sensor){
             $table = null;
             if(in_array($sensor, $humidity)){
@@ -122,8 +123,6 @@
             $temp = array();
             $date = array();
             if ($result->num_rows > 0) {
-                echo "<table>";
-                echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature</th></tr>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $sensor . "</td>";
@@ -139,11 +138,11 @@
                     'temp' => $temp,
                     'date' => $date
                 );
-                echo "</table>";
+                
                 
             }
         }
-
+        echo "</table>";
         $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>
         <script>
