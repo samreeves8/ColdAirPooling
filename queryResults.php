@@ -12,7 +12,7 @@
 <body>
     <div class="navbar">
          <ul class="menu">
-            <li><a href="/">Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
             <li><a href="query.php">Query</a></li>
@@ -92,7 +92,6 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo "";
                 echo "<table>";
                 echo "<tr><th>Sensor</th><th>Start DateTime</th><th>End DateTime</th><th>Min Temperature</th><th>Max Temperature</th><th>Avg Temperature</th></tr>";
                 while ($row = $result->fetch_assoc()) {
@@ -107,17 +106,18 @@
                 }
                 echo "</table>";
 
-                while ($row = $result->fetch_assoc()) {
-                    $temp[] = $row['Temperature'];
-                    $date[] = $row['DateTime'];
-                }
+                $temp[] = $row['AvgTemperature'];
+                $date[] = $row['EndDateTime'];
+
                 $allArrays[] = array(
                     'label' => $sensor,
                     'temp' => $temp,
                     'date' => $date
                 );
+                
             }
         }
+
         $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>
         <script>
