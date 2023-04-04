@@ -114,7 +114,7 @@
                 echo "</table>";
 
                 $temp[] = $row['AvgTemperature'];
-                $date[] = $row['EndDateTime'];
+                $date[] = $row['StartDateTime'];
 
                 $allArrays[] = array(
                     'label' => $sensor,
