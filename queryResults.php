@@ -58,7 +58,7 @@
             } else if($val == "12 Hours"){
                 $x = 720;
             } else if($val == "Daily"){
-                $x = 1440;
+                $x = 24;
             } else if($val == "Bi-Daily"){
                 $x = 2880;
             } else if($val == "Weekly"){
