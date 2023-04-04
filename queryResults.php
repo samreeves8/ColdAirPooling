@@ -84,7 +84,8 @@
 
             $sql = "SELECT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
             MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
-            FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum ORDER BY `Sensor` DESC;";
+            FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY Sensor, GroupNum, DATE(DateTime) ORDER BY `Sensor` DESC;";
+
                
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);

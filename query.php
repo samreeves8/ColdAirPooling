@@ -168,24 +168,7 @@
         // Weekly - x is 3361
         // Bi-Weekly - x is 6721
         // S is sensor
-        // startDate and endDate are variables
-
-            // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
-            // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
-            // $stmt = $conn->prepare($sql);
-            // $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
-            
-            // $stmt->execute();
-            // echo $sqlString."<br>";
-            // $result = $stmt->get_result();
-
-            // if ($result->num_rows > 0) {
-            //     while ($row = $result->fetch_assoc()) {
-            //         echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
-            //     }
-            // }
-        
-        // }
+        // startDate and endDate are variable
     
 ?>
 
