@@ -93,7 +93,7 @@
                 MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature 
               FROM ". $table. ", (SELECT @row_number:=0) AS t 
               WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? 
-              GROUP BY Sensor, GroupNum
+              GROUP BY Sensor, DateTime
             ) t
             WHERE t.GroupNum = 0
             ORDER BY t.Sensor DESC;";
