@@ -92,7 +92,7 @@
             FROM ".$table."
             WHERE Sensor = ?
             AND DateTime >= ? AND DateTime <= ?
-            AND MINUTE(DateTime) % ".$x." = 0
+            AND MINUTE(DateTime) % ? = 0
             GROUP BY Sensor, DateTime
             ORDER BY DateTime ASC;";
 
@@ -138,7 +138,7 @@
             // ORDER BY t.Sensor DESC;";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
+            $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
             $stmt->execute();
             $result = $stmt->get_result();
 
