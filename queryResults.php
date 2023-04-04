@@ -105,10 +105,11 @@
 
             if ($result->num_rows > 0) {
                 echo "<table>";
-                echo "<tr><th>Sensor</th><th>Start DateTime</th><th>End DateTime</th><th>Min Temperature</th><th>Max Temperature</th><th>Avg Temperature</th></tr>";
+                echo "<tr><th>Sensor</th><th>GroupNum</th><th>Start DateTime</th><th>End DateTime</th><th>Min Temperature</th><th>Max Temperature</th><th>Avg Temperature</th></tr>";
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $sensor . "</td>";
+                    echo "<td>" . $row["GroupNum"] . "</td>"
                     echo "<td>" . $row["StartDateTime"] . "</td>";
                     echo "<td>" . $row["EndDateTime"] . "</td>";
                     echo "<td>" . $row["MinTemperature"] . "</td>";
