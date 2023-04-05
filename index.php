@@ -109,7 +109,3 @@ session_start();
     
     
 ?>
-<br>
-<form action="./importCSV.php" method="post" name="uploadFile" id="uploadFile">
-    <button type="submit" id="submit" name="upload" class="btn-submit"> Upload File </button>
-</form>
