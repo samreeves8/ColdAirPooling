@@ -19,6 +19,27 @@
             <li><a href="graph.php">Graph's</a></li>
          </ul>
     </div>
+    <script>
+            function rangeSelected() {
+                const mySelect = document.getElementById('range');
+                const selectedOption = mySelect.options[mySelect.selectedIndex];
+                const val = selectedOption.value;
+                const selectedRange = selectedOption.text;
+                document.getElementById('valField').value = selectedRange;
+    
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'query.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+                // Set the POST parameters
+                const params = 'val=' + encodeURIComponent(val);
+                xhr.send(params);
+                console.log(params);
+                console.log('sent request');
+    
+                document.getElementById('rangeForm').submit();
+            }
+        </script>
 </body>
 </html>
 
@@ -98,10 +119,10 @@
             $rangeArr = array('15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
         }else if($timedif <= 604800){
             echo "Between 1 day and 1 week";
-            $rangeArr = array('1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
+            $rangeArr = array('15 Minutes','30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
         }else if($timedif <= 5184000){
             echo "Between 1 week and 2 months";
-            $rangeArr = array('12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
+            $rangeArr = array('4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
         }else if($timedif <= 31536000){
             echo "Between 2 months and 1 year";
             $rangeArr = array('Daily', 'Bi-Daily', 'Weekly', 'Monthly');
@@ -129,28 +150,7 @@
         echo "<input type='hidden' name='val' id='valField' value='$val'>";
         echo "</form>";
 
-        echo 
-        "<script>
-            function rangeSelected() {
-                const mySelect = document.getElementById('range');
-                const selectedOption = mySelect.options[mySelect.selectedIndex];
-                const val = selectedOption.value;
-                const selectedRange = selectedOption.text;
-                document.getElementById('valField').value = selectedRange;
     
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'query.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-                // Set the POST parameters
-                const params = 'val=' + encodeURIComponent(val);
-                xhr.send(params);
-                console.log(params);
-                console.log('sent request');
-    
-                document.getElementById('rangeForm').submit();
-            }
-        </script>";
     }
     
         //x, table, startdatetime, endadatetime
@@ -171,13 +171,3 @@
         // startDate and endDate are variable
     
 ?>
-
-
-
-
-
-
-
-
-
-
