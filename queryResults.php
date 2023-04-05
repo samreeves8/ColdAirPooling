@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
     <link rel = "stylesheet" href = "query.css">
+    <link rel = "stylesheet" href = "table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -135,7 +136,7 @@
         foreach ($unserializedArray as $sensor){
           echo "<div id='$sensor' class='tab-panel'>
             <table>
-              <tr><th>DateTime</th><th>Average Temperature (F)</th></tr>";
+              <tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
             
               //Determine which table to query 
             $table = null;
@@ -165,6 +166,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
+                    echo "<td>" . $sensor . "</td>";
                     echo "<td>" . $row["DateTime"] . "</td>";
                     echo "<td>" . $row["Temperature"] . "</td>";
                     echo "</tr>";
