@@ -134,7 +134,6 @@ if (isset($_POST['toDelete'])) {
                 echo '<li><a href="login.php">Login</a></li>';
             }
         ?>
-        <li><a href="login.php">Log In</a></li>
      </ul>
 </div>
 <h1>Welcome, <?php echo $_SESSION['name']; ?>!</h1><br>
