@@ -8,6 +8,8 @@
     <link rel = "stylesheet" href = "query.css">
     <link rel = "stylesheet" href = "table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <!-- script to create tabs -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
         // get all tab links and panels
@@ -44,7 +46,7 @@
         });
         });
     </script>
-    <title>Document</title>
+    <title>Query Results</title>
 </head>
 <body>
     <div class="navbar">
@@ -63,16 +65,20 @@
 
 
 <?php
-
+    //predefine arrays used for Query/graphs
     $temps = array();  
     $dates = array();
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+
     if (isset($_POST['val'])){
 
+        //connect to database
         $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
+
+        //gather variables from post request, used in query params
         $val = isset($_POST['val']) ? $_POST['val'] : null;
         $dateTimeStart = $_POST['dateTimeStart'];
         $dateTimeEnd = $_POST['dateTimeEnd'];
@@ -81,6 +87,7 @@
         $minute = false;
         $hour = false;
 
+        //set interval value either in minutes or hours
         if ($val !== null) {
             if($val == "3 Minutes"){
                 $x = 3;
@@ -118,13 +125,9 @@
             } else if($val == "Bi-Weekly"){
                 $x = 336;
                 $hour = true;
-            } else {
-                // handle any other cases or errors here
-            }
         }
 
-
-        
+        //code to display table and graph
         $allArrays = array();
         echo "<div class='tab-container'>
         <ul class='tab-list'> ";
@@ -138,7 +141,7 @@
             <table>
               <tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
             
-              //Determine which table to query 
+            //Determine which table to query 
             $table = null;
             if(in_array($sensor, $humidity)){
                 $table = "HumidData";
@@ -156,6 +159,8 @@
                 FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                 GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
             }    
+
+            //prepare the query to prevent sql injection
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
             $stmt->execute();
@@ -163,6 +168,7 @@
             $temp = array();
             $date = array();
 
+            //display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
@@ -174,6 +180,7 @@
                     $temp[] = $row['Temperature'];
                     $date[] = $row['DateTime'];
                 }
+                //add each row to array for graph
                 $allArrays[] = array(
                     'label' => $sensor,
                     'temp' => $temp,
@@ -183,6 +190,8 @@
             echo "</table></div>";
         }
         echo "</div>";
+
+        //Code to display graph
         $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>;
         <script>
