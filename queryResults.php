@@ -9,6 +9,40 @@
     <link rel = "stylesheet" href = "table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script>
+            var allArrays = ' . $data . ';
+            var datasets = [];
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                datasets.push({
+                    label: allArrays[i].label,
+                    data: data,
+                    borderColor: getRandomColor(),
+                    fill: false
+                });
+            }
+    
+            new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    legend: {display: true}
+                }
+            });
+    
+            function getRandomColor() {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
         // get all tab links and panels
         var tabLinks = document.querySelectorAll('.tab-list a');
@@ -183,91 +217,9 @@
             echo "</table></div>";
         }
         echo "</div>";
-        
-        // echo "<table>";
-        // echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
-        // foreach($unserializedArray as $sensor){
-        //     $table = null;
-        //     if(in_array($sensor, $humidity)){
-        //         $table = "HumidData";
-        //     }else{
-        //         $table = "TempData";
-        //     }
-        //     if($minute == true){
-        //         $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-        //         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-        //         GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-        //     } else if($hour == true){
-        //         $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-        //         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-        //         GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-        //     }    
-
-        //     $stmt = $conn->prepare($sql);
-        //     $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
-        //     $stmt->execute();
-        //     $result = $stmt->get_result();
-
-        //     $temp = array();
-        //     $date = array();
-        //     if ($result->num_rows > 0) {
-        //         while ($row = $result->fetch_assoc()) {
-        //             echo "<tr>";
-        //             echo "<td>" . $sensor . "</td>";
-        //             echo "<td>" . $row["DateTime"] . "</td>";
-        //             echo "<td>" . $row["Temperature"] . "</td>";
-        //             echo "</tr>";
-
-        //             $temp[] = $row['Temperature'];
-        //             $date[] = $row['DateTime'];
-        //         }
-        //         $allArrays[] = array(
-        //             'label' => $sensor,
-        //             'temp' => $temp,
-        //             'date' => $date
-        //         );
-                
-                
-        //     }
-        // }
-
-        // echo "</table>";
         $data = json_encode($allArrays);
-        echo '<canvas id="myChart"></canvas>
-        <script>
-            var allArrays = ' . $data . ';
-            var datasets = [];
-            for (var i = 0; i < allArrays.length; i++) {
-                var data = allArrays[i].temp.map(Number);
-                var labels = allArrays[i].date;
-                datasets.push({
-                    label: allArrays[i].label,
-                    data: data,
-                    borderColor: getRandomColor(),
-                    fill: false
-                });
-            }
-    
-            new Chart("myChart", {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    legend: {display: true}
-                }
-            });
-    
-            function getRandomColor() {
-                var letters = "0123456789ABCDEF";
-                var color = "#";
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
-        </script>';
+        echo '<canvas id="myChart"></canvas>';
+        
     }
 ?>
 
