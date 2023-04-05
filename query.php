@@ -113,7 +113,7 @@
             $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes');
         }else if($timedif <= 21600){
             echo "Between 3 hours and 6 hours";
-            $rangeArr = array('6 Minutes', '15 Minutes', '30 Minutes', '1 Hour');
+            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour');
         }else if($timedif <= 86400){
             echo "Between 6 hours and 1 day";
             $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
@@ -122,7 +122,7 @@
             $rangeArr = array('15 Minutes','30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
         }else if($timedif <= 5184000){
             echo "Between 1 week and 2 months";
-            $rangeArr = array('4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
+            $rangeArr = array('1 Hour', '4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
         }else if($timedif <= 31536000){
             echo "Between 2 months and 1 year";
             $rangeArr = array('Daily', 'Bi-Daily', 'Weekly', 'Monthly');
