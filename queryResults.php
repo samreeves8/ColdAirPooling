@@ -138,7 +138,7 @@
         foreach ($unserializedArray as $sensor){
         echo "<div id='$sensor' class='tab-panel'>
               <table>
-              <tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
+              <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th></tr>";
             
             //Determine which table to query 
             $table = null;
