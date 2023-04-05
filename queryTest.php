@@ -15,15 +15,12 @@
 </html>
 <?php
     $currentFormIndex = 0;
-
+    $sensorSet = null;
+    
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
 
-        $sensorSet = null;
-        if($currentFormIndex>0){
-            $sensorSet = $_POST['sensor-set-input'];
-            
-        }
+        
         
 
         if(isset($_POST['next'])){
@@ -31,6 +28,13 @@
 
         }elseif(isset($_POST['previous'])){
             $currentFormIndex--;
+        }
+
+        
+        if($currentFormIndex>0){
+            $sensorSet = json_decode($_POST['sensor-set-input']);
+            echo "<h1>" .  $sensorSet . "</h1>";
+            
         }
     }
 
@@ -54,13 +58,14 @@
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
 
-            echo $sensorSet;
+            
 
             
         }else if($currentFormIndex == 2){
             echo "<h1> index 3 </h1>";
         }
 
+    
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
         

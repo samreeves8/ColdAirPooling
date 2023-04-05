@@ -127,7 +127,6 @@ if (isset($_POST['toDelete'])) {
         <li><a href="query.php">Query</a></li>
         <li><a href="#">Members</a></li>
         <li><a href="login.php">Log In</a></li>
-        <li><a href="graph.php">Graph's</a></li>
      </ul>
 </div>
 <h1>Welcome, <?php echo $_SESSION['name']; ?>!</h1><br>
