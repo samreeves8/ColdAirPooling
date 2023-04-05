@@ -69,6 +69,7 @@
             addBtn.addEventListener('click', function() {
                 sensorSet.add(id);
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+    
             });
         });
     }
@@ -114,7 +115,7 @@
     });                    
 </script>
 
-<input type="hidden" id="sensor-set-input" value="">
+<input type="text" id="sensor-set-input" value="">
 
 <script>
     document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
