@@ -57,7 +57,6 @@
             <li><a href="query.php">Query</a></li>
             <li><a href="#">Members</a></li>
             <li><a href="login.php">Log In</a></li>
-            <li><a href="graph.php">Graph's</a></li>
          </ul>
     </div>
 </body>
@@ -139,7 +138,7 @@
         foreach ($unserializedArray as $sensor){
         echo "<div id='$sensor' class='tab-panel'>
               <table>
-              <tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
+              <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th></tr>";
             
             //Determine which table to query 
             $table = null;
