@@ -19,7 +19,8 @@
     
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
-
+        $sensorSet = json_decode($_POST['sensor-set-input']);
+        console.log($sensorSet);
         
         
 
@@ -32,8 +33,7 @@
 
         
         if($currentFormIndex>0){
-            $sensorSet = json_decode($_POST['sensor-set-input']);
-            echo "<h1>" .  $sensorSet . "</h1>";
+            
             
         }
     }
