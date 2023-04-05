@@ -33,7 +33,9 @@
         
         if($currentFormIndex>0){
             $sensorSet = json_decode($_POST['sensor-set-input']);
-            console.log("test");
+            
+            echo  'console.log("test");'
+           
         }
     }
 
