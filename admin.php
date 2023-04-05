@@ -128,7 +128,6 @@ if (isset($_POST['toDelete'])) {
         <li><a href="#">Members</a></li>
         <?php
             if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                // If the user is logged in, show the link to the update page
                 echo '<li><a href="logout.php">Logout</a></li>';
             } else {
                 echo '<li><a href="login.php">Login</a></li>';
