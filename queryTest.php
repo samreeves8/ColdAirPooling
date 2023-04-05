@@ -60,7 +60,7 @@
             <br>';
 
 
-            echo "<h2>" . $sensorSet . "<h2>";
+            echo "<h2>" . $sensorSet . "</h2>";
             
 
             
