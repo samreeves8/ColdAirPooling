@@ -15,7 +15,8 @@
 </html>
 <?php
     $currentFormIndex = 0;
-
+    $sensorSet = null;
+    
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
 
@@ -29,7 +30,7 @@
             $currentFormIndex--;
         }
 
-        $sensorSet = null;
+        
         if($currentFormIndex>0){
             $sensorSet = json_decode($_POST['sensor-set-input']);
             
@@ -63,6 +64,7 @@
             echo "<h1> index 3 </h1>";
         }
 
+    
         echo "<input type='hidden' name='currentFormIndex' value='$currentFormIndex'>";
         
         
