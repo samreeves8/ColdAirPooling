@@ -19,7 +19,7 @@
     
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
-        
+        echo "<script>console.log('" . json_encode($sensorSet) . "');</script>";
         
         
 
