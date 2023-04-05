@@ -21,7 +21,7 @@
 
         $sensorSet = null;
         if($currentFormIndex>0){
-            $sensorSet = $_POST['sensor-set-input'];
+            $sensorSet = json_decode($_POST['sensor-set-input']);
             
         }
         
