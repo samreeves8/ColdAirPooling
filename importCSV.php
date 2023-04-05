@@ -19,35 +19,26 @@ session_start();
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
         <?php
+            // Check if the user is logged in
             if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                echo '<li><a href="importCSV.php">Import CSV</a></li>';
+            // If the user is logged in, show the link to the update page
+            echo '<li><a href="importCSV.php">Import CSV</a></li>';
             }
         ?>
         <li><a href="query.php">Query</a></li>
         <li><a href="#">Members</a></li>
-        <?php
-            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                echo '<li><a href="logout.php">Logout</a></li>';
-            } else {
-                echo '<li><a href="login.php">Login</a></li>';
-            }
-        ?>
+        <li><a href="login.php">Log In</a></li>
      </ul>
 </div>
 </body>
 
-<form action="importCSV.php" method="post" name="frmCSVImport" id="frmCSVImport" enctype="multipart/form-data" onsubmit="return validateFile()" class="import-form">
+<form action="importCSV.php" method="post" name="frmCSVImport" id="frmCSVImport" enctype="multipart/form-data" onsubmit="return validateFile()">
   <div class="form-group">
-    <label for="file" class="form-label">Choose a file to import:</label>
-    <div class="file-upload">
-      <input type="file" name="file[]" id="file" class="form-control file-input" accept=".csv,.xls,.xlsx" multiple>
-      <span class="file-icon"><i class="fas fa-cloud-upload-alt"></i></span>
-      <span class="file-name">No file selected</span>
-    </div>
+    <label for="file">Choose your file:</label>
+    <input type="file" name="file[]" id="file" class="form-control-file" accept=".csv,.xls,.xlsx" multiple>
   </div>
-  <button type="submit" id="submit" name="import" class="btn btn-primary import-button">Import CSV and Save Data</button>
+  <button type="submit" id="submit" name="import" class="btn btn-primary">Import CSV and Save Data</button>
 </form>
-
 
 </html>
 
