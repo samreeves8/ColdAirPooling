@@ -1,4 +1,4 @@
-#sidebar {
+#sidebarTop {
   position: absolute;
   top: 0;
   right: 0;
@@ -13,15 +13,7 @@
   justify-content: space-between;
 }
 
-#sidebar .box {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-}
-
-#sidebarList{
+#sidebarBottom{
     position: absolute;
     top: 0;
     right: 0;

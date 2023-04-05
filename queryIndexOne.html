@@ -3,17 +3,8 @@
     <h1>Select sensors to view details</h1>
     <h2>Use the buttons within the sensor detail to select which sensors you want to visualize data for</h2>
     <div id="map" style="height: 640px; width: 960px;"></div>
-    <div id="sidebar">
-        <div class = "box">
-            <h2>Sensor details</h2>
-        </div>
-        <div class = "box">
-            <h2>Selected sensors</h2>
-            <div id="sidebarList">
-                <p>Current sensors selected: </p>
-            </div>
-        </div>
-    </div>
+    <div id="sidebarTop"></div>
+    <div id="sidebarBottom"></div>
     <input type="text" id="sensor-set-input" value="">
 </body>
 <script>
@@ -48,7 +39,7 @@
         */ 
 
         marker.on('click', function(e) {
-            sidebar.innerHTML = "<h2>Sensor " + id + "</h2>\
+            sidebarTop.innerHTML = "<h2>Sensor " + id + "</h2>\
             <p>\
             Latitude: " + lat + "\
             <br>\
@@ -71,7 +62,7 @@
             var removeBtn = document.getElementById('remove-btn');
             removeBtn.addEventListener('click', function() {
                 sensorSet.delete(id);
-                sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+                sidebarBottom.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
             });
 
@@ -79,7 +70,7 @@
             var addBtn = document.getElementById('add-btn');
             addBtn.addEventListener('click', function() {
                 sensorSet.add(id);
-                sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+                sidebarBottom.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
     
             });
