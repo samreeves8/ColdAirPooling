@@ -175,7 +175,7 @@
                     echo "<td>" . $sensor . "</td>";
 
                     $dateTime = new DateTime($row["DateTime"]);
-                    $formattedDateTime = $dateTime->format('M d, Y h:iA');
+                    $formattedDateTime = $dateTime->format('M d, Y h:ia');
 
                     echo "<td>" . $formattedDateTime . "</td>";
                     echo "<td>" . $row["Temperature"] . "</td>";
