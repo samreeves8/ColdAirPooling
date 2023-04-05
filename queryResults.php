@@ -130,7 +130,7 @@
         <ul class='tab-list'> ";
 
         foreach ($unserializedArray as $sensor){
-            echo "<li><a href='$sensor'>$sensor</a></li>";
+            echo "<li><a href='#$sensor'>$sensor</a></li>";
         }
         echo "</ul>";
         foreach ($unserializedArray as $sensor){
