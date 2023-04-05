@@ -33,6 +33,7 @@
         
         if($currentFormIndex>0){
             $sensorSet = json_decode($_POST['sensor-set-input']);
+            echo "<h1>" .  $sensorSet . "</h1>";
             
         }
     }
@@ -57,7 +58,7 @@
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
 
-            echo "<h1>" .  $sensorSet . "</h1>";
+            
 
             
         }else if($currentFormIndex == 2){
