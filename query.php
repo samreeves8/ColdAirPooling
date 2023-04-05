@@ -59,6 +59,8 @@ session_start();
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    echo "<form action = 'query.php' method = 'POST'>";
+
 
     include("queryIndexOne.html");
 
