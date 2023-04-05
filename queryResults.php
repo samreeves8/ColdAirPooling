@@ -173,12 +173,16 @@
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $sensor . "</td>";
-                    echo "<td>" . $row["DateTime"] . "</td>";
+
+                    $dateTime = new DateTime($row["DateTime"]);
+                    $formattedDateTime = $dateTime->format('M d, Y h:iA');
+
+                    echo "<td>" . $formattedDateTime . "</td>";
                     echo "<td>" . $row["Temperature"] . "</td>";
                     echo "</tr>";
 
                     $temp[] = $row['Temperature'];
-                    $date[] = $row['DateTime'];
+                    $date[] = $formattedDateTime;
                 }
                 //add each row to array for graph
                 $allArrays[] = array(
