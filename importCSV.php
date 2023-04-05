@@ -19,15 +19,19 @@ session_start();
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
         <?php
-            // Check if the user is logged in
             if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-            // If the user is logged in, show the link to the update page
-            echo '<li><a href="importCSV.php">Import CSV</a></li>';
+                echo '<li><a href="importCSV.php">Import CSV</a></li>';
             }
         ?>
         <li><a href="query.php">Query</a></li>
         <li><a href="#">Members</a></li>
-        <li><a href="login.php">Log In</a></li>
+        <?php
+            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            } else {
+                echo '<li><a href="login.php">Login</a></li>';
+            }
+        ?>
      </ul>
 </div>
 </body>

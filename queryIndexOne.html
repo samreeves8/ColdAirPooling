@@ -5,6 +5,7 @@
     <div id="map" style="height: 640px; width: 960px;"></div>
     <div id="sidebar"></div>
     <div id="sidebarList"></div>
+    <input type="text" id="sensor-set-input" value="">
 </body>
 <script>
     //Defines a set of sensors the user wants to see data for
@@ -61,7 +62,8 @@
             var removeBtn = document.getElementById('remove-btn');
             removeBtn.addEventListener('click', function() {
                 sensorSet.delete(id);
-                sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';                   
+                sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+                document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
             });
 
             //Add button logic
@@ -69,6 +71,8 @@
             addBtn.addEventListener('click', function() {
                 sensorSet.add(id);
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+                document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
+    
             });
         });
     }
@@ -112,10 +116,4 @@
     markers.forEach(marker => {
         addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
     });                    
-</script>
-
-<input type="hidden" id="sensor-set-input" value="">
-
-<script>
-    document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
 </script>
