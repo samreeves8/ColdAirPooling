@@ -7,6 +7,42 @@
     <link rel="stylesheet" href="nav.css">
     <link rel = "stylesheet" href = "query.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // get all tab links and panels
+        var tabLinks = document.querySelectorAll('.tab-list a');
+        var tabPanels = document.querySelectorAll('.tab-panel');
+
+        // set the first tab to active
+        tabLinks[0].classList.add('active');
+        tabPanels[0].classList.add('active');
+
+        // add click event listeners to tab links
+        tabLinks.forEach(function(link) {
+            link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // remove active class from all tabs
+            tabLinks.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // add active class to clicked tab
+            link.classList.add('active');
+
+            // hide all panels
+            tabPanels.forEach(function(panel) {
+                panel.classList.remove('active');
+            });
+
+            // show clicked panel
+            var targetPanelId = link.getAttribute('href').slice(1);
+            var targetPanel = document.getElementById(targetPanelId);
+            targetPanel.classList.add('active');
+            });
+        });
+        });
+    </script>
     <title>Document</title>
 </head>
 <body>
@@ -86,17 +122,30 @@
             }
         }
 
+
+        
         $allArrays = array();
-        echo "<table>";
-        echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
-        foreach($unserializedArray as $sensor){
+        echo "<div class='tab-container'>
+        <ul class='tab-list'> ";
+
+        foreach ($unserializedArray as $sensor){
+            echo "<li><a href='$sensor'>$sensor</a></li>";
+        }
+        echo "</ul>";
+        foreach ($unserializedArray as $sensor){
+          echo "<div id='$sensor' class='tab-panel'>
+            <table>
+              <tr><th>DateTime</th><th>Average Temperature (F)</th></tr>";
+            
+              //Determine which table to query 
             $table = null;
             if(in_array($sensor, $humidity)){
                 $table = "HumidData";
             }else{
                 $table = "TempData";
             }
-            
+
+            //Determine which query to use based on minute or hour intervals
             if($minute == true){
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
                 FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
@@ -106,18 +155,16 @@
                 FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                 GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
             }    
-
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
             $stmt->execute();
             $result = $stmt->get_result();
-
             $temp = array();
             $date = array();
+
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
-                    echo "<td>" . $sensor . "</td>";
                     echo "<td>" . $row["DateTime"] . "</td>";
                     echo "<td>" . $row["Temperature"] . "</td>";
                     echo "</tr>";
@@ -130,11 +177,59 @@
                     'temp' => $temp,
                     'date' => $date
                 );
-                
-                
             }
+            echo "</table></div>";
         }
-        echo "</table>";
+        echo "</div>";
+        
+        // echo "<table>";
+        // echo "<tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
+        // foreach($unserializedArray as $sensor){
+        //     $table = null;
+        //     if(in_array($sensor, $humidity)){
+        //         $table = "HumidData";
+        //     }else{
+        //         $table = "TempData";
+        //     }
+        //     if($minute == true){
+        //         $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+        //         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+        //         GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+        //     } else if($hour == true){
+        //         $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+        //         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+        //         GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+        //     }    
+
+        //     $stmt = $conn->prepare($sql);
+        //     $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
+        //     $stmt->execute();
+        //     $result = $stmt->get_result();
+
+        //     $temp = array();
+        //     $date = array();
+        //     if ($result->num_rows > 0) {
+        //         while ($row = $result->fetch_assoc()) {
+        //             echo "<tr>";
+        //             echo "<td>" . $sensor . "</td>";
+        //             echo "<td>" . $row["DateTime"] . "</td>";
+        //             echo "<td>" . $row["Temperature"] . "</td>";
+        //             echo "</tr>";
+
+        //             $temp[] = $row['Temperature'];
+        //             $date[] = $row['DateTime'];
+        //         }
+        //         $allArrays[] = array(
+        //             'label' => $sensor,
+        //             'temp' => $temp,
+        //             'date' => $date
+        //         );
+                
+                
+        //     }
+        // }
+
+        // echo "</table>";
         $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>
         <script>
@@ -173,7 +268,6 @@
         </script>';
     }
 ?>
-
 
 <!-- // $sql = "SELECT DISTINCT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
             // MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
