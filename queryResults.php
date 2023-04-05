@@ -71,7 +71,6 @@
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
 
     if (isset($_POST['val'])){
-
         //connect to database
         $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
         if ($conn->connect_error) {
@@ -125,20 +124,21 @@
             } else if($val == "Bi-Weekly"){
                 $x = 336;
                 $hour = true;
+            }
         }
-
+       
         //code to display table and graph
         $allArrays = array();
         echo "<div class='tab-container'>
-        <ul class='tab-list'> ";
+              <ul class='tab-list'> ";
 
         foreach ($unserializedArray as $sensor){
             echo "<li><a href='#$sensor'>$sensor</a></li>";
         }
         echo "</ul>";
         foreach ($unserializedArray as $sensor){
-          echo "<div id='$sensor' class='tab-panel'>
-            <table>
+        echo "<div id='$sensor' class='tab-panel'>
+              <table>
               <tr><th>Sensor</th><th>DateTime</th><th>Average Temperature (F)</th></tr>";
             
             //Determine which table to query 
@@ -228,7 +228,6 @@
                 return color;
             }
         </script>';
-        }
     }
 ?>
 
