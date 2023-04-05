@@ -33,11 +33,9 @@ session_start();
 </body>
 
 <form action="importCSV.php" method="post" name="frmCSVImport" id="frmCSVImport" enctype="multipart/form-data" onsubmit="return validateFile()">
-  <div class="form-group">
-    <label for="file">Choose your file:</label>
-    <input type="file" name="file[]" id="file" class="form-control-file" accept=".csv,.xls,.xlsx" multiple>
-  </div>
-  <button type="submit" id="submit" name="import" class="btn btn-primary">Import CSV and Save Data</button>
+    
+	<label>Choose your file. </label> <input type="file" name="file[]" id="file" class="file" accept=".csv,.xls,.xlsx" multiple>
+	<button type="submit" id="submit" name="import">Import CSV and Save Data</button>
 </form>
 
 </html>
