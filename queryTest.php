@@ -56,7 +56,7 @@
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
 
-            echo $sensorSet;
+            echo "<h1>" .  $sensorSet . "</h1>";
 
             
         }else if($currentFormIndex == 2){
