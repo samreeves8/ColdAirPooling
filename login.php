@@ -27,7 +27,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1) {
             <li><a href="query.php">Query</a></li>
             <li><a href="#">Members</a></li>
             <li><a href="login.php">Log In</a></li>
-            <li><a href="graph.php">Graph's</a></li>
         </ul>
     </div>
 
