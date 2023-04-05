@@ -37,14 +37,17 @@ session_start();
 </body>
 
 <form action="importCSV.php" method="post" name="frmCSVImport" id="frmCSVImport" enctype="multipart/form-data" onsubmit="return validateFile()" class="import-form">
-  <label for="file" class="file-label">Choose your file:</label>
-  <div class="file-upload">
-    <input type="file" name="file[]" id="file" class="file-input" accept=".csv,.xls,.xlsx" multiple>
-    <span class="file-icon"><i class="fas fa-cloud-upload-alt"></i></span>
-    <span class="file-name">No file selected</span>
+  <div class="form-group">
+    <label for="file" class="form-label">Choose a file to import:</label>
+    <div class="file-upload">
+      <input type="file" name="file[]" id="file" class="form-control file-input" accept=".csv,.xls,.xlsx" multiple>
+      <span class="file-icon"><i class="fas fa-cloud-upload-alt"></i></span>
+      <span class="file-name">No file selected</span>
+    </div>
   </div>
-  <button type="submit" id="submit" name="import" class="import-button">Import CSV and Save Data</button>
+  <button type="submit" id="submit" name="import" class="btn btn-primary import-button">Import CSV and Save Data</button>
 </form>
+
 
 </html>
 
