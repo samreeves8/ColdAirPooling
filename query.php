@@ -87,8 +87,6 @@ session_start();
         $dateEnd = $_POST['dateEnd'];
         $timeStart = $_POST['timeStart'];
         $timeEnd = $_POST['timeEnd'];
-        $tempMin = $_POST['tempMin'];
-        $tempMax = $_POST['tempMax'];
         $val = $_POST['val'] ?? NULL;
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
