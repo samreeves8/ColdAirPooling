@@ -9,6 +9,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="import.css">
     <title>Document</title>
 </head>
 <body>
@@ -31,10 +32,14 @@ session_start();
 </div>
 </body>
 
-<form action="importCSV.php" method="post" name="frmCSVImport" id="frmCSVImport" enctype="multipart/form-data" onsubmit="return validateFile()">
-    
-	<label>Choose your file. </label> <input type="file" name="file[]" id="file" class="file" accept=".csv,.xls,.xlsx" multiple>
-	<button type="submit" id="submit" name="import">Import CSV and Save Data</button>
+<form action="importCSV.php" method="post" name="frmCSVImport" id="frmCSVImport" enctype="multipart/form-data" onsubmit="return validateFile()" class="import-form">
+  <label for="file" class="file-label">Choose your file:</label>
+  <div class="file-upload">
+    <input type="file" name="file[]" id="file" class="file-input" accept=".csv,.xls,.xlsx" multiple>
+    <span class="file-icon"><i class="fas fa-cloud-upload-alt"></i></span>
+    <span class="file-name">No file selected</span>
+  </div>
+  <button type="submit" id="submit" name="import" class="import-button">Import CSV and Save Data</button>
 </form>
 
 </html>
