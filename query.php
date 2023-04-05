@@ -116,7 +116,7 @@
             $rangeArr = array('6 Minutes', '15 Minutes', '30 Minutes', '1 Hour');
         }else if($timedif <= 86400){
             echo "Between 6 hours and 1 day";
-            $rangeArr = array('15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
+            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
         }else if($timedif <= 604800){
             echo "Between 1 day and 1 week";
             $rangeArr = array('15 Minutes','30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
