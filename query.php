@@ -18,6 +18,27 @@
             <li><a href="login.php">Log In</a></li>
          </ul>
     </div>
+    <script>
+            function rangeSelected() {
+                const mySelect = document.getElementById('range');
+                const selectedOption = mySelect.options[mySelect.selectedIndex];
+                const val = selectedOption.value;
+                const selectedRange = selectedOption.text;
+                document.getElementById('valField').value = selectedRange;
+    
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'query.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+                // Set the POST parameters
+                const params = 'val=' + encodeURIComponent(val);
+                xhr.send(params);
+                console.log(params);
+                console.log('sent request');
+    
+                document.getElementById('rangeForm').submit();
+            }
+        </script>
 </body>
 </html>
 
@@ -94,13 +115,13 @@
             $rangeArr = array('6 Minutes', '15 Minutes', '30 Minutes', '1 Hour');
         }else if($timedif <= 86400){
             echo "Between 6 hours and 1 day";
-            $rangeArr = array('15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
+            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
         }else if($timedif <= 604800){
             echo "Between 1 day and 1 week";
-            $rangeArr = array('1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
+            $rangeArr = array('15 Minutes','30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
         }else if($timedif <= 5184000){
             echo "Between 1 week and 2 months";
-            $rangeArr = array('12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
+            $rangeArr = array('4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
         }else if($timedif <= 31536000){
             echo "Between 2 months and 1 year";
             $rangeArr = array('Daily', 'Bi-Daily', 'Weekly', 'Monthly');
@@ -128,28 +149,7 @@
         echo "<input type='hidden' name='val' id='valField' value='$val'>";
         echo "</form>";
 
-        echo 
-        "<script>
-            function rangeSelected() {
-                const mySelect = document.getElementById('range');
-                const selectedOption = mySelect.options[mySelect.selectedIndex];
-                const val = selectedOption.value;
-                const selectedRange = selectedOption.text;
-                document.getElementById('valField').value = selectedRange;
     
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'query.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-                // Set the POST parameters
-                const params = 'val=' + encodeURIComponent(val);
-                xhr.send(params);
-                console.log(params);
-                console.log('sent request');
-    
-                document.getElementById('rangeForm').submit();
-            }
-        </script>";
     }
     
         //x, table, startdatetime, endadatetime
@@ -167,33 +167,6 @@
         // Weekly - x is 3361
         // Bi-Weekly - x is 6721
         // S is sensor
-        // startDate and endDate are variables
-
-            // $sqlString = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ".$sensor ." AND DateTime BETWEEN ".$dateTimeStart." AND ".$dateTimeEnd;
-            // $sql = "SELECT Temperature, DateTime FROM " . $table . " WHERE Sensor = ? AND DateTime BETWEEN ? AND ? AND Temperature BETWEEN ? AND ?";
-            // $stmt = $conn->prepare($sql);
-            // $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $tempMin, $tempMax);
-            
-            // $stmt->execute();
-            // echo $sqlString."<br>";
-            // $result = $stmt->get_result();
-
-            // if ($result->num_rows > 0) {
-            //     while ($row = $result->fetch_assoc()) {
-            //         echo "Sensor: " . $sensor . ", DateTime: " . $row["DateTime"] . ", Temperature: " . $row["Temperature"] . "<br>"; 
-            //     }
-            // }
-        
-        // }
+        // startDate and endDate are variable
     
 ?>
-
-
-
-
-
-
-
-
-
-
