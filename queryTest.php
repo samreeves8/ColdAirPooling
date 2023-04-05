@@ -19,11 +19,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
 
-        $sensorSet = null;
-        if($currentFormIndex>0){
-            $sensorSet = json_decode($_POST['sensor-set-input']);
-            
-        }
+        
         
 
         if(isset($_POST['next'])){
@@ -31,6 +27,12 @@
 
         }elseif(isset($_POST['previous'])){
             $currentFormIndex--;
+        }
+
+        $sensorSet = null;
+        if($currentFormIndex>0){
+            $sensorSet = json_decode($_POST['sensor-set-input']);
+            
         }
     }
 
