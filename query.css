@@ -8,12 +8,13 @@
   position: absolute;
   top: 0;
   right: 0;
-  height: calc(100vh - 40px); 
+  height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-end;
   margin-left: -210px;
+  z-index: 1; 
 }
 
 #sidebar {
