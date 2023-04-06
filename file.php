@@ -96,18 +96,17 @@
         }
         function rangeSelected() {
             const mySelect = document.getElementById('range');
-            console.log("Gets select element by id");
+            
             const selectedOption = mySelect.options[mySelect.selectedIndex];
-            console.log("Gets select option index");
+            
             const val = selectedOption.value;
-            console.log("define val");
+            
             const selectedRange = selectedOption.text;
-            console.log(selectedRange);
-            console.log("test");
+            
             //document.getElementById('valField').value = selectedRange;
     
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'query.php', true);
+            xhr.open('POST', 'queryResults.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
             // Set the POST parameters
@@ -116,11 +115,9 @@
             console.log(params);
             console.log('sent request');
     
-            document.getElementById('rangeForm').submit();
+            document.getElementById('myForm').submit();
         }
     </script>
-
-    
 
     <div class="navbar">
         <ul class="menu">
@@ -146,7 +143,7 @@
         ?>
         <h1> Insert date and time range for data you want to see: </h1>
         <label for="dateStart">Select a start date:</label>
-        <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
+        <input type="date" id="dateStart" name="dateStart">
         <label for="timeStart">Select a start time:</label>
         <input type="time" id="timeStart" name="timeStart" value = "00:00">
         <br>
