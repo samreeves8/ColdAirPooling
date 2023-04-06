@@ -115,7 +115,7 @@
             console.log(params);
             console.log('sent request');
     
-            document.getElementById('myForm').submit();
+            //document.getElementById('myForm').submit();
         }
     </script>
 
