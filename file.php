@@ -75,8 +75,6 @@
             var selectElem = document.createElement("select");
             selectElem.id = "range";
             console.log("Right before the rangeSelected");
-            selectElem.onchange = rangeSelected();
-            console.log("create select element and set id and onchange");
             var defaultOptionElem = document.createElement("option");
             defaultOptionElem.value = "";
             defaultOptionElem.disabled = true;
@@ -93,6 +91,7 @@
             }
 
             document.body.appendChild(selectElem);
+            selectElem.onchange = rangeSelected();
             console.log("end");
         }
         function rangeSelected() {
