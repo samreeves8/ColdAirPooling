@@ -93,6 +93,7 @@
             // Create dropdown menu using rangeArr
             var selectElem = document.createElement("select");
             selectElem.id = "range";
+            console.log("Right before the rangeSelected");
             selectElem.onchange = rangeSelected();
             console.log("create select element and set id and onchange");
             var defaultOptionElem = document.createElement("option");
