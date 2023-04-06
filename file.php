@@ -99,9 +99,12 @@
             const mySelect = document.getElementById('range');
             console.log("Gets select element by id");
             const selectedOption = mySelect.options[mySelect.selectedIndex];
+            console.log("Gets select option index");
             const val = selectedOption.value;
+            console.log("define val");
             const selectedRange = selectedOption.text;
             console.log(selectedRange);
+            console.log("test");
             //document.getElementById('valField').value = selectedRange;
     
             const xhr = new XMLHttpRequest();
