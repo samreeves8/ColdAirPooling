@@ -91,7 +91,7 @@
             }
 
             document.body.appendChild(selectElem);
-            selectElem.onchange = rangeSelected();
+            selectElem.onchange = rangeSelected;
             console.log("end");
         }
         function rangeSelected() {
