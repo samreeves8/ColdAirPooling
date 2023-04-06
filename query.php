@@ -133,8 +133,8 @@ session_start();
         }
 
         $serializedArray = serialize($sensors);
-        
-        echo "<script>console.log(".json_encode($serializedArray).");</script>";
+
+        echo "<script>console.log(".$serializedArray.");</script>";
     
         echo "<form id = 'rangeForm' action='queryResults.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         echo "<option value='' disabled selected>Select an option</option>";
