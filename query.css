@@ -3,10 +3,11 @@
     top: 0;
     right: 0;
     width: 200px;
-    height: 200px;
+    height: 400px;
     background-color: #f0f0f0;
     padding: 10px;
     margin-right: 200px;
+    margin-top: 300px;
     box-sizing: border-box;
     overflow: auto;
 }
@@ -16,8 +17,9 @@
     top: 0;
     right: 0;
     width: 200px;
-    height: 200px;
+    height: 400px;
     margin-right: 0px;
+    margin-top: 300px;
     background-color: #cca8a8;
     padding: 10px;
     box-sizing: border-box;
