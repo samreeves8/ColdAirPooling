@@ -1,30 +1,35 @@
-#sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 300px;
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin-right: 200px;
-    margin-top: 200px;
-    box-sizing: border-box;
-    overflow: auto;
+#map {
+  position: relative;
+  float: left;
+  height: 640px;
+  width: 960px;
 }
 
-#sidebarList{
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 300px;
-    margin-right: 0px;
-    margin-top: 200px;
-    background-color: #cca8a8;
-    padding: 10px;
-    box-sizing: border-box;
-    overflow: auto;
+#sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(50% - 100px); /* Updated width to be 50% - 100px for even split */
+  height: 300px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: auto;
 }
+
+#sidebarList {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(50% - 100px); /* Updated width to be 50% - 100px for even split */
+  height: 300px;
+  margin-right: 0px;
+  background-color: #cca8a8;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
 
 table {
     border-collapse: collapse;
