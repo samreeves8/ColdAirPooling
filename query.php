@@ -82,7 +82,8 @@ session_start();
     
     
     if($_SERVER['REQUEST_METHOD']==='POST'){
-        $sensors = isset($_POST['sensor-set-input']) ? $_POST['sensor-set-input'] : array();
+        $sensors = json_decode($_POST['sensor-set-input']) ? $_POST['sensor-set-input'] : array();
+        // $sensors = isset($_POST['sensor-set-input']) ? $_POST['sensor-set-input'] : array();
         echo "<script>console.log(".json_encode($sensors).");</script>";
         
         $dateStart = $_POST['dateStart'];
