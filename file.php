@@ -20,42 +20,6 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="navbar">
-        <ul class="menu">
-            <li><a href="/">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="query.php">Query</a></li>
-            <li><a href="#">Members</a></li>
-            <?php
-            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                echo '<li><a href="logout.php">Logout</a></li>';
-            } else {
-                echo '<li><a href="login.php">Login</a></li>';
-            }
-            ?>         
-        </ul>
-    </div>
-
-    
-    <form  id="myForm" action = 'queryResults.php' method = 'POST'>
-        <?php
-            include ("queryIndexOne.html");
-        ?>
-        <h1> Insert date and time range for data you want to see: </h1>
-        <label for="dateStart">Select a start date:</label>
-        <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
-        <label for="timeStart">Select a start time:</label>
-        <input type="time" id="timeStart" name="timeStart" value = "00:00">
-        <br>
-        <label for="dateEnd">Select an end date:</label>
-        <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
-        <label for="timeEnd">Select an end time:</label>
-        <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
-        <br>
-        <button type="button" onclick="submitForm()">Submit</button>
-    </form>
-
     <script>
         function submitDates() {
             var dateStart = document.getElementById("dateStart").value;
@@ -131,6 +95,43 @@
         }
     </script>
 
+    <div class="navbar">
+        <ul class="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <?php
+            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            } else {
+                echo '<li><a href="login.php">Login</a></li>';
+            }
+            ?>         
+        </ul>
+    </div>
+
+    
+    <form  id="myForm" action = 'queryResults.php' method = 'POST'>
+        <?php
+            include ("queryIndexOne.html");
+        ?>
+        <h1> Insert date and time range for data you want to see: </h1>
+        <label for="dateStart">Select a start date:</label>
+        <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
+        <label for="timeStart">Select a start time:</label>
+        <input type="time" id="timeStart" name="timeStart" value = "00:00">
+        <br>
+        <label for="dateEnd">Select an end date:</label>
+        <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
+        <label for="timeEnd">Select an end time:</label>
+        <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
+        <br>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    
 </body>
 </html>
 
