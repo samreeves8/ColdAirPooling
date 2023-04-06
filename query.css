@@ -10,6 +10,10 @@
   top: 0;
   right: 0;
   height: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
 #sidebar {
@@ -19,7 +23,7 @@
   padding: 10px;
   box-sizing: border-box;
   overflow: auto;
-  margin-bottom: 10px; /* Add margin-bottom for spacing between sidebar and sidebar list */
+  margin-bottom: 10px;
 }
 
 #sidebarList {
