@@ -5,31 +5,34 @@
   width: 960px;
 }
 
-#sidebar {
+#sidebarContainer {
   position: absolute;
   top: 0;
   right: 0;
-  width: calc(50% - 100px); /* Updated width to be 50% - 100px for even split */
+  height: 640px; /* Set height to match map's height */
+  display: flex;
+  flex-direction: column; /* Set flex-direction to column for vertical alignment */
+  justify-content: flex-start; /* Set justify-content to flex-start for top alignment */
+}
+
+#sidebar {
+  width: 200px;
   height: 300px;
   background-color: #f0f0f0;
   padding: 10px;
   box-sizing: border-box;
   overflow: auto;
+  margin-bottom: 10px; /* Add margin-bottom for spacing between sidebar and sidebar list */
 }
 
 #sidebarList {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: calc(50% - 100px); /* Updated width to be 50% - 100px for even split */
+  width: 200px;
   height: 300px;
-  margin-right: 0px;
   background-color: #cca8a8;
   padding: 10px;
   box-sizing: border-box;
   overflow: auto;
 }
-
 
 table {
     border-collapse: collapse;
