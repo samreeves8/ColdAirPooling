@@ -1,23 +1,24 @@
 #sidebar {
+    position: absolute;
     top: 0;
     right: 0;
     width: 200px;
     height: 100%;
     background-color: #f0f0f0;
     padding: 10px;
-    margin-right: 200px;  
+    margin-right: 200px;
     box-sizing: border-box;
     overflow: auto;
 }
 
 #sidebarList{
+    position: absolute;
     top: 0;
     right: 0;
     width: 200px;
     height: 100%;
     background-color: #cca8a8;
     padding: 10px;
-    margin-right: 0px;  
     box-sizing: border-box;
     overflow: auto;
 }
