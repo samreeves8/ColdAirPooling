@@ -1,5 +1,4 @@
 #sidebar {
-    position: absolute;
     top: 0;
     right: 0;
     width: 200px;
@@ -12,11 +11,11 @@
 }
 
 #sidebarList{
-    position: absolute;
     top: 0;
     right: 0;
     width: 200px;
     height: 100%;
+    margin-right: 0px;
     background-color: #cca8a8;
     padding: 10px;
     box-sizing: border-box;
