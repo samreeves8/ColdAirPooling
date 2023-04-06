@@ -128,7 +128,7 @@
         <label for="timeEnd">Select an end time:</label>
         <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
         <br>
-        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="button" onclick="submitDates()">Submit</button>
     </form>
 
     
