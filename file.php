@@ -97,6 +97,7 @@
         }
         function rangeSelected() {
             const mySelect = document.getElementById('range');
+            console.log("Gets select element by id");
             const selectedOption = mySelect.options[mySelect.selectedIndex];
             const val = selectedOption.value;
             const selectedRange = selectedOption.text;
