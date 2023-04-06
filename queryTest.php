@@ -20,7 +20,7 @@
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $currentFormIndex = $_POST['currentFormIndex'];
         $sensorSet = ($_POST['sensor-set-input']);
-        echo "<script>console.log(JSON.parse(json_encode($sensorSet)));</script>";
+        echo "<script>console.log(".json_encode($sensorSet).");</script>";
         
         
 
@@ -34,7 +34,7 @@
         
         if($currentFormIndex>0){
             $sensorSet = json_decode($_POST['sensor-set-input']);
-            echo "<script>console.log(JSON.parse(json_encode($sensorSet)));</script>";
+            echo "<script>console.log(".json_encode($sensorSet).");</script>";
         }
     }
 
