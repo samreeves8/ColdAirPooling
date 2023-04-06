@@ -1,8 +1,9 @@
 #sidebar {
+    position: fixed;
     top: 0;
     right: 0;
     width: 200px;
-    height: 100%;
+    height: 200px;
     background-color: #f0f0f0;
     padding: 10px;
     margin-right: 200px;
@@ -11,10 +12,11 @@
 }
 
 #sidebarList{
+    position: fixed;
     top: 0;
     right: 0;
     width: 200px;
-    height: 100%;
+    height: 200px;
     margin-right: 0px;
     background-color: #cca8a8;
     padding: 10px;
