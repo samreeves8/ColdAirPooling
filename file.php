@@ -94,15 +94,16 @@
             var selectElem = document.createElement("select");
             selectElem.id = "range";
             selectElem.onchange = rangeSelected();
-
+            console.log("create select element and set id and onchange");
             var defaultOptionElem = document.createElement("option");
             defaultOptionElem.value = "";
             defaultOptionElem.disabled = true;
             defaultOptionElem.selected = true;
             defaultOptionElem.text = "Select an option";
             selectElem.appendChild(defaultOptionElem);
-
+            console.log("Created default option");
             for (var i = 0; i < rangeArr.length; i++) {
+                console.log("Entered Loop");
                 var optionElem = document.createElement("option");
                 optionElem.value = i;
                 optionElem.text = rangeArr[i];
@@ -110,7 +111,7 @@
             }
 
             document.body.appendChild(selectElem);
-
+            console.log("end");
         }
     </script>
 
