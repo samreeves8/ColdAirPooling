@@ -9,7 +9,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 200px;
+  width: calc(50% - 100px); /* Updated width to be 50% - 100px for even split */
   height: 300px;
   background-color: #f0f0f0;
   padding: 10px;
@@ -21,7 +21,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 200px;
+  width: calc(50% - 100px); /* Updated width to be 50% - 100px for even split */
   height: 300px;
   margin-right: 0px;
   background-color: #cca8a8;
