@@ -10,6 +10,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="nav.css">
+    <link rel = "stylesheet" href = "query.css">
 </head>
 <body>
     <div class="navbar">
@@ -47,14 +48,22 @@ session_start();
     $sql = "SELECT * FROM SensorData";
     $result = $conn->query($sql);
 
+    //creates a table with headers for each column
+    echo "<table>";
+    echo "<tr><th>Sensor</th><th>Latitude</th><th>Longitude</th><th>Elevation</th><th>DateTime</th></tr>";
+
+
     //creates a row for each sensor and adds a link to each row that will allow the user to query each sensor
     if ($result->num_rows > 0) {
+        // output data of each row as a table row
         while($row = $result->fetch_array()) {
-            echo "Sensor: <a href='https://gunnisoncoldpooling.net/index.php?sensorID=".$row['Sensor']."'>" . $row["Sensor"]. "</a>   Latitude: " . $row["Latitude"]. "   Longitude: ". $row["Longitude"]. "   Elevation: ". $row["Elevation"]. "   DateTime: " . $row["DateTime"]. "<br>";
+            echo "<tr><td><a href='https://gunnisoncoldpooling.net/index.php?sensorID=".$row['Sensor']."'>" . $row["Sensor"]. "</a></td><td>" . $row["Latitude"]. "</td><td>". $row["Longitude"]. "</td><td>". $row["Elevation"]. "</td><td>" . $row["DateTime"]. "</td></tr>";
         }
     } else {
-        echo "0 results";
+        echo "<tr><td colspan='5'>0 results</td></tr>";
     }
+    
+    echo "</table>";
     
     //defines constant humidity array for all sensors located in different table
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
@@ -100,7 +109,3 @@ session_start();
     
     
 ?>
-<br>
-<form action="./importCSV.php" method="post" name="uploadFile" id="uploadFile">
-    <button type="submit" id="submit" name="upload" class="btn-submit"> Upload File </button>
-</form>

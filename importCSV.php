@@ -9,6 +9,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="import.css">
     <title>Document</title>
 </head>
 <body>
@@ -18,14 +19,21 @@ session_start();
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
         <?php
+            // Check if the user is logged in
             if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                echo '<li><a href="importCSV.php">Import CSV</a></li>';
+            // If the user is logged in, show the link to the update page
+            echo '<li><a href="importCSV.php">Import CSV</a></li>';
             }
         ?>
         <li><a href="query.php">Query</a></li>
         <li><a href="#">Members</a></li>
-        <li><a href="logout.php">Logout</a></li>
-
+        <?php
+            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
+                echo '<li><a href="logout.php">Logout</a></li>';
+            } else {
+                echo '<li><a href="login.php">Login</a></li>';
+            }
+        ?>
      </ul>
 </div>
 </body>

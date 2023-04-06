@@ -33,8 +33,7 @@
         
         if($currentFormIndex>0){
             $sensorSet = json_decode($_POST['sensor-set-input']);
-            echo "<h1>" .  $sensorSet . "</h1>";
-            
+            echo "<script>console.log(".json_encode($sensorSet).");</script>";
         }
     }
 
@@ -58,6 +57,8 @@
             <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
             <br>';
 
+
+            echo "<h2>" . $sensorSet . "</h2>";
             
 
             
@@ -72,7 +73,7 @@
 
         if($currentFormIndex > 0){
             echo "<input type = 'submit' name = 'previous' value = 'Previous'>";
-            echo "<input type='hidden' id='sensor-set-input' value='$sensorSet'>";
+            //echo "<input type='hidden' id='sensor-set-input' value='$sensorSet'>";
         }
         if($currentFormIndex < 2){
             echo "<input type = 'submit' name = 'next' value = 'Next'>";

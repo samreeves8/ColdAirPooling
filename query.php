@@ -9,6 +9,9 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel = "stylesheet" href = "query.css">
     <title>Document</title>
 </head>
 <body>
@@ -57,49 +60,37 @@ session_start();
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+    echo "<form action = 'query.php' method = 'POST'>";
 
-    $sql = "SELECT DISTINCT Sensor FROM SensorData"; // only select unique sensor names
-    $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        echo '<form action="query.php" method="POST">';
-        while($row = $result->fetch_assoc()) {
-            echo '<label><input type="checkbox" name="sensors[]" value="' . $row['Sensor'] . '">' . $row['Sensor'] . '</label><br>';
-        }
-        
-    } else {
-        echo "0 results";
-    }
-    
+    include("queryIndexOne.html");
+
     echo 
-    '<label for="dateStart">Select a start date:</label>
-    <input type="date" id="dateStart" name="dateStart">
-    <label for="timeStart">Select a start time:</label>
-    <input type="time" id="timeStart" name="timeStart">
+        '<h1> Insert date and time range for data you want to see: </h1>
+        <label for="dateStart">Select a start date:</label>
+        <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
+        <label for="timeStart">Select a start time:</label>
+        <input type="time" id="timeStart" name="timeStart" value = "00:00">
+        <br>
+        <label for="dateEnd">Select an end date:</label>
+        <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
+        <label for="timeEnd">Select an end time:</label>
+        <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
+        <br>';
+    
 
-    <br>
-
-    <label for="dateEnd">Select an end date:</label>
-    <input type="date" id="dateEnd" name="dateEnd">
-
-    <label for="timeEnd">Select an end time:</label>
-    <input type="time" id="timeEnd" name="timeEnd"><br>
-
-    <label for="tempStart">Select a temperature range (Celcius):</label>
-    <input type="number" id="tempMin" name="tempMin">
-
-    <input type="number" id="tempMax" name="tempMax">
-    <input type="submit" value="Submit"></form>';
+    echo '<input type="submit" value="Submit"></form>';
     
     
     if($_SERVER['REQUEST_METHOD']==='POST'){
-        $sensors = isset($_POST['sensors']) ? $_POST['sensors'] : array();
+        $sensors = json_decode($_POST['sensor-set-input']);
+        // $sensors = isset($_POST['sensor-set-input']) ? $_POST['sensor-set-input'] : array();
+        echo "<script>console.log(".json_encode($sensors).");</script>";
+
         $dateStart = $_POST['dateStart'];
         $dateEnd = $_POST['dateEnd'];
         $timeStart = $_POST['timeStart'];
         $timeEnd = $_POST['timeEnd'];
-        $tempMin = $_POST['tempMin'];
-        $tempMax = $_POST['tempMax'];
         $val = $_POST['val'] ?? NULL;
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
@@ -144,6 +135,8 @@ session_start();
         }
 
         $serializedArray = serialize($sensors);
+        
+        echo "<script>console.log(".json_encode($serializedArray).");</script>";
     
         echo "<form id = 'rangeForm' action='queryResults.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
         echo "<option value='' disabled selected>Select an option</option>";
