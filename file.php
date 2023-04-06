@@ -100,9 +100,9 @@
             const selectedOption = mySelect.options[mySelect.selectedIndex];
             
             const val = selectedOption.value;
-            
+            console.log(val);
             const selectedRange = selectedOption.text;
-            
+            console.log(selectedRange);
             //document.getElementById('valField').value = selectedRange;
     
             const xhr = new XMLHttpRequest();
