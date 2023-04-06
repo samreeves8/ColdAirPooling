@@ -1,3 +1,4 @@
+
 #map {
   position: relative;
   float: left;
@@ -13,6 +14,7 @@
   display: flex;
   flex-direction: column; /* Set flex-direction to column for vertical alignment */
   justify-content: flex-start; /* Set justify-content to flex-start for top alignment */
+  align-items: flex-end; /* Set align-items to flex-end to hug the right side */
 }
 
 #sidebar {
