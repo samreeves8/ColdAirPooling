@@ -24,13 +24,8 @@ session_start();
         ?>
         <li><a href="query.php">Query</a></li>
         <li><a href="#">Members</a></li>
-        <?php
-            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                echo '<li><a href="logout.php">Logout</a></li>';
-            } else {
-                echo '<li><a href="login.php">Login</a></li>';
-            }
-        ?>
+        <li><a href="logout.php">Logout</a></li>
+
      </ul>
 </div>
 </body>
