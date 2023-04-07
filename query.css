@@ -3,10 +3,12 @@
   width: 960px;
   border: 2px solid #ccc;
   box-shadow: 2px 2px 5px #ccc;
+  float: left;
 }
 
 #sidebarContainer {
   display: flex;
+  float: right;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
