@@ -125,7 +125,7 @@
             const params = '&sensorSet=' + encodeURIComponent(Array.from(sensorSet).join(','));
             xhr.send(params);
             console.log(params);
-            //document.getElementById('myForm').submit();
+            document.getElementById('myForm').submit();
         }
     </script>
 
