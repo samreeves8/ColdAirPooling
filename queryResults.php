@@ -233,7 +233,7 @@
 
         //Code to display graph
         $data = json_encode($allArrays);
-        echo '<canvas id="myChart"></canvas>;'
+        echo '<canvas id="myChart"></canvas>;';
     }
 ?>
 
