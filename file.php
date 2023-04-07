@@ -38,31 +38,31 @@
             }
             var rangeArr;
             switch (true) {
-                case (timeDiff <= 108000): // Less than 3 hours
+                case (timeDiff <= 10800000): // Less than 3 hours
                     console.log("Less than 3 hours");
                     rangeArr = ['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes'];
                     break;
-                case (timeDiff <= 216000): // Between 3 hours and 6 hours
+                case (timeDiff <= 21600000): // Between 3 hours and 6 hours
                     console.log("Between 3 hours and 6 hours");
                     rangeArr = ['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour'];
                     break;
-                case (timeDiff <= 864000): // Between 6 hours and 1 day
+                case (timeDiff <= 86400000): // Between 6 hours and 1 day
                     console.log("Between 6 hours and 1 day");
                     rangeArr = ['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour', '2 Hours'];
                     break;
-                case (timeDiff <= 6048000): // Between 1 day and 1 week
+                case (timeDiff <= 518400000): // Between 1 day and 1 week
                     console.log("Between 1 day and 1 week");
                     rangeArr = ['15 Minutes', '30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily'];
                     break;
-                case (timeDiff <= 51840000): // Between 1 week and 2 months
+                case (timeDiff <= 5266800000): // Between 1 week and 2 months
                     console.log("Between 1 week and 2 months");
                     rangeArr = ['1 Hour', '4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly'];
                     break;
-                case (timeDiff <= 315360000): // Between 2 months and 1 year
+                case (timeDiff <= 31536000000): // Between 2 months and 1 year
                     console.log("Between 2 months and 1 year");
                     rangeArr = ['Daily', 'Bi-Daily', 'Weekly', 'Monthly'];
                     break;
-                case (timeDiff <= 630720000): // Between 1 year and 2 years
+                case (timeDiff <= 63158400000): // Between 1 year and 2 years
                     console.log("Between 1 year and 2 years");
                     rangeArr = ['Weekly', 'Bi-Weekly', 'Monthly'];
                     break;
@@ -71,7 +71,7 @@
                     rangeArr = ['Monthly', 'Yearly'];
                     break;
             }
-
+            2592000000
             // Create dropdown menu using rangeArr
             var selectElem = document.createElement("select");
             selectElem.id = "range";
