@@ -69,7 +69,7 @@
     $dates = array();
     $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
 
-    if (isset($_POST['val'])){
+    if($_SERVER['REQUEST_METHOD']==='POST'){
         //connect to database
         $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
         if ($conn->connect_error) {
@@ -82,10 +82,12 @@
         $sensorSet = explode(',', $_POST['sensorSet']);
         print_r($sensorSet);
         $val = isset($_POST['val']) ? $_POST['val'] : null;
-        $dateTimeStart = $_POST['dateTimeStart'];
-        $dateTimeEnd = $_POST['dateTimeEnd'];
-        $serializedArray = $_POST['sensors'];
-        $unserializedArray = unserialize($serializedArray);
+        $dateStart = $_POST['dateStart'];
+        $dateEnd = $_POST['dateEnd'];
+        $timeStart = $_POST['timeStart'];
+        $timeEnd = $_POST['timeEnd'];
+        $dateTimeStart = $dateStart . ' '.$timeStart;
+        $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
         $minute = false;
         $hour = false;
 
@@ -135,11 +137,11 @@
         echo "<div class='tab-container'>
               <ul class='tab-list'> ";
 
-        foreach ($unserializedArray as $sensor){
+        foreach ($sensorSet as $sensor){
             echo "<li><a href='#$sensor'>$sensor</a></li>";
         }
         echo "</ul>";
-        foreach ($unserializedArray as $sensor){
+        foreach ($sensorSet as $sensor){
         echo "<div id='$sensor' class='tab-panel'>
               <table>
               <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th></tr>";
