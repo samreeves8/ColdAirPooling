@@ -1,6 +1,5 @@
 <?php
     session_start();
-
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
