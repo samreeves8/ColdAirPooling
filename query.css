@@ -1,12 +1,12 @@
 #map {
-
-  float:left;
+  float: left;
+  width: 70%;
 }
 
 #sidebarContainer {
-  float:right;
+  float: right;
   vertical-align: top;
- 
+  width: 30%;
 }
 
 .form {
