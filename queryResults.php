@@ -188,102 +188,108 @@
         }
 
         //Code to display graph
-        $data = json_encode($allArrays);
-        echo '<canvas id="myChart"></canvas>;';
-        echo'<script>
-            var allArrays = '.$data.';
-            var datasets = [];
-            for (var i = 0; i < allArrays.length; i++) {
-                var data = allArrays[i].temp.map(Number);
-                var labels = allArrays[i].date;
-                datasets.push({
-                    label: allArrays[i].label,
-                    data: data,
-                    borderColor: getRandomColor(),
-                    fill: false
-                });
-            }
-
-            new Chart("myChart", {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    legend: {display: true}
-                }
-            });
-
-            function getRandomColor() {
-                var letters = "0123456789ABCDEF";
-                var color = "#";
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
-        </script>';
-
-        echo "<div class='tab-container'>
-              <ul class='tab-list'> ";
-
-        foreach ($sensorSet as $sensor){
-            echo "<li><a href='#$sensor'>$sensor</a></li>";
-        }
-        echo "</ul>";
-        foreach ($sensorSet as $sensor){
-        echo "<div id='$sensor' class='tab-panel'>
-              <table>
-              <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th></tr>";
+        if (empty($allArrays)) {
+            echo "No Data Found";
+        } else {
+            $data = json_encode($allArrays);
             
-            //Determine which table to query 
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
-
-            //Determine which query to use based on minute or hour intervals
-            if($minute == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-            } else if($hour == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-            }    
-
-            //prepare the query to prevent sql injection
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $temp = array();
-            $date = array();
-
-            //display each row in the table
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $sensor . "</td>";
-
-                    $dateTime = new DateTime($row["DateTime"]);
-                    $formattedDateTime = $dateTime->format('M d, Y h:ia');
-
-                    echo "<td>" . $formattedDateTime . "</td>";
-                    echo "<td>" . $row["Temperature"] . "</td>";
-                    echo "</tr>";
-
-                    $temp[] = $row['Temperature'];
-                    $date[] = $formattedDateTime;
+            echo '<canvas id="myChart"></canvas>;';
+            echo'<script>
+                var allArrays = '.$data.';
+                var datasets = [];
+                for (var i = 0; i < allArrays.length; i++) {
+                    var data = allArrays[i].temp.map(Number);
+                    var labels = allArrays[i].date;
+                    datasets.push({
+                        label: allArrays[i].label,
+                        data: data,
+                        borderColor: getRandomColor(),
+                        fill: false
+                    });
                 }
+
+                new Chart("myChart", {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: datasets
+                    },
+                    options: {
+                        legend: {display: true}
+                    }
+                });
+
+                function getRandomColor() {
+                    var letters = "0123456789ABCDEF";
+                    var color = "#";
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+            </script>';
+    
+
+            echo "<div class='tab-container'>
+                <ul class='tab-list'> ";
+
+            foreach ($sensorSet as $sensor){
+                echo "<li><a href='#$sensor'>$sensor</a></li>";
             }
-            echo "</table></div>";
+            echo "</ul>";
+            foreach ($sensorSet as $sensor){
+            echo "<div id='$sensor' class='tab-panel'>
+                <table>
+                <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th></tr>";
+                
+                //Determine which table to query 
+                $table = null;
+                if(in_array($sensor, $humidity)){
+                    $table = "HumidData";
+                }else{
+                    $table = "TempData";
+                }
+
+                //Determine which query to use based on minute or hour intervals
+                if($minute == true){
+                    $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                    GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                } else if($hour == true){
+                    $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                }    
+
+                //prepare the query to prevent sql injection
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $temp = array();
+                $date = array();
+
+                //display each row in the table
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $sensor . "</td>";
+
+                        $dateTime = new DateTime($row["DateTime"]);
+                        $formattedDateTime = $dateTime->format('M d, Y h:ia');
+
+                        echo "<td>" . $formattedDateTime . "</td>";
+                        echo "<td>" . $row["Temperature"] . "</td>";
+                        echo "</tr>";
+
+                        $temp[] = $row['Temperature'];
+                        $date[] = $formattedDateTime;
+                    }
+                }
+                echo "</table></div>";
+            }
+            echo "</div>";
         }
-        echo "</div>";
     }
 ?>
 
