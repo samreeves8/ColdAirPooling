@@ -125,7 +125,7 @@
             console.log(params);
             console.log('sent request');
             console.log(Array.from(sensorSet).join(','));
-            document.getElementById('myForm').submit();
+            //document.getElementById('myForm').submit();
         }
     </script>
 
