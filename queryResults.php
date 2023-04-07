@@ -196,8 +196,8 @@
         $dateTimeStart = $dateStart . ' '.$timeStart;
         $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
         $allArrays = queryDatabase();
-
-        //code to display graph
+        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+        
         
         //Code to display graph
         $data = json_encode($allArrays);
