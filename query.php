@@ -21,6 +21,8 @@
 <body>
     <script>
         function submitDates() {
+            
+            parent.insertAdjacentHTML('beforeend', child.outerHTML);
             var dateStart = document.getElementById("dateStart").value;
             var timeStart = document.getElementById("timeStart").value;
             var dateEnd = document.getElementById("dateEnd").value;
@@ -80,28 +82,26 @@
                     break;
             }
 
+
+            const parent = document.getElementById('myForm');
             // Create dropdown menu using rangeArr
             var selectElem = document.createElement("select");
             selectElem.id = "range";
-            console.log("Right before the rangeSelected");
             var defaultOptionElem = document.createElement("option");
             defaultOptionElem.value = "";
             defaultOptionElem.disabled = true;
             defaultOptionElem.selected = true;
             defaultOptionElem.text = "Select an option";
             selectElem.appendChild(defaultOptionElem);
-            console.log("Created default option");
             for (var i = 0; i < rangeArr.length; i++) {
-                console.log("Entered Loop");
                 var optionElem = document.createElement("option");
                 optionElem.value = i;
                 optionElem.text = rangeArr[i];
                 selectElem.appendChild(optionElem);
             }
 
-            document.body.appendChild(selectElem);
+            parent.appendChild(selectElem);
             selectElem.onchange = rangeSelected;
-            console.log("end");
         }
 
         function rangeSelected() {
@@ -155,7 +155,6 @@
         <input type="hidden" id="interval" name="interval" value="3 Minutes">
         <br>
         <button type="button" onclick="submitDates()">Submit</button>
-        </div>
     </form>
     
 </body>
