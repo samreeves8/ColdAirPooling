@@ -1,12 +1,19 @@
+#map {
 
+  display: inline-block;
+}
+
+#sidebarContainer {
+  display: inline-block;
+  vertical-align: top;
+ 
+}
 
 .form {
   clear: both;
 }
 
 #myForm {
-  margin: 0 auto;
-  max-width: 800px;
   text-align: center;
 }
 
