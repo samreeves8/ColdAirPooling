@@ -161,7 +161,7 @@
         <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
         <label for="timeEnd">Select an end time:</label>
         <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
-        <input type="hidden" id="interval" name="interval">
+        <input type="hidden" id="interval" name="interval" value="3 Minutes">
         <br>
         <button type="button" onclick="submitDates()">Submit</button>
     </form>
