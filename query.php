@@ -150,6 +150,7 @@
         <?php
             include ("queryIndexOne.html");
         ?>
+        <div class = "form">
         <h1> Insert date and time range for data you want to see: </h1>
         <label for="dateStart">Select a start date:</label>
         <input type="date" id="dateStart" name="dateStart">
@@ -163,8 +164,8 @@
         <input type="hidden" id="interval" name="interval" value="3 Minutes">
         <br>
         <button type="button" onclick="submitDates()">Submit</button>
+        </div>
     </form>
-
     
 </body>
 </html>

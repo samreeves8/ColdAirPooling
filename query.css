@@ -23,6 +23,9 @@
   box-shadow: 2px 2px 5px #ccc;
 }
 
+#form {
+  clear: both;
+}
 #sidebarList {
   flex-basis: 50%;
   background-color: #f1f1f1;
