@@ -67,12 +67,18 @@
 
 
 <?php
+
     function queryDatabase(){
-        //connect to database
-        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        
+    }
+
+    //predefine arrays used for Query/graphs
+    $temps = array();  
+    $dates = array();
+    $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+        
 
         //gather variables from post request, used in query params
         $sensorSet = json_decode($_POST['sensor-set-input']);
@@ -126,14 +132,11 @@
                 $hour = true;
             }
         }
-
-        //predefine arrays used for Query/graphs
+       
+        //code to display table and graph
         $allArrays = array();
-        $temps = array();  
-        $dates = array();
-        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
 
-        foreach ($sensorSet as $sensor){
+        foreach($sensorSet as $sensor){
             //Determine which table to query 
             $table = null;
             if(in_array($sensor, $humidity)){
@@ -161,7 +164,7 @@
             $temp = array();
             $date = array();
 
-            //Gather data from query 
+            //display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
@@ -172,38 +175,19 @@
 
                     //add each row to array for graph
                     $allArrays[] = array(
-                    'label' => $sensor,
-                    'temp' => $temp,
-                    'date' => $date
+                        'label' => $sensor,
+                        'temp' => $temp,
+                        'date' => $date
                     );
                 }
             }
         }
 
-        return $allArrays;
-    }
-
-    if($_SERVER['REQUEST_METHOD']==='POST'){
-       
-
-        //gather variables from post request, used in query params
-        $sensorSet = json_decode($_POST['sensor-set-input']);
-        $val = $_POST['interval'];
-        $dateStart = $_POST['dateStart'];
-        $dateEnd = $_POST['dateEnd'];
-        $timeStart = $_POST['timeStart'];
-        $timeEnd = $_POST['timeEnd'];
-        $dateTimeStart = $dateStart . ' '.$timeStart;
-        $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
-        $allArrays = queryDatabase();
-        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
-        
-        
         //Code to display graph
         $data = json_encode($allArrays);
         echo '<canvas id="myChart"></canvas>;';
-        echo '<script>
-            var allArrays = '.$data.';
+        echo'<script>
+            var allArrays = <?php echo $data; ?>;
             var datasets = [];
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
@@ -235,9 +219,8 @@
                 }
                 return color;
             }
-            </script>';
+        </script>';
 
-        //code to display table
         echo "<div class='tab-container'>
               <ul class='tab-list'> ";
 
@@ -290,6 +273,8 @@
                     echo "<td>" . $row["Temperature"] . "</td>";
                     echo "</tr>";
 
+                    $temp[] = $row['Temperature'];
+                    $date[] = $formattedDateTime;
                 }
             }
             echo "</table></div>";
