@@ -185,6 +185,16 @@
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
        
+
+        //gather variables from post request, used in query params
+        $sensorSet = json_decode($_POST['sensor-set-input']);
+        $val = $_POST['interval'];
+        $dateStart = $_POST['dateStart'];
+        $dateEnd = $_POST['dateEnd'];
+        $timeStart = $_POST['timeStart'];
+        $timeEnd = $_POST['timeEnd'];
+        $dateTimeStart = $dateStart . ' '.$timeStart;
+        $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
         $allArrays = queryDatabase();
 
         //code to display graph
