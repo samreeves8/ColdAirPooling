@@ -21,8 +21,7 @@
 <body>
     <script>
         function submitDates() {
-            
-            parent.insertAdjacentHTML('beforeend', child.outerHTML);
+        
             var dateStart = document.getElementById("dateStart").value;
             var timeStart = document.getElementById("timeStart").value;
             var dateEnd = document.getElementById("dateEnd").value;
@@ -83,7 +82,7 @@
             }
 
 
-            const parent = document.getElementById('myForm');
+            var parent = document.getElementById('myForm');
             // Create dropdown menu using rangeArr
             var selectElem = document.createElement("select");
             selectElem.id = "range";
