@@ -1,9 +1,9 @@
 #map {
-  display: inline-block;
+  float: left;
 }
 
 #sidebarContainer {
-  display: inline-block;
+  float: right;
   vertical-align: top;
 }
 
