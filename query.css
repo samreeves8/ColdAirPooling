@@ -1,37 +1,49 @@
 #map {
   height: 640px;
   width: 960px;
-  border: 2px solid #ccc;
-  box-shadow: 2px 2px 5px #ccc;
   float: left;
 }
 
 #sidebarContainer {
-  display: flex;
   float: right;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: stretch;
+  width: calc(100% - 960px);
+  height: 640px;
+  overflow: auto;
+}
+
+.form {
+  clear: both;
   margin-top: 20px;
 }
 
-#sidebar {
-  flex-basis: 50%;
-  background-color: #f1f1f1;
-  padding: 20px;
-  border: 2px solid #ccc;
-  box-shadow: 2px 2px 5px #ccc;
+#myForm {
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: center;
 }
 
-#form {
-  clear: both;
+label {
+  display: inline-block;
+  margin: 5px 10px;
 }
-#sidebarList {
-  flex-basis: 50%;
-  background-color: #f1f1f1;
-  padding: 20px;
-  border: 2px solid #ccc;
-  box-shadow: 2px 2px 5px #ccc;
+
+input[type="date"], input[type="time"] {
+  margin: 5px;
+}
+
+button[type="button"] {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1.2em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background-color: #3E8E41;
 }
 
 
