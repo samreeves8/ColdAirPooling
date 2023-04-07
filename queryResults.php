@@ -179,11 +179,13 @@
                 }
             }
         }
+
+        return $allArrays;
     }
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
        
-        queryDatabase();
+        $allArrays = queryDatabase();
 
         //code to display graph
         
@@ -278,15 +280,7 @@
                     echo "<td>" . $row["Temperature"] . "</td>";
                     echo "</tr>";
 
-                    $temp[] = $row['Temperature'];
-                    $date[] = $formattedDateTime;
                 }
-                //add each row to array for graph
-                $allArrays[] = array(
-                    'label' => $sensor,
-                    'temp' => $temp,
-                    'date' => $date
-                );
             }
             echo "</table></div>";
         }
