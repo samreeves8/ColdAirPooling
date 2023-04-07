@@ -115,15 +115,6 @@
             console.log(selectedRange);
             document.getElementById('interval').value = selectedRange;
     
-            const xhr = new XMLHttpRequest();
-
-            xhr.open('POST', 'queryResults.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-            // Set the POST parameters
-            const params = '&sensorSet=' + encodeURIComponent(Array.from(sensorSet).join(','));
-            xhr.send(params);
-            console.log(params);
             document.getElementById('myForm').submit();
         }
     </script>
