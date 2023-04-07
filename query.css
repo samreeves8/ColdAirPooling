@@ -16,8 +16,19 @@
 
 @media only screen and (max-width: 768px) {
   #map {
+    float: left;
+    margin-left: 5%;
+    margin-top: 2%;
     width: 50%;
-    
+  }
+  #sidebarContainer {
+    float: right;
+    margin-right: 5%;
+    margin-top: 5%;
+    vertical-align: top;
+    text-align: center;
+    width: 20%;
+  }
 }
 
 .form {
