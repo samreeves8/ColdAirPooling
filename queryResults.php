@@ -177,14 +177,13 @@
 
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
-
-                    //add each row to array for graph
-                    $allArrays[] = array(
-                        'label' => $sensor,
-                        'temp' => $temp,
-                        'date' => $date
-                    );
                 }
+                //add each row to array for graph
+                $allArrays[] = array(
+                    'label' => $sensor,
+                    'temp' => $temp,
+                    'date' => $date
+                );
             }
         }
 
