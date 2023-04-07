@@ -1,3 +1,5 @@
+<?php$allArrays = array();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -164,7 +166,6 @@
         }
        
         //code to display table and graph
-        $allArrays = array();
         echo "<div class='tab-container'>
               <ul class='tab-list'> ";
 
