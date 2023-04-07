@@ -1,39 +1,25 @@
 #map {
-  position: relative;
-  height: 640px;
-  width: 960px;
+  height: 80vh;
+  width: 90vw;
 }
 
 #sidebarContainer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 640px;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
-  margin-left: -210px;
-  z-index: 1;
-
-  margin-top: 60px; 
+  flex-direction: row;
+  height: 20vh;
+  width: 90vw;
 }
 
 #sidebar {
-  width: 200px;
-  height: 320px;
-  background-color: #f0f0f071;
-  box-sizing: border-box;
-  overflow: auto;
-  margin-bottom: 10px;
+  width: 70%;
+  height: 100%;
+  background-color: lightgray;
 }
 
 #sidebarList {
-  width: 200px;
-  height: 320px;
-  background-color: #c42c40;
-  box-sizing: border-box;
-  overflow: auto;
+  width: 30%;
+  height: 100%;
+  background-color: lightblue;
 }
 
 table {
