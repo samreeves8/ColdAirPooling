@@ -6,6 +6,7 @@
 #sidebarContainer {
   float: right;
   vertical-align: top;
+  text-align: center;
   width: 30%;
 }
 
