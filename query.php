@@ -1,5 +1,10 @@
 <?php
-session_start();
+    session_start();
+
+    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +20,115 @@ session_start();
     <title>Document</title>
 </head>
 <body>
+    <script>
+        function submitDates() {
+            var dateStart = document.getElementById("dateStart").value;
+            var timeStart = document.getElementById("timeStart").value;
+            var dateEnd = document.getElementById("dateEnd").value;
+            var timeEnd = document.getElementById("timeEnd").value;
+            console.log("Start datetime:", dateStart, timeStart);
+            console.log("End datetime:", dateEnd, timeEnd);
+            var startDateTime = new Date(dateStart + " " + timeStart);
+            var endDateTime = new Date(dateEnd + " " + timeEnd);
+            var timeDiff = endDateTime.getTime() - startDateTime.getTime();
+            console.log(timeDiff);
+            if (timeDiff <= 0) {
+                console.log("Start date is greater than end date");
+                return;
+            }
+            var rangeArr;
+
+            // Check if there is an existing select element on the page
+            var existingSelectElem = document.getElementById("range");
+            if (existingSelectElem) {
+                // If there is an existing select element, remove it
+                existingSelectElem.remove();
+            }
+
+            var rangeArr;
+            switch (true) {
+                case (timeDiff <= 10800000): // Less than 3 hours
+                    console.log("Less than 3 hours");
+                    rangeArr = ['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes'];
+                    break;
+                case (timeDiff <= 21600000): // Between 3 hours and 6 hours
+                    console.log("Between 3 hours and 6 hours");
+                    rangeArr = ['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour'];
+                    break;
+                case (timeDiff <= 86400000): // Between 6 hours and 1 day
+                    console.log("Between 6 hours and 1 day");
+                    rangeArr = ['3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour', '2 Hours'];
+                    break;
+                case (timeDiff <= 518400000): // Between 1 day and 1 week
+                    console.log("Between 1 day and 1 week");
+                    rangeArr = ['15 Minutes', '30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily'];
+                    break;
+                case (timeDiff <= 5266800000): // Between 1 week and 2 months
+                    console.log("Between 1 week and 2 months");
+                    rangeArr = ['1 Hour', '4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly'];
+                    break;
+                case (timeDiff <= 31536000000): // Between 2 months and 1 year
+                    console.log("Between 2 months and 1 year");
+                    rangeArr = ['Daily', 'Bi-Daily', 'Weekly', 'Monthly'];
+                    break;
+                case (timeDiff <= 63158400000): // Between 1 year and 2 years
+                    console.log("Between 1 year and 2 years");
+                    rangeArr = ['Weekly', 'Bi-Weekly', 'Monthly'];
+                    break;
+                default: // Greater than 2 years
+                    console.log("Greater than 2 years");
+                    rangeArr = ['Monthly', 'Yearly'];
+                    break;
+            }
+
+            // Create dropdown menu using rangeArr
+            var selectElem = document.createElement("select");
+            selectElem.id = "range";
+            console.log("Right before the rangeSelected");
+            var defaultOptionElem = document.createElement("option");
+            defaultOptionElem.value = "";
+            defaultOptionElem.disabled = true;
+            defaultOptionElem.selected = true;
+            defaultOptionElem.text = "Select an option";
+            selectElem.appendChild(defaultOptionElem);
+            console.log("Created default option");
+            for (var i = 0; i < rangeArr.length; i++) {
+                console.log("Entered Loop");
+                var optionElem = document.createElement("option");
+                optionElem.value = i;
+                optionElem.text = rangeArr[i];
+                selectElem.appendChild(optionElem);
+            }
+
+            document.body.appendChild(selectElem);
+            selectElem.onchange = rangeSelected;
+            console.log("end");
+        }
+
+        function rangeSelected() {
+            const mySelect = document.getElementById('range');
+            
+            const selectedOption = mySelect.options[mySelect.selectedIndex];
+            
+            const val = selectedOption.value;
+            console.log(val);
+            const selectedRange = selectedOption.text;
+            console.log(selectedRange);
+            document.getElementById('interval').value = selectedRange;
+    
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', 'queryResults.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            // Set the POST parameters
+            const params = '&sensorSet=' + encodeURIComponent(Array.from(sensorSet).join(','));
+            xhr.send(params);
+            console.log(params);
+            document.getElementById('myForm').submit();
+        }
+    </script>
+
     <div class="navbar">
         <ul class="menu">
             <li><a href="/">Home</a></li>
@@ -31,44 +145,15 @@ session_start();
             ?>         
         </ul>
     </div>
-    <script>
-            function rangeSelected() {
-                const mySelect = document.getElementById('range');
-                const selectedOption = mySelect.options[mySelect.selectedIndex];
-                const val = selectedOption.value;
-                const selectedRange = selectedOption.text;
-                document.getElementById('valField').value = selectedRange;
+
     
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'query.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-                // Set the POST parameters
-                const params = 'val=' + encodeURIComponent(val);
-                xhr.send(params);
-                console.log(params);
-                console.log('sent request');
-    
-                document.getElementById('rangeForm').submit();
-            }
-        </script>
-</body>
-</html>
-
-<?php
-    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-    echo "<form action = 'query.php' method = 'POST'>";
-
-
-    include("queryIndexOne.html");
-
-    echo 
-        '<h1> Insert date and time range for data you want to see: </h1>
+    <form  id="myForm" action = 'queryResults.php' method = 'POST'>
+        <?php
+            include ("queryIndexOne.html");
+        ?>
+        <h1> Insert date and time range for data you want to see: </h1>
         <label for="dateStart">Select a start date:</label>
-        <input type="date" id="dateStart" name="dateStart" value = "2022-08-16">
+        <input type="date" id="dateStart" name="dateStart">
         <label for="timeStart">Select a start time:</label>
         <input type="time" id="timeStart" name="timeStart" value = "00:00">
         <br>
@@ -76,100 +161,16 @@ session_start();
         <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
         <label for="timeEnd">Select an end time:</label>
         <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
-        <br>';
-    
-
-    echo '<input type="submit" value="Submit"></form>';
-    
-    
-    if($_SERVER['REQUEST_METHOD']==='POST'){
-        $sensors = json_decode($_POST['sensor-set-input']);
-        // $sensors = isset($_POST['sensor-set-input']) ? $_POST['sensor-set-input'] : array();
-        echo "<script>console.log(".json_encode($sensors).");</script>";
-
-        $dateStart = $_POST['dateStart'];
-        $dateEnd = $_POST['dateEnd'];
-        $timeStart = $_POST['timeStart'];
-        $timeEnd = $_POST['timeEnd'];
-        $val = $_POST['val'] ?? NULL;
-        $dateTimeStart = $dateStart . ' '.$timeStart;
-        $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
-
-        if(isset($dateTimeEnd) && $dateTimeEnd <= $dateTimeStart){
-            echo "Error: End date must be after start date";
-        }
-        
-        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
-        
-        $x = 0;
-        $rangeArr = null;
-        $timedif = strtotime($dateTimeEnd) - strtotime($dateTimeStart);
-        if($timedif <= 0 && ($dateTimeStart != "" && $dateTimeEnd != "")){
-            echo "Start date is greater than end date";
-            exit();
-        }
-        if ($timedif <= 10800) {
-            echo "Less than 3 hours";
-            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes');
-        }else if($timedif <= 21600){
-            echo "Between 3 hours and 6 hours";
-            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour');
-        }else if($timedif <= 86400){
-            echo "Between 6 hours and 1 day";
-            $rangeArr = array('3 Minutes', '6 Minutes', '15 Minutes', '30 Minutes', '1 Hour', '2 Hours');
-        }else if($timedif <= 604800){
-            echo "Between 1 day and 1 week";
-            $rangeArr = array('15 Minutes','30 Minutes', '1 Hour', '2 Hours', '4 Hours', '12 Hours', 'Daily');
-        }else if($timedif <= 5184000){
-            echo "Between 1 week and 2 months";
-            $rangeArr = array('1 Hour', '4 Hours', '12 Hours', 'Daily', 'Bi-Daily', 'Weekly');
-        }else if($timedif <= 31536000){
-            echo "Between 2 months and 1 year";
-            $rangeArr = array('Daily', 'Bi-Daily', 'Weekly', 'Monthly');
-        }else if($timedif <= 63072000){
-            echo "Between 1 year and 2 years";
-            $rangeArr = array('Weekly', 'Bi-Weekly', 'Monthly');
-        }else{
-            echo "Greater than 2 years";
-            $rangeArr = array('Monthly', 'Yearly');
-        }
-
-        $serializedArray = serialize($sensors);
-        
-        echo "<script>console.log(".json_encode($serializedArray).");</script>";
-    
-        echo "<form id = 'rangeForm' action='queryResults.php' method='POST'><br><select id = 'range' style = 'font-size: 24px;' onchange='rangeSelected()'>";
-        echo "<option value='' disabled selected>Select an option</option>";
-        $counter = 0;
-        foreach($rangeArr as $currRange){
-            echo "<option value = '" . $counter . "'>" . $currRange . "</option>";
-            $counter += 1;
-        }
-        echo "</select>";
-        echo "<input type='hidden' name='sensors' value='$serializedArray'>";
-        echo "<input type='hidden' name='dateTimeStart' value='$dateTimeStart'>";
-        echo "<input type='hidden' name='dateTimeEnd' value='$dateTimeEnd'>";
-        echo "<input type='hidden' name='val' id='valField' value='$val'>";
-        echo "</form>";
+        <input type="hidden" id="interval" name="interval" value="3 Minutes">
+        <br>
+        <button type="button" onclick="submitDates()">Submit</button>
+    </form>
 
     
-    }
-    
-        //x, table, startdatetime, endadatetime
+</body>
+</html>
 
-        // 3 minutes - x is 1 or 2
-        // 6 minutes - x is 3
-        // 15 minutes - x is 6
-        // 30 minutes - x is 11
-        // 1 hour - x is 21
-        // 2 hours - x is 41
-        // 4 hours - x is 81
-        // 12 hours - x is 241
-        // 1 day - x is 481
-        // 2 day - x is 961
-        // Weekly - x is 3361
-        // Bi-Weekly - x is 6721
-        // S is sensor
-        // startDate and endDate are variable
+<?php
     
 ?>
+
