@@ -32,7 +32,6 @@ input[type="date"], input[type="time"] {
 }
 
 button[type="button"] {
-  float: right;
   margin-top: 20px;
   padding: 10px;
   font-size: 1.2em;
@@ -84,11 +83,4 @@ table {
     font-size: 14px;
   }
     
-  select {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-  }
-  
   
