@@ -112,8 +112,8 @@
             
             const val = selectedOption.value;
             console.log(val);
-            document.getElementById('interval').value = val;
             const selectedRange = selectedOption.text;
+            document.getElementById('interval').value = selectedRange;
     
             const xhr = new XMLHttpRequest();
 
@@ -121,11 +121,9 @@
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
             // Set the POST parameters
-            const params = 'val=' + encodeURIComponent(val) + '&sensorSet=' + encodeURIComponent(Array.from(sensorSet).join(','));
+            const params = '&sensorSet=' + encodeURIComponent(Array.from(sensorSet).join(','));
             xhr.send(params);
             console.log(params);
-            console.log('sent request');
-            console.log(Array.from(sensorSet).join(','));
             document.getElementById('myForm').submit();
         }
     </script>

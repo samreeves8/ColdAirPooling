@@ -81,7 +81,6 @@
         $sensorSet = json_decode($_POST['sensor-set-input']);
         print_r($sensorSet);
         $val = $_POST['interval'];
-        echo $val;
         $dateStart = $_POST['dateStart'];
         $dateEnd = $_POST['dateEnd'];
         $timeStart = $_POST['timeStart'];
