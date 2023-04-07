@@ -47,7 +47,7 @@
         });
     </script>
     <script>
-            var allArrays = <?php$data?>;
+            var allArrays = <?php echo $data;?>;
             var datasets = [];
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
