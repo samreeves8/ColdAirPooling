@@ -175,8 +175,9 @@
                     'label' => $sensor,
                     'temp' => $temp,
                     'date' => $date
-                );
+                    );
                 }
+            }
         }
     }
 
@@ -223,7 +224,7 @@
                 return color;
             }
             </script>';
-            
+
         //code to display table
         echo "<div class='tab-container'>
               <ul class='tab-list'> ";
