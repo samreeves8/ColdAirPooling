@@ -1,5 +1,3 @@
-<?php$allArrays = array();?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,7 +47,7 @@
         });
     </script>
     <script>
-            var allArrays = ' . $data . ';
+            var allArrays = <?php$data?>;
             var datasets = [];
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
@@ -166,6 +164,7 @@
         }
        
         //code to display table and graph
+        $allArrays = array();
         echo "<div class='tab-container'>
               <ul class='tab-list'> ";
 
