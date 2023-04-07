@@ -82,7 +82,7 @@
             }
 
 
-            var parent = document.getElementById('myForm');
+            var parent = document.getElementById('buttondrop');
             // Create dropdown menu using rangeArr
             var selectElem = document.createElement("select");
             selectElem.id = "range";
@@ -153,7 +153,9 @@
         <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
         <input type="hidden" id="interval" name="interval" value="3 Minutes">
         <br>
+        <div id = "buttondrop">
         <button type="button" onclick="submitDates()">Submit</button>
+        </div>
     </form>
     
 </body>
