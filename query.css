@@ -18,6 +18,10 @@
   clear: both;
 }
 
+#buttondrop {
+  display:inline-block;
+}
+
 #myForm {
   text-align: center;
 }
@@ -41,12 +45,6 @@ button[type="button"] {
   border-radius: 5px;
   cursor: pointer;
   
-}
-
-button[type="button"], select {
-  display: inline-block;
-  vertical-align: top;
-  margin-right: 10px;
 }
 
 button[type="button"]:hover {
