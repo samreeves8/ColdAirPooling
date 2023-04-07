@@ -55,8 +55,17 @@
             <button type = \'button\' id=\'remove-btn\'>Remove</button>\
             <br>\
             <button type = \'button\' id=\'add-btn\'>Add</button>\
+            <br>\
+            <button type = \'button\' id=\'clear-btn\'>Clear</button>\
             </p>";
 
+            //Clear button logic
+            var clearBtn = document.getElementById('clear-btn');
+            clearBtn.addEventListener('click', function() {
+                sensorSet.clear();
+                sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+                document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
+            });
 
             //Remove button logic
             var removeBtn = document.getElementById('remove-btn');
