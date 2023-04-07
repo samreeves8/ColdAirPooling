@@ -46,6 +46,40 @@
         });
         });
     </script>
+    <script>
+            var allArrays = ' . $data . ';
+            var datasets = [];
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                datasets.push({
+                    label: allArrays[i].label,
+                    data: data,
+                    borderColor: getRandomColor(),
+                    fill: false
+                });
+            }
+    
+            new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    legend: {display: true}
+                }
+            });
+    
+            function getRandomColor() {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        </script>
     <title>Query Results</title>
 </head>
 <body>
@@ -199,41 +233,7 @@
 
         //Code to display graph
         $data = json_encode($allArrays);
-        echo '<canvas id="myChart"></canvas>;
-        <script>
-            var allArrays = ' . $data . ';
-            var datasets = [];
-            for (var i = 0; i < allArrays.length; i++) {
-                var data = allArrays[i].temp.map(Number);
-                var labels = allArrays[i].date;
-                datasets.push({
-                    label: allArrays[i].label,
-                    data: data,
-                    borderColor: getRandomColor(),
-                    fill: false
-                });
-            }
-    
-            new Chart("myChart", {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: datasets
-                },
-                options: {
-                    legend: {display: true}
-                }
-            });
-    
-            function getRandomColor() {
-                var letters = "0123456789ABCDEF";
-                var color = "#";
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
-                }
-                return color;
-            }
-        </script>';
+        echo '<canvas id="myChart"></canvas>;'
     }
 ?>
 
