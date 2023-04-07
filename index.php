@@ -57,7 +57,7 @@ session_start();
     if ($result->num_rows > 0) {
         // output data of each row as a table row
         while($row = $result->fetch_array()) {
-            echo "<tr><td><a href='https://gunnisoncoldpooling.net/index.php?sensorID=".$row['Sensor']."'>" . $row["Sensor"]. "</a></td><td>" . $row["Latitude"]. "</td><td>". $row["Longitude"]. "</td><td>". $row["Elevation"]. "</td><td>" . $row["DateTime"]. "</td></tr>";
+            echo "<tr><td><a href='#'>" . $row["Sensor"]. "</a></td><td>" . $row["Latitude"]. "</td><td>". $row["Longitude"]. "</td><td>". $row["Elevation"]. "</td><td>" . $row["DateTime"]. "</td></tr>";
         }
     } else {
         echo "<tr><td colspan='5'>0 results</td></tr>";
