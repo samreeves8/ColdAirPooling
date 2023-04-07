@@ -31,6 +31,7 @@
             var startDateTime = new Date(dateStart + " " + timeStart);
             var endDateTime = new Date(dateEnd + " " + timeEnd);
             var timeDiff = endDateTime.getTime() - startDateTime.getTime();
+            console.log(timeDiff);
             if (timeDiff <= 0) {
                 console.log("Start date is greater than end date");
                 return;
