@@ -37,6 +37,15 @@
                 return;
             }
             var rangeArr;
+
+            // Check if there is an existing select element on the page
+            var existingSelectElem = document.getElementById("range");
+            if (existingSelectElem) {
+                // If there is an existing select element, remove it
+                existingSelectElem.remove();
+            }
+
+            var rangeArr;
             switch (true) {
                 case (timeDiff <= 10800000): // Less than 3 hours
                     console.log("Less than 3 hours");
@@ -71,7 +80,7 @@
                     rangeArr = ['Monthly', 'Yearly'];
                     break;
             }
-            2592000000
+
             // Create dropdown menu using rangeArr
             var selectElem = document.createElement("select");
             selectElem.id = "range";
@@ -95,6 +104,7 @@
             selectElem.onchange = rangeSelected;
             console.log("end");
         }
+        
         function rangeSelected() {
             const mySelect = document.getElementById('range');
             
