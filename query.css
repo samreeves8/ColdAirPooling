@@ -15,12 +15,9 @@
 }
 
 @media only screen and (max-width: 768px) {
-  #map,
-  #sidebarContainer {
-    width: 100%;
-    display: block;
-    float: none;
-  }
+  #map {
+    width: 50%;
+    
 }
 
 .form {
