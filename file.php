@@ -104,7 +104,7 @@
             selectElem.onchange = rangeSelected;
             console.log("end");
         }
-        
+
         function rangeSelected() {
             const mySelect = document.getElementById('range');
             
@@ -124,7 +124,7 @@
             xhr.send(params);
             console.log(params);
             console.log('sent request');
-    
+            console.log(Array.from(sensorSet).join(','));
             document.getElementById('myForm').submit();
         }
     </script>
