@@ -1,14 +1,14 @@
 #map {
   float: left;
   margin-left: 5%;
-  margin-top: 5%;
+  margin-top: 2%;
   width: 65%;
 }
 
 #sidebarContainer {
   float: right;
   margin-right: 5%;
-  margin-top: 1.5;
+  margin-top: 2%;
   vertical-align: top;
   text-align: center;
   width: 30%;
