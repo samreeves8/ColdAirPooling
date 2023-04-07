@@ -80,7 +80,7 @@
         $val = $_POST['val'];
         echo $val;
         $sensorSet = explode(',', $_POST['sensorSet']);
-        echo $sensorSet;
+        print_r($sensorSet);
         $val = isset($_POST['val']) ? $_POST['val'] : null;
         $dateTimeStart = $_POST['dateTimeStart'];
         $dateTimeEnd = $_POST['dateTimeEnd'];
