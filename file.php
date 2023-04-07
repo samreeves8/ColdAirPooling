@@ -112,6 +112,7 @@
             
             const val = selectedOption.value;
             console.log(val);
+            document.getElementById('interval').value = val;
             const selectedRange = selectedOption.text;
     
             const xhr = new XMLHttpRequest();
@@ -161,6 +162,7 @@
         <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
         <label for="timeEnd">Select an end time:</label>
         <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
+        <input type="hidden" id="interval" name="interval">
         <br>
         <button type="button" onclick="submitDates()">Submit</button>
     </form>

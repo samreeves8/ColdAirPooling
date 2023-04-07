@@ -78,9 +78,9 @@
 
         //gather variables from post request, used in query params
         print_r($_POST);
-        $sensorSet = $_POST['sensorSet'];
+        $sensorSet = json_decode($_POST['sensor-set-input']);
         print_r($sensorSet);
-        $val = isset($_POST['val']) ? $_POST['val'] : null;
+        $val = $_POST['interval'];
         echo $val;
         $dateStart = $_POST['dateStart'];
         $dateEnd = $_POST['dateEnd'];
