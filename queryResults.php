@@ -68,10 +68,6 @@
 
 <?php
 
-    function queryDatabase(){
-        
-    }
-
     //predefine arrays used for Query/graphs
     $temps = array();  
     $dates = array();
@@ -171,41 +167,63 @@
             $date = array();
 
 
-            //display each row in the table
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $dateTime = new DateTime($row["DateTime"]);
-                    $formattedDateTime = $dateTime->format('M d, Y h:ia');
+            // Create an empty array to hold all the unique dates
+        $allDates = array();
 
-                    $temp[] = $row['Temperature'];
-                    $date[] = $formattedDateTime;
+        // Loop through each sensor's data
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $dateTime = new DateTime($row["DateTime"]);
+                $formattedDateTime = $dateTime->format('M d, Y h:ia');
+
+                $temp[] = $row['Temperature'];
+                $date[] = $formattedDateTime;
+                // Add the date to the array of unique dates
+                if (!in_array($formattedDateTime, $allDates)) {
+                    $allDates[] = $formattedDateTime;
                 }
-                // Check if this array of dates is longer than the previous longest array
-                if (count($date) > count($longestDateArray)) {
-                    $longestDateArray = $date;
-                }
-                //add each row to array for graph
-                $allArrays[] = array(
-                    'label' => $sensor,
-                    'temp' => $temp,
-                    'date' => $date
-                );
             }
+            // Check if this array of dates is longer than the previous longest array
+            if (count($date) > count($longestDateArray)) {
+                $longestDateArray = $date;
+            }
+            //add each row to array for graph
+            $allArrays[] = array(
+                'label' => $sensor,
+                'temp' => $temp,
+                'date' => $date
+            );
         }
 
-        
+        // Fill in missing dates for each sensor's data
+        foreach ($allArrays as &$array) {
+            $filledDates = array();
+            foreach ($allDates as $date) {
+                if (in_array($date, $array['date'])) {
+                    $index = array_search($date, $array['date']);
+                    $filledDates[] = $array['date'][$index];
+                    $filledTemps[] = $array['temp'][$index];
+                } else {
+                    $filledDates[] = $date;
+                    $filledTemps[] = null;
+                }
+            }
+            $array['date'] = $filledDates;
+            $array['temp'] = $filledTemps;
+        }
+
         //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
         } else {
             $data = json_encode($allArrays);
-            
+
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
                 var allArrays = '.$data.';
                 var datasets = [];
                 for (var i = 0; i < allArrays.length; i++) {
-                    var data = allArrays[i].temp.map(Number);
+                    var data = allArrays[i].temp;
                     var labels = allArrays[i].date;
                     datasets.push({
                         label: allArrays[i].label,
@@ -218,7 +236,7 @@
                 new Chart("myChart", {
                     type: "line",
                     data: {
-                        labels: '.json_encode($longestDateArray).',
+                        labels: '.json_encode($allDates).',
                         datasets: datasets
                     },
                     options: {
@@ -235,6 +253,7 @@
                     return color;
                 }
             </script>';
+
     
 
             echo "<div class='tab-container'>
