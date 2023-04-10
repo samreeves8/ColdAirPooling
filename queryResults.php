@@ -202,7 +202,7 @@
             
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
-            var allArrays = <?php echo json_encode($data); ?>;
+            var allArrays =  '.$data.';
             var datasets = [];
             var longestDateArrayLength = 0;
             var longestDateArray = [];
