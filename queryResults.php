@@ -204,27 +204,28 @@
             echo'<script>
             var allArrays = '.$data.';
             var datasets = [];
-            var allDates = [];
-            var allTemps = [];
-
-            // Collect all dates and temperatures into separate arrays
-            for (var i = 0; i < allArrays.length; i++) {
-                allDates.push(allArrays[i].date);
-                allTemps.push(allArrays[i].temp.map(Number));
-            }
-
+            var longestDateArrayLength = 0;
+            var longestDateArray = [];
+            
             // Find the longest date array and create an array of all possible dates
-            var longestDateArray = allDates.reduce(function(acc, val) {
-                return val.length > acc.length ? val : acc;
-            }, []);
-
-            // Pad the smaller temperature arrays with nulls based on the differences in dates
-            for (var i = 0; i < allDates.length; i++) {
+            for (var i = 0; i < allArrays.length; i++) {
+                var labels = allArrays[i].date;
+                if (labels.length > longestDateArrayLength) {
+                    longestDateArrayLength = labels.length;
+                    longestDateArray = labels;
+                }
+            }
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
                 var paddedData = [];
                 var j = 0;
+                // Pad the smaller temperature array with nulls based on the differences in dates
                 for (var k = 0; k < longestDateArray.length; k++) {
-                    if (allDates[i][j] == longestDateArray[k]) {
-                        paddedData.push(allTemps[i][j]);
+                    console.log(labels[j] == longestDateArray[k]);
+                    console.log(data[j]);
+                    if (labels[j] == longestDateArray[k]) {
+                        paddedData.push(data[j]);
                         j++;
                     } else {
                         paddedData.push(null);
@@ -237,7 +238,7 @@
                     fill: false
                 });
             }
-
+            
             new Chart("myChart", {
                 type: "line",
                 data: {
@@ -248,7 +249,7 @@
                     legend: {display: true}
                 }
             });
-
+            
             function getRandomColor() {
                 var letters = "0123456789ABCDEF";
                 var color = "#";
@@ -257,7 +258,7 @@
                 }
                 return color;
             }
-
+            
         </script>';
     
 
