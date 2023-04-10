@@ -229,6 +229,7 @@
                         j++;
                     } else {
                         paddedData.push(null);
+                        j++;
                     }
                 }
                 datasets.push({
