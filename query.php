@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="nav.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <link rel = "stylesheet" href = "query.css">
+    <link rel = "stylesheet" href = "styles/query.css">
     <title>Document</title>
 </head>
 <body>
