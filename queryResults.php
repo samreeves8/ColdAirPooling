@@ -140,6 +140,7 @@
        
         //code to display table and graph
         $allArrays = array();
+        $longestDateArray = array();
 
         foreach($sensorSet as $sensor){
             //Determine which table to query 
@@ -179,16 +180,20 @@
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
                 }
+                // Check if this array of dates is longer than the previous longest array
+                if (count($date) > count($longestDateArray)) {
+                    $longestDateArray = $date;
+                }
                 //add each row to array for graph
                 $allArrays[] = array(
                     'label' => $sensor,
                     'temp' => $temp,
                     'date' => $date
                 );
-                print_r($allArrays);
             }
         }
 
+        
         //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
