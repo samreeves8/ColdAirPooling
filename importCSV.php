@@ -12,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="import.css">
     <title>Document</title>
 </head>
+
 <body>
 <div class="navbar">
     <ul class="menu">
