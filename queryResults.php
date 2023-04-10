@@ -68,6 +68,7 @@
 
 <?php
 
+
     //predefine arrays used for Query/graphs
     $temps = array();  
     $dates = array();
@@ -134,29 +135,29 @@
             }
         }
        
-        //code to display table and graph
         $allArrays = array();
         $longestDateArray = array();
+        $nullValue = null;
 
-        foreach($sensorSet as $sensor){
+        foreach ($sensorSet as $sensor) {
             //Determine which table to query 
             $table = null;
-            if(in_array($sensor, $humidity)){
+            if (in_array($sensor, $humidity)) {
                 $table = "HumidData";
-            }else{
+            } else {
                 $table = "TempData";
             }
 
             //Determine which query to use based on minute or hour intervals
-            if($minute == true){
+            if ($minute == true) {
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                FROM " . $table . " WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                 GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-            } else if($hour == true){
+            } else if ($hour == true) {
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                FROM " . $table . " WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                 GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-            }    
+            }
 
             //prepare the query to prevent sql injection
             $stmt = $conn->prepare($sql);
@@ -166,64 +167,49 @@
             $temp = array();
             $date = array();
 
+            //display each row in the table
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $dateTime = new DateTime($row["DateTime"]);
+                    $formattedDateTime = $dateTime->format('M d, Y h:ia');
 
-            // Create an empty array to hold all the unique dates
-        $allDates = array();
-
-        // Loop through each sensor's data
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $dateTime = new DateTime($row["DateTime"]);
-                $formattedDateTime = $dateTime->format('M d, Y h:ia');
-
-                $temp[] = $row['Temperature'];
-                $date[] = $formattedDateTime;
-                // Add the date to the array of unique dates
-                if (!in_array($formattedDateTime, $allDates)) {
-                    $allDates[] = $formattedDateTime;
+                    $temp[] = $row['Temperature'];
+                    $date[] = $formattedDateTime;
                 }
+                // Check if this array of dates is longer than the previous longest array
+                if (count($date) > count($longestDateArray)) {
+                    $longestDateArray = $date;
+                }
+                // Pad the temperature array with null values for missing dates
+                $temp = array_pad($temp, count($longestDateArray), $nullValue);
+
+                //add each row to array for graph
+                $allArrays[] = array(
+                    'label' => $sensor,
+                    'temp' => $temp,
+                    'date' => $date
+                );
             }
-            // Check if this array of dates is longer than the previous longest array
-            if (count($date) > count($longestDateArray)) {
-                $longestDateArray = $date;
-            }
-            //add each row to array for graph
-            $allArrays[] = array(
-                'label' => $sensor,
-                'temp' => $temp,
-                'date' => $date
-            );
         }
 
-        // Fill in missing dates for each sensor's data
+        // Pad the date arrays of all sensors with null values for missing dates
         foreach ($allArrays as &$array) {
-            $filledDates = array();
-            foreach ($allDates as $date) {
-                if (in_array($date, $array['date'])) {
-                    $index = array_search($date, $array['date']);
-                    $filledDates[] = $array['date'][$index];
-                    $filledTemps[] = $array['temp'][$index];
-                } else {
-                    $filledDates[] = $date;
-                    $filledTemps[] = null;
-                }
-            }
-            $array['date'] = $filledDates;
-            $array['temp'] = $filledTemps;
+            $array['date'] = array_pad($array['date'], count($longestDateArray), $nullValue);
         }
+        unset($array); // Unset reference to last element to avoid bugs
 
         //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
         } else {
             $data = json_encode($allArrays);
-
+            
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
                 var allArrays = '.$data.';
                 var datasets = [];
                 for (var i = 0; i < allArrays.length; i++) {
-                    var data = allArrays[i].temp;
+                    var data = allArrays[i].temp.map(Number);
                     var labels = allArrays[i].date;
                     datasets.push({
                         label: allArrays[i].label,
@@ -236,7 +222,7 @@
                 new Chart("myChart", {
                     type: "line",
                     data: {
-                        labels: '.json_encode($allDates).',
+                        labels: label,
                         datasets: datasets
                     },
                     options: {
@@ -253,7 +239,6 @@
                     return color;
                 }
             </script>';
-
     
 
             echo "<div class='tab-container'>
