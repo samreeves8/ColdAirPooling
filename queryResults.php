@@ -205,32 +205,29 @@
             var allArrays = '.$data.';
             var datasets = [];
             var longestDateArrayLength = 0;
-            
-            // find the length of the longest date array
             for (var i = 0; i < allArrays.length; i++) {
-                if (allArrays[i].date.length > longestDateArrayLength) {
-                    longestDateArrayLength = allArrays[i].date.length;
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                if (labels.length > longestDateArrayLength) {
+                    longestDateArrayLength = labels.length;
                 }
-            }
-            
-            // pad the shorter date arrays with null values at the beginning
-            for (var i = 0; i < allArrays.length; i++) {
-                var dateArray = allArrays[i].date;
-                var tempArray = allArrays[i].temp;
-                var diff = longestDateArrayLength - dateArray.length;
-                for (var j = 0; j < diff; j++) {
-                    dateArray.unshift(null);
-                    tempArray.unshift(null);
-                }
-                
                 datasets.push({
                     label: allArrays[i].label,
-                    data: tempArray.map(Number),
+                    data: data,
                     borderColor: getRandomColor(),
                     fill: false
                 });
             }
-        
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                while (labels.length < longestDateArrayLength) {
+                    labels.unshift(null);
+                    data.unshift(null);
+                }
+                datasets[i].data = data;
+                datasets[i].label = allArrays[i].label;
+            }
             new Chart("myChart", {
                 type: "line",
                 data: {
@@ -250,8 +247,7 @@
                 }
                 return color;
             }
-        </script>
-        ';
+        </script>';
     
 
             echo "<div class='tab-container'>
