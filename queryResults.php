@@ -172,13 +172,36 @@
 
             //display each row in the table
             if ($result->num_rows > 0) {
+                $timestamp = 0;
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
+                    
+                    //Check if there is a gap in the timestamps, and insert null values if necessary
+                    while ($formattedDateTime != $longestDateArray[$timestamp]) {
+                        foreach ($allArrays as &$array) {
+                            if ($formattedDateTime < $longestDateArray[$timestamp]) {
+                                array_unshift($array['temp'], null);
+                            } else {
+                                array_push($array['temp'], null);
+                            }
+                        }
+                        $timestamp++;
+                    }
 
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
+                    $timestamp++;
                 }
+
+                // Check if there are missing values at the end of the timestamp array, and insert null values if necessary
+                while ($timestamp < count($longestDateArray)) {
+                    foreach ($allArrays as &$array) {
+                        array_push($array['temp'], null);
+                    }
+                    $timestamp++;
+                }
+
                 // Check if this array of dates is longer than the previous longest array
                 if (count($date) > count($longestDateArray)) {
                     $longestDateArray = $date;
@@ -191,7 +214,7 @@
                 );
             }
         }
-
+        
         //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
