@@ -202,40 +202,52 @@
             
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
-                var allArrays = '.$data.';
-                var datasets = [];
-                for (var i = 0; i < allArrays.length; i++) {
-                    var data = allArrays[i].temp.map(Number);
-                    console.log(data);
-                    var labels = allArrays[i].date;
-                    datasets.push({
-                        label: allArrays[i].label,
-                        data: data,
-                        borderColor: getRandomColor(),
-                        fill: false
-                    });
+            var allArrays = '.$data.';
+            var datasets = [];
+            var longestDateArrayLength = 0;
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                if (labels.length > longestDateArrayLength) {
+                    longestDateArrayLength = labels.length;
                 }
-
-                new Chart("myChart", {
-                    type: "line",
-                    data: {
-                        labels: '.json_encode($longestDateArray).',
-                        datasets: datasets
-                    },
-                    options: {
-                        legend: {display: true}
-                    }
+                datasets.push({
+                    label: allArrays[i].label,
+                    data: data,
+                    borderColor: getRandomColor(),
+                    fill: false
                 });
-
-                function getRandomColor() {
-                    var letters = "0123456789ABCDEF";
-                    var color = "#";
-                    for (var i = 0; i < 6; i++) {
-                        color += letters[Math.floor(Math.random() * 16)];
-                    }
-                    return color;
+            }
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                while (labels.length < longestDateArrayLength) {
+                    labels.unshift(null);
+                    data.unshift(null);
                 }
-            </script>';
+                datasets[i].data = data;
+                datasets[i].label = allArrays[i].label;
+            }
+            new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: '.json_encode($longestDateArray).',
+                    datasets: datasets
+                },
+                options: {
+                    legend: {display: true}
+                }
+            });
+        
+            function getRandomColor() {
+                var letters = "0123456789ABCDEF";
+                var color = "#";
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        </script>';
     
 
             echo "<div class='tab-container'>
