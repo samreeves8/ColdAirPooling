@@ -192,6 +192,7 @@
             }
         }
 
+        
         //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
