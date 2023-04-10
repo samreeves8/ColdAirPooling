@@ -202,34 +202,41 @@
             
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
-            var allArrays =  '.$data.';
+            var allArrays = '.$data.';
             var datasets = [];
             var longestDateArrayLength = 0;
             var longestDateArray = [];
+            
+            // Find the longest date array and create an array of all possible dates
             for (var i = 0; i < allArrays.length; i++) {
-                var data = allArrays[i].temp.map(Number);
                 var labels = allArrays[i].date;
                 if (labels.length > longestDateArrayLength) {
                     longestDateArrayLength = labels.length;
                     longestDateArray = labels;
                 }
-                datasets.push({
-                    label: allArrays[i].label,
-                    data: data,
-                    borderColor: getRandomColor(),
-                    fill: false
-                });
             }
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
                 var labels = allArrays[i].date;
-                while (labels.length < longestDateArrayLength) {
-                    labels.unshift(null);
-                    data.unshift(null);
+                var paddedData = [];
+                var j = 0;
+                // Pad the smaller temperature array with nulls based on the differences in dates
+                for (var k = 0; k < longestDateArray.length; k++) {
+                    if (labels[j] == longestDateArray[k]) {
+                        paddedData.push(data[j]);
+                        j++;
+                    } else {
+                        paddedData.push(null);
+                    }
                 }
-                datasets[i].data = data;
-                datasets[i].label = allArrays[i].label;
+                datasets.push({
+                    label: allArrays[i].label,
+                    data: paddedData,
+                    borderColor: getRandomColor(),
+                    fill: false
+                });
             }
+            
             new Chart("myChart", {
                 type: "line",
                 data: {
@@ -240,7 +247,7 @@
                     legend: {display: true}
                 }
             });
-        
+            
             function getRandomColor() {
                 var letters = "0123456789ABCDEF";
                 var color = "#";
@@ -249,6 +256,7 @@
                 }
                 return color;
             }
+            
         </script>';
     
 
