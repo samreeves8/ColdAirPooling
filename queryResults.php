@@ -201,12 +201,12 @@
         // Replace the original arrays with the updated arrays
         $allArrays = array_values($allArrays);
 
-        // Code to display graph
+        //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
         } else {
             $data = json_encode($allArrays);
-            
+                    
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
                 var allArrays = '.$data.';
@@ -221,7 +221,7 @@
                         fill: false
                     });
                 }
-
+        
                 new Chart("myChart", {
                     type: "line",
                     data: {
@@ -229,25 +229,10 @@
                         datasets: datasets
                     },
                     options: {
-                        legend: {display: true},
-                        scales: {
-                            xAxes: [{
-                                type: "time",
-                                time: {
-                                    unit: "hour",
-                                    displayFormats: {
-                                        hour: "MMM D hA"
-                                    },
-                                    tooltipFormat: "MMM D hA"
-                                },
-                                ticks: {
-                                    source: "labels"
-                                }
-                            }]
-                        }
+                        legend: {display: true}
                     }
                 });
-
+        
                 function getRandomColor() {
                     var letters = "0123456789ABCDEF";
                     var color = "#";
