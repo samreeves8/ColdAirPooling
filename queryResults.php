@@ -222,7 +222,7 @@
                 new Chart("myChart", {
                     type: "line",
                     data: {
-                        labels: label,
+                        labels: '.json_encode($longestDateArray).',
                         datasets: datasets
                     },
                     options: {
