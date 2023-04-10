@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
-    <link rel = "stylesheet" href = "query.css">
-    <link rel = "stylesheet" href = "table.css">
+    <link rel = "stylesheet" href = "styles/query.css">
+    <link rel = "stylesheet" href = "styles/table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
     <!-- script to create tabs -->
@@ -170,7 +170,7 @@
             $temp = array();
             $date = array();
 
-            
+
             //display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
