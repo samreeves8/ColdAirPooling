@@ -49,7 +49,16 @@
     <title>Query Results</title>
 </head>
 <body>
-    <?php include 'navBar.php';?>
+    <div class="navbar">
+         <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="query.php">Query</a></li>
+            <li><a href="#">Members</a></li>
+            <li><a href="login.php">Log In</a></li>
+         </ul>
+    </div>
 </body>
 </html>
 
@@ -131,6 +140,7 @@
        
         //code to display table and graph
         $allArrays = array();
+        $longestDateArray = array();
 
         foreach($sensorSet as $sensor){
             //Determine which table to query 
@@ -169,6 +179,10 @@
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
                 }
+                // Check if this array of dates is longer than the previous longest array
+                if (count($date) > count($longestDateArray)) {
+                    $longestDateArray = $date;
+                }
                 //add each row to array for graph
                 $allArrays[] = array(
                     'label' => $sensor,
@@ -202,7 +216,7 @@
                 new Chart("myChart", {
                     type: "line",
                     data: {
-                        labels: labels,
+                        labels: '.json_encode($longestDateArray).',
                         datasets: datasets
                     },
                     options: {
