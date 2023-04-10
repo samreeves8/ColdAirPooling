@@ -112,29 +112,8 @@ if (isset($_POST['toDelete'])) {
     <title>Document</title>
 </head>
 <body>
-<div class="navbar">
-    <ul class="menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <?php
-            // Check if the user is logged in
-            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                // If the user is logged in, show the link to the update page
-                echo '<li><a href="importCSV.php">Import CSV</a></li>';
-            }
-        ?>
-        <li><a href="query.php">Query</a></li>
-        <li><a href="#">Members</a></li>
-        <?php
-            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-                echo '<li><a href="logout.php">Logout</a></li>';
-            } else {
-                echo '<li><a href="login.php">Login</a></li>';
-            }
-        ?>
-     </ul>
-</div>
+<?php include 'navBar.php';?>
+
 <h1>Welcome, <?php echo $_SESSION['name']; ?>!</h1><br>
 
 <h2>Create New Admin User</h2><br>
