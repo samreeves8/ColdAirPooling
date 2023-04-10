@@ -187,7 +187,30 @@
             }
         }
 
-        //Code to display graph
+        // Loop through all arrays and find the longest date array
+        $longestDateArray = array();
+        foreach ($allArrays as $array) {
+            if (count($array['date']) > count($longestDateArray)) {
+                $longestDateArray = $array['date'];
+            }
+        }
+
+        // Loop through all arrays and add missing dates to each array
+        foreach ($allArrays as &$array) {
+            $missingDates = array_diff($longestDateArray, $array['date']);
+            foreach ($missingDates as $missingDate) {
+                $array['date'][] = $missingDate;
+                $array['temp'][] = null;
+            }
+        }
+
+        // Sort the longest date array in ascending order
+        sort($longestDateArray);
+
+        // Replace the original arrays with the updated arrays
+        $allArrays = array_values($allArrays);
+
+        // Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
         } else {
@@ -215,7 +238,22 @@
                         datasets: datasets
                     },
                     options: {
-                        legend: {display: true}
+                        legend: {display: true},
+                        scales: {
+                            xAxes: [{
+                                type: "time",
+                                time: {
+                                    unit: "hour",
+                                    displayFormats: {
+                                        hour: "MMM D hA"
+                                    },
+                                    tooltipFormat: "MMM D hA"
+                                },
+                                ticks: {
+                                    source: "labels"
+                                }
+                            }]
+                        }
                     }
                 });
 
@@ -228,7 +266,6 @@
                     return color;
                 }
             </script>';
-    
 
             echo "<div class='tab-container'>
                 <ul class='tab-list'> ";
