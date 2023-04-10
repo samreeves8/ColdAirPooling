@@ -201,34 +201,16 @@
             $data = json_encode($allArrays);
             
             echo '<canvas id="myChart"></canvas>;';
-            echo'var allArrays = '.$data.';
-            var longestDateArray = '.json_encode($longestDateArray).';
+            echo'<script>
+            var allArrays = '.$data.';
             var datasets = [];
-            
-            // find the smallest date array
-            var smallestDateArray = allArrays.reduce(function(prev, current) {
-                return (prev.date.length < current.date.length) ? prev : current;
-            });
-            
+            var longestDateArrayLength = 0;
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
                 var labels = allArrays[i].date;
-            
-                // pad with null values for missing dates
-                if (allArrays[i].date.length < longestDateArray.length) {
-                    var paddedData = [];
-                    var currentDateIndex = 0;
-                    for (var j = 0; j < longestDateArray.length; j++) {
-                        if (allArrays[i].date[currentDateIndex] === longestDateArray[j]) {
-                            paddedData.push(data[currentDateIndex]);
-                            currentDateIndex++;
-                        } else {
-                            paddedData.push(null);
-                        }
-                    }
-                    data = paddedData;
+                if (labels.length > longestDateArrayLength) {
+                    longestDateArrayLength = labels.length;
                 }
-            
                 datasets.push({
                     label: allArrays[i].label,
                     data: data,
@@ -236,18 +218,27 @@
                     fill: false
                 });
             }
-            
+            for (var i = 0; i < allArrays.length; i++) {
+                var data = allArrays[i].temp.map(Number);
+                var labels = allArrays[i].date;
+                while (labels.length < longestDateArrayLength) {
+                    labels.unshift(null);
+                    data.unshift(null);
+                }
+                datasets[i].data = data;
+                datasets[i].label = allArrays[i].label;
+            }
             new Chart("myChart", {
                 type: "line",
                 data: {
-                    labels: longestDateArray,
+                    labels: '.json_encode($longestDateArray).',
                     datasets: datasets
                 },
                 options: {
                     legend: {display: true}
                 }
             });
-            
+        
             function getRandomColor() {
                 var letters = "0123456789ABCDEF";
                 var color = "#";
@@ -256,7 +247,7 @@
                 }
                 return color;
             }
-            ';
+        </script>';
     
 
             echo "<div class='tab-container'>
