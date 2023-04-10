@@ -170,6 +170,7 @@
             $temp = array();
             $date = array();
 
+            
             //display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
