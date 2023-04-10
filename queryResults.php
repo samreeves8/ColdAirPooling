@@ -202,14 +202,16 @@
             
             echo '<canvas id="myChart"></canvas>;';
             echo'<script>
-            var allArrays = '.$data.';
+            var allArrays = <?php echo json_encode($data); ?>;
             var datasets = [];
             var longestDateArrayLength = 0;
+            var longestDateArray = [];
             for (var i = 0; i < allArrays.length; i++) {
                 var data = allArrays[i].temp.map(Number);
                 var labels = allArrays[i].date;
                 if (labels.length > longestDateArrayLength) {
                     longestDateArrayLength = labels.length;
+                    longestDateArray = labels;
                 }
                 datasets.push({
                     label: allArrays[i].label,
@@ -231,7 +233,7 @@
             new Chart("myChart", {
                 type: "line",
                 data: {
-                    labels: '.json_encode($longestDateArray).',
+                    labels: longestDateArray,
                     datasets: datasets
                 },
                 options: {
