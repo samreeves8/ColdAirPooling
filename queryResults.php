@@ -206,6 +206,7 @@
                 var datasets = [];
                 for (var i = 0; i < allArrays.length; i++) {
                     var data = allArrays[i].temp.map(Number);
+                    console.log(data);
                     var labels = allArrays[i].date;
                     datasets.push({
                         label: allArrays[i].label,
