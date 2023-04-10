@@ -8,7 +8,7 @@
     <link rel = "stylesheet" href = "styles/query.css">
     <link rel = "stylesheet" href = "styles/table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
- 
+
     <!-- script to create tabs -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -67,7 +67,6 @@
 
 
 <?php
-
 
     //predefine arrays used for Query/graphs
     $temps = array();  
@@ -137,67 +136,73 @@
        
         $allArrays = array();
         $longestDateArray = array();
-        $nullValue = null;
-
-        foreach ($sensorSet as $sensor) {
-            //Determine which table to query 
-            $table = null;
-            if (in_array($sensor, $humidity)) {
-                $table = "HumidData";
-            } else {
-                $table = "TempData";
-            }
-
-            //Determine which query to use based on minute or hour intervals
-            if ($minute == true) {
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM " . $table . " WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-            } else if ($hour == true) {
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM " . $table . " WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
-            }
-
-            //prepare the query to prevent sql injection
+        
+        foreach($sensorSet as $sensor){
+            // Determine which table to query 
+            $table = in_array($sensor, $humidity) ? "HumidData" : "TempData";
+        
+            // Determine which query to use based on minute or hour intervals
+            $interval = $minute ? "MINUTE" : "HOUR";
+            $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                    FROM $table WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                    GROUP BY Sensor, TIMESTAMPDIFF($interval, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+        
+            // Prepare the query to prevent SQL injection
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
             $stmt->execute();
             $result = $stmt->get_result();
             $temp = array();
             $date = array();
-
-            //display each row in the table
+        
+            // Display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
-
+        
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
                 }
-                // Check if this array of dates is longer than the previous longest array
-                if (count($date) > count($longestDateArray)) {
-                    $longestDateArray = $date;
+        
+                // Determine the earliest date for the sensor
+                $earliestDate = new DateTime($date[0]);
+                foreach ($date as $d) {
+                    $dateTime = new DateTime($d);
+                    if ($dateTime < $earliestDate) {
+                        $earliestDate = $dateTime;
+                    }
                 }
-                // Pad the temperature array with null values for missing dates
-                $temp = array_pad($temp, count($longestDateArray), $nullValue);
-
-                //add each row to array for graph
+        
+                // Add each row to array for graph
                 $allArrays[] = array(
                     'label' => $sensor,
                     'temp' => $temp,
-                    'date' => $date
+                    'date' => $date,
+                    'earliestDate' => $earliestDate
                 );
             }
         }
-
-        // Pad the date arrays of all sensors with null values for missing dates
-        foreach ($allArrays as &$array) {
-            $array['date'] = array_pad($array['date'], count($longestDateArray), $nullValue);
+        
+        // Determine the longest date range for all sensors
+        $earliestDate = $allArrays[0]['earliestDate'];
+        $latestDate = new DateTime($allArrays[0]['date'][count($allArrays[0]['date']) - 1]);
+        foreach ($allArrays as $arr) {
+            if ($arr['earliestDate'] > $earliestDate) {
+                $earliestDate = $arr['earliestDate'];
+            }
+            $arrLatestDate = new DateTime($arr['date'][count($arr['date']) - 1]);
+            if ($arrLatestDate > $latestDate) {
+                $latestDate = $arrLatestDate;
+            }
         }
-        unset($array); // Unset reference to last element to avoid bugs
+        $interval = $minute ? "PT1M" : "PT1H";
+        $longestDateRange = new DatePeriod($earliestDate, new DateInterval($interval), $latestDate);
+        foreach ($longestDateRange as $date) {
+            $longestDateArray[] = $date->format('M d, Y h:ia');
+        }
 
+        
         //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
