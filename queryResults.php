@@ -140,6 +140,7 @@
        
         //code to display table and graph
         $allArrays = array();
+        $longestDateArray = array();
 
         foreach($sensorSet as $sensor){
             //Determine which table to query 
@@ -178,6 +179,10 @@
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
                 }
+                // Check if this array of dates is longer than the previous longest array
+                if (count($date) > count($longestDateArray)) {
+                    $longestDateArray = $date;
+                }
                 //add each row to array for graph
                 $allArrays[] = array(
                     'label' => $sensor,
@@ -187,30 +192,65 @@
             }
         }
 
-        // Loop through all arrays and find the longest date array
-        $longestDateArray = array();
-        foreach ($allArrays as $array) {
-            if (count($array['date']) > count($longestDateArray)) {
-                $longestDateArray = $array['date'];
-            }
-        }
 
-        // Loop through all arrays and add missing dates to each array
-        foreach ($allArrays as &$array) {
-            $missingDates = array_diff($longestDateArray, $array['date']);
-            foreach ($missingDates as $missingDate) {
-                $array['date'][] = $missingDate;
-                $array['temp'][] = null;
-            }
-        }
+        if (empty($allArrays)) {
+            echo "No Data Found";
+        } else {
+            $data = json_encode($allArrays);
+            
+            echo '<canvas id="myChart"></canvas>;';
+            echo'<script>
+                var allArrays = '.$data.';
+                var datasets = [];
+                var labels = '.json_encode($longestDateArray).';
+                for (var i = 0; i < allArrays.length; i++) {
+                    var data = allArrays[i].temp.map(Number);
+                    datasets.push({
+                        label: allArrays[i].label,
+                        data: data,
+                        borderColor: getRandomColor(),
+                        fill: false,
+                        labels: labels
+                    });
+                }
+        
+                new Chart("myChart", {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: datasets
+                    },
+                    options: {
+                        legend: {display: true},
+                        scales: {
+                            xAxes: [{
+                                type: "time",
+                                time: {
+                                    unit: "hour",
+                                    displayFormats: {
+                                        hour: "MMM D hA"
+                                    },
+                                    tooltipFormat: "MMM D hA"
+                                },
+                                ticks: {
+                                    source: "labels"
+                                }
+                            }]
+                        }
+                    }
+                });
+        
+                function getRandomColor() {
+                    var letters = "0123456789ABCDEF";
+                    var color = "#";
+                    for (var i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+            </script>';
 
-        // Sort the longest date array in ascending order
-        sort($longestDateArray);
-
-        // Replace the original arrays with the updated arrays
-        $allArrays = array_values($allArrays);
-
-        // Code to display graph
+        //Code to display graph
         if (empty($allArrays)) {
             echo "No Data Found";
         } else {
@@ -238,22 +278,7 @@
                         datasets: datasets
                     },
                     options: {
-                        legend: {display: true},
-                        scales: {
-                            xAxes: [{
-                                type: "time",
-                                time: {
-                                    unit: "hour",
-                                    displayFormats: {
-                                        hour: "MMM D hA"
-                                    },
-                                    tooltipFormat: "MMM D hA"
-                                },
-                                ticks: {
-                                    source: "labels"
-                                }
-                            }]
-                        }
+                        legend: {display: true}
                     }
                 });
 
@@ -266,6 +291,7 @@
                     return color;
                 }
             </script>';
+    
 
             echo "<div class='tab-container'>
                 <ul class='tab-list'> ";
