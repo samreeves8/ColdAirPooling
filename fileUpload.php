@@ -32,6 +32,7 @@
           contentType: false,
           xhr: function() {
             var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
             xhr.upload.addEventListener('progress', function(event) {
               if (event.lengthComputable) {
                 var bytesUploaded = 0;
