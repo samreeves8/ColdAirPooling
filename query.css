@@ -1,0 +1,108 @@
+#map {
+    float: left;
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 65%;
+  }
+  
+  #sidebarContainer {
+    float: right;
+    margin-right: 5%;
+    margin-top: 5%;
+    vertical-align: top;
+    text-align: center;
+    width: 30%;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    #map {
+      float: left;
+      margin-left: 5%;
+      margin-top: 2%;
+      width: 50%;
+    }
+    #sidebarContainer {
+      float: right;
+      margin-right: 5%;
+      margin-top: 5%;
+      vertical-align: top;
+      text-align: center;
+      width: 20%;
+    }
+  }
+  
+  .form {
+    clear: both;
+  }
+  
+  #buttondrop {
+    display:inline-block;
+  }
+  
+  #myForm {
+    text-align: center;
+  }
+  
+  label {
+    display: inline-block;
+    margin: 5px 10px;
+  }
+  
+  input[type="date"], input[type="time"] {
+    margin: 5px;
+  }
+  
+  button[type="button"] {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.2em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+  }
+  
+  button[type="button"]:hover {
+    background-color: #3E8E41;
+  
+  }
+  
+  
+  table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+      text-align: center;
+      padding: 8px;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+      background-color: #ddd;
+    }
+    
+    select {
+      background-color: #f2f2f2;
+      font-size: 16px;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+    }
+    option {
+      color: #333;
+      background-color: #f2f2f2;
+      font-size: 14px;
+    }
+      
+    
