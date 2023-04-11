@@ -48,7 +48,7 @@
                 }
                 var percentComplete = bytesUploaded / totalBytes * 100;
                 console.log(percentComplete);
-                $('.progress-bar').width(percentComplete + '%').html(percentComplete + '%');
+                $('.progress-bar').width(percentComplete + '%').html(Math.round(percentComplete) + '%');
               }
             }, false);
             return xhr;
