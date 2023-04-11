@@ -67,11 +67,6 @@
 
 
 <?php
-
-    function queryDatabase(){
-        
-    }
-
     //predefine arrays used for Query/graphs
     $temps = array();  
     $dates = array();
@@ -203,7 +198,7 @@
         } else {
             $data = json_encode($allArrays);
             
-            echo '<canvas id="myChart"></canvas>;';
+            echo '<canvas id="myChart"></canvas>';
             echo'<script>
             var allArrays = '.$data.';
             var datasets = [];
