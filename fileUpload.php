@@ -1,4 +1,4 @@
-<form action="upload.php" method="post" enctype="multipart/form-data" id="upload-form">
+<form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
   <input type="file" name="files[]" multiple>
   <input type="submit" value="Upload">
 </form>
