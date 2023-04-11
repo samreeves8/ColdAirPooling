@@ -1,49 +1,64 @@
-<form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
-  <input type="file" name="files[]" multiple>
-  <input type="submit" value="Upload">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>File Upload with Progress Bar</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
+    <input type="file" name="files[]" multiple>
+    <input type="submit" value="Upload">
+  </form>
 
-<script>
-$(document).ready(function() {
-    $('form').on('submit', function(event) {
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $('#upload-form').on('submit', function(event) {
         event.preventDefault();
-        var formData = new FormData($('form')[0]);
+        var formData = new FormData($('#upload-form')[0]);
         var totalBytes = 0;
-        for (var i = 0; i < formData.getAll('file[]').length; i++) {
-        totalBytes += formData.getAll('file[]')[i].size;
-    }
+        for (var i = 0; i < formData.getAll('files[]').length; i++) {
+          totalBytes += formData.getAll('files[]')[i].size;
+        }
         $.ajax({
-        url: 'fileUpload.php',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        xhr: function() {
+          url: 'fileUpload.php',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          xhr: function() {
             var xhr = new XMLHttpRequest();
             xhr.upload.addEventListener('progress', function(event) {
-            if (event.lengthComputable) {
+              if (event.lengthComputable) {
                 var bytesUploaded = 0;
-                for (var i = 0; i < formData.getAll('file[]').length; i++) {
-                if (event.loaded >= bytesUploaded + formData.getAll('file[]')[i].size) {
-                    bytesUploaded += formData.getAll('file[]')[i].size;
-                } else {
+                for (var i = 0; i < formData.getAll('files[]').length; i++) {
+                  if (event.loaded >= bytesUploaded + formData.getAll('files[]')[i].size) {
+                    bytesUploaded += formData.getAll('files[]')[i].size;
+                  } else {
                     bytesUploaded += event.loaded - bytesUploaded;
                     break;
-                }
+                  }
                 }
                 var percentComplete = bytesUploaded / totalBytes * 100;
                 $('.progress-bar').width(percentComplete + '%').html(percentComplete + '%');
-            }
+              }
             }, false);
             return xhr;
-        },
-        success: function(response) {
+          },
+          success: function(response) {
             console.log(response);
-        }
+          }
         });
+      });
     });
-    });
-</script>
+  </script>
+</body>
+</html>
+
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
