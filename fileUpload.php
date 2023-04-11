@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // FTP server details
     $ftp_server = "ftp.gunnisoncoldpooling.net";
-    $ftp_username = "gunniso1";
+    $ftp_username = "Admin@gunnisoncoldpooling.net";
     $ftp_password = "14MIA is cold";
 
     // connect to FTP server
