@@ -49,7 +49,7 @@ $(document).ready(function() {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // FTP server details
-    $ftp_server = "108.167.182.245";
+    $ftp_server = "ftp.gunnisoncoldpooling.net";
     $ftp_username = "gunniso1";
     $ftp_password = "14MIA is cold";
 
