@@ -38,7 +38,8 @@
                 var bytesUploaded = 0;
                 for (var i = 0; i < formData.getAll('files[]').length; i++) {
                   if (event.loaded >= bytesUploaded + formData.getAll('files[]')[i].size) {
-                    console.log(bytesUploaded += formData.getAll('files[]')[i].size;);
+                    console.log(bytesUploaded += formData.getAll('files[]')[i].size);
+                    bytesUploaded += formData.getAll('files[]')[i].size;
                   } else {
                     bytesUploaded += event.loaded - bytesUploaded;
                     break;
