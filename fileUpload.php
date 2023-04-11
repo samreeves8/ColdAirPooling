@@ -46,40 +46,43 @@ $(document).ready(function() {
 </script>
 
 <?php
-// FTP server details
-$ftp_server = "108.167.182.245";
-$ftp_username = "gunniso1";
-$ftp_password = "14MIA is cold";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-// connect to FTP server
-$conn_id = ftp_connect($ftp_server);
+    // FTP server details
+    $ftp_server = "108.167.182.245";
+    $ftp_username = "gunniso1";
+    $ftp_password = "14MIA is cold";
 
-// login with username and password
-$login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
+    // connect to FTP server
+    $conn_id = ftp_connect($ftp_server);
 
-if ($login_result) {
-  // turn on passive mode transfers
-  ftp_pasv($conn_id, true);
+    // login with username and password
+    $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
 
-  // loop through uploaded files
-  foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
-    // get the local file path
-    $local_file = $_FILES["files"]["tmp_name"][$key];
+    if ($login_result) {
+    // turn on passive mode transfers
+    ftp_pasv($conn_id, true);
 
-    // get the original file name
-    $file_name = $_FILES["files"]["name"][$key];
+    // loop through uploaded files
+    foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
+        // get the local file path
+        $local_file = $_FILES["files"]["tmp_name"][$key];
 
-    // upload the file to FTP server
-    $upload_result = ftp_put($conn_id, $file_name, $local_file, FTP_BINARY);
+        // get the original file name
+        $file_name = $_FILES["files"]["name"][$key];
 
-    if (!$upload_result) {
-      echo "Upload failed: " . $file_name . "<br>";
+        // upload the file to FTP server
+        $upload_result = ftp_put($conn_id, $file_name, $local_file, FTP_BINARY);
+
+        if (!$upload_result) {
+        echo "Upload failed: " . $file_name . "<br>";
+        }
     }
-  }
 
-  // close the FTP connection
-  ftp_close($conn_id);
-} else {
-  echo "Login failed.";
+    // close the FTP connection
+    ftp_close($conn_id);
+    } else {
+    echo "Login failed.";
+    }
 }
 ?>
