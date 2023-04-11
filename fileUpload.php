@@ -19,7 +19,7 @@
     $(document).ready(function() {
       $('#upload-form').on('submit', function(event) {
         event.preventDefault();
-        console.log(successfully prevented default);
+        console.log("successfully prevented default");
         var formData = new FormData($('#upload-form')[0]);
         var totalBytes = 0;
         for (var i = 0; i < formData.getAll('files[]').length; i++) {
