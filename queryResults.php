@@ -223,13 +223,14 @@
                 // Pad the smaller temperature array with nulls based on the differences in dates
                 for (var k = 0; k < longestDateArray.length; k++) {
                     console.log(allArrays[i].label);
+                    console.log(labels[j]);
+                    console.log(longestDateArray[k]);
                     console.log(labels[j] == longestDateArray[k]);
                     if (labels[j] == longestDateArray[k]) {
                         paddedData.push(data[j]);
                         j++;
                     } else {
                         paddedData.push(null);
-                        j++;
                     }
                 }
                 datasets.push({
