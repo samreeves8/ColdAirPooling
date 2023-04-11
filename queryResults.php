@@ -251,9 +251,26 @@
                     datasets: datasets
                 },
                 options: {
-                    legend: {display: true}
+                    legend: {
+                        display: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "DateTime"
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Temperature"
+                            }
+                        }]
+                    }
                 }
             });
+            
             
             function getRandomColor() {
                 var letters = "0123456789ABCDEF";
