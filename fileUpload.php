@@ -1,11 +1,3 @@
-<html>
-<div id="form">
-  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
-    <input type="file" name="files[]" multiple>
-    <input type="submit" value="Upload">
-  </form>
-</div>
-</html>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -60,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
+      // Bind event listener to the form submission
       $('#upload-form').on('submit', function(event) {
         event.preventDefault();
         var formData = new FormData($('#upload-form')[0]);
@@ -94,9 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </script>
 </head>
 <body>
+<div id="form">
+  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
+    <input type="file" name="files[]" multiple>
+    <input type="submit" value="Upload">
+  </form>
+</div>
 
 <div id="status">
 
 </div>
 </body>
 </html>
+
