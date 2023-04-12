@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function parseData($local_file, $file_name) {
   // open the local file for reading
-  $handle = fopen($local_file, "r");
+  $handle = fopen($file_name, "r");
   
   $Sensor = substr($file_name, 0, 5);
   $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
