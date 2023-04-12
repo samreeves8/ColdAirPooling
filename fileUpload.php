@@ -89,7 +89,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   $conn->commit();
   mysqli_stmt_close($stmt);
   // close the file handle
-  fclose($handle);
 }
 mysqli_close($conn);
 ?>
