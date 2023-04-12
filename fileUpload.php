@@ -28,109 +28,70 @@ $sql_temp = "INSERT INTO TempData (Sensor, DateTime, Temperature) VALUES (?, ?, 
 $stmt_temp = mysqli_prepare($conn, $sql_temp);
 mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // FTP server details
-    $ftp_server = "ftp.gunnisoncoldpooling.net";
-    $ftp_username = "Admin@gunnisoncoldpooling.net";
-    $ftp_password = "14MIA is cold";
+  // get the local file path
+  $local_file = $_FILES["file"]["tmp_name"];
 
-    // connect to FTP server
-    $conn_id = ftp_connect($ftp_server);
-
-    // login with username and password
-    $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
-
-    if ($login_result) {
-        // turn on passive mode transfers
-        ftp_pasv($conn_id, true);
-
-        // get the local file path
-        $local_file = $_FILES["file"]["tmp_name"];
-
-        // get the original file name
-        $file_name = $_FILES["file"]["name"];
+  // get the original file name
+  $file_name = $_FILES["file"]["name"];
         
-        // open the local file for reading
-        $handle = fopen($local_file, "r");
+  // open the local file for reading
+  $handle = fopen($local_file, "r");
 
-        $Sensor = substr($file_name, 0, 5);
-        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
+  $Sensor = substr($file_name, 0, 5);
+  $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
 
-        //Checks which table to access (HumidData or TempData)
-        if(in_array($Sensor, $humidity)){
-          $stmt = $stmt_humidity;
-          $h = true;
-          
-        } else {
-          $stmt = $stmt_temp;
-          $h = false;
+  //Checks which table to access (HumidData or TempData)
+  if(in_array($Sensor, $humidity)){
+    $stmt = $stmt_humidity;
+    $h = true;    
+  } else {
+    $stmt = $stmt_temp;
+    $h = false;
+  }
+
+  //Skip the first line
+  fgetcsv($handle);
+
+  while (($row = fgetcsv($handle)) !== false) {  
+    //Accounts for date time differences
+    $DateTime = DateTime::createFromFormat('m/d/Y H:i:s', $row[$dateTimeIndex]);
+    if (!$DateTime) {
+      $DateTime = DateTime::createFromFormat('m/d/Y H:i', $row[$dateTimeIndex]);
+        if (!$DateTime) {
+          $DateTime = DateTime::createFromFormat('m-d-Y H:i:s', $row[$dateTimeIndex]);
+            if (!$DateTime) {
+              $DateTime = DateTime::createFromFormat('m-d-Y H:i', $row[$dateTimeIndex]);
+                if (!$DateTime) {
+                  echo "Invalid file format";
+                    exit();
+                }
+            }
         }
-
-        //Skip the first line
-        fgetcsv($handle);
-
-        while (($row = fgetcsv($handle)) !== false) {  
-          //Accounts for date time differences
-          $DateTime = DateTime::createFromFormat('m/d/Y H:i:s', $row[$dateTimeIndex]);
-          if (!$DateTime) {
-            $DateTime = DateTime::createFromFormat('m/d/Y H:i', $row[$dateTimeIndex]);
-              if (!$DateTime) {
-                $DateTime = DateTime::createFromFormat('m-d-Y H:i:s', $row[$dateTimeIndex]);
-                  if (!$DateTime) {
-                    $DateTime = DateTime::createFromFormat('m-d-Y H:i', $row[$dateTimeIndex]);
-                      if (!$DateTime) {
-                        echo "Invalid file format";
-                          exit();
-                      }
-                  }
-              }
-          }
-          // Set the parameter values
-          $DateTime = $DateTime->format('Y-m-d H:i:s');
-          $Temperature = $row[$tempIndex];
-          if($h && $Temperature!=null){
-            $RH = $row[$rhIndex];
-            $DewPoint = $row[$dewPointIndex];
-            mysqli_stmt_execute($stmt);    
-
-          } else if(!$h && $Temperature!=null) {
-              mysqli_stmt_execute($stmt);
-          }
-        }
-
-        // Close the statement and connection
-        fclose($handle);
-        
-        $conn->commit();
-        mysqli_stmt_close($stmt);
-        mysqli_close($conn);
-      }
-
-        // initiate the upload
-        $upload_result = ftp_nb_fput($conn_id, $file_name, $handle, FTP_BINARY);
-
-        // check the progress of the upload
-        while ($upload_result == FTP_MOREDATA) {
-            // continue uploading the file
-            $upload_result = ftp_nb_continue($conn_id);
-        }
-
-        // close the file handle
-        fclose($handle);
-
-        // check if the upload was successful
-        if ($upload_result == FTP_FINISHED) {
-            echo "File uploaded successfully: " . $file_name;
-        } else {
-            echo "Upload failed: " . $file_name;
-        }
-
-        // close the FTP connection
-        ftp_close($conn_id);
-    } else {
-        echo "Login failed.";
     }
+    // Set the parameter values
+    $DateTime = $DateTime->format('Y-m-d H:i:s');
+    $Temperature = $row[$tempIndex];
+    if($h && $Temperature!=null){
+    $RH = $row[$rhIndex];
+    $DewPoint = $row[$dewPointIndex];
+    mysqli_stmt_execute($stmt);    
+
+    } else if(!$h && $Temperature!=null) {
+        mysqli_stmt_execute($stmt);
+    }
+  }
+
+  // Close the statement and connection
+  fclose($handle);
+        
+  $conn->commit();
+  mysqli_stmt_close($stmt);
+  // close the file handle
+  fclose($handle);
+}
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -158,17 +119,6 @@ $(document).ready(function() {
         data: fileData,
         processData: false,
         contentType: false,
-        success: function(response) {
-            console.log(response);
-            var fileName = response.substring(response.indexOf(": ") + 2);
-            fileName = fileName.substring(0, 5);
-            console.log(fileName);
-            $('#status').append('<p>Success: ' + fileName + '</p>');
-            uploadedCount++; // Increment the count of uploaded files
-            if (uploadedCount === files.length) { // Check if all files have been uploaded
-              $('#status').append('<p>All files uploaded!</p>'); // Display a message indicating that all files have been uploaded
-            }
-        }
       });
     }
   });
