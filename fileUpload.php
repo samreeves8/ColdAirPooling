@@ -77,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             success: function(response) {
                 console.log(response);
                 var fileName = response.substring(response.indexOf(": ") + 2);
+                fileName = fileName.substring(0, 5);
                 console.log(fileName);
                 $('#status').append('<p>Success: ' + fileName + '</p>');
             }
