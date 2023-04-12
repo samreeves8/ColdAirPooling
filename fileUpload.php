@@ -78,6 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               console.log(response);
               // Update user interface with status of file upload
               $('#status').append('<p>' + response + '</p>');
+              //Reset the form after each upload
+              $('#upload-form')[0].reset();
             }
           });
         }
