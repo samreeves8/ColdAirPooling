@@ -2,11 +2,16 @@
 <body>
     <div class="container">
         <h1>Blog testing</h1>
-        <button onclick="createForm()">Create Form</button>
+        <button id="createButton" onclick="createForm()">Create Form</button>
     </div>
 </body>
 <script>
     function createForm() {
+
+        // Disable the "Create Form" button
+        var createButton = document.getElementById("createButton");
+        createButton.disabled = true;
+
         // Create a new form element
         var form = document.createElement("form");
         form.id = "myForm";
