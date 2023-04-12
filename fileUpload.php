@@ -61,29 +61,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
-    $('#upload-form').on('submit', function(event) {
+      $('#upload-form').on('submit', function(event) {
         event.preventDefault();
         var formData = new FormData($('#upload-form')[0]);
         var files = formData.getAll('files[]');
         for (var i = 0; i < files.length; i++) {
-        var fileData = new FormData();
-        fileData.append('file', files[i]);
-        $.ajax({
+          var fileData = new FormData();
+          fileData.append('file', files[i]);
+          $.ajax({
             url: 'fileUpload.php',
             type: 'POST',
             data: fileData,
             processData: false,
             contentType: false,
             success: function(response) {
-            console.log(response);
-            // Update user interface with status of file upload
-
+              console.log(response);
+              // Update user interface with status of file upload
+              $('#status').append('<p>' + response + '</p>');
             }
-        });
+          });
         }
+      });
     });
-    });
-</script>
+  </script>
 </head>
 <body>
 <div id="form">
@@ -97,7 +97,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </div>
 </body>
-
 </html>
-
-
