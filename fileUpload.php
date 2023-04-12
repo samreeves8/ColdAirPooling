@@ -16,49 +16,59 @@
   </div>
 
   <script>
-    $(document).ready(function() {
-      $('#upload-form').on('submit', function(event) {
-        event.preventDefault();
-        console.log("successfully prevented default");
-        var formData = new FormData($('#upload-form')[0]);
-        var totalBytes = 0;
-        for (var i = 0; i < formData.getAll('files[]').length; i++) {
-          totalBytes += formData.getAll('files[]')[i].size;
+$(document).ready(function() {
+  $('#upload-form').on('submit', function(event) {
+    event.preventDefault();
+    console.log("successfully prevented default");
+    var formData = new FormData($('#upload-form')[0]);
+    var files = formData.getAll('files[]');
+    var totalBytes = 0;
+    for (var i = 0; i < files.length; i++) {
+      totalBytes += files[i].size;
+    }
+    var bytesUploaded = 0;
+    var percentComplete = 0;
+    var currentFileIndex = 0;
+
+    function uploadFile() {
+      var file = files[currentFileIndex];
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+      xhr.upload.addEventListener('progress', function(event) {
+        if (event.lengthComputable) {
+          bytesUploaded += event.loaded - bytesUploaded;
+          percentComplete = bytesUploaded / totalBytes * 100;
+          console.log(percentComplete);
+          $('.progress-bar').width(percentComplete + '%').html(Math.round(percentComplete) + '%');
         }
-        $.ajax({
-          url: 'fileUpload.php',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          xhr: function() {
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-            xhr.upload.addEventListener('progress', function(event) {
-              if (event.lengthComputable) {
-                var bytesUploaded = 0;
-                for (var i = 0; i < formData.getAll('files[]').length; i++) {
-                  if (event.loaded >= bytesUploaded + formData.getAll('files[]')[i].size) {
-                    console.log(bytesUploaded += formData.getAll('files[]')[i].size);
-                    bytesUploaded += formData.getAll('files[]')[i].size;
-                  } else {
-                    bytesUploaded += event.loaded - bytesUploaded;
-                    break;
-                  }
-                }
-                var percentComplete = bytesUploaded / totalBytes * 100;
-                console.log(percentComplete);
-                $('.progress-bar').width(percentComplete + '%').html(Math.round(percentComplete) + '%');
-              }
-            }, false);
-            return xhr;
-          },
-          success: function(response) {
-            console.log(response);
+      }, false);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText);
+            currentFileIndex++;
+            if (currentFileIndex < files.length) {
+              uploadFile();
+            } else {
+              // all files have been uploaded
+            }
+          } else {
+            console.error('Upload failed:', xhr.status);
           }
-        });
-      });
-    });
+        }
+      };
+      var formData = new FormData();
+      formData.append('file', file);
+      xhr.open('POST', 'fileUpload.php');
+      xhr.send(formData);
+    }
+
+    if (files.length > 0) {
+      uploadFile();
+    }
+  });
+});
+
   </script>
 </body>
 </html>
