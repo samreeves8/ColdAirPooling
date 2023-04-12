@@ -27,11 +27,12 @@ $(document).ready(function() {
     }
     var files = formData.getAll('files[]');
     var currentIndex = 0;
-    uploadNextFile(files, currentIndex, totalBytes);
+    var totalBytesUploaded = 0; // new variable to keep track of total bytes uploaded
+    uploadNextFile(files, currentIndex, totalBytes, totalBytesUploaded);
   });
 });
 
-function uploadNextFile(files, index, totalBytes) {
+function uploadNextFile(files, index, totalBytes, totalBytesUploaded) {
   var formData = new FormData();
   formData.append('file', files[index]);
   $.ajax({
@@ -46,7 +47,7 @@ function uploadNextFile(files, index, totalBytes) {
       xhr.upload.addEventListener('progress', function(event) {
         if (event.lengthComputable) {
           var bytesUploaded = event.loaded;
-          var percentComplete = bytesUploaded / totalBytes * 100;
+          var percentComplete = (totalBytesUploaded + bytesUploaded) / totalBytes * 100; // calculate percent complete based on total bytes uploaded so far
           console.log(percentComplete);
           $('.progress-bar').width(percentComplete + '%').html(Math.round(percentComplete) + '%');
         }
@@ -56,12 +57,14 @@ function uploadNextFile(files, index, totalBytes) {
     success: function(response) {
       console.log(response);
       index++;
+      totalBytesUploaded += files[index-1].size; // increment total bytes uploaded
       if (index < files.length) {
-        uploadNextFile(files, index, totalBytes);
+        uploadNextFile(files, index, totalBytes, totalBytesUploaded);
       }
     }
   });
 }
+
 </script>
 </body>
 </html>
