@@ -65,11 +65,7 @@ $(document).ready(function() {
     event.preventDefault();
     var formData = new FormData($('#upload-form')[0]);
     var files = formData.getAll('files[]');
-    var totalFileSize = 0;
-    for (var i = 0; i < files.length; i++) {
-      totalFileSize += files[i].size;
-    }
-    var uploadedFileSize = 0;
+    var uploadedCount = 0; // Initialize the count of uploaded files to zero
     for (var i = 0; i < files.length; i++) {
       var fileData = new FormData();
       fileData.append('file', files[i]);
@@ -79,26 +75,16 @@ $(document).ready(function() {
         data: fileData,
         processData: false,
         contentType: false,
-        xhr: function() {
-          var xhr = new window.XMLHttpRequest();
-          xhr.upload.addEventListener('progress', function(event) {
-            if (event.lengthComputable) {
-              var percentComplete = Math.round((uploadedFileSize + event.loaded) * 100 / totalFileSize);
-              $('#progress').text(percentComplete + '%');
-            }
-          }, false);
-          return xhr;
-        },
         success: function(response) {
-          console.log(response);
-          var fileName = response.substring(response.indexOf(": ") + 2);
-          fileName = fileName.substring(0, 5);
-          console.log(fileName);
-          $('#status').append('<p>Success: ' + fileName + '</p>');
-          uploadedFileSize += files[i].size;
-          if (uploadedFileSize == totalFileSize) {
-            $('#progress').text('');
-          }
+            console.log(response);
+            var fileName = response.substring(response.indexOf(": ") + 2);
+            fileName = fileName.substring(0, 5);
+            console.log(fileName);
+            $('#status').append('<p>Success: ' + fileName + '</p>');
+            uploadedCount++; // Increment the count of uploaded files
+            if (uploadedCount === files.length) { // Check if all files have been uploaded
+              $('#status').append('<p>All files uploaded!</p>'); // Display a message indicating that all files have been uploaded
+            }
         }
       });
     }
