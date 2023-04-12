@@ -77,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             success: function(response) {
             console.log(response);
             // Update user interface with status of file upload
-            document.getElementById("status").innerHTML = response;
 
             }
         });
@@ -94,7 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </form>
 </div>
 
-  <div id="status"></div>
+<div id="status">
+
+</div>
 </body>
 
 </html>
