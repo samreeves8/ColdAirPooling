@@ -50,9 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // get the original file name
         $file_name = $_FILES["file"]["name"];
-
-        // open the local file for reading
-        $handle = fopen($local_file, "r");
         
         //run database insertion
         parseData($handle, $file_name);
@@ -83,8 +80,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-function parseData($handle, $file_name) {
+function parseData($local_file, $file_name) {
+  // open the local file for reading
+  $handle = fopen($local_file, "r");
+  
   $Sensor = substr($file_name, 0, 5);
+  $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
 
   //Checks which table to access (HumidData or TempData)
   if(in_array($Sensor, $humidity)){
