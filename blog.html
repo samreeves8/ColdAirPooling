@@ -1,0 +1,44 @@
+
+<body>
+    <h1>Dynamic Form Example</h1>
+    <button onclick="createForm()">Create Form</button>
+</body>
+<script>
+    function createForm() {
+        // Create a new form element
+        var form = document.createElement("form");
+        form.id = "myForm";
+
+        // Create a title input element
+        var titleInput = document.createElement("input");
+        titleInput.type = "text";
+        titleInput.name = "title";
+        titleInput.placeholder = "Title";
+        titleInput.required = true;
+
+        // Create a content text area element
+        var contentTextArea = document.createElement("textarea");
+        contentTextArea.name = "content";
+        contentTextArea.placeholder = "Content";
+        contentTextArea.required = true;
+
+        // Create a submit button
+        var submitButton = document.createElement("input");
+        submitButton.type = "submit";
+        submitButton.value = "Create";
+
+        // Add the form elements to the form
+        form.appendChild(titleInput);
+        form.appendChild(document.createElement("br")); // Add a line break
+        form.appendChild(contentTextArea);
+        form.appendChild(document.createElement("br")); // Add a line break
+        form.appendChild(submitButton);
+
+        // Append the form to the body
+        document.body.appendChild(form);
+    }
+</script>
+
+
+</html>
+</head>
