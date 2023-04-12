@@ -19,52 +19,21 @@
 $(document).ready(function() {
   $('#upload-form').on('submit', function(event) {
     event.preventDefault();
-    console.log("successfully prevented default");
     var formData = new FormData($('#upload-form')[0]);
     var files = formData.getAll('files[]');
-    var totalBytes = 0;
     for (var i = 0; i < files.length; i++) {
-      totalBytes += files[i].size;
-    }
-    var bytesUploaded = 0;
-    var percentComplete = 0;
-    var currentFileIndex = 0;
-
-    function uploadFile() {
-      var file = files[currentFileIndex];
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-      xhr.upload.addEventListener('progress', function(event) {
-        if (event.lengthComputable) {
-          bytesUploaded += event.loaded - bytesUploaded;
-          percentComplete = bytesUploaded / totalBytes * 100;
-          console.log(percentComplete);
-          $('.progress-bar').width(percentComplete + '%').html(Math.round(percentComplete) + '%');
+      var fileData = new FormData();
+      fileData.append('file', files[i]);
+      $.ajax({
+        url: 'fileUpload.php',
+        type: 'POST',
+        data: fileData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          console.log(response);
         }
-      }, false);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
-            console.log(xhr.responseText);
-            currentFileIndex++;
-            if (currentFileIndex < files.length) {
-              uploadFile();
-            } else {
-              // all files have been uploaded
-            }
-          } else {
-            console.error('Upload failed:', xhr.status);
-          }
-        }
-      };
-      var formData = new FormData();
-      formData.append('file', file);
-      xhr.open('POST', 'fileUpload.php');
-      xhr.send(formData);
-    }
-
-    if (files.length > 0) {
-      uploadFile();
+      });
     }
   });
 });
@@ -92,33 +61,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // turn on passive mode transfers
         ftp_pasv($conn_id, true);
 
-        // loop through uploaded files
-        foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
-            // get the local file path
-            $local_file = $_FILES["files"]["tmp_name"][$key];
+        // get the local file path
+        $local_file = $_FILES["file"]["tmp_name"];
 
-            // get the original file name
-            $file_name = $_FILES["files"]["name"][$key];
+        // get the original file name
+        $file_name = $_FILES["file"]["name"];
 
-            // open the local file for reading
-            $handle = fopen($local_file, "r");
+        // open the local file for reading
+        $handle = fopen($local_file, "r");
 
-            // initiate the upload
-            $upload_result = ftp_nb_fput($conn_id, $file_name, $handle, FTP_BINARY);
+        // initiate the upload
+        $upload_result = ftp_nb_fput($conn_id, $file_name, $handle, FTP_BINARY);
 
-            // check the progress of the upload
-            while ($upload_result == FTP_MOREDATA) {
-                // continue uploading the file
-                $upload_result = ftp_nb_continue($conn_id);
-            }
+        // check the progress of the upload
+        while ($upload_result == FTP_MOREDATA) {
+            // continue uploading the file
+            $upload_result = ftp_nb_continue($conn_id);
+        }
 
-            // close the file handle
-            fclose($handle);
+        // close the file handle
+        fclose($handle);
 
-            // check if the upload was successful
-            if ($upload_result != FTP_FINISHED) {
-                echo "Upload failed: " . $file_name . "<br>";
-            }
+        // check if the upload was successful
+        if ($upload_result == FTP_FINISHED) {
+            echo "File uploaded successfully: " . $file_name;
+        } else {
+            echo "Upload failed: " . $file_name;
         }
 
         // close the FTP connection
@@ -128,4 +96,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
 
