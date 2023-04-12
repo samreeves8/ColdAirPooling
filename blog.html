@@ -7,6 +7,11 @@
 </body>
 <script>
     function createForm() {
+
+        // Disable the "Create Form" button
+        var createButton = document.getElementById("createButton");
+        createButton.disabled = true;
+
         // Create a new form element
         var form = document.createElement("form");
         form.id = "myForm";
