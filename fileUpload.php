@@ -100,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Close the statement and connection
-        fclose($file);
+        fclose($handle);
         
         $conn->commit();
         mysqli_stmt_close($stmt);
