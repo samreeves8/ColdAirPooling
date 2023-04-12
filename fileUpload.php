@@ -11,8 +11,6 @@
     <input type="submit" value="Upload">
   </form>
 
-  <div id="status"></div>
-
   <script>
 $(document).ready(function() {
   $('#upload-form').on('submit', function(event) {
@@ -40,7 +38,9 @@ $(document).ready(function() {
 
 
   </script>
+  <div id="status"></div>
 </body>
+
 </html>
 
 
