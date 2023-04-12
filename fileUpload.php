@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             numFilesUploaded++;
             if (numFilesUploaded == files.length) {
                 // All files have been uploaded, so display the response
-                $('#status').append('<p>' + response + '</p>');
+                alert(response);
             }
             }
         });
