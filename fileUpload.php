@@ -109,6 +109,7 @@ $(document).ready(function() {
     $('#upload-form')[0].reset();
     $('#status').empty();
     var uploadedCount = 0; // Initialize the count of uploaded files to zero
+    var totalProgress = 0;
     var totalSize = 0; // Initialize the total size of uploaded files to zero
     for (var i = 0; i < files.length; i++) {
       totalSize += files[i].size; // Add the size of each file to the total size
