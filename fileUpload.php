@@ -59,32 +59,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <title>File Upload with Progress Bar</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
-    $(document).ready(function() {
-      // Bind event listener to the form submission
-      $('#upload-form').on('submit', function(event) {
-        event.preventDefault();
-        var formData = new FormData($('#upload-form')[0]);
-        var files = formData.getAll('files[]');
-        for (var i = 0; i < files.length; i++) {
-          var fileData = new FormData();
-          fileData.append('file', files[i]);
-          $.ajax({
-            url: 'fileUpload.php',
-            type: 'POST',
-            data: fileData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                console.log(response);
-                var fileName = response.substring(response.indexOf(": ") + 2);
-                fileName = fileName.substring(0, 5);
-                console.log(fileName);
-                $('#status').append('<p>Success: ' + fileName + '</p>');
+$(document).ready(function() {
+  // Bind event listener to the form submission
+  $('#upload-form').on('submit', function(event) {
+    event.preventDefault();
+    var formData = new FormData($('#upload-form')[0]);
+    var files = formData.getAll('files[]');
+    var totalFileSize = 0;
+    for (var i = 0; i < files.length; i++) {
+      totalFileSize += files[i].size;
+    }
+    var uploadedFileSize = 0;
+    for (var i = 0; i < files.length; i++) {
+      var fileData = new FormData();
+      fileData.append('file', files[i]);
+      $.ajax({
+        url: 'fileUpload.php',
+        type: 'POST',
+        data: fileData,
+        processData: false,
+        contentType: false,
+        xhr: function() {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(event) {
+            if (event.lengthComputable) {
+              var percentComplete = Math.round((uploadedFileSize + event.loaded) * 100 / totalFileSize);
+              $('#progress').text(percentComplete + '%');
             }
-          });
+          }, false);
+          return xhr;
+        },
+        success: function(response) {
+          console.log(response);
+          var fileName = response.substring(response.indexOf(": ") + 2);
+          fileName = fileName.substring(0, 5);
+          console.log(fileName);
+          $('#status').append('<p>Success: ' + fileName + '</p>');
+          uploadedFileSize += files[i].size;
+          if (uploadedFileSize == totalFileSize) {
+            $('#progress').text('');
+          }
         }
       });
-    });
+    }
+  });
+});
+
   </script>
 </head>
 <body>
