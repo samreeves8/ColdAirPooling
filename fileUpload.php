@@ -79,29 +79,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $login_result = ftp_login($conn_id, $ftp_username, $ftp_password);
 
     if ($login_result) {
-    // turn on passive mode transfers
-    ftp_pasv($conn_id, true);
+        // turn on passive mode transfers
+        ftp_pasv($conn_id, true);
 
-    // loop through uploaded files
-    foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
-        // get the local file path
-        $local_file = $_FILES["files"]["tmp_name"][$key];
+        // loop through uploaded files
+        foreach ($_FILES["files"]["tmp_name"] as $key => $tmp_name) {
+            // get the local file path
+            $local_file = $_FILES["files"]["tmp_name"][$key];
 
-        // get the original file name
-        $file_name = $_FILES["files"]["name"][$key];
+            // get the original file name
+            $file_name = $_FILES["files"]["name"][$key];
 
-        // upload the file to FTP server
-        $upload_result = ftp_put($conn_id, $file_name, $local_file, FTP_BINARY);
+            // open the local file for reading
+            $handle = fopen($local_file, "r");
 
-        if (!$upload_result) {
-        echo "Upload failed: " . $file_name . "<br>";
+            // initiate the upload
+            $upload_result = ftp_nb_fput($conn_id, $file_name, $handle, FTP_BINARY);
+
+            // check the progress of the upload
+            while ($upload_result == FTP_MOREDATA) {
+                // continue uploading the file
+                $upload_result = ftp_nb_continue($conn_id);
+            }
+
+            // close the file handle
+            fclose($handle);
+
+            // check if the upload was successful
+            if ($upload_result != FTP_FINISHED) {
+                echo "Upload failed: " . $file_name . "<br>";
+            }
         }
-    }
 
-    // close the FTP connection
-    ftp_close($conn_id);
+        // close the FTP connection
+        ftp_close($conn_id);
     } else {
-    echo "Login failed.";
+        echo "Login failed.";
     }
 }
 ?>
+
