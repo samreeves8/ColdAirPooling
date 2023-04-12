@@ -51,8 +51,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // get the original file name
         $file_name = $_FILES["file"]["name"];
         
-        //run database insertion
-        parseData($local_file, $file_name);
+        // open the local file for reading
+        $handle = fopen($local_file, "r");
+
+        $Sensor = substr($file_name, 0, 5);
+        $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
+
+        //Checks which table to access (HumidData or TempData)
+        if(in_array($Sensor, $humidity)){
+          $stmt = $stmt_humidity;
+          $h = true;
+          
+        } else {
+          $stmt = $stmt_temp;
+          $h = false;
+        }
+
+        //Skip the first line
+        fgetcsv($handle);
+
+        while (($row = fgetcsv($handle)) !== false) {  
+          //Accounts for date time differences
+          $DateTime = DateTime::createFromFormat('m/d/Y H:i:s', $row[$dateTimeIndex]);
+          if (!$DateTime) {
+            $DateTime = DateTime::createFromFormat('m/d/Y H:i', $row[$dateTimeIndex]);
+              if (!$DateTime) {
+                $DateTime = DateTime::createFromFormat('m-d-Y H:i:s', $row[$dateTimeIndex]);
+                  if (!$DateTime) {
+                    $DateTime = DateTime::createFromFormat('m-d-Y H:i', $row[$dateTimeIndex]);
+                      if (!$DateTime) {
+                        echo "Invalid file format";
+                          exit();
+                      }
+                  }
+              }
+          }
+          // Set the parameter values
+          $DateTime = $DateTime->format('Y-m-d H:i:s');
+          $Temperature = $row[$tempIndex];
+          if($h && $Temperature!=null){
+            $RH = $row[$rhIndex];
+            $DewPoint = $row[$dewPointIndex];
+            mysqli_stmt_execute($stmt);    
+
+          } else if(!$h && $Temperature!=null) {
+              mysqli_stmt_execute($stmt);
+          }
+        }
+
+        // Close the statement and connection
+        fclose($file);
+        
+        $conn->commit();
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+      }
 
         // initiate the upload
         $upload_result = ftp_nb_fput($conn_id, $file_name, $handle, FTP_BINARY);
@@ -78,64 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Login failed.";
     }
-}
-
-function parseData($local_file, $file_name) {
-  // open the local file for reading
-  $handle = fopen($file_name, "r");
-  
-  $Sensor = substr($file_name, 0, 5);
-  $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
-
-  //Checks which table to access (HumidData or TempData)
-  if(in_array($Sensor, $humidity)){
-    $stmt = $stmt_humidity;
-    $h = true;
-    
-  } else {
-    $stmt = $stmt_temp;
-    $h = false;
-  }
-
-  //Skip the first line
-  fgetcsv($handle);
-
-  while (($row = fgetcsv($handle)) !== false) {  
-    //Accounts for date time differences
-    $DateTime = DateTime::createFromFormat('m/d/Y H:i:s', $row[$dateTimeIndex]);
-    if (!$DateTime) {
-      $DateTime = DateTime::createFromFormat('m/d/Y H:i', $row[$dateTimeIndex]);
-        if (!$DateTime) {
-          $DateTime = DateTime::createFromFormat('m-d-Y H:i:s', $row[$dateTimeIndex]);
-            if (!$DateTime) {
-              $DateTime = DateTime::createFromFormat('m-d-Y H:i', $row[$dateTimeIndex]);
-                if (!$DateTime) {
-                  echo "Invalid file format";
-                    exit();
-                }
-            }
-        }
-    }
-    // Set the parameter values
-    $DateTime = $DateTime->format('Y-m-d H:i:s');
-    $Temperature = $row[$tempIndex];
-    if($h && $Temperature!=null){
-      $RH = $row[$rhIndex];
-      $DewPoint = $row[$dewPointIndex];
-      mysqli_stmt_execute($stmt);    
-
-    } else if(!$h && $Temperature!=null) {
-        mysqli_stmt_execute($stmt);
-    }
-  }
-
-  // Close the statement and connection
-  fclose($file);
-  
-  $conn->commit();
-  mysqli_stmt_close($stmt);
-  mysqli_close($conn);
-}
 ?>
 
 <!DOCTYPE html>
