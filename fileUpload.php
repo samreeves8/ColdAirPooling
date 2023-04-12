@@ -109,7 +109,7 @@ $(document).ready(function() {
     $('#upload-form')[0].reset();
     $('#status').empty();
     var uploadedCount = 0; // Initialize the count of uploaded files to zero
-    var totalProgress = 0; // Declare totalProgress here
+    var totalProgress = 0;
     var totalSize = 0; // Initialize the total size of uploaded files to zero
     for (var i = 0; i < files.length; i++) {
       totalSize += files[i].size; // Add the size of each file to the total size
@@ -126,7 +126,7 @@ $(document).ready(function() {
           xhr.upload.addEventListener('progress', function(event) {
             if (event.lengthComputable) {
               var currentProgress = event.loaded / event.total * 100; // Calculate the progress of the current file
-              totalProgress += currentProgress; // Update the total progress
+              totalProgress += currentProgress - totalProgress / (i+1); // Update the total progress
               var overallProgress = totalProgress / files.length; // Calculate the overall progress
               $('#status').html('Overall Progress: ' + overallProgress.toFixed(2) + '%'); // Update the progress bar
             }
@@ -137,6 +137,7 @@ $(document).ready(function() {
     }
   });
 });
+
 
   </script>
 </head>
