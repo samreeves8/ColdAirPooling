@@ -66,6 +66,7 @@ $(document).ready(function() {
     var formData = new FormData($('#upload-form')[0]);
     var files = formData.getAll('files[]');
     $('#upload-form')[0].reset();
+    $('#status').empty();
     var uploadedCount = 0; // Initialize the count of uploaded files to zero
     for (var i = 0; i < files.length; i++) {
       var fileData = new FormData();
