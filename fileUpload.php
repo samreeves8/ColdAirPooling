@@ -1,3 +1,11 @@
+<html>
+<div id="form">
+  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
+    <input type="file" name="files[]" multiple>
+    <input type="submit" value="Upload">
+  </form>
+</div>
+</html>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -86,12 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </script>
 </head>
 <body>
-<div id="form">
-  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
-    <input type="file" name="files[]" multiple>
-    <input type="submit" value="Upload">
-  </form>
-</div>
 
 <div id="status">
 
