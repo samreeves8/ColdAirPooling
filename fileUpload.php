@@ -76,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             contentType: false,
             success: function(response) {
                 console.log(response);
-                $('#status').append('<p>Success</p>');
+                var fileName = response.substring(response.indexOf(": ") + 2);
+                $('#status').append('<p>Success: ' + fileName + '</p>');
             }
           });
         }
