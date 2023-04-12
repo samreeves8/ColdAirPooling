@@ -75,10 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             processData: false,
             contentType: false,
             success: function(response) {
-              console.log(response);
-              alert(response);
-              
-            
+                console.log(response);
+                var startIndex = response.indexOf("File uploaded successfully: ");
+                if (startIndex !== -1) {
+                    var fileName = response.substring(startIndex + 30); // add length of phrase
+                    // Update user interface with status of file upload
+                    alert(fileName);
+                }
             }
           });
         }
