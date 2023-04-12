@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $file_name = $_FILES["file"]["name"];
         
         //run database insertion
-        parseData($handle, $file_name);
+        parseData($local_file, $file_name);
 
         // initiate the upload
         $upload_result = ftp_nb_fput($conn_id, $file_name, $handle, FTP_BINARY);
