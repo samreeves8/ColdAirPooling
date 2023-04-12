@@ -61,54 +61,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#upload-form').on('submit', function(event) {
+    $('#upload-form').on('submit', function(event) {
         event.preventDefault();
-        var formData = new FormData($(this)[0]);
+        var formData = new FormData($('#upload-form')[0]);
+        var files = formData.getAll('files[]');
+        for (var i = 0; i < files.length; i++) {
+        var fileData = new FormData();
+        fileData.append('file', files[i]);
         $.ajax({
-          url: 'fileUpload.php',
-          type: 'POST',
-          data: formData,
-          processData: false,
-          contentType: false,
-          xhr: function() {
-            var xhr = $.ajaxSettings.xhr();
-            xhr.upload.onprogress = function(e) {
-              if (e.lengthComputable) {
-                var percent = (e.loaded / e.total) * 100;
-                $('#progress-bar').css('width', percent + '%').text(percent + '%');
-              }
-            };
-            return xhr;
-          },
-          success: function(response) {
+            url: 'fileUpload.php',
+            type: 'POST',
+            data: fileData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
             console.log(response);
             // Update user interface with status of file upload
-            $('#status').append('<p>' + response + '</p>');
-          }
+            document.getElementById("status").innerHTML = response;
+
+            }
         });
-      });
+        }
     });
-  </script>
-  <style>
-    #progress-bar {
-      width: 0%;
-      height: 10px;
-      background-color: #4CAF50;
-      margin-bottom: 10px;
-    }
-  </style>
+    });
+</script>
 </head>
 <body>
-  <div id="form">
-    <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
-      <input type="file" name="files[]" multiple>
-      <input type="submit" value="Upload">
-    </form>
-  </div>
+<div id="form">
+  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
+    <input type="file" name="files[]" multiple>
+    <input type="submit" value="Upload">
+  </form>
+</div>
 
-  <div id="progress-bar"></div>
   <div id="status"></div>
 </body>
+
 </html>
 
 
