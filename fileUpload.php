@@ -60,33 +60,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
-    $('#upload-form').on('submit', function(event) {
+      // Bind event listener to the form submission
+      $('#upload-form').on('submit', function(event) {
         event.preventDefault();
         var formData = new FormData($('#upload-form')[0]);
         var files = formData.getAll('files[]');
-        var numFilesUploaded = 0;
         for (var i = 0; i < files.length; i++) {
-        var fileData = new FormData();
-        fileData.append('file', files[i]);
-        $.ajax({
+          var fileData = new FormData();
+          fileData.append('file', files[i]);
+          $.ajax({
             url: 'fileUpload.php',
             type: 'POST',
             data: fileData,
             processData: false,
             contentType: false,
             success: function(response) {
-            console.log(response);
-            numFilesUploaded++;
-            if (numFilesUploaded == files.length) {
-                // All files have been uploaded, so display the response
-                alert(response);
+              console.log(response);
+              alert(response);
+              
+            
             }
-            }
-        });
+          });
         }
+      });
     });
-    });
-
   </script>
 </head>
 <body>
