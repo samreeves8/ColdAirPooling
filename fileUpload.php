@@ -11,10 +11,6 @@
     <input type="submit" value="Upload">
   </form>
 
-  <div class="progress">
-    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-  </div>
-
   <script>
 $(document).ready(function() {
   $('#upload-form').on('submit', function(event) {
@@ -32,11 +28,14 @@ $(document).ready(function() {
         contentType: false,
         success: function(response) {
           console.log(response);
+          // Update user interface with status of file upload
+          $('#status').append('<p>' + response + '</p>');
         }
       });
     }
   });
 });
+
 
   </script>
 </body>
