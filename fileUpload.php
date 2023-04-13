@@ -1,5 +1,65 @@
 <?php
+session_start();
+?>
 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/nav.css">
+  <link rel="stylesheet" href="styles/import.css">
+  <title>File Upload</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Bind event listener to the form submission
+      $('#upload-form').on('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData($('#upload-form')[0]);
+        var files = formData.getAll('files[]');
+        $('#upload-form')[0].reset();
+        $('#status').empty();
+        var uploadedCount = 0; // Initialize the count of uploaded files to zero
+        for (var i = 0; i < files.length; i++) {
+          var fileData = new FormData();
+          fileData.append('file', files[i]);
+          var progressElement = $('<div id="progress' + i + '">Uploading ' + files[i].name + ': 0%</div>'); // Create progress bar element
+          $('#status').append(progressElement);
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'fileUpload.php');
+          xhr.upload.addEventListener('progress', (function(progressElement, file) {
+            return function(e) {
+              if (e.lengthComputable) {
+                var percent = Math.round((e.loaded / e.total) * 100);
+                progressElement.text('Uploading ' + file.name + ': ' + percent + '%'); // Update progress bar element
+              }
+            };
+          })(progressElement, files[i]), false);
+          xhr.addEventListener('error', function() {
+            progressElement.text('Error uploading ' + file.name + '. Please try again.'); // Display error message
+          });
+          xhr.send(fileData);
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<?php include 'navBar.php';?>
+
+<div id="form">
+  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
+    <input type="file" name="files[]" multiple>
+    <input type="submit" value="Upload">
+  </form>
+</div>
+<div id="status"></div>
+</body>
+</html>
+
+<?php
 $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -92,61 +152,4 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 mysqli_close($conn);
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>File Upload with Progress Bar</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
-$(document).ready(function() {
-  // Bind event listener to the form submission
-  $('#upload-form').on('submit', function(event) {
-    event.preventDefault();
-    var formData = new FormData($('#upload-form')[0]);
-    var files = formData.getAll('files[]');
-    $('#upload-form')[0].reset();
-    $('#status').empty();
-    var uploadedCount = 0; // Initialize the count of uploaded files to zero
-    for (var i = 0; i < files.length; i++) {
-      var fileData = new FormData();
-      fileData.append('file', files[i]);
-      var progressElement = $('<div id="progress' + i + '">Uploading ' + files[i].name + ': 0%</div>'); // Create progress bar element
-      $('#status').append(progressElement);
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'fileUpload.php');
-      xhr.upload.addEventListener('progress', (function(progressElement, file) {
-        return function(e) {
-          if (e.lengthComputable) {
-            var percent = Math.round((e.loaded / e.total) * 100);
-            progressElement.text('Uploading ' + file.name + ': ' + percent + '%'); // Update progress bar element
-          }
-        };
-      })(progressElement, files[i]), false);
-      xhr.addEventListener('error', function() {
-        progressElement.text('Error uploading ' + file.name + '. Please try again.'); // Display error message
-      });
-      xhr.send(fileData);
-    }
-  });
-});
-
-
-
-
-  </script>
-</head>
-<body>
-<div id="form">
-  <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
-    <input type="file" name="files[]" multiple>
-    <input type="submit" value="Upload">
-  </form>
-</div>
-
-<div id="status">
-
-</div>
-</body>
-</html>
 
