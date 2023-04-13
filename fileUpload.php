@@ -125,9 +125,8 @@ $(document).ready(function() {
           var xhr = new window.XMLHttpRequest();
           xhr.upload.addEventListener('progress', function(event) {
             if (event.lengthComputable) {
-              var currentProgress = event.loaded / event.total * 100; // Calculate the progress of the current file
-              totalProgress += currentProgress - totalProgress / (i+1); // Update the total progress
-              var overallProgress = totalProgress / files.length; // Calculate the overall progress
+              totalProgress += event.loaded; // Update the total loaded bytes
+              var overallProgress = totalProgress / totalSize * 100; // Calculate the overall progress percentage
               $('#status').html('Overall Progress: ' + overallProgress.toFixed(2) + '%'); // Update the progress bar
             }
           }, false);
@@ -137,6 +136,7 @@ $(document).ready(function() {
     }
   });
 });
+
 
 
   </script>
