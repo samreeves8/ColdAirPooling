@@ -148,22 +148,44 @@
 
             //Determine which query to use based on minute or hour intervals
             if($minute == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
-                HAVING MOD(TIMESTAMPDIFF(MINUTE, ?, dateTime), ?) = 0
-                ORDER BY DateTime ASC;";
+                // $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                // FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                // GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
+                // HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), ?) = 0
+                // ORDER BY DateTime ASC;";
+
+                $sql = "SELECT Sensor, 
+                DATE_FORMAT(datetime, '%b %e, %Y %h:%i%p') AS interval_start,
+                ROUND(AVG((temperature * 9/5) + 32), 2) AS avg_temperature_f,
+                ROUND(MAX((temperature * 9/5) + 32), 2) AS max_temperature_f,
+                ROUND(MIN((temperature * 9/5) + 32), 2) AS min_temperature_f
+                FROM ".$table."
+                WHERE Sensor = ? AND datetime BETWEEN ? AND ? 
+                AND MINUTE(datetime) % ? = 0 
+                GROUP BY Sensor, interval_start
+                ";
             } else if($hour == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
-                HAVING MOD(TIMESTAMPDIFF(HOUR, ?, dateTime), ?) = 0 
-                ORDER BY DateTime ASC;";
+                // $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                // FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                // GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
+                // HAVING MOD(TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime), ?) = 0 
+                // ORDER BY DateTime ASC;";
+
+                $sql = "SELECT Sensor, 
+                DATE_FORMAT(datetime, '%b %e, %Y %h:%i%p') AS interval_start,
+                ROUND(AVG((temperature * 9/5) + 32), 2) AS avg_temperature_f,
+                ROUND(MAX((temperature * 9/5) + 32), 2) AS max_temperature_f,
+                ROUND(MIN((temperature * 9/5) + 32), 2) AS min_temperature_f
+                FROM ".$table."
+                WHERE Sensor = ? AND datetime BETWEEN ? AND ? 
+                AND HOUR(datetime) % ? = 0 
+                GROUP BY Sensor, interval_start
+                ";
             }    
 
             //prepare the query to prevent sql injection
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssdsd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $dateTimeStart ,$x);
+            $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
             $stmt->execute();
             $result = $stmt->get_result();
             $temp = array();
@@ -173,10 +195,10 @@
             //display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    $dateTime = new DateTime($row["DateTime"]);
+                    $dateTime = new DateTime($row["interval_start"]);
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
 
-                    $temp[] = $row['Temperature'];
+                    $temp[] = $row['avg_temperature_f'];
                     $date[] = $formattedDateTime;
                 }
                 // Check if this array of dates is longer than the previous longest array
@@ -289,7 +311,7 @@
             foreach ($sensorSet as $sensor){
             echo "<div id='$sensor' class='tab-panel'>
                 <table>
-                <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th></tr>";
+                <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Min Temperature</th><th>Max Temperature</th></tr>";
                 
                 //Determine which table to query 
                 $table = null;
@@ -301,13 +323,27 @@
 
                 //Determine which query to use based on minute or hour intervals
                 if($minute == true){
-                    $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                    $sql = "SELECT Sensor, 
+                    DATE_FORMAT(datetime, '%b %e, %Y %h:%i%p') AS interval_start,
+                    ROUND(AVG((temperature * 9/5) + 32), 2) AS avg_temperature_f,
+                    ROUND(MAX((temperature * 9/5) + 32), 2) AS max_temperature_f,
+                    ROUND(MIN((temperature * 9/5) + 32), 2) AS min_temperature_f
+                    FROM ".$table."
+                    WHERE Sensor = ? AND datetime BETWEEN ? AND ? 
+                    AND MINUTE(datetime) % ? = 0 
+                    GROUP BY Sensor, interval_start
+                    ";
                 } else if($hour == true){
-                    $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                    $sql = "SELECT Sensor, 
+                    DATE_FORMAT(datetime, '%b %e, %Y %h:%i%p') AS interval_start,
+                    ROUND(AVG((temperature * 9/5) + 32), 2) AS avg_temperature_f,
+                    ROUND(MAX((temperature * 9/5) + 32), 2) AS max_temperature_f,
+                    ROUND(MIN((temperature * 9/5) + 32), 2) AS min_temperature_f
+                    FROM ".$table."
+                    WHERE Sensor = ? AND datetime BETWEEN ? AND ? 
+                    AND HOUR(datetime) % ? = 0 
+                    GROUP BY Sensor, interval_start
+                    ";
                 }    
 
                 //prepare the query to prevent sql injection
@@ -324,15 +360,16 @@
                         echo "<tr>";
                         echo "<td>" . $sensor . "</td>";
 
-                        $dateTime = new DateTime($row["DateTime"]);
+                        $dateTime = new DateTime($row["interval_start"]);
                         $formattedDateTime = $dateTime->format('M d, Y h:ia');
 
                         echo "<td>" . $formattedDateTime . "</td>";
-                        echo "<td>" . $row["Temperature"] . "</td>";
+                        echo "<td>" . $row["avg_temperature_f"] . "</td>";
+                        echo "<td>" . $row["min_temperature_f"] . "</td>";
+                        echo "<td>" . $row["max_temperature_f"] . "</td>";
                         echo "</tr>";
 
-                        $temp[] = $row['Temperature'];
-                        $date[] = $formattedDateTime;
+
                     }
                 }
                 echo "</table></div>";
