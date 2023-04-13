@@ -176,6 +176,10 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
+                    // round to the nearest 5th minute
+                    $minute = $dateTime->format('i');
+                    $roundedMinute = round($minute / 5) * 5;
+                    $dateTime->setTime($dateTime->format('H'), $roundedMinute);
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
 
                     $temp[] = $row['Temperature'];
