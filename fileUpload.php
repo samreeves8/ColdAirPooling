@@ -111,20 +111,21 @@ $(document).ready(function() {
     for (var i = 0; i < files.length; i++) {
       var fileData = new FormData();
       fileData.append('file', files[i]);
+      var progressElement = $('<div id="progress' + i + '">Uploading ' + files[i].name + ': 0%</div>'); // Create progress bar element
+      $('#status').append(progressElement);
       var xhr = new XMLHttpRequest();
       xhr.open('POST', 'fileUpload.php');
-      var percent = 0; // Declare percent variable outside the if block
       xhr.upload.addEventListener('progress', function(e) {
         if (e.lengthComputable) {
-          percent = Math.round((e.loaded / e.total) * 100);
-          $('#progress' + i).text(percent + '%');
+          var percent = Math.round((e.loaded / e.total) * 100);
+          progressElement.text('Uploading ' + files[i].name + ': ' + percent + '%'); // Update progress bar element
         }
       }, false);
       xhr.send(fileData);
-      $('#status').append('<div id="progress' + i + '">Uploading ' + files[i].name + ': '+percent+'%</div>');
     }
   });
 });
+
 
   </script>
 </head>
