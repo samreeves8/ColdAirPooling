@@ -87,7 +87,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
   $conn->commit();
   mysqli_stmt_close($stmt);
-  echo($file_name);
+  
 }
 mysqli_close($conn);
 ?>
@@ -117,10 +117,24 @@ $(document).ready(function() {
         data: fileData,
         processData: false,
         contentType: false,
+        xhr: function() {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(evt) {
+            if (evt.lengthComputable) {
+              var percentComplete = evt.loaded / evt.total;
+              // Update the progress bar for the current file
+              $('#progress-' + i).css('width', percentComplete * 100 + '%');
+            }
+          }, false);
+          return xhr;
+        }
       });
+      // Add a progress bar for the current file
+      $('#status').append('<div class="progress"><div id="progress-' + i + '" class="progress-bar" role="progressbar"></div></div>');
     }
   });
 });
+
 
   </script>
 </head>
