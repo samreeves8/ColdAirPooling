@@ -100,44 +100,32 @@ mysqli_close($conn);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
 $(document).ready(function() {
-  // Bind event listener to the form submission
-  $('#upload-form').on('submit', function(event) {
-    event.preventDefault();
-    var formData = new FormData($('#upload-form')[0]);
-    var files = formData.getAll('files[]');
-    $('#upload-form')[0].reset();
-    $('#status').empty();
-    var uploadedCount = 0; // Initialize the count of uploaded files to zero
-    for (var i = 0; i < files.length; i++) {
-      var fileData = new FormData();
-      fileData.append('file', files[i]);
-      $.ajax({
-        url: 'fileUpload.php',
-        type: 'POST',
-        data: fileData,
-        processData: false,
-        contentType: false,
-        xhr: function() {
-          var xhr = new window.XMLHttpRequest();
-          xhr.upload.addEventListener('progress', function(evt) {
-            if (evt.lengthComputable) {
-              var percentComplete = evt.loaded / evt.total;
-              // Update the progress bar for the current file
-              $('#progress-' + i).css('width', percentComplete * 100 + '%');
+      // Bind event listener to the form submission
+      $('#upload-form').on('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData($('#upload-form')[0]);
+        var files = formData.getAll('files[]');
+        $('#upload-form')[0].reset();
+        $('#status').empty();
+        var uploadedCount = 0; // Initialize the count of uploaded files to zero
+        for (var i = 0; i < files.length; i++) {
+          var fileData = new FormData();
+          fileData.append('file', files[i]);
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'fileUpload.php');
+          xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+              var percent = Math.round((e.loaded / e.total) * 100);
+              $('#progress' + i).text(percent + '%');
             }
           }, false);
-          return xhr;
+          xhr.send(fileData);
+          $('#status').append('<div id="progress' + i + '">Uploading ' + files[i].name + ': 0%</div>');
         }
       });
-      // Add a progress bar for the current file
-      $('#status').append('<div class="progress"><div id="progress-' + i + '" class="progress-bar" role="progressbar"></div></div>');
-    }
-  });
-});
-
+    });
 
   </script>
-  <link rel="stylesheet" href="styles/nav.css">
 </head>
 <body>
 <div id="form">
