@@ -165,7 +165,7 @@
 
             //prepare the query to prevent sql injection
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
+            $stmt->bind_param("sssii", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
             $stmt->execute();
             $result = $stmt->get_result();
             $temp = array();
