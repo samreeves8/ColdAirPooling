@@ -177,11 +177,10 @@
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
                     $minute = $dateTime->format('i');
-                    $roundedMinute = $minute - $minute % 5 + (floor($minute % 5 / 3) * 5);
-                    $dateTime->modify("{$roundedMinute} minutes");
+                    $roundedMinute = $minute - $minute % 5;
+                    $dateTime->modify("+{$roundedMinute} minutes");
 
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
-
 
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
