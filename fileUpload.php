@@ -30,17 +30,8 @@ mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  
-  $filesProcessed = 0;
-
-  // Keep track of how many bytes have been read so far
-  $bytesRead = 0;
-
   // get the local file path
   $local_file = $_FILES["file"]["tmp_name"];
-
-  // Get the total file size
-  $fileSize = filesize($_FILES['file']['tmp_name']);
 
   // get the original file name
   $file_name = $_FILES["file"]["name"];
@@ -90,14 +81,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if(!$h && $Temperature!=null) {
         mysqli_stmt_execute($stmt);
     }
-    $bytesRead += strlen($row);
-    $percentComplete = $bytesRead / $fileSize * 100;
-    echo "progress:$percentComplete\n";
   }
 
   // Close the statement and connection
   fclose($handle);
-  $filesProcessed++;
         
   $conn->commit();
   mysqli_stmt_close($stmt);
@@ -130,28 +117,10 @@ $(document).ready(function() {
         data: fileData,
         processData: false,
         contentType: false,
-        xhr: function() {
-          // Use XHR to receive progress updates
-          var xhr = new window.XMLHttpRequest();
-          xhr.upload.addEventListener("progress", function(event) {
-            if (event.lengthComputable) {
-              var percentComplete = event.loaded / event.total * 100;
-              $('#status').text('Uploading file ' + (i+1) + ' of ' + files.length + ' - ' + percentComplete.toFixed(2) + '% complete');
-            }
-          }, false);
-          return xhr;
-        },
-        success: function(response) {
-          uploadedCount++;
-          if (uploadedCount == files.length) {
-            $('#status').text('All files uploaded successfully');
-          }
-        }
       });
     }
   });
 });
-
 
   </script>
 </head>
@@ -162,7 +131,6 @@ $(document).ready(function() {
     <input type="submit" value="Upload">
   </form>
 </div>
-
 
 <div id="status">
 
