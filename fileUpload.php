@@ -82,12 +82,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_execute($stmt);
     }
   }
-  echo($file_name);
   // Close the statement and connection
   fclose($handle);
         
   $conn->commit();
   mysqli_stmt_close($stmt);
+  echo($file_name);
 }
 mysqli_close($conn);
 ?>
