@@ -100,34 +100,30 @@ mysqli_close($conn);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
 $(document).ready(function() {
-  // Bind event listener to the form submission
-  $('#upload-form').on('submit', function(event) {
-    event.preventDefault();
-    var formData = new FormData($('#upload-form')[0]);
-    var files = formData.getAll('files[]');
-    $('#upload-form')[0].reset();
-    $('#status').empty();
-    var uploadedCount = 0; // Initialize the count of uploaded files to zero
-    for (var i = 0; i < files.length; i++) {
-      // Use a closure to capture the value of i for each iteration of the loop
-      (function(index) {
-        var fileData = new FormData();
-        fileData.append('file', files[index]);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'fileUpload.php');
-        xhr.upload.addEventListener('progress', function(e) {
-          if (e.lengthComputable) {
-            var percent = Math.round((e.loaded / e.total) * 100);
-            $('#progress' + index).text(percent + '%');
-          }
-        }, false);
-        xhr.send(fileData);
-        $('#status').append('<div id="progress' + index + '">Uploading ' + files[index].name + ': 0%</div>');
-      })(i);
-    }
-  });
-});
-
+      // Bind event listener to the form submission
+      $('#upload-form').on('submit', function(event) {
+        event.preventDefault();
+        var formData = new FormData($('#upload-form')[0]);
+        var files = formData.getAll('files[]');
+        $('#upload-form')[0].reset();
+        $('#status').empty();
+        var uploadedCount = 0; // Initialize the count of uploaded files to zero
+        for (var i = 0; i < files.length; i++) {
+          var fileData = new FormData();
+          fileData.append('file', files[i]);
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'fileUpload.php');
+          xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+              var percent = Math.round((e.loaded / e.total) * 100);
+              $('#progress' + i).text(percent + '%');
+            }
+          }, false);
+          xhr.send(fileData);
+          $('#status').append('<div id="progress' + i + '">Uploading ' + files[i].name + ': '+percent+'%</div>');
+        }
+      });
+    });
 
   </script>
 </head>
