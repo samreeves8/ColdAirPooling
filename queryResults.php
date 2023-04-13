@@ -176,6 +176,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
+                    $formattedDateTime = $dateTime->format('M d, Y h:i a');
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
 
@@ -188,7 +189,7 @@
                 $allArrays[] = array(
                     'label' => $sensor,
                     'temp' => $temp,
-                    'date' => $longestDateArray
+                    'date' => $date
                 );
             }
         }
