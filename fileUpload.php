@@ -137,6 +137,7 @@ $(document).ready(function() {
 
 
   </script>
+  <link rel="stylesheet" href="styles/nav.css">
 </head>
 <body>
 <div id="form">
