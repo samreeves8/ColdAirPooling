@@ -8,6 +8,7 @@ textarea {
     width: 400px;
     height: 160px;
     font-size: 24px;
+    resize: none;
 }
 
 .container {
