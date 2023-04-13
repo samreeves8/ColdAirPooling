@@ -335,9 +335,7 @@
                         echo "<td>" . $sensor . "</td>";
 
                         $dateTime = new DateTime($row["DateTime"]);
-                        $roundedDateTime = clone $dateTime; // create a copy of the original DateTime object
-                        $roundedDateTime->modify('-' . $roundedDateTime->format('i') % 5 . ' minutes'); // round down to nearest 5th minute
-                        $formattedDateTime = $roundedDateTime->format('M d, Y h:i a');
+                        $formattedDateTime = $dateTime->format('M d, Y h:i a');
 
                         echo "<td>" . $formattedDateTime . "</td>";
                         echo "<td>" . $row["Temperature"] . "</td>";
