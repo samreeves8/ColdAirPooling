@@ -148,9 +148,12 @@
 
             //Determine which query to use based on minute or hour intervals
             if($minute == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ? 
+                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:') 
+                CONCAT(FLOOR(DATE_FORMAT(dateTime, '%i') / 5) * 5, ':00') AS DateTime, 
+                FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                FROM ".$table." 
+                WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
                 HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), 60 / ?) = 0 
                 ORDER BY DateTime ASC;
                 ";
@@ -176,10 +179,6 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
-                    // round to the nearest 5th minute
-                    $minute = $dateTime->format('i');
-                    $roundedMinute = round($minute / 5) * 5;
-                    $dateTime->setTime($dateTime->format('H'), $roundedMinute);
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
 
                     $temp[] = $row['Temperature'];
