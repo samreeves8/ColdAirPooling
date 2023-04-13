@@ -26,4 +26,13 @@
 
 <?php
     include ("blog.html");
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $blogTitle = $_POST['title'];
+        $blogContent = $_POST['content'];
+
+        $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?)";
+        $stmt_blog = mysqli_prepare($conn, $sqlBlog);
+        mysqli_stmt_bind_param($sqlBlog, "ss", $blogTitle, $blogContent);
+    }
 ?>
