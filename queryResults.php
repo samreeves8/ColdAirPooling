@@ -176,13 +176,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
-                    $minute = $dateTime->format('i');
-                    $roundedMinute = floor($minute / 5) * 5;
-                    $dateTime->setTime($dateTime->format('H'), $roundedMinute);
-
                     $formattedDateTime = $dateTime->format('M d, Y h:ia');
-
-
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
                 }
