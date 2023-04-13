@@ -111,26 +111,36 @@ $(document).ready(function() {
     var files = formData.getAll('files[]');
     $('#upload-form')[0].reset();
     $('#status').empty();
-    $('#spinner').show(); // Show the spinner
     var uploadedCount = 0; // Initialize the count of uploaded files to zero
+    var totalSize = 0; // Initialize the total size of all files to zero
     for (var i = 0; i < files.length; i++) {
       var fileData = new FormData();
       fileData.append('file', files[i]);
+      totalSize += files[i].size;
       $.ajax({
         url: 'fileUpload.php',
         type: 'POST',
         data: fileData,
         processData: false,
         contentType: false,
+        xhr: function() {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(event) {
+            if (event.lengthComputable) {
+              var percentComplete = (event.loaded / totalSize) * 100;
+              $('#status').html('Uploading... ' + percentComplete.toFixed(2) + '%');
+            }
+          }, false);
+          return xhr;
+        },
         success: function() {
           uploadedCount++;
           if (uploadedCount === files.length) {
-            $('#spinner').hide(); // Hide the spinner when all files have been processed
+            $('#status').html('Upload complete');
           }
         },
         error: function() {
-          $('#spinner').hide(); // Hide the spinner if there was an error
-          $('#status').text('An error occurred while processing the files.');
+          $('#status').html('Upload failed');
         }
       });
     }
