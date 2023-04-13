@@ -150,7 +150,7 @@
             if($minute == true){
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
                 FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ? 
+                GROUP BY Sensor, FLOOR(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ?) * 3  
                 HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), 60 / ?) = 0 
                 ORDER BY DateTime ASC;
                 ";
