@@ -148,12 +148,12 @@
 
             //Determine which query to use based on minute or hour intervals
             if($minute == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(ROUND(dateTime, INTERVAL 5 MINUTE), '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." 
-                WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ? 
+                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                GROUP BY Sensor, ROUND(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ? / 5) * 5
                 HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), 60 / ?) = 0 
-                ORDER BY DateTime ASC;";
+                ORDER BY DateTime ASC;
+                ";
 
             } else if($hour == true){
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
@@ -165,7 +165,7 @@
 
             //prepare the query to prevent sql injection
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssii", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
+            $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
             $stmt->execute();
             $result = $stmt->get_result();
             $temp = array();
