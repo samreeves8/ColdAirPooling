@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="nav.css">
-    <link rel = "stylesheet" href = "query.css">
+    <link rel = "stylesheet" href = "styles/query.css">
     <link rel = "stylesheet" href = "styles/table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
@@ -341,12 +341,3 @@
         }
     }
 ?>
-
-<!-- // $sql = "SELECT DISTINCT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
-            // MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
-            // FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY GroupNum ORDER BY `Sensor` DESC;";
-
-            // SET @interval = 24; -- Specify the interval length in hours
-            // SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS interval_start, AVG(temperature) AS average_temperature 
-            // FROM TempData WHERE Sensor = '02FAI' AND dateTime BETWEEN '2023-01-01 0:00:00' AND '2023-01-31 0:00:00' 
-            // GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV 24 ORDER BY interval_start ASC -->
