@@ -35,5 +35,7 @@
         $stmt_blog = mysqli_prepare($conn, $sqlBlog);
         mysqli_stmt_bind_param($stmt_blog, "ss", $blogTitle, $blogContent);
         mysqli_stmt_execute($stmt_blog);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
     }
 ?>
