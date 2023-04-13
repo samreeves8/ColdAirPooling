@@ -151,7 +151,7 @@
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
                 FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                 GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ? 
-             
+                HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), 60 / ?) = 0 
                 ORDER BY DateTime ASC;
                 ";
 
@@ -165,7 +165,7 @@
 
             //prepare the query to prevent sql injection
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
+            $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
             $stmt->execute();
             $result = $stmt->get_result();
             $temp = array();
@@ -176,9 +176,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
-                    $roundedDateTime = clone $dateTime; // create a copy of the original DateTime object
-                    $roundedDateTime->modify('-' . $roundedDateTime->format('i') % 5 . ' minutes'); // round down to nearest 5th minute
-                    $formattedDateTime = $roundedDateTime->format('M d, Y h:i a');
+                    $formattedDateTime = $dateTime->format('M d, Y h:i a');
 
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
