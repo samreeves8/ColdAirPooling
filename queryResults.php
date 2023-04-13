@@ -308,16 +308,21 @@
                 if($minute == true){
                     $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
                     FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                    GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
+                    HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), 60 / ?) = 0 
+                    ORDER BY DateTime ASC;
+                    ";
                 } else if($hour == true){
                     $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
                     FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
+                    HAVING MOD(TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime), ?) = 0 
+                    ORDER BY DateTime ASC;";
                 }    
 
                 //prepare the query to prevent sql injection
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
+                $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
                 $stmt->execute();
                 $result = $stmt->get_result();
                 $temp = array();
