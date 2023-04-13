@@ -33,8 +33,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   $totalFiles = count($_FILES['files']['name']);
   $filesProcessed = 0;
 
+  // Keep track of how many bytes have been read so far
+  $bytesRead = 0;
+
   // get the local file path
   $local_file = $_FILES["file"]["tmp_name"];
+
+  // Get the total file size
+  $fileSize = filesize($_FILES['file']['tmp_name']);
 
   // get the original file name
   $file_name = $_FILES["file"]["name"];
@@ -84,6 +90,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if(!$h && $Temperature!=null) {
         mysqli_stmt_execute($stmt);
     }
+    $bytesRead += strlen($row);
+    $percentComplete = $bytesRead / $fileSize * 100;
+    echo "progress:$percentComplete\n";
   }
 
   // Close the statement and connection
@@ -112,11 +121,9 @@ $(document).ready(function() {
     $('#upload-form')[0].reset();
     $('#status').empty();
     var uploadedCount = 0; // Initialize the count of uploaded files to zero
-    var totalSize = 0; // Initialize the total size of all files to zero
     for (var i = 0; i < files.length; i++) {
       var fileData = new FormData();
       fileData.append('file', files[i]);
-      totalSize += files[i].size;
       $.ajax({
         url: 'fileUpload.php',
         type: 'POST',
@@ -124,23 +131,21 @@ $(document).ready(function() {
         processData: false,
         contentType: false,
         xhr: function() {
+          // Use XHR to receive progress updates
           var xhr = new window.XMLHttpRequest();
-          xhr.upload.addEventListener('progress', function(event) {
+          xhr.upload.addEventListener("progress", function(event) {
             if (event.lengthComputable) {
-              var percentComplete = (event.loaded / totalSize) * 100;
-              $('#status').html('Uploading... ' + percentComplete.toFixed(2) + '%');
+              var percentComplete = event.loaded / event.total * 100;
+              $('#status').text('Uploading file ' + (i+1) + ' of ' + files.length + ' - ' + percentComplete.toFixed(2) + '% complete');
             }
           }, false);
           return xhr;
         },
-        success: function() {
+        success: function(response) {
           uploadedCount++;
-          if (uploadedCount === files.length) {
-            $('#status').html('Upload complete');
+          if (uploadedCount == files.length) {
+            $('#status').text('All files uploaded successfully');
           }
-        },
-        error: function() {
-          $('#status').html('Upload failed');
         }
       });
     }
@@ -157,6 +162,7 @@ $(document).ready(function() {
     <input type="submit" value="Upload">
   </form>
 </div>
+
 
 <div id="status">
 
