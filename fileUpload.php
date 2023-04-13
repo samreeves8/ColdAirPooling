@@ -30,7 +30,7 @@ mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  $totalFiles = count($_FILES['files[]']['name']);
+  
   $filesProcessed = 0;
 
   // Keep track of how many bytes have been read so far
