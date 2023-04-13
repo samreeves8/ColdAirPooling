@@ -176,9 +176,7 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
-                    $roundedDateTime = clone $dateTime; // create a copy of the original DateTime object
-                    $roundedDateTime->modify('-' . $roundedDateTime->format('i') % 5 . ' minutes'); // round down to nearest 5th minute
-                    $formattedDateTime = $roundedDateTime->format('M d, Y h:i a');
+                    $formattedDateTime = $dateTime->format('M d, Y h:i a');
 
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
