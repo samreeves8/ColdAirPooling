@@ -158,9 +158,6 @@ $(document).ready(function() {
   </form>
 </div>
 
-<div id="spinner" style="display:none;"><img src="spinner.gif"></div>
-
-
 <div id="status">
 
 </div>
