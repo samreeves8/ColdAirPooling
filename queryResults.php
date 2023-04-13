@@ -148,12 +148,9 @@
 
             //Determine which query to use based on minute or hour intervals
             if($minute == true){
-                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:') 
-                CONCAT(FLOOR(DATE_FORMAT(dateTime, '%i') / 5) * 5, ':00') AS DateTime, 
-                FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." 
-                WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
+                $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
+                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) / ? 
                 HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), 60 / ?) = 0 
                 ORDER BY DateTime ASC;
                 ";
