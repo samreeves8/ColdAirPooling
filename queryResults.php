@@ -191,7 +191,7 @@
                 $allArrays[] = array(
                     'label' => $sensor,
                     'temp' => $temp,
-                    'date' => $longestDateArray
+                    'date' => $date
                 );
             }
         }
