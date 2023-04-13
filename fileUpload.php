@@ -115,16 +115,19 @@ $(document).ready(function() {
       $('#status').append(progressElement);
       var xhr = new XMLHttpRequest();
       xhr.open('POST', 'fileUpload.php');
-      xhr.upload.addEventListener('progress', function(e) {
-        if (e.lengthComputable) {
-          var percent = Math.round((e.loaded / e.total) * 100);
-          progressElement.text('Uploading ' + files[i].name + ': ' + percent + '%'); // Update progress bar element
-        }
-      }, false);
+      xhr.upload.addEventListener('progress', (function(progressElement, file) {
+        return function(e) {
+          if (e.lengthComputable) {
+            var percent = Math.round((e.loaded / e.total) * 100);
+            progressElement.text('Uploading ' + file.name + ': ' + percent + '%'); // Update progress bar element
+          }
+        };
+      })(progressElement, files[i]), false);
       xhr.send(fileData);
     }
   });
 });
+
 
 
   </script>
