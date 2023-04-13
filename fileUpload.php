@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
+  // user is not logged in, redirect to login page
+  echo "<script>location.href='login.php';</script>";
+
+  exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +67,7 @@ session_start();
 </html>
 
 <?php
+
 $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
