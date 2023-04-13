@@ -123,10 +123,14 @@ $(document).ready(function() {
           }
         };
       })(progressElement, files[i]), false);
+      xhr.addEventListener('error', function() {
+        progressElement.text('Error uploading ' + file.name + '. Please try again.'); // Display error message
+      });
       xhr.send(fileData);
     }
   });
 });
+
 
 
 
