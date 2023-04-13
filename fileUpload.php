@@ -30,6 +30,9 @@ mysqli_stmt_bind_param($stmt_temp, "ssd", $Sensor, $DateTime, $Temperature);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+  $totalFiles = count($_FILES['files']['name']);
+  $filesProcessed = 0;
+
   // get the local file path
   $local_file = $_FILES["file"]["tmp_name"];
 
@@ -85,10 +88,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Close the statement and connection
   fclose($handle);
+  $filesProcessed++;
         
   $conn->commit();
   mysqli_stmt_close($stmt);
-  // close the file handle
 }
 mysqli_close($conn);
 ?>
@@ -108,11 +111,9 @@ $(document).ready(function() {
     var files = formData.getAll('files[]');
     $('#upload-form')[0].reset();
     $('#status').empty();
+    $('#spinner').show(); // Show the spinner
     var uploadedCount = 0; // Initialize the count of uploaded files to zero
-    var totalProgress = 0;
-    var totalSize = 0; // Initialize the total size of uploaded files to zero
     for (var i = 0; i < files.length; i++) {
-      totalSize += files[i].size; // Add the size of each file to the total size
       var fileData = new FormData();
       fileData.append('file', files[i]);
       $.ajax({
@@ -121,27 +122,20 @@ $(document).ready(function() {
         data: fileData,
         processData: false,
         contentType: false,
-        xhr: function() {
-          var xhr = new window.XMLHttpRequest();
-          xhr.upload.addEventListener('progress', function(event) {
-            if (event.lengthComputable) {
-              var currentProgress = event.loaded / event.total * 100; // Calculate the progress of the current file
-              totalProgress += currentProgress; // Update the total progress
-              var overallProgress = totalProgress / files.length; // Calculate the overall progress
-              if (overallProgress > 100) {
-                overallProgress = 100; // Limit progress to 100%
-              }
-              $('#status').html('Overall Progress: ' + overallProgress.toFixed(2) + '%'); // Update the progress bar
-            }
-          }, false);
-          return xhr;
+        success: function() {
+          uploadedCount++;
+          if (uploadedCount === files.length) {
+            $('#spinner').hide(); // Hide the spinner when all files have been processed
+          }
+        },
+        error: function() {
+          $('#spinner').hide(); // Hide the spinner if there was an error
+          $('#status').text('An error occurred while processing the files.');
         }
       });
     }
   });
 });
-
-
 
 
   </script>
@@ -153,6 +147,9 @@ $(document).ready(function() {
     <input type="submit" value="Upload">
   </form>
 </div>
+
+<div id="spinner" style="display:none;"><img src="spinner.gif"></div>
+
 
 <div id="status">
 
