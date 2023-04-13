@@ -64,8 +64,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!$DateTime) {
               $DateTime = DateTime::createFromFormat('m-d-Y H:i', $row[$dateTimeIndex]);
                 if (!$DateTime) {
-                  echo "Invalid file format";
-                    exit();
+                  echo $file_name . ": Invalid file format";
+                  exit();
                 }
             }
         }
@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_execute($stmt);
     }
   }
-
+  echo($file_name);
   // Close the statement and connection
   fclose($handle);
         
