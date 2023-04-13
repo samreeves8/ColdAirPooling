@@ -59,7 +59,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
 <div id="form">
   <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
     <input type="file" id="file" class="file" name="files[]" multiple>
-    <input type="submit" value="Upload">
+    <input type="submit" id="button" value="Upload">
   </form>
 </div>
 <div id="status"></div>
