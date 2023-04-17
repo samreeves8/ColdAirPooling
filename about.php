@@ -15,7 +15,33 @@
           <img src="images/Western Logo.png" alt="Header Image">
         </div>
       </header>
-      <?php include 'navBar.php';?>
+<?php include 'navBar.php';?>
+
+
+<div class="about-wrapper">
+    <h3>
+      About Us
+    </h3>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
+    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
+    cursus mattis. Condimentum mattis pellentesque id nibh tortor. Pulvinar pellentesque habitant morbi tristique
+    senectus et. Aliquam malesuada bibendum arcu vitae. Mauris rhoncus aenean vel elit scelerisque mauris
+    pellentesque pulvinar pellentesque. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor.
+    Massa id neque aliquam vestibulum morbi blandit cursus risus at. Nec nam aliquam sem et tortor consequat
+    id porta.
+
+    Dignissim sodales ut eu sem integer vitae justo eget magna. Consequat semper viverra nam libero. Sed
+    blandit libero volutpat sed cras ornare arcu. Quis commodo odio aenean sed. Elementum facilisis leo vel
+    fringilla est ullamcorper eget. Sagittis eu volutpat odio facilisis mauris. Lacus vestibulum sed arcu non
+    odio euismod lacinia. Aenean euismod elementum nisi quis. Non arcu risus quis varius. Justo donec enim
+    diam vulputate. Etiam erat velit scelerisque in. Mauris rhoncus aenean vel elit scelerisque mauris
+    pellentesque pulvinar. Nulla malesuada pellentesque elit eget gravida cum sociis. Posuere sollicitudin
+    aliquam ultrices sagittis orci a. Justo donec enim diam vulputate ut pharetra sit. Vel eros donec ac
+    odio tempor orci dapibus ultrices in.
+    </p>
+</div>
 
 </body>
 </html>
