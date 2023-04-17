@@ -5,11 +5,12 @@
        <li><a href="#">Contact</a></li>
        <?php
        if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
-           echo '<li><a href="importCSV.php">Import CSV</a></li>';
+           echo '<li><a href="fileUpload.php">Import CSV</a></li>';
         }
         ?>
        <li><a href="query.php">Query</a></li>
        <li><a href="#">Members</a></li>
+       <li><a href="blog.php">Blog</a></li>
        <?php
        if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
            echo '<li><a href="logout.php">Logout</a></li>';

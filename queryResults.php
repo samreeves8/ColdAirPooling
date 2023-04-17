@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="nav.css">
-    <link rel = "stylesheet" href = "query.css">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel = "stylesheet" href = "styles/query.css">
     <link rel = "stylesheet" href = "styles/table.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 
@@ -136,6 +136,7 @@
         //code to display table and graph
         $allArrays = array();
         $longestDateArray = array();
+        $hasAddedFirstDateTime = false;
 
         foreach($sensorSet as $sensor){
             //Determine which table to query 
@@ -149,35 +150,47 @@
             //Determine which query to use based on minute or hour intervals
             if($minute == true){
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
-                FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
-                HAVING MOD(TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime), ?) = 0
-                ORDER BY DateTime ASC;";
+                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                    GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? ORDER BY DateTime ASC;";
+                //prepare the query to prevent sql injection
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("sssd", $sensor, $dateTimeStart, $dateTimeEnd, $x);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $temp = array();
+                $date = array();
+
             } else if($hour == true){
                 $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature
                 FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                 GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
                 HAVING MOD(TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime), ?) = 0 
                 ORDER BY DateTime ASC;";
+                //prepare the query to prevent sql injection
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $temp = array();
+                $date = array();
             }    
-
-            //prepare the query to prevent sql injection
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssdd", $sensor, $dateTimeStart, $dateTimeEnd, $x, $x);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $temp = array();
-            $date = array();
-
 
             //display each row in the table
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
-                    $formattedDateTime = $dateTime->format('M d, Y h:ia');
+                    // Skip the first datetime value for this sensor
+                    if (!$hasAddedFirstDateTime && $minute == true) {
+                        $hasAddedFirstDateTime = true;
+                        continue;
+                    }
+                    $roundedDateTime = clone $dateTime; // create a copy of the original DateTime object
+                    $roundedDateTime->modify('-' . $roundedDateTime->format('i') % 5 . ' minutes'); // round down to nearest 5th minute
+                    $formattedDateTime = $roundedDateTime->format('M d, Y h:i a');
 
                     $temp[] = $row['Temperature'];
                     $date[] = $formattedDateTime;
+
                 }
                 // Check if this array of dates is longer than the previous longest array
                 if (count($date) > count($longestDateArray)) {
@@ -325,7 +338,9 @@
                         echo "<td>" . $sensor . "</td>";
 
                         $dateTime = new DateTime($row["DateTime"]);
-                        $formattedDateTime = $dateTime->format('M d, Y h:ia');
+                        $roundedDateTime = clone $dateTime; // create a copy of the original DateTime object
+                        $roundedDateTime->modify('-' . $roundedDateTime->format('i') % 5 . ' minutes'); // round down to nearest 5th minute
+                        $formattedDateTime = $roundedDateTime->format('M d, Y h:i a');
 
                         echo "<td>" . $formattedDateTime . "</td>";
                         echo "<td>" . $row["Temperature"] . "</td>";
@@ -341,12 +356,3 @@
         }
     }
 ?>
-
-<!-- // $sql = "SELECT DISTINCT Sensor, FLOOR((@row_number:=@row_number+1)/". $x .") AS GroupNum, Min(DateTime) AS StartDateTime, MAX(DateTime) AS EndDateTime,
-            // MIN(Temperature) AS MinTemperature, MAX(Temperature) AS MaxTemperature, ROUND(AVG(Temperature),2) AS AvgTemperature
-            // FROM " . $table . ", (SELECT @row_number:=0) AS t WHERE Sensor IN (?) AND DateTime BETWEEN ? AND ? GROUP BY GroupNum ORDER BY `Sensor` DESC;";
-
-            // SET @interval = 24; -- Specify the interval length in hours
-            // SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS interval_start, AVG(temperature) AS average_temperature 
-            // FROM TempData WHERE Sensor = '02FAI' AND dateTime BETWEEN '2023-01-01 0:00:00' AND '2023-01-31 0:00:00' 
-            // GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV 24 ORDER BY interval_start ASC -->
