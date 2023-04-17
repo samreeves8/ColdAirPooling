@@ -34,7 +34,7 @@
         $blogTitle = $_POST['title'];
         $blogContent = $_POST['content'];
 
-        $queryID = "SELECT id FROM accounts WHERE username = ?;";
+        $queryID = "SELECT id FROM accounts WHERE username = ?";
         mysqli_stmt_bind_param($queryID, "s", $_SESSION['name']);
         mysqli_stmt_execute($queryID);
         $member_id = $queryID->get_result;
@@ -48,7 +48,7 @@
         }
 
 
-        $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?);";
+        $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?)";
 
 
         $stmt_blog = mysqli_prepare($conn, $sqlBlog);
