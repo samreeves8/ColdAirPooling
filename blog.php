@@ -38,7 +38,7 @@
         $stmt_id = mysqli_prepare($conn, $queryID);
         mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
         mysqli_stmt_execute($stmt_id);
-        $member_id = $stmt_id->get_result;
+        $member_id = $stmt_id->get_result();
         mysqli_stmt_close($stmt_id);
 
         if($member_id->num_rows == 1){
