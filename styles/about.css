@@ -21,6 +21,10 @@ header {
     height: auto;
   }
 
+  a{
+    text-align: right;
+  }
+
 .about-wrapper {
     background-color:rgb(168, 164, 164);
 }
