@@ -5,7 +5,8 @@ header {
   }
   
   .header-wrapper {
-    max-width: 1200px; 
+    max-width: 1200px;
+    padding-bottom: 50px;
     margin-bottom: 50px;
     height: 100%; 
     display: flex;
