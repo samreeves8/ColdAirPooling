@@ -5,7 +5,7 @@ header {
     margin-top: 10px;
     margin-bottom: 30px;
 
-  }
+    }
   
   .header-wrapper {
     max-width: 1200px;
@@ -15,15 +15,20 @@ header {
     align-items: center;
     justify-content: space-between;
   }
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
   
   img {
     max-width: 100%;
     height: auto;
-    width:50px;
   }
 
   a{
     color: black;
+    margin-left: auto;
   }
 
 .about-wrapper {

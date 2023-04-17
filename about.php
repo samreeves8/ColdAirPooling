@@ -12,7 +12,7 @@
 <body>
     <header>
         <div class="header-wrapper">
-          <img src="images/Western Logo.png" alt="Header Image">
+          <div class="logo"><img src="images/Western Logo.png" alt="Header Image"></div>
           <a href="login.php">Login</a>
         </div>
       </header>
