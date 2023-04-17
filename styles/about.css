@@ -16,19 +16,15 @@ header {
     justify-content: center;
   }
 
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  img {
-    max-width: 100%;
-    height: auto;
+  .logo img {
+    max-height: 80px;
+    display: block;
+    margin: 0 auto;
   }
 
   .login-link{
     color: black;
-    float: right;
+    margin-left: auto;
   }
 
 .about-wrapper {

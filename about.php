@@ -13,11 +13,10 @@
     <header>
         <div class="header-wrapper">
           <div class="logo"><img src="images/Western Logo.png" alt="Header Image"></div>
+          <div class="login-link"><a href="login.php">Login</a></div>
         </div>
-        <div class="login-link"><a href="login.php">Login</a></div>
       </header>
 <?php include 'navBar.php';?>
-
 
 <div class="about-wrapper">
     <h1>
