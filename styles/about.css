@@ -21,9 +21,20 @@ header {
     height: auto;
   }
 
-.about-wrapper{
-    background-color:grey ;
+.about-wrapper {
+    background-color:rgb(168, 164, 164);
 }
+
+h3 {
+    color: red;
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+
   
   
   
