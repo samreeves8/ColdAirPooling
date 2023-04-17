@@ -29,8 +29,16 @@ header {
   }
 
   .login-link{
+    background-color:rgb(178, 0, 0);
+    border: none;
+    color:rgb(168, 164, 164);
     flex: 0;
     color: black;
+  }
+
+  .login-link:hover {
+    background-color: red;
+    cursor: pointer;
   }
 
 .about-wrapper {
