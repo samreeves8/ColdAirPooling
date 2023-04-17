@@ -1,10 +1,5 @@
 <?php
     session_start();
-    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -43,3 +38,29 @@
 </form>
 </body>
 </html>
+
+<?php
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $sensorName = $_POST['sensor-name'];
+        $latitude = $_POST['latitude'];
+        $longitude = $_POST['longitude'];
+        $elevation = $_POST['elevation'];
+        $dateInstalled = $_POST['date-installed'];
+
+
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateInstalled) VALUES (?, ?, ?, ?, ?)";
+        //prepare the query to prevent sql injection
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sddds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled);
+        if ($stmt->execute()) {
+            echo "New sensor added successfully";
+        } else {
+            echo "Error adding new sensor: " . $stmt->error;
+        }
+    }
+?>
