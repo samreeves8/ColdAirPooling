@@ -38,10 +38,10 @@
 
     // Loop through the result set and display data in containers
     while ($row = $result_main->fetch_assoc()) {
-        echo '<div style="border: 1px solid #000; padding: 10px; margin-bottom: 10px;">';
+        echo '<div class="container-main">';
         echo '<h2>' . $row['title'] . '</h2>';
         echo '<p>' . $row['content'] . '</p>';
-        echo '<p style="text-align: right;">Posted by Member ID: ' . $row['member_id'] . '</p>';
+        echo '<p class="member">Posted by Member ID: ' . $row['member_id'] . '</p>';
         echo '</div>';
     }
 
