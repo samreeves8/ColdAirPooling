@@ -35,10 +35,11 @@
         $blogContent = $_POST['content'];
 
         $queryID = "SELECT id FROM accounts WHERE username = ?";
-        mysqli_stmt_bind_param($queryID, "s", $_SESSION['name']);
-        mysqli_stmt_execute($queryID);
-        $member_id = $queryID->get_result;
-        mysqli_stmt_close($queryID);
+        $stmt_id = mysqli_prepare($conn, $queryID);
+        mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
+        mysqli_stmt_execute($stmt_id);
+        $member_id = $stmt_id->get_result;
+        mysqli_stmt_close($stmt_id);
 
         if($member_id->num_rows == 1){
             while ($row = $member_id->fetch_assoc()) {
