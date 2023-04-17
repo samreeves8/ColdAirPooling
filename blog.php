@@ -42,6 +42,8 @@
         echo '<h2>' . $row['title'] . '</h2>';
         echo '<p>' . $row['content'] . '</p>';
 
+
+        //query's for member   
         $query_member = "SELECT username FROM acccounts WHERE member_id = " . $row['member_id'];
         $stmt_member = mysqli_prepare($conn, $query_member);
         mysqli_stmt_execute($stmt_member);
