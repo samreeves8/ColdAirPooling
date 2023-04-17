@@ -47,6 +47,7 @@
 </body>
 </html>
 <?php 
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sensorSet = json_decode($_POST['sensor-set-input']);
     $dateStart = $_POST['dateStart'];
@@ -55,6 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $timeEnd = $_POST['timeEnd'];
     $dateTimeStart = $dateStart . ' '.$timeStart;
     $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+
+    $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
 
     foreach($sensorSet as $sensor){
         //Determine which table to query 
