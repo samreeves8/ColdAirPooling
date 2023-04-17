@@ -136,6 +136,7 @@
         //code to display table and graph
         $allArrays = array();
         $longestDateArray = array();
+        $hasAddedFirstDateTime = false;
 
         foreach($sensorSet as $sensor){
             //Determine which table to query 
@@ -178,6 +179,11 @@
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
+                    // Skip the first datetime value for this sensor
+                    if (!$hasAddedFirstDateTime) {
+                        $hasAddedFirstDateTime = true;
+                        continue;
+                    }
                     $roundedDateTime = clone $dateTime; // create a copy of the original DateTime object
                     $roundedDateTime->modify('-' . $roundedDateTime->format('i') % 5 . ' minutes'); // round down to nearest 5th minute
                     $formattedDateTime = $roundedDateTime->format('M d, Y h:i a');
