@@ -13,18 +13,23 @@ header {
     height: 100%; 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:space-between;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .logo {
+    flex: 1;
+    text-align: center;
   }
 
   .logo img {
-    max-height: 80px;
-    display: block;
-    margin: 0 auto;
+    max-height: 50px;
   }
 
   .login-link{
+    flex: 0;
     color: black;
-    margin-left: auto;
   }
 
 .about-wrapper {
