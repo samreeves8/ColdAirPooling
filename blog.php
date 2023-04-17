@@ -29,20 +29,21 @@
         include ("blog.html");
     }
 
-    $query = "SELECT title, content, member_id FROM BlogPosts";
-    $result = $mysqli->query($query);
+    $query_main = "SELECT title, content, member_id FROM BlogPosts";
+    $stmt_main = mysqli_prepare($conn, $query_main);
+    mysqli_stmt_execute($stmt_main);
+    $result_main = $stmt_main->get_result();
+    mysqli_stmt_close($stmt_main);
+
 
     // Loop through the result set and display data in containers
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $result_main->fetch_assoc()) {
         echo '<div style="border: 1px solid #000; padding: 10px; margin-bottom: 10px;">';
         echo '<h2>' . $row['title'] . '</h2>';
         echo '<p>' . $row['content'] . '</p>';
         echo '<p style="text-align: right;">Posted by Member ID: ' . $row['member_id'] . '</p>';
         echo '</div>';
     }
-
-    // Close database connection
-    $mysqli->close();
 
     
 
