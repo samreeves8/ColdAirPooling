@@ -34,7 +34,21 @@
         $blogTitle = $_POST['title'];
         $blogContent = $_POST['content'];
 
-        $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?)";
+        $queryID = "SELECT id FROM accounts WHERE username = ?;";
+        mysqli_stmt_bind_param($queryID, "s", $_SESSION['name']);
+        mysqli_stmt_execute($queryID);
+        $member_id = $queryID->get_result;
+        mysqli_stmt_close($queryID);
+
+        if($member_id->num_rows == 1){
+            while ($row = $member_id->fetch_assoc()) {
+                //Echo's rows based on table
+                echo $row["id"];
+            }
+        }
+
+
+        $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?);";
 
 
         $stmt_blog = mysqli_prepare($conn, $sqlBlog);
