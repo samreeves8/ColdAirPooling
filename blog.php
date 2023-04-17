@@ -41,7 +41,19 @@
         echo '<div class="container-main">';
         echo '<h2>' . $row['title'] . '</h2>';
         echo '<p>' . $row['content'] . '</p>';
-        echo '<p class="member">Posted by Member ID: ' . $row['member_id'] . '</p>';
+
+        $query_member = "SELECT username FROM acccounts WHERE member_id = " . $row['member_id'];
+        $stmt_member = mysqli_prepare($conn, $query_member);
+        mysqli_stmt_execute($stmt_member);
+        $result_member = $stmt_member->get_result();
+        mysqli_stmt_close($stmt_member);
+        $curr_member = null;
+        while($row = $result_member->fetch_assoc()){
+            $curr_member = $row["username"];
+        }
+
+
+        echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         echo '</div>';
     }
 
@@ -52,17 +64,17 @@
         $blogContent = $_POST['content'];
 
         //Get the current user's id 
-        $queryID = "SELECT id FROM accounts WHERE username = ?";
-        $stmt_id = mysqli_prepare($conn, $queryID);
+        $query_id = "SELECT id FROM accounts WHERE username = ?";
+        $stmt_id = mysqli_prepare($conn, $query_id);
         mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
         mysqli_stmt_execute($stmt_id);
-        $member_id = $stmt_id->get_result();
+        $result_id = $stmt_id->get_result();
         mysqli_stmt_close($stmt_id);
 
 
         $m_id = null;
-        if($member_id->num_rows == 1){
-            while ($row = $member_id->fetch_assoc()) {
+        if($result_id->num_rows == 1){
+            while ($row = $result_id->fetch_assoc()) {
                 //set member id
                 $m_id = $row["id"];
             }
