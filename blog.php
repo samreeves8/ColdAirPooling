@@ -41,19 +41,20 @@
         $member_id = $stmt_id->get_result();
         mysqli_stmt_close($stmt_id);
 
+        $m_id = null;
         if($member_id->num_rows == 1){
             while ($row = $member_id->fetch_assoc()) {
                 //Echo's rows based on table
-                echo $row["id"];
+                $m_id = $row["id"];
             }
         }
 
 
-        $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?)";
+        $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
 
 
         $stmt_blog = mysqli_prepare($conn, $sqlBlog);
-        mysqli_stmt_bind_param($stmt_blog, "ss", $blogTitle, $blogContent);
+        mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
         mysqli_stmt_execute($stmt_blog);
         mysqli_stmt_close($stmt_blog);
         mysqli_close($conn);
