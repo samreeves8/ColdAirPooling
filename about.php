@@ -19,9 +19,9 @@
 
 
 <div class="about-wrapper">
-    <h3>
+    <h1>
       About Us
-    </h3>
+    </h1>
     <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
     et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.

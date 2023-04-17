@@ -25,13 +25,14 @@ header {
     background-color:rgb(168, 164, 164);
 }
 
-h3 {
+h1 {
     color: red;
     text-align: center;
 }
 
 p{
     text-align: center;
+    padding: 30px;
 }
 
 
