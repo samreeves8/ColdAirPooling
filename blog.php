@@ -28,12 +28,29 @@
     if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
         include ("blog.html");
     }
+
+    $query = "SELECT title, content, member_id FROM blog_posts";
+    $result = $mysqli->query($query);
+
+    // Loop through the result set and display data in containers
+    while ($row = $result->fetch_assoc()) {
+        echo '<div style="border: 1px solid #000; padding: 10px; margin-bottom: 10px;">';
+        echo '<h2>' . $row['title'] . '</h2>';
+        echo '<p>' . $row['content'] . '</p>';
+        echo '<p style="text-align: right;">Posted by Member ID: ' . $row['member_id'] . '</p>';
+        echo '</div>';
+    }
+
+    // Close database connection
+    $mysqli->close();
+
     
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $blogTitle = $_POST['title'];
         $blogContent = $_POST['content'];
 
+        //Get the current user's id 
         $queryID = "SELECT id FROM accounts WHERE username = ?";
         $stmt_id = mysqli_prepare($conn, $queryID);
         mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
@@ -41,10 +58,11 @@
         $member_id = $stmt_id->get_result();
         mysqli_stmt_close($stmt_id);
 
+
         $m_id = null;
         if($member_id->num_rows == 1){
             while ($row = $member_id->fetch_assoc()) {
-                //Echo's rows based on table
+                //set member id
                 $m_id = $row["id"];
             }
         }
@@ -52,7 +70,7 @@
 
         $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
 
-
+        //insert blog post
         $stmt_blog = mysqli_prepare($conn, $sqlBlog);
         mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
         mysqli_stmt_execute($stmt_blog);
