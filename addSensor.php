@@ -18,7 +18,7 @@
     <?php include 'navBar.php';?>
 
     <h2>Add a new Sensor</h2>
-    <form action="add.php" method="POST">
+    <form action="addSensor.php" method="POST">
     <label for="sensor-name">Sensor Name:</label>
     <input type="text" id="sensor-name" name="sensor-name"><br><br>
 
