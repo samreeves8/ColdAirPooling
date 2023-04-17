@@ -29,7 +29,7 @@
         include ("blog.html");
     }
 
-    $query = "SELECT title, content, member_id FROM blog_posts";
+    $query = "SELECT title, content, member_id FROM BlogPosts";
     $result = $mysqli->query($query);
 
     // Loop through the result set and display data in containers
