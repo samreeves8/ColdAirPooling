@@ -48,30 +48,34 @@
 </html>
 <?php 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $sensorSet = json_decode($_POST['sensor-set-input']);
-        $dateStart = $_POST['dateStart'];
-        $dateEnd = $_POST['dateEnd'];
-        $timeStart = $_POST['timeStart'];
-        $timeEnd = $_POST['timeEnd'];
-        $dateTimeStart = $dateStart . ' '.$timeStart;
-        $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
+    $sensorSet = json_decode($_POST['sensor-set-input']);
+    $dateStart = $_POST['dateStart'];
+    $dateEnd = $_POST['dateEnd'];
+    $timeStart = $_POST['timeStart'];
+    $timeEnd = $_POST['timeEnd'];
+    $dateTimeStart = $dateStart . ' '.$timeStart;
+    $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
+    foreach($sensorSet as $sensor){
+        //Determine which table to query 
+        $table = null;
+        if(in_array($sensor, $humidity)){
+            $table = "HumidData";
+        }else{
+            $table = "TempData";
+        }
+        $sql = "DELETE FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?;";
+        //prepare the query to prevent sql injection
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
+        $stmt->execute();
 
-        foreach($sensorSet as $sensor){
-            //Determine which table to query 
-            $table = null;
-            if(in_array($sensor, $humidity)){
-                $table = "HumidData";
-            }else{
-                $table = "TempData";
-            }
-            $sql = "DELETE FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?;";
-            //prepare the query to prevent sql injection
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $sensor, $dateTimeStart, $dateTimeEnd);
-            $stmt->execute();
-
+        $numRowsAffected = $stmt->affected_rows;
+        if ($numRowsAffected > 0) {
+            echo "Deletion for sensor " . $sensor . " was successful. " . $numRowsAffected . " rows were affected.<br>";
+        } else {
+            echo "Deletion for sensor " . $sensor . " was unsuccessful.<br>";
         }
     }
-
+}
 ?>
