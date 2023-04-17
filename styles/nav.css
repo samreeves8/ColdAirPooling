@@ -20,7 +20,7 @@
   }
   
   .menu li:last-child {
-    float: right;
+    margin-left: auto;
   }
   
   .menu a {
