@@ -9,8 +9,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
     exit;
 }
 
-//$conn = "";
-
 try {
     $servername = "localhost";
     $dbname = "gunniso1_SensorData";
