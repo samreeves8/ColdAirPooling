@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel = "stylesheet" href = "styles/about.css">
-
+    <link rel="stylesheet" href="styles/nav.css">
 </head>
 <body>
     <header>
