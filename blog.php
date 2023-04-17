@@ -25,13 +25,33 @@
 </html>
 
 <?php
-    include ("blog.html");
+    if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
+        include ("blog.html");
+    }
+    
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $blogTitle = $_POST['title'];
         $blogContent = $_POST['content'];
 
+        $queryID = "SELECT id FROM accounts WHERE username = ?";
+        $stmt_id = mysqli_prepare($conn, $queryID);
+        mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
+        mysqli_stmt_execute($stmt_id);
+        $member_id = $stmt_id->get_result;
+        mysqli_stmt_close($stmt_id);
+
+        if($member_id->num_rows == 1){
+            while ($row = $member_id->fetch_assoc()) {
+                //Echo's rows based on table
+                echo $row["id"];
+            }
+        }
+
+
         $sqlBlog = "INSERT INTO BlogPosts (title, content) VALUES (?, ?)";
+
+
         $stmt_blog = mysqli_prepare($conn, $sqlBlog);
         mysqli_stmt_bind_param($stmt_blog, "ss", $blogTitle, $blogContent);
         mysqli_stmt_execute($stmt_blog);
