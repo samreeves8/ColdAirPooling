@@ -28,17 +28,18 @@ header {
 h1 {
     color: rgb(178, 0, 0);
     text-align: center;
+    padding-top: 20px;
 }
 
 p{
     text-align: center;
-    padding: 20px 60px;
+    padding: 20px 80px;
 }
 
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: white;
+    color: black;
+  }
 
-  
-  
-  
-  
-  
-  

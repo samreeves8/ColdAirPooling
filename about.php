@@ -34,5 +34,12 @@
     </p>
 </div>
 
+<footer>
+  <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
+    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
+    cursus mattis.</p>
+</footer>
+
 </body>
 </html>
