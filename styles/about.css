@@ -28,7 +28,7 @@ header {
 
   a{
     color: black;
-    justify-content: right;
+    float: right;
   }
 
 .about-wrapper {
