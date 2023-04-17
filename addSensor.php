@@ -53,7 +53,7 @@
         $dateInstalled = $_POST['date-installed'];
 
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateInstalled) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime) VALUES (?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sddds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled);
