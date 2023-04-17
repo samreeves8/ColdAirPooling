@@ -180,7 +180,7 @@
                 while ($row = $result->fetch_assoc()) {
                     $dateTime = new DateTime($row["DateTime"]);
                     // Skip the first datetime value for this sensor
-                    if (!$hasAddedFirstDateTime) {
+                    if (!$hasAddedFirstDateTime && $minute == true;) {
                         $hasAddedFirstDateTime = true;
                         continue;
                     }
