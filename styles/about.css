@@ -29,11 +29,12 @@ header {
   }
 
   .login-link{
-    background-color:rgb(178, 0, 0);
+    background-color:rgb(168, 164, 164);;
     border: none;
-    color:rgb(168, 164, 164);
     flex: 0;
-    color: black;
+    color: rgb(178, 0, 0);
+    padding: 15px 25px;
+    text-decoration: none;
   }
 
   .login-link:hover {
