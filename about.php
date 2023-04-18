@@ -16,6 +16,7 @@
           <div class="login-link"><a href="login.php">Login</a></div>
         </div>
       </header>
+<hr>
 <?php include 'navBar.php';?>
 
 <div class="about-wrapper">
