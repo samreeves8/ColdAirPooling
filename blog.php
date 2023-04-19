@@ -54,7 +54,7 @@
 
         if($result_member->num_rows == 1){
             while ($row2 = $result_member->fetch_assoc()) {
-                //set member id
+                //set member username
                 $curr_member = $row2["username"];
             }
         }
