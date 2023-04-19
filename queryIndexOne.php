@@ -99,14 +99,7 @@
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 print_r($row);
-                $markers[] = array(
-                    "id" => $row['Sensor'],
-                    "lat" => $row['Latitude'],
-                    "lng" => $row['Longitude'],
-                    "elevation" => $row['Elevation'],
-                    "dateInstalled" => $row['Date'],
-                    "recordsHumidity" => $row['humidity']
-                );
+                $markers[] = $row;
             }
         }
         
