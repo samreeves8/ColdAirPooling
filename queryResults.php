@@ -84,7 +84,7 @@
         $sensorSet = json_decode($_POST['sensor-set-input']);
 
         //gather sensors that gather humidity
-        $humiditySQL = "SELECT Sensor from HumidData;"
+        $humiditySQL = "SELECT Sensor from HumidData";
         $stmt = $conn->prepare($humiditySQL);
         $stmt->execute();
         $result = $stmt->get_result();
