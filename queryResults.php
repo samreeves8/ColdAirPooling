@@ -70,7 +70,7 @@
     //predefine arrays used for Query/graphs
     $temps = array();  
     $dates = array();
-    $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+    $humidity = array();
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
         
@@ -82,6 +82,19 @@
 
         //gather variables from post request, used in query params
         $sensorSet = json_decode($_POST['sensor-set-input']);
+
+        //gather sensors that gather humidity
+        $humiditySQL = "SELECT Sensor from HumidData;"
+        $stmt = $conn->prepare($humiditySQL);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $humidity[] = $row['Sensor'];
+            }
+        }
+
         $val = $_POST['interval'];
         $dateStart = $_POST['dateStart'];
         $dateEnd = $_POST['dateEnd'];
