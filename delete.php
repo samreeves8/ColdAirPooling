@@ -57,7 +57,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dateTimeStart = $dateStart . ' '.$timeStart;
     $dateTimeEnd = $dateEnd . ' ' . $timeEnd;
 
-    $humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");
+    $humidity = array();
+    //gather sensors that gather humidity
+    $humiditySQL = "SELECT DISTINCT Sensor from HumidData";
+    $stmt = $conn->prepare($humiditySQL);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $humidity[] = $row['Sensor'];
+        }
+    }
 
     foreach($sensorSet as $sensor){
         //Determine which table to query 

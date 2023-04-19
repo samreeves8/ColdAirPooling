@@ -34,6 +34,11 @@
     <label for="date-installed">Date Installed:</label>
     <input type="date" id="date-installed" name="date-installed"><br><br>
 
+    <label for="humidity">Humidity Sensor:</label>
+    <input type="checkbox" id="humidity" name="humidity" value="1">Yes
+    <input type="checkbox" id="humidity" name="humidity" value="0">No
+
+
     <input type="submit" value="Submit">
 </form>
 </body>
@@ -51,12 +56,13 @@
         $longitude = $_POST['longitude'];
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
+        $humidity = $_POST['humidity'];
 
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity) VALUES (?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sddds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled);
+        $stmt->bind_param("sddds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {

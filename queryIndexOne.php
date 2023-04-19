@@ -86,6 +86,10 @@
         });
     }
 
+    <?php
+        
+
+    ?>
             
     //Defines all sensors that we are adding to map
     const markers = [

@@ -73,7 +73,19 @@ $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_S
     die("Connection failed: " . $conn->connect_error);
   }
 
-$humidity = array("01OBS", "10NEM", "17WIL", "21ALM", "24CAM", "29CAB");  // Humidity Sensors
+$humidity = array();  // Humidity Sensors
+
+//gather sensors that gather humidity
+$humiditySQL = "SELECT DISTINCT Sensor from HumidData";
+$stmt = $conn->prepare($humiditySQL);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $humidity[] = $row['Sensor'];
+    }
+}
     
 //Bind indices for excel documents
 $dateTimeIndex=1;
