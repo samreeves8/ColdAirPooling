@@ -86,26 +86,33 @@
         });
     }
 
-   
+    markers = [];
     <?php
         global $conn;
         $markers = array();
 
-        $sql = "SELECT * FROM SensorData";
+        $sql = "SELECT id, lat, lng, elevation, DATE_FORMAT(dateInstalled, '%Y-%m-%d') as dateInstalled, recordsHumidity FROM SensorData";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $markers[] = "id: ".$row['Sensor'].", lat: ".$row['Latitude'].", lng: ".$row['Longitude'].", elevation: ".$row['Elevation'].", dateInstalled: ".$row['Date'].", recordsHumidity: ".$row['humidity'];  
+                $markers[] = array(
+                    "id" => $row['id'],
+                    "lat" => $row['lat'],
+                    "lng" => $row['lng'],
+                    "elevation" => $row['elevation'],
+                    "dateInstalled" => $row['dateInstalled'],
+                    "recordsHumidity" => $row['recordsHumidity']
+                );
             }
         }
-        json_encode($markers);
+
+        echo json_encode($markers);
     ?>
             
     window.onload = function() {
-        var markers = [];
         // create XMLHttpRequest object
         var xhr = new XMLHttpRequest();
         

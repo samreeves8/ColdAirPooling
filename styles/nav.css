@@ -2,14 +2,14 @@
   color: black;
   display: flex;
   justify-content: space-between;
+  text-align: center;
   align-items: center;
   margin: auto;
   margin-top: 20px;
 }
   
 .menu {
-  text-align: center;
-  display: flex;
+  display: inline-block;
   list-style: none;
   margin: 0;
   padding: 0;
