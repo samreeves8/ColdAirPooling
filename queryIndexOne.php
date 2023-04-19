@@ -91,7 +91,7 @@
         global $conn;
         $markers = array();
 
-        $sql = "SELECT id, lat, lng, elevation, DATE_FORMAT(dateInstalled, '%Y-%m-%d') as dateInstalled, recordsHumidity FROM SensorData";
+        $sql = "SELECT id, lat, lng, elevation, DATE_FORMAT(Date, '%Y-%m-%d') as dateInstalled, recordsHumidity FROM SensorData";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->get_result();
