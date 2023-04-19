@@ -44,14 +44,14 @@
 
 
         //query's for member   
-        $query_member = "SELECT username FROM acccounts WHERE member_id = " . $row['member_id'];
+        $query_member = "SELECT username FROM acccounts WHERE id = " . $row['member_id'];
         $stmt_member = mysqli_prepare($conn, $query_member);
         mysqli_stmt_execute($stmt_member);
         $result_member = $stmt_member->get_result();
         mysqli_stmt_close($stmt_member);
         $curr_member = null;
-        while($row = $result_member->fetch_assoc()){
-            $curr_member = $row["username"];
+        while($row2 = $result_member->fetch_assoc()){
+            $curr_member = $row2["username"];
         }
 
 
