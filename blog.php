@@ -58,6 +58,9 @@
 
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
+        
+
+        
         echo '</div>';
     }
 

@@ -1,14 +1,44 @@
+input[type="text"] {
+    width: 400px;
+    height: 40px;
+    font-size: 24px;
+}
+
+textarea {
+    width: 400px;
+    height: 160px;
+    font-size: 24px;
+    resize: none;
+}
+
 .container {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    margin: 50px;
+    align-items: center;
+    margin-top: 50px;
+    margin-right: 50px;
+    height: 100%;
+}
+
+.container-button {
+    align-self: flex-end;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 50px;
+    margin-right: 50px;
 }
 
 .container-main {
-    width: 300px;
+    width: 300px; 
     border: 1px solid #000;
     padding: 10px;
     margin-bottom: 10px;
+    align-self: flex-start;
 }
 
 .container-main h2 {
@@ -23,34 +53,6 @@
     text-align: right;
 }
 
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-form {
-    margin-top: 50px;
-    margin-right: 50px;
-}
-
-h1 {
+.container {
     align-self: flex-end;
-}
-
-input[type="text"] {
-    width: 400px;
-    height: 40px;
-    font-size: 24px;
-}
-
-textarea {
-    width: 400px;
-    height: 160px;
-    font-size: 24px;
-    resize: none;
-}
-
-.container-button {
-    align-self: end;
 }
