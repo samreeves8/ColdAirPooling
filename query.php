@@ -122,7 +122,7 @@
     
     <form  id="myForm" action = 'queryResults.php' method = 'POST'>
         <?php
-            include ("queryIndexOne.html");
+            include ("queryIndexOne.php");
         ?>
         <div class = "form">
         <h1> Insert date and time range for data you want to see: </h1>
