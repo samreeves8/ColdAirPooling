@@ -59,7 +59,7 @@
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         
-        if($_SESSION['name]'] = $curr_member){
+        if($_SESSION['name]'] == $curr_member){
             // Get the post_id
             $post_id = $row['id'];
         
