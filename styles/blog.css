@@ -17,6 +17,7 @@ textarea {
     align-items: flex-end;
     margin-top: 50px;
     margin-right: 50px;
+    height: 100px;
 }
 
 .container #createButton {
@@ -37,6 +38,7 @@ form {
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
+    height: 100px;
 }
 
 .container-main h2 {
