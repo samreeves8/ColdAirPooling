@@ -59,12 +59,16 @@
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         
-
+        if($_SESSION['name'] == $curr_member){
+            // Get the post_id
+            $post_id = $row['id'];
         
+            // Add a delete button
+            echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
+        }
         echo '</div>';
     }
 
-    
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $blogTitle = $_POST['title'];
