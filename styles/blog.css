@@ -13,15 +13,13 @@ textarea {
 
 .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     margin-top: 50px;
     margin-right: 50px;
-    height: 100%;
 }
 
-.container-button {
+.container #createButton {
     align-self: flex-end;
 }
 
