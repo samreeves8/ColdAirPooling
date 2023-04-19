@@ -98,6 +98,7 @@
         
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                echo $row;
                 $markers[] = array(
                     "id" => $row['Sensor'],
                     "lat" => $row['Latitude'],
