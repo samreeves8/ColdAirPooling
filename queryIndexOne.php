@@ -105,7 +105,7 @@
     ?>
             
     window.onload = function() {
-        markers = [];
+        var markers = [];
         // create XMLHttpRequest object
         var xhr = new XMLHttpRequest();
         
