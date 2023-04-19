@@ -8,14 +8,41 @@
     <link rel="icon" type="image/png" href="images/Western Logo.png">
     <link rel = "stylesheet" href = "styles/about.css">
     <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/header.css">
+
 </head>
 <body>
     <header>
         <div class="header-wrapper">
-          <img src="images/Western Logo.png" alt="Header Image">
+          <div class="logo"><img src="images/Western Logo.png" alt="Header Image"></div>
+          <div class="login-link"><a href="login.php">Login</a></div>
         </div>
       </header>
-      <?php include 'navBar.php';?>
+<hr>
+<?php include 'navBar.php';?>
+
+<div class="about-wrapper">
+    <h1>
+      About Us
+    </h1>
+    <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
+    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
+    cursus mattis. Condimentum mattis pellentesque id nibh tortor. Pulvinar pellentesque habitant morbi tristique
+    senectus et. Aliquam malesuada bibendum arcu vitae. Mauris rhoncus aenean vel elit scelerisque mauris
+    pellentesque pulvinar pellentesque. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor.
+    Massa id neque aliquam vestibulum morbi blandit cursus risus at. Nec nam aliquam sem et tortor consequat
+    id porta.
+    </p>
+</div>
+
+<footer>
+  <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
+    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
+    cursus mattis.</p>
+</footer>
 
 </body>
 </html>
