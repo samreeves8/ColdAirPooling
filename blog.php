@@ -50,8 +50,12 @@
         $result_member = $stmt_member->get_result();
         mysqli_stmt_close($stmt_member);
         $curr_member = null;
-        while($row2 = $result_member->fetch_assoc()){
-            $curr_member = $row2["username"];
+        
+        if($result_member->num_rows == 1){
+            while ($row2 = $result_member->fetch_assoc()) {
+                //set member id
+                $curr_member = $row2["username"];
+            }
         }
 
 
