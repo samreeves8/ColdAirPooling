@@ -1,3 +1,43 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+}
+
+.container-main {
+    width: 300px;
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.container-main h2 {
+    margin-top: 0;
+}
+
+.container-main p {
+    margin-bottom: 0;
+}
+
+.container-main .member {
+    text-align: right;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+form {
+    margin-top: 50px;
+    margin-right: 50px;
+}
+
+h1 {
+    align-self: flex-end;
+}
+
 input[type="text"] {
     width: 400px;
     height: 40px;
@@ -11,49 +51,6 @@ textarea {
     resize: none;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 50px;
-    margin-right: 50px;
-}
-
-h1 {
-    align-self: flex-end;
-}
-
 button {
     align-self: end;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 50px;
-    margin-right: 50px;
-}
-
-
-
-.container-main {
-    width: 300px; 
-    border: 1px solid #000;
-    padding: 10px;
-    margin-bottom: 10px;
-    float: left; 
-    clear: both; 
-}
-
-.container-main h2 {
-    margin-top: 0;
-}
-
-.container-main p {
-    margin-bottom: 0;
-}
-
-.container-main .member {
-    text-align: right;
 }
