@@ -59,12 +59,48 @@
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         
-
+        if($_SESSION['name]'] = $curr_member){
+            // Get the post_id
+            $post_id = $row['id'];
         
+            // Add a delete button
+            echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
+            
+
+            echo '
+            <script>
+            function deletePost(post_id) {
+                if(confirm("Are you sure you want to delete this post?")) {
+                    // Send AJAX request to delete the post
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "delete_post.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            // Reload the page to show the updated list of posts
+                            location.reload();
+                        }
+                    };
+                    xhr.send("post_id=" + post_id);
+                }
+            }
+            </script>';
+
+
+        }
+
         echo '</div>';
     }
 
-    
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_id'])) {
+        $post_id = $_POST['post_id'];
+
+        // Prepare and execute the SQL statement to delete the row with the specified post_id
+        $stmt = mysqli_prepare($conn, "DELETE FROM BlogPosts WHERE id = ?");
+        mysqli_stmt_bind_param($stmt, "i", $post_id);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $blogTitle = $_POST['title'];
