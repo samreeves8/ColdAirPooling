@@ -20,6 +20,8 @@ header {
   .logo {
     flex: 1;
     text-align: center;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .logo img {
@@ -37,7 +39,6 @@ header {
     flex: 0;
     color: rgb(178, 0, 0);
     padding: 15px 25px;
-    text-decoration: none;
   }
 
   .login-link:hover {
