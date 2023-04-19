@@ -124,11 +124,13 @@
         // handle response from PHP script
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText); // output the response to console
                 markers = JSON.parse(xhr.responseText);
                 console.log(markers); // do something with the array
             }
         };
     }
+
 
     //Defines all sensors that we are adding to map
     // const markers = [
