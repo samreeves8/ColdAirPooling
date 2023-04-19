@@ -86,7 +86,7 @@
         });
     }
 
-    markers = [];
+   
     <?php
         global $conn;
         $markers = array();
@@ -105,6 +105,7 @@
     ?>
             
     window.onload = function() {
+        markers = [];
         // create XMLHttpRequest object
         var xhr = new XMLHttpRequest();
         
