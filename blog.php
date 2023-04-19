@@ -44,7 +44,7 @@
 
 
         //query's for member   
-        $query_member = "SELECT username FROM acccounts WHERE id = ?";
+        $query_member = "SELECT username FROM accounts WHERE id = ?";
         $stmt_member = mysqli_prepare($conn, $query_member);
         $stmt_member = mysqli_stmt_bind_param($stmt_member, "d", $row['member_id']);
         mysqli_stmt_execute($stmt_member);
