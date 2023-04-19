@@ -8,6 +8,8 @@
     <link rel="icon" type="image/png" href="images/Western Logo.png">
     <link rel = "stylesheet" href = "styles/about.css">
     <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/header.css">
+
 </head>
 <body>
     <header>
