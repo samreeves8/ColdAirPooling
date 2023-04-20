@@ -122,6 +122,7 @@
     
     <form  id="myForm" action = 'queryResults.php' method = 'POST'>
         <?php
+            include ("sensorMarkers.php");
             include ("queryIndexOne.php");
         ?>
         <div class = "form">
