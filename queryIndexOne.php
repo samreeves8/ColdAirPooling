@@ -110,7 +110,7 @@
         }
         
         echo json_encode($markers);
-        exit();
+        
         
     ?>
             
