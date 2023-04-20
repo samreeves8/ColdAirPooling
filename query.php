@@ -5,7 +5,6 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    include ("sensorMarkers.php");
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +30,6 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log(xhr.responseText);
                     var markers = JSON.parse(xhr.responseText);
-                    
                 }
             };
 
