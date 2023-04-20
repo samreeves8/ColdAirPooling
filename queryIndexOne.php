@@ -10,7 +10,6 @@
         
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                print_r($row);
                 $markers[] = array(
                     "id" => $row['Sensor'],
                     "lat" => $row['Latitude'],
@@ -123,7 +122,7 @@
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 markers = JSON.parse(xhr.responseText);
-                console.log(markers); // do something with the array
+                
             }
         };
 
