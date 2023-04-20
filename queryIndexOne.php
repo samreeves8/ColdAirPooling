@@ -116,21 +116,24 @@
 
             
     window.onload = function() {
-        // create XMLHttpRequest object
-        var xhr = new XMLHttpRequest();
-        
-        // send GET request to PHP script that returns the array
-        xhr.open('GET', 'queryIndexOne.php', true);
-        xhr.send();
-        
-        // handle response from PHP script
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                console.log(xhr.responseText);
-                markers = JSON.parse(xhr.responseText);
-                console.log(markers); // do something with the array
+        // Make an HTTP request to the PHP script using fetch
+        fetch('queryIndexOne.php')
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Parse the JSON response
+            } else {
+                throw new Error("Failed to fetch markers data: " + response.status);
             }
-        };
+        })
+        .then(markers => {
+            // Now you can use the 'markers' variable which contains the parsed JSON data
+            console.log(markers);
+            // Perform further operations with the 'markers' data
+        })
+        .catch(error => {
+            // Handle the fetch error
+            console.error(error);
+        });
     }
 
 
