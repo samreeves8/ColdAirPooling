@@ -34,6 +34,28 @@
     <input type="hidden" id="sensor-set-input" name="sensor-set-input" value="">
 </body>
 <script>
+
+    markers = [];
+
+    // Make an HTTP request to the PHP script using fetch
+    fetch('queryIndexOne.php')
+        .then(response => {
+            if (response.ok) {
+                return response.json(); // Parse the JSON response
+            } else {
+                throw new Error("Failed to fetch markers data: " + response.status);
+            }
+        })
+        .then(markers => {
+            // Now you can use the 'markers' variable which contains the parsed JSON data
+            console.log(markers);
+            // Perform further operations with the 'markers' data
+        })
+        .catch(error => {
+            // Handle the fetch error
+            console.error(error);
+        });
+
     //Defines a set of sensors the user wants to see data for
     var sensorSet = new Set();
 
@@ -112,29 +134,7 @@
         });
     }
 
-    markers = [];
 
-            
-    window.onload = function() {
-        // Make an HTTP request to the PHP script using fetch
-        fetch('queryIndexOne.php')
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // Parse the JSON response
-            } else {
-                throw new Error("Failed to fetch markers data: " + response.status);
-            }
-        })
-        .then(markers => {
-            // Now you can use the 'markers' variable which contains the parsed JSON data
-            console.log(markers);
-            // Perform further operations with the 'markers' data
-        })
-        .catch(error => {
-            // Handle the fetch error
-            console.error(error);
-        });
-    }
 
 
     //Adds each sensor to map
