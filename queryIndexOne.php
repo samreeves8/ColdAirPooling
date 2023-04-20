@@ -127,7 +127,7 @@
         };
 
         // send GET request to PHP script that returns the array
-        xhr.open('GET', 'queryIndexOne.php', true);
+        xhr.open('GET', 'sensorMarkers.php', true);
         xhr.send();
     }
 
