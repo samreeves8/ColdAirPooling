@@ -123,9 +123,9 @@
     // ];
 
     //Adds each sensor to map
-    console.log("outside for each");
-    markers.forEach(marker => {
-        console.log("inside foreach");
-        addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
-    });                    
+    // console.log("outside for each");
+    // markers.forEach(marker => {
+    //     console.log("inside foreach");
+    //     addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
+    // });                    
 </script>

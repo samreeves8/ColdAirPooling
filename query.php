@@ -38,6 +38,7 @@
             xhr.send();
             
         }
+
         function submitDates() {
         
             var dateStart = document.getElementById("dateStart").value;
@@ -144,6 +145,7 @@
         ?>
         <script>
             //Adds each sensor to map
+            console.log(markers);
             console.log("outside for each");
             markers.forEach(marker => {
             console.log("inside foreach");
