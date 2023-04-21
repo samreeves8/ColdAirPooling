@@ -17,7 +17,7 @@
     console.log(sensorSetInput);
 
     // If a value was found, set the value of the sensor-set-input field
-    if(sensorSet !== NULL){
+    if(sensorSet !== null){
         sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
         document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
     } else {
