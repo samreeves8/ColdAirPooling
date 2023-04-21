@@ -20,7 +20,7 @@
                 );
             }
         }
-        
+        print_r($markers);
         echo json_encode($markers);
         
         
