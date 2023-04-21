@@ -14,7 +14,7 @@
     console.log(sensorSet);
 
     // If a value was found, set the value of the sensor-set-input field
-    if(sensorSet !== null){
+    if(sensorSet.size > 0){
         document.getElementById("sensor-set-input").value = sensorSet;
     } else {
         //Defines a set of sensors the user wants to see data for
