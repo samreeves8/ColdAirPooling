@@ -12,12 +12,12 @@
     // Get the value of the selectedSensors key from localStorage
     var sensorSet= localStorage.getItem("selectedSensors");
     
-    var sensorSetInput =  localStorage.getItem("sensor-set-input");
+    var sensorSetInput =  localStorage.getItem("sensor_set_input");
     console.log(sensorSet);
     console.log(sensorSetInput);
 
     // If a value was found, set the value of the sensor-set-input field
-    if(sensorSet.size > 0){
+    if(sensorSet !== NULL){
         sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
         document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
     } else {
