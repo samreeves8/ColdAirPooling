@@ -41,11 +41,11 @@ a{
     border: none;
     flex: 0;
     color: rgb(178, 0, 0);
-    padding: 15px 25px;
+    padding: 10px 20px;
 }
 
 .login-link:hover {
-    background-color: red;
+    background-color: rgb(147, 139, 139);
     cursor: pointer;
 }
 
