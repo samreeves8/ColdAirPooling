@@ -10,7 +10,7 @@
 <script>
 
     // Get the value of the selectedSensors key from localStorage
-    var sensorSet = new Set(JSON.parse(localStorage.getItem("selectedSensors")));
+    var sensorSet= localStorage.getItem("selectedSensors");
     
     var sensorSetInput =  localStorage.getItem("sensor-set-input");
     console.log(sensorSet);
@@ -104,10 +104,11 @@
             var addBtn = document.getElementById('add-btn');
             addBtn.addEventListener('click', function() {
                 sensorSet.add(id);
+                localStorage.setItem("selectedSensors", sensorSet);
+                console.log(sensorSet); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
                 // Store the value in localStorage
-                localStorage.setItem("selectedSensors", sensorSet); 
                 localStorage.setItem("selected-sensor-input", document.getElementById('sensor-set-input').value);
             });
         });
