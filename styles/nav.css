@@ -1,22 +1,21 @@
 .navbar {
   color: black;
   display: flex;
-  justify-content: space-between;
-  text-align: center;
+  justify-content: center;
   align-items: center;
   margin: auto;
   margin-top: 20px;
 }
   
 .menu {
-  display: inline-block;
+  display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
 }
   
 .menu li {
-  margin-right: 1rem;
+  margin:0 10px;
 }
   
 .menu li:last-child {
