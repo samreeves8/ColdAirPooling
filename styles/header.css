@@ -37,7 +37,6 @@ a{
 .login-link{
     text-transform: uppercase;
     background-color:rgb(168, 164, 164);
-    box-shadow: 0 5px 0 rgb(109, 105, 105);
     border: none;
     flex: 0;
     color: rgb(178, 0, 0);
@@ -47,9 +46,4 @@ a{
 .login-link:hover {
     background-color: rgb(147, 139, 139);
     cursor: pointer;
-}
-
-.login-link:active{
-    box-shadow: none;
-    top: 5px;
 }
