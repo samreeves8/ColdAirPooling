@@ -11,6 +11,7 @@
 
     // Get the value of the selectedSensors key from localStorage
     var sensorSet= localStorage.getItem("selectedSensors");
+    var sensorSet = Array.from(sensorSet);
     var sensorSetInput =  localStorage.getItem("sensor-set-input");
     console.log(sensorSet);
     console.log(sensorSetInput);
