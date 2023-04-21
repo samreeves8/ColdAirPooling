@@ -51,9 +51,7 @@
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
             echo "Post deleted successfully!";
-        } else {
-            echo "Error: post_id parameter not set.";
-        }
+        } 
 ?>
 
 <!DOCTYPE html>
