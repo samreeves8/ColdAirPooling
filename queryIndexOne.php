@@ -8,23 +8,19 @@
     <input type="hidden" id="sensor-set-input" name="sensor-set-input" value="">
 </body>
 <script>
-
+    var sensorSet = new Set();
     window.onload = function() {
+        
         // Get the value of the selectedSensors key from localStorage
-        var sensorSet= localStorage.getItem("selectedSensors");
-        var sensorSetInput =  localStorage.getItem("sensor_set_input");
+        var sensorSetArray= localStorage.getItem("selectedSensors");
 
         // If a value was found, set the value of the sensor-set-input field
-        if(sensorSet !== null){
-            sensorSet = sensorSet.split(",");
+        if(sensorSetArray){
+            sensorSet = sensorSetArray.split(",");
             sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
             document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
-        } else {
-            //Defines a set of sensors the user wants to see data for
-            var sensorSet = new Set();
         }
         console.log(sensorSetInput);
-    
     }
 
 
@@ -86,6 +82,7 @@
                 sensorSet.clear();
                 var sensorSetArray = Array.from(sensorSet);
                 localStorage.setItem("selectedSensors", sensorSetArray); 
+                console.log(sensorSetArray);
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
                 localStorage.setItem("sensor_set_input",document.getElementById('sensor-set-input').value);
@@ -109,10 +106,8 @@
                 var sensorSetArray = Array.from(sensorSet);
                 localStorage.setItem("selectedSensors", sensorSetArray);
                 console.log(sensorSetArray); 
-                console.log(localStorage.getItem("selectedSensors"));
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
-                localStorage.setItem("sensor_set_input",document.getElementById('sensor-set-input').value);
             });
         });
     }    
