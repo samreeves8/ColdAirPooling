@@ -13,7 +13,7 @@
     var sensorSet= localStorage.getItem("selectedSensors");
     var sensorSetInput =  localStorage.getItem("sensor-set-input");
     console.log(sensorSet);
-    conosole.log(sensorSetInput);
+    console.log(sensorSetInput);
 
     // If a value was found, set the value of the sensor-set-input field
     if(sensorSet.size > 0){
