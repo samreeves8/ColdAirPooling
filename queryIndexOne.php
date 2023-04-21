@@ -107,6 +107,7 @@
                 sensorSet.add(id);
                 localStorage.setItem("selectedSensors", sensorSet);
                 console.log(sensorSet); 
+                console.log(localStorage.getItem("selectedSensors"));
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
                 
