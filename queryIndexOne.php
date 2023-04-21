@@ -8,8 +8,19 @@
     <input type="hidden" id="sensor-set-input" name="sensor-set-input" value="">
 </body>
 <script>
-    //Defines a set of sensors the user wants to see data for
-    var sensorSet = new Set();
+
+    // Get the value of the selectedSensors key from localStorage
+    var sensorSet= localStorage.getItem("selectedSensors");
+
+    // If a value was found, set the value of the sensor-set-input field
+    if(sensorSet !== null){
+        document.getElementById("sensor-set-input").value = selectedSensors;
+    } else {
+        //Defines a set of sensors the user wants to see data for
+        var sensorSet = new Set();
+    }
+
+
 
     // Initialize the map
     var mymap = L.map('map').setView([38.64955, -106.94685], 11);
@@ -88,5 +99,10 @@
     
             });
         });
-    }                   
+    }    
+    // Get the value of the sensor-set-input field
+    var sensorSetInput = document.getElementById("sensor-set-input").value;
+
+    // Store the value in localStorage
+    localStorage.setItem("selectedSensors", sensorSetInput);               
 </script>
