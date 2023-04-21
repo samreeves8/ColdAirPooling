@@ -14,7 +14,7 @@
 
     // If a value was found, set the value of the sensor-set-input field
     if(sensorSet !== null){
-        document.getElementById("sensor-set-input").value = selectedSensors;
+        document.getElementById("sensor-set-input").value = sensorSet;
     } else {
         //Defines a set of sensors the user wants to see data for
         var sensorSet = new Set();
@@ -101,8 +101,8 @@
         });
     }    
     // Get the value of the sensor-set-input field
-    var sensorSetInput = document.getElementById("sensor-set-input").value;
-
+    
+    console.log(sensorSet);
     // Store the value in localStorage
-    localStorage.setItem("selectedSensors", sensorSetInput);               
+    localStorage.setItem("selectedSensors", sensorSet);               
 </script>
