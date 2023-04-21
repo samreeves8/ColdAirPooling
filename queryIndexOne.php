@@ -21,6 +21,8 @@
         var sensorSet = new Set();
     }
 
+    console.log(sensorSet);
+
 
 
     // Initialize the map
