@@ -15,7 +15,7 @@
 }
   
 .menu li {
-  margin:0 10px;
+  margin-right: 1rem;
 }
   
 .menu li:last-child {
