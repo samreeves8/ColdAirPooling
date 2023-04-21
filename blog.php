@@ -59,42 +59,54 @@
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         
-
+        if($_SESSION['name'] == $curr_member){
+            // Get the post_id
+            $post_id = $row['id'];
         
+            // Add a delete button
+            echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
+        }
         echo '</div>';
     }
 
+
     
-
+    
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $blogTitle = $_POST['title'];
-        $blogContent = $_POST['content'];
-
-        //Get the current user's id 
-        $query_id = "SELECT id FROM accounts WHERE username = ?";
-        $stmt_id = mysqli_prepare($conn, $query_id);
-        mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
-        mysqli_stmt_execute($stmt_id);
-        $result_id = $stmt_id->get_result();
-        mysqli_stmt_close($stmt_id);
+        if(isset($_POST['title']) && isset($_POST['content'])){
+            $blogTitle = $_POST['title'];
+            $blogContent = $_POST['content'];
 
 
-        $m_id = null;
-        if($result_id->num_rows == 1){
-            while ($row = $result_id->fetch_assoc()) {
-                //set member id
-                $m_id = $row["id"];
+            //Get the current user's id 
+            $query_id = "SELECT id FROM accounts WHERE username = ?";
+            $stmt_id = mysqli_prepare($conn, $query_id);
+            mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
+            mysqli_stmt_execute($stmt_id);
+            $result_id = $stmt_id->get_result();
+            mysqli_stmt_close($stmt_id);
+
+
+            $m_id = null;
+            if($result_id->num_rows == 1){
+                while ($row = $result_id->fetch_assoc()) {
+                    //set member id
+                    $m_id = $row["id"];
+                }
             }
+
+
+            $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
+
+            //insert blog post
+            $stmt_blog = mysqli_prepare($conn, $sqlBlog);
+            mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
+            mysqli_stmt_execute($stmt_blog);
+            mysqli_stmt_close($stmt_blog);
+            mysqli_close($conn);
         }
-
-
-        $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
-
-        //insert blog post
-        $stmt_blog = mysqli_prepare($conn, $sqlBlog);
-        mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
-        mysqli_stmt_execute($stmt_blog);
-        mysqli_stmt_close($stmt_blog);
-        mysqli_close($conn);
+        
+        $_POST['title'] = null;
+        $_POST['content'] = null;
     }
 ?>

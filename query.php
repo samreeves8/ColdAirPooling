@@ -4,6 +4,7 @@
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,22 @@
 </head>
 <body>
     <script>
+        window.onload = function() {
+            // create XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            
+            // handle response from PHP script
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText);
+                    var markers = JSON.parse(xhr.responseText);
+                }
+            };
+
+            // send GET request to PHP script that returns the array
+            xhr.open('GET', 'sensorMarkers.php', true);
+            xhr.send();
+        }
         function submitDates() {
         
             var dateStart = document.getElementById("dateStart").value;
@@ -122,6 +139,7 @@
     
     <form  id="myForm" action = 'queryResults.php' method = 'POST'>
         <?php
+        
             include ("queryIndexOne.php");
         ?>
         <div class = "form">

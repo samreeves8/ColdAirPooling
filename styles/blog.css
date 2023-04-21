@@ -13,15 +13,14 @@ textarea {
 
 .container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     margin-top: 50px;
     margin-right: 50px;
-    height: 100%;
+    position: relative;
 }
 
-.container-button {
+.container #createButton {
     align-self: flex-end;
 }
 
@@ -31,6 +30,9 @@ form {
     align-items: flex-end;
     margin-top: 50px;
     margin-right: 50px;
+    position: absolute;
+    right: 0;
+    top: 30%;
 }
 
 .container-main {
@@ -39,6 +41,7 @@ form {
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
+    height: 100px;
 }
 
 .container-main h2 {
