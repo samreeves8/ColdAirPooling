@@ -139,7 +139,7 @@ function deletePost(post_id) {
         
         if($_SESSION['name'] == $curr_member){
             // Get the post_id
-            $post_id = $row['id'];
+            $post_id = $row['post_id'];
         
             // Add a delete button
             echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
