@@ -59,12 +59,15 @@
 
     <br>
 
-    <?php
-    foreach ($sensorList as $sensor) {
-        echo '<input type="checkbox" name="sensors[]" value="' . $sensor . '">' . $sensor . '<br>';
-    }
-    ?>
-
+    <div class="checkbox-container">
+    <?php foreach ($sensorList as $sensor) { ?>
+    <label>
+      <input type="checkbox" name="sensors[]" value="<?php echo $sensor; ?>">
+      <?php echo $sensor; ?>
+    </label>
+    <?php } ?>
+    </div>
+    
     <input type="hidden" id="interval" name="interval" value="3 Minutes">
     <div id="buttondrop">
       <input type="submit" value="Submit">
@@ -79,7 +82,7 @@
 <?php 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $sensorSet = 
+    $sensorSet = $_POST['sensors'];
     $dateStart = $_POST['dateStart'];
     $dateEnd = $_POST['dateEnd'];
     $timeStart = $_POST['timeStart'];

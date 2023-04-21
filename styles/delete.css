@@ -1,0 +1,12 @@
+/* Style for the checkbox container */
+.checkbox-container {
+    display: inline-block;
+    column-count: 2;
+    column-gap: 20px;
+  }
+  
+  /* Style for the checkboxes */
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
