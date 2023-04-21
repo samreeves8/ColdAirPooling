@@ -104,6 +104,7 @@
         mysqli_close($conn);
 
         header("Location: ".$_SERVER['PHP_SELF']."?success=1");
+        exit();
     }
 
     if(isset($_GET['success']) && $_GET['success'] == 1){
