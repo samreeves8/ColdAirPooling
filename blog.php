@@ -69,10 +69,12 @@
         echo '</div>';
     }
 
+    
+
 
     
     
-    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if($_SERVER['REQUEST_METHOD'] === 'POST' ){
         if(isset($_POST['title']) && isset($_POST['content'])){
             $blogTitle = $_POST['title'];
             $blogContent = $_POST['content'];
@@ -105,9 +107,14 @@
             mysqli_stmt_close($stmt_blog);
             mysqli_close($conn);
 
-            header('Location: index.php');
+            header("Location: {$_SERVER['REQUEST_URI']}?success=true");
             exit();
+
         }
 
+    }
+
+    if (isset($_GET['success'])) {
+        echo '<p>Post submitted successfully!</p>';
     }
 ?>
