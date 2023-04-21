@@ -20,6 +20,7 @@
 </head>
 <body>
     <script>
+
         var markers = [];
         window.onload = function() {
             // create XMLHttpRequest object
@@ -29,7 +30,6 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     markers = JSON.parse(xhr.responseText);
-                    console.log(markers);
                 }
             };
 
@@ -152,10 +152,7 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     markers = JSON.parse(xhr.responseText);
-                    console.log(markers);
-                    console.log("outside for each");
                     markers.forEach(marker => {
-                        console.log("inside foreach");
                         addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
                     });
                 }
