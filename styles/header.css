@@ -32,24 +32,18 @@ header {
 
 a{
     text-decoration: none;
-    text-transform: uppercase;
 }
 
 .login-link{
-    background-color:red;
-    box-shadow: 0 5px 0 darkred;
+    text-transform: uppercase;
+    background-color:rgb(168, 164, 164);
     border: none;
     flex: 0;
-    color: rgb(255, 255, 255);
-    padding: 15px 25px;
+    color: rgb(178, 0, 0);
+    padding: 10px 20px;
 }
 
 .login-link:hover {
-    background-color: red;
+    background-color: rgb(147, 139, 139);
     cursor: pointer;
-}
-
-.login-link:active{
-    box-shadow: none;
-    top: 5px;
 }
