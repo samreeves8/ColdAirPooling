@@ -153,18 +153,18 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     markers = JSON.parse(xhr.responseText);
                     console.log(markers);
+                    console.log("outside for each");
+                    markers.forEach(marker => {
+                        console.log("inside foreach");
+                        addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
+                    });
                 }
             };
 
             // send GET request to PHP script that returns the array
             xhr.open('GET', 'sensorMarkers.php', true);
             xhr.send();
-            console.log(markers);
-            console.log("outside for each");
-            markers.forEach(marker => {
-            console.log("inside foreach");
-            addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
-            });
+        
         </script>
         <div class = "form">
         <h1> Insert date and time range for data you want to see: </h1>
