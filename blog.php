@@ -105,11 +105,8 @@
             mysqli_stmt_close($stmt_blog);
             mysqli_close($conn);
 
-            echo "<script>";
-            echo "document.getElementsByName('title')[0].value = '';";
-            echo "document.getElementsByName('content')[0].value = '';";
-            echo "</script>";    
-
+            header('Location: index.php');
+            exit();
         }
 
     }
