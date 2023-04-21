@@ -33,6 +33,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
           var fileData = new FormData();
           fileData.append('file', files[i]);
           var progressElement = $('<div id="progress' + i + '">Uploading ' + files[i].name + ': 0%</div>'); // Create progress bar element
+          progressElement.css('text-align', 'center'); // Center the progress bar element
           $('#status').append(progressElement);
           var xhr = new XMLHttpRequest();
           xhr.open('POST', 'fileUpload.php');
