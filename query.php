@@ -20,6 +20,7 @@
 </head>
 <body>
     <script>
+        var markers = [];
         window.onload = function() {
             // create XMLHttpRequest object
             var xhr = new XMLHttpRequest();
@@ -28,7 +29,7 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log(JSON.parse(xhr.responseText));
-                    var markers = JSON.parse(xhr.responseText);
+                    markers = JSON.parse(xhr.responseText);
                 }
             };
 
