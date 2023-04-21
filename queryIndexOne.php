@@ -81,6 +81,8 @@
             var clearBtn = document.getElementById('clear-btn');
             clearBtn.addEventListener('click', function() {
                 sensorSet.clear();
+                // Store the value in localStorage
+                localStorage.setItem("selectedSensors", sensorSet); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
             });
@@ -89,6 +91,8 @@
             var removeBtn = document.getElementById('remove-btn');
             removeBtn.addEventListener('click', function() {
                 sensorSet.delete(id);
+                // Store the value in localStorage
+                localStorage.setItem("selectedSensors", sensorSet); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
             });
@@ -97,15 +101,14 @@
             var addBtn = document.getElementById('add-btn');
             addBtn.addEventListener('click', function() {
                 sensorSet.add(id);
+                // Store the value in localStorage
+                localStorage.setItem("selectedSensors", sensorSet); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
     
             });
         });
     }    
-    // Get the value of the sensor-set-input field
     
-    console.log(sensorSet);
-    // Store the value in localStorage
-    localStorage.setItem("selectedSensors", sensorSet);               
+                  
 </script>
