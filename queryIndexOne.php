@@ -25,10 +25,8 @@
     function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
         //Checks if marker is a humidity sensor
         if(recordsHumidity == 1){
-            console.log("records humidity");
             marker = L.circleMarker([lat, lng] , {color: 'red', radius: 10}).addTo(map);
         }else{
-            console.log("Does not record humidity");
             marker = L.circleMarker([lat, lng], {color: 'blue', radius: 10}).addTo(map);
         }
             
