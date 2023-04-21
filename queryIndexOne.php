@@ -26,7 +26,7 @@
             
         //Checks if marker is a humidity sensor
         var marker = null;
-        if(recordsHumidity == "Yes"){
+        if(recordsHumidity == 1){
             marker = L.circleMarker([lat, lng] , {color: 'red', radius: 10}).addTo(map);
         }else{
             marker = L.circleMarker([lat, lng], {color: 'blue', radius: 10}).addTo(map);
