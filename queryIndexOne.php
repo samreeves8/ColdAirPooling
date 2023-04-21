@@ -85,20 +85,22 @@
             var clearBtn = document.getElementById('clear-btn');
             clearBtn.addEventListener('click', function() {
                 sensorSet.clear();
-                // Store the value in localStorage
-                localStorage.setItem("selectedSensors", sensorSet); 
+                var sensorSetArray = Array.from(sensorSet);
+                localStorage.setItem("selectedSensors", sensorSetArray); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
+                localStorage.setItem("sensor_set_input",document.getElementById('sensor-set-input').value);
             });
 
             //Remove button logic
             var removeBtn = document.getElementById('remove-btn');
             removeBtn.addEventListener('click', function() {
                 sensorSet.delete(id);
-                // Store the value in localStorage
-                localStorage.setItem("selectedSensors", sensorSet); 
+                var sensorSetArray = Array.from(sensorSet);
+                localStorage.setItem("selectedSensors", sensorSetArray); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
+                localStorage.setItem("sensor_set_input",document.getElementById('sensor-set-input').value);
             });
 
             //Add button logic
@@ -111,7 +113,7 @@
                 console.log(localStorage.getItem("selectedSensors"));
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
-                
+                localStorage.setItem("sensor_set_input",document.getElementById('sensor-set-input').value);
             });
         });
     }    
