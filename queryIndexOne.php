@@ -107,7 +107,7 @@
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
                 // Store the value in localStorage
                 localStorage.setItem("selectedSensors", sensorSet); 
-                localStorsge.setItem("selected-sensor-input", document.getElementById('sensor-set-input').value);
+                localStorage.setItem("selected-sensor-input", document.getElementById('sensor-set-input').value);
             });
         });
     }    
