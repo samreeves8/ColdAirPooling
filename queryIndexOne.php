@@ -33,7 +33,7 @@
           
 
     // Adds markers to map based on inputs
-    function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
+    function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map){
         //Checks if marker is a humidity sensor
         if(recordsHumidity == 1){
             marker = L.circleMarker([lat, lng] , {color: 'red', radius: 10}).addTo(map);

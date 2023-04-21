@@ -153,7 +153,7 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     markers = JSON.parse(xhr.responseText);
                     markers.forEach(marker => {
-                        addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
+                        addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap);
                     });
                 }
             };
