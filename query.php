@@ -145,6 +145,20 @@
         ?>
         <script>
             //Adds each sensor to map
+            // create XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            
+            // handle response from PHP script
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    markers = JSON.parse(xhr.responseText);
+                    console.log(markers);
+                }
+            };
+
+            // send GET request to PHP script that returns the array
+            xhr.open('GET', 'sensorMarkers.php', true);
+            xhr.send();
             console.log(markers);
             console.log("outside for each");
             markers.forEach(marker => {
