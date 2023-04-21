@@ -55,7 +55,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
 </head>
 <body>
 <?php include 'navBar.php';?>
-
+<h2>Select Files for Upload</h2>
 <div id="form">
   <form action="fileUpload.php" method="post" enctype="multipart/form-data" id="upload-form">
     <input type="file" id="file" class="file" name="files[]" multiple>
