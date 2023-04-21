@@ -41,6 +41,17 @@
             exit();
 
         }
+
+        if (isset($_POST['post_id'])) {
+            $post_id = $_POST['post_id'];
+            $query = "DELETE FROM BlogPosts WHERE id = ?";
+            $stmt = mysqli_prepare($conn, $query);
+            mysqli_stmt_bind_param($stmt, "i", $post_id);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
+            echo "Post deleted successfully!";
+        } 
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +70,30 @@
     <?php include 'navBar.php';?>
 </body>
 
+
+<!-- Deletes Post -->
+<script>
+function deletePost(post_id) {
+    if (confirm("Are you sure you want to delete this post?")) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    alert(xhr.responseText);
+                    location.reload();
+                } else {
+                    alert('There was a problem with the request.');
+                }
+            }
+        };
+        xhr.open('POST', 'blog.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('post_id=' + post_id);
+    }
+}
+</script>
+
+
 </html>
 
 <?php
@@ -69,7 +104,7 @@
     if (isset($_GET['success'])) {
         echo '<p>Posted successfully!</p>';
     }
-    
+
     $query_main = "SELECT title, content, member_id FROM BlogPosts";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
@@ -102,20 +137,14 @@
         
         if($_SESSION['name'] == $curr_member){
             // Get the post_id
-            $post_id = $row['id'];
+            $post_id = $row['post_id'];
         
             // Add a delete button
             echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
+            
         }
         echo '</div>';
     }
-
-    
-
-
-    
-    
-    
 
     
 ?>
