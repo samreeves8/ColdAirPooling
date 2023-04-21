@@ -20,36 +20,66 @@
     <title>Document</title>
 </head>
 <body>
-    <?php include 'navBar.php';?>
+    <?php include 'navBar.php';?> 
+
     
-    <form  id="myForm" action = 'delete.php' method = 'POST'>
-        <?php
-            include ("queryIndexOne.html");
-        ?>
-        <div class = "form">
-        <h1> Insert date and time range for data you want to see: </h1>
-        <label for="dateStart">Select a start date:</label>
-        <input type="date" id="dateStart" name="dateStart">
-        <label for="timeStart">Select a start time:</label>
-        <input type="time" id="timeStart" name="timeStart" value = "00:00">
-        <br>
-        <label for="dateEnd">Select an end date:</label>
-        <input type="date" id="dateEnd" name="dateEnd" value="'. date('Y-m-d') .'">
-        <label for="timeEnd">Select an end time:</label>
-        <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
-        <input type="hidden" id="interval" name="interval" value="3 Minutes">
-        <br>
-        <div id = "buttondrop">
-        <input type="submit" value="Submit">
-        </div>
-    </form>
+    
+    <form id="myForm" action="delete.php" method="POST">
+  <div class="form">
+    <h1>Select date and time range for data you want to <span id="DELETE">Delete</span>:</h1>
+    <?php
+    $sensorList = array();
+    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "SELECT DISTINCT Sensor FROM SensorData";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $sensorList[] = $row['Sensor'];
+        }
+    }
+    ?>
+
+    <label for="dateStart">Select a start date:</label>
+    <input type="date" id="dateStart" name="dateStart">
+
+    <label for="timeStart">Select a start time:</label>
+    <input type="time" id="timeStart" name="timeStart" value="00:00">
+
+    <br>
+
+    <label for="dateEnd">Select an end date:</label>
+    <input type="date" id="dateEnd" name="dateEnd" value="<?php echo date('Y-m-d'); ?>">
+
+    <label for="timeEnd">Select an end time:</label>
+    <input type="time" id="timeEnd" name="timeEnd" value="00:00">
+
+    <br>
+
+    <?php
+    foreach ($sensorList as $sensor) {
+        echo '<input type="checkbox" name="sensors[]" value="' . $sensor . '">' . $sensor . '<br>';
+    }
+    ?>
+
+    <input type="hidden" id="interval" name="interval" value="3 Minutes">
+    <div id="buttondrop">
+      <input type="submit" value="Submit">
+    </div>
+  </div>
+</form>
+
+
     
 </body>
 </html>
 <?php 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $sensorSet = json_decode($_POST['sensor-set-input']);
+    $sensorSet = 
     $dateStart = $_POST['dateStart'];
     $dateEnd = $_POST['dateEnd'];
     $timeStart = $_POST['timeStart'];
