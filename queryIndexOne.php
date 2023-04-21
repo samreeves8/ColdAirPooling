@@ -18,7 +18,8 @@
 
     // If a value was found, set the value of the sensor-set-input field
     if(sensorSet.size > 0){
-        document.getElementById("sensor-set-input").value = sensorSetInput;
+        sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+        document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
     } else {
         //Defines a set of sensors the user wants to see data for
         var sensorSet = new Set();
@@ -108,8 +109,7 @@
                 console.log(sensorSet); 
                 sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
                 document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));
-                // Store the value in localStorage
-                localStorage.setItem("selected-sensor-input", document.getElementById('sensor-set-input').value);
+                
             });
         });
     }    
