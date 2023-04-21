@@ -366,8 +366,8 @@
 
                         echo "<td>" . $formattedDateTime . "</td>";
                         echo "<td>" . $row["Temperature"] . "</td>";
-                        echo "<td>" . $row["Max Temperature"] . "</td>";
-                        echo "<td>" . $row["Min Temperature"] . "</td>";
+                        echo "<td>" . $row["MaxTemperature"] . "</td>";
+                        echo "<td>" . $row["MinTemperature"] . "</td>";
                         echo "</tr>";
 
                         $temp[] = $row['Temperature'];
