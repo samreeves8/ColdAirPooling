@@ -37,6 +37,12 @@
         */ 
 
         marker.on('click', function(e) {
+            var value = "";
+            if(recordsHumidity == 0){
+                value = "No"
+            } else {
+                value = "Yes"
+            }
             sidebar.innerHTML = "<h2>Sensor " + id + "</h2>\
             <p>\
             Latitude: " + lat + "\
@@ -45,7 +51,7 @@
             <br>\
             Elevation: " + elevation + "\
             <br>\
-            Date installed: " + dateInstalled + "\
+            Date installed: " + value + "\
             <br>\
             Records humidity: " + recordsHumidity + "\
             <br>\
