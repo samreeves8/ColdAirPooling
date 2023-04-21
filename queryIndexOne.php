@@ -23,7 +23,6 @@
 
     // Adds markers to map based on inputs
     function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity, map, sensorSet){
-            
         //Checks if marker is a humidity sensor
         if(recordsHumidity == 1){
             console.log("records humidity");
@@ -124,8 +123,9 @@
     // ];
 
     //Adds each sensor to map
+    console.log("outside for each");
     markers.forEach(marker => {
-        console.log("call to addMarker");
+        console.log("inside foreach");
         addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap, sensorSet);
     });                    
 </script>
