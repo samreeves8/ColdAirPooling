@@ -28,7 +28,7 @@
             // handle response from PHP script
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
-                    console.log(xhr.responseText);
+                    console.log(JSON.parse(xhr.responseText));
                     var markers = JSON.parse(xhr.responseText);
                 }
             };
@@ -139,7 +139,6 @@
     
     <form  id="myForm" action = 'queryResults.php' method = 'POST'>
         <?php
-        
             include ("queryIndexOne.php");
         ?>
         <div class = "form">
