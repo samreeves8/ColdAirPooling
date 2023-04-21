@@ -70,6 +70,13 @@
     }
 
 
+    if(isset($_GET['success']) && $_GET['success'] == 1){
+        //display success message
+        echo "Blog post was successfully added!";
+        //unset all session variables
+        session_unset();
+    }
+    
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $blogTitle = $_POST['title'];
         $blogContent = $_POST['content'];
@@ -100,5 +107,7 @@
         mysqli_stmt_execute($stmt_blog);
         mysqli_stmt_close($stmt_blog);
         mysqli_close($conn);
+
+        header("Location: ".$_SERVER['PHP_SELF']."?success=1");
     }
 ?>
