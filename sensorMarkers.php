@@ -4,7 +4,7 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        
+
         $markers = array();
         
         $sql = "SELECT Sensor, Latitude, Longitude, Elevation, DATE_FORMAT(Date, '%Y-%m-%d') as Date, humidity FROM SensorData";
@@ -24,7 +24,7 @@
                 );
             }
         }
-        print_r($markers);
+        //print_r($markers);
         echo json_encode($markers);
         
         
