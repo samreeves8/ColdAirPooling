@@ -9,24 +9,23 @@
 </body>
 <script>
 
-    // Get the value of the selectedSensors key from localStorage
-    var sensorSet= localStorage.getItem("selectedSensors");
-    var sensorSetInput =  localStorage.getItem("sensor_set_input");
-    console.log(sensorSet);
-    console.log(sensorSetInput);
+    window.onload = function() {
+        // Get the value of the selectedSensors key from localStorage
+        var sensorSet= localStorage.getItem("selectedSensors");
+        var sensorSetInput =  localStorage.getItem("sensor_set_input");
 
-    // If a value was found, set the value of the sensor-set-input field
-    if(sensorSet !== null){
-        sensorSet = sensorSet.split(",");
-        sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
-        document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
-    } else {
-        //Defines a set of sensors the user wants to see data for
-        var sensorSet = new Set();
+        // If a value was found, set the value of the sensor-set-input field
+        if(sensorSet !== null){
+            sensorSet = sensorSet.split(",");
+            sidebarList.innerHTML = '<p>Current sensors selected: ' + Array.from(sensorSet).join(", ") + '</p>';
+            document.getElementById('sensor-set-input').value = JSON.stringify(Array.from(sensorSet));                  
+        } else {
+            //Defines a set of sensors the user wants to see data for
+            var sensorSet = new Set();
+        }
+        console.log(sensorSetInput);
+    
     }
-
-    console.log(sensorSet);
-
 
 
     // Initialize the map
