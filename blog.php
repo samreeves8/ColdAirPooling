@@ -4,6 +4,43 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
     }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['content'])){
+            $blogTitle = $_POST['title'];
+            $blogContent = $_POST['content'];
+
+
+            //Get the current user's id 
+            $query_id = "SELECT id FROM accounts WHERE username = ?";
+            $stmt_id = mysqli_prepare($conn, $query_id);
+            mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
+            mysqli_stmt_execute($stmt_id);
+            $result_id = $stmt_id->get_result();
+            mysqli_stmt_close($stmt_id);
+
+
+            $m_id = null;
+            if($result_id->num_rows == 1){
+                while ($row = $result_id->fetch_assoc()) {
+                    //set member id
+                    $m_id = $row["id"];
+                }
+            }
+
+
+            $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
+
+            //insert blog post
+            $stmt_blog = mysqli_prepare($conn, $sqlBlog);
+            mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
+            mysqli_stmt_execute($stmt_blog);
+            mysqli_stmt_close($stmt_blog);
+            mysqli_close($conn);
+
+            header("Location: {$_SERVER['REQUEST_URI']}?success=true");
+            exit();
+
+        }
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +66,10 @@
         include ("blog.html");
     }
 
+    if (isset($_GET['success'])) {
+        echo '<p>Posted successfully!</p>';
+    }
+    
     $query_main = "SELECT title, content, member_id FROM BlogPosts";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
@@ -74,47 +115,7 @@
 
     
     
-    if($_SERVER['REQUEST_METHOD'] === 'POST' ){
-        if(isset($_POST['title']) && isset($_POST['content'])){
-            $blogTitle = $_POST['title'];
-            $blogContent = $_POST['content'];
+    
 
-
-            //Get the current user's id 
-            $query_id = "SELECT id FROM accounts WHERE username = ?";
-            $stmt_id = mysqli_prepare($conn, $query_id);
-            mysqli_stmt_bind_param($stmt_id, "s", $_SESSION['name']);
-            mysqli_stmt_execute($stmt_id);
-            $result_id = $stmt_id->get_result();
-            mysqli_stmt_close($stmt_id);
-
-
-            $m_id = null;
-            if($result_id->num_rows == 1){
-                while ($row = $result_id->fetch_assoc()) {
-                    //set member id
-                    $m_id = $row["id"];
-                }
-            }
-
-
-            $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
-
-            //insert blog post
-            $stmt_blog = mysqli_prepare($conn, $sqlBlog);
-            mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
-            mysqli_stmt_execute($stmt_blog);
-            mysqli_stmt_close($stmt_blog);
-            mysqli_close($conn);
-
-            header("Location: {$_SERVER['REQUEST_URI']}?success=true");
-            exit();
-
-        }
-
-    }
-
-    if (isset($_GET['success'])) {
-        echo '<p>Post submitted successfully!</p>';
-    }
+    
 ?>
