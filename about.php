@@ -15,10 +15,17 @@
     <header>
         <div class="header-wrapper">
           <div class="logo"><img src="images/Western Logo.png" alt="Header Image"></div>
-          <div class="login-link"><a href="login.php">Login</a></div>
+          <?php
+            if (isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 1) {
+              echo '<div class="login-link"><a href="logout.php">Logout</a></div>';
+            } else {
+              echo '<div class="login-link"><a href="login.php">Login</a></div>';
+            }
+          ?>
         </div>
       </header>
 <hr>
+
 <?php include 'navBar.php';?>
 
 <div class="about-wrapper">
