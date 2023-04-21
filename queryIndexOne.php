@@ -11,6 +11,7 @@
 
     // Get the value of the selectedSensors key from localStorage
     var sensorSet= localStorage.getItem("selectedSensors");
+    console.log(sensorSet);
 
     // If a value was found, set the value of the sensor-set-input field
     if(sensorSet !== null){
