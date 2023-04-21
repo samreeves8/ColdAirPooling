@@ -3,10 +3,11 @@
     display: inline-block;
     column-count: 2;
     column-gap: 20px;
-  }
-  
-  /* Style for the checkboxes */
-  .checkbox-container input[type="checkbox"] {
+    max-width: 100%; /* Set a maximum width */
+}
+
+/* Style for the checkboxes */
+.checkbox-container input[type="checkbox"] {
+    width: calc(50% - 10px); /* Set a width for the checkboxes */
     margin-right: 5px;
-  }
-  
+}
