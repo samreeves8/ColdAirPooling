@@ -26,7 +26,7 @@
     
     <form id="myForm" action="delete.php" method="POST">
   <div class="form">
-    <h1>Select date and time range for data you want to <span id="DELETE">Delete</span>:</h1>
+    <h1>Select Sesnors and time range for data you want to <span id="DELETE">Delete</span>:</h1>
     <?php
     $sensorList = array();
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
@@ -67,7 +67,7 @@
     </label>
     <?php } ?>
     </div>
-    
+
     <input type="hidden" id="interval" name="interval" value="3 Minutes">
     <div id="buttondrop">
       <input type="submit" value="Submit">
