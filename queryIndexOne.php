@@ -51,9 +51,9 @@
             <br>\
             Elevation: " + elevation + "\
             <br>\
-            Date installed: " + value + "\
+            Date installed: " + dateInstalled + "\
             <br>\
-            Records humidity: " + recordsHumidity + "\
+            Records humidity: " + value + "\
             <br>\
             <br>\
             <button type = \'button\' id=\'remove-btn\'>Remove</button>\
