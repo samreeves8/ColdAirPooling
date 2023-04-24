@@ -111,7 +111,7 @@
     }
 
     if (isset($_GET['success'])) {
-        echo '<p>Posted successfully!</p>';
+        echo 'alert(Posted successfully!)';
     }
 
     $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
