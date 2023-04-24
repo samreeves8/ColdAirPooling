@@ -13,6 +13,7 @@ session_start();
     <link rel = "stylesheet" href = "styles/query.css">
 </head>
 <body>
+    <?php include 'header.php'; ?>
     <?php include 'navBar.php';?>
 </body>
 </html>
