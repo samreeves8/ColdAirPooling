@@ -139,12 +139,12 @@ function deletePost(post_id) {
             // Get the post_id
             $post_id = $row['post_id'];
         
+            echo "POST ID" . $post_id;
             // Add a delete button
             echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
             
         }
         echo '</div>';
-        echo $post_id;
     }
 
     
