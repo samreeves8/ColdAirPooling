@@ -105,7 +105,7 @@ function deletePost(post_id) {
         echo '<p>Posted successfully!</p>';
     }
 
-    $query_main = "SELECT title, content, member_id FROM BlogPosts";
+    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
     $result_main = $stmt_main->get_result();
