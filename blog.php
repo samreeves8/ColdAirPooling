@@ -77,6 +77,7 @@
 <!-- Deletes Post -->
 <script>
     function deletePost(post_id) {
+        console.log(post_id);
         if (confirm("Are you sure you want to delete this post?")) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
