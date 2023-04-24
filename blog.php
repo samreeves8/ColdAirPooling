@@ -144,6 +144,7 @@ function deletePost(post_id) {
             
         }
         echo '</div>';
+        echo $post_id;
     }
 
     
