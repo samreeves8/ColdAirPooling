@@ -49,16 +49,8 @@
     <title>Query Results</title>
 </head>
 <body>
-    <div class="navbar">
-         <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="query.php">Query</a></li>
-            <li><a href="#">Members</a></li>
-            <li><a href="login.php">Log In</a></li>
-         </ul>
-    </div>
+<?include 'header.php'?>
+<?include 'navBar.php'?>
 </body>
 </html>
 
