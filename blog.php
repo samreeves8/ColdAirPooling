@@ -86,7 +86,7 @@
                         var response = JSON.parse(xhr.responseText);
                         if (response.success) {
                             alert(response.message);
-                            location.href = '<?php echo $_SERVER['REQUEST_URI']; ?>';
+                            location.reload();
                         } else {
                             alert(response.message);
                         }
