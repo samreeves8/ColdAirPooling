@@ -52,7 +52,7 @@
             mysqli_close($conn);
 
             $response = array('success' => true, 'message' => 'Post deleted successfully!');
-            // header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
+            header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
             exit();
         } 
 ?>
