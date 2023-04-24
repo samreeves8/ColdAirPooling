@@ -50,7 +50,10 @@
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
+
+            $response = array('success' => true, 'message' => 'Post deleted successfully!');
             echo "Post deleted successfully!";
+            exit();
         } 
 ?>
 
@@ -73,24 +76,30 @@
 
 <!-- Deletes Post -->
 <script>
-function deletePost(post_id) {
-    if (confirm("Are you sure you want to delete this post?")) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    alert(xhr.responseText);
-                    location.reload();
-                } else {
-                    alert('There was a problem with the request.');
+    function deletePost(post_id) {
+        if (confirm("Are you sure you want to delete this post?")) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    console.log(xhr.status);
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alert(response.message);
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
+                    } else {
+                        alert('There was a problem with the request.');
+                    }   
                 }
-            }
-        };
+            };
         xhr.open('POST', 'blog.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send('post_id=' + post_id);
+        }
     }
-}
 </script>
 
 
