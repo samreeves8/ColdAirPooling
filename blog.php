@@ -81,6 +81,7 @@
         if (confirm("Are you sure you want to delete this post?")) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
+                console.log(xhr.status);
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     console.log(xhr.status);
                     console.log(xhr.status + ': ' + xhr.statusText);
