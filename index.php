@@ -86,9 +86,9 @@ session_start();
                 while ($row = $result->fetch_assoc()) {
                     //Echo's rows based on table
                     if($h){
-                        echo "Sensor: " . $row["Sensor"] . "   DateTime: " . $row["DateTime"] . "   Temperature: " . $row["Temperature"] . "   RH: " . $row["RH"] . "   DewPoint: " . $row["DewPoint"]. "<br>";
+                        echo "Sensor: " . $row["Sensor"] . "   DateTime: " . $row["Date"] . "   Temperature: " . $row["Temperature"] . "   RH: " . $row["RH"] . "   DewPoint: " . $row["DewPoint"]. "<br>";
                     }else{
-                        echo "Sensor: " . $row["Sensor"] . "   DateTime: " . $row["DateTime"] . "   Temperature: " . $row["Temperature"] . "<br>";
+                        echo "Sensor: " . $row["Sensor"] . "   DateTime: " . $row["Date"] . "   Temperature: " . $row["Temperature"] . "<br>";
                     }
                     
                 }

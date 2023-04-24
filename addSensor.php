@@ -31,7 +31,7 @@
     <?php include 'navBar.php';?>
 
     <h2>Add a new Sensor</h2>
-    <form action="addSensor.php" method="POST">
+    <form action="addSensor.php" method="POST" enctype="multipart/form-data">
     <label for="sensor-name">Sensor Name:</label>
     <input type="text" id="sensor-name" name="sensor-name"><br><br>
 
@@ -51,9 +51,12 @@
     <input type="checkbox" id="humidity" name="humidity" value="1">Yes
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
+    <label for="sensor-image">Sensor Image:</label>
+    <input type="file" id="sensor-image" name="sensor-image"><br><br>
 
     <input type="submit" value="Submit">
-</form>
+    </form>
+
 </body>
 </html>
 
