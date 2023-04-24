@@ -111,9 +111,6 @@
         include ("blog.html");
     }
 
-    if (isset($_GET['success'])) {
-        echo '<p>alert(Posted successfully!)</p>';
-    }
 
     $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
     $stmt_main = mysqli_prepare($conn, $query_main);
