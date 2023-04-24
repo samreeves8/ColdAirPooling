@@ -52,6 +52,7 @@
             mysqli_close($conn);
 
             $response = array('success' => true, 'message' => 'Post deleted successfully!');
+            echo json_encode($response);
             header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
             exit();
         } 
@@ -86,7 +87,7 @@
                         var response = JSON.parse(xhr.responseText);
                         if (response.success) {
                             alert(response.message);
-                            location.reload();
+                            location.href = '<?php echo $_SERVER['REQUEST_URI']; ?>';
                         } else {
                             alert(response.message);
                         }
