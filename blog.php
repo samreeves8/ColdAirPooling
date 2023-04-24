@@ -76,7 +76,6 @@
 
 <!-- Deletes Post -->
 <script>
-function deletePost(post_id) {
     function deletePost(post_id) {
         if (confirm("Are you sure you want to delete this post?")) {
             var xhr = new XMLHttpRequest();
@@ -100,7 +99,6 @@ function deletePost(post_id) {
         xhr.send('post_id=' + post_id);
         }
     }
-}
 </script>
 
 
