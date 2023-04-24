@@ -58,6 +58,37 @@
     <input type="submit" value="Submit">
     </form>
 
+
+    <?php
+    $sensorList = array();
+    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    $sql = "SELECT DISTINCT Sensor FROM SensorData";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $sensorList[] = $row['Sensor'];
+        }
+    }
+    ?>
+    <h2>Delete an Existing Sensor</h2>
+    <form action="addSensor.php?action=delete" method="POST" enctype="multipart/form-data">
+    <label for="sensor-list">Select Sensor:</label>
+    <select id="sensor-list" name="sensor-name">
+        <?php
+        // Loop through the sensor list and add each sensor as an option in the dropdown menu
+        foreach ($sensorList as $sensor) {
+            echo "<option value='$sensor'>$sensor</option>";
+        }
+        ?>
+    </select><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+
 </body>
 </html>
 
