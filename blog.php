@@ -44,7 +44,7 @@
 
         if (isset($_POST['post_id'])) {
             $post_id = $_POST['post_id'];
-            $query = "DELETE FROM BlogPosts WHERE blog_id = ?";
+            $query = "DELETE FROM BlogPosts WHERE post_id = ?";
             $stmt = mysqli_prepare($conn, $query);
             mysqli_stmt_bind_param($stmt, "i", $post_id);
             mysqli_stmt_execute($stmt);
