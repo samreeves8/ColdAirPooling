@@ -52,7 +52,7 @@
             mysqli_close($conn);
 
             $response = array('success' => true, 'message' => 'Post deleted successfully!');
-            header("Location: {$_SERVER['REQUEST_URI']}?success=true");
+            // header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
             exit();
         } 
 ?>
@@ -147,8 +147,6 @@
         if($_SESSION['name'] == $curr_member){
             // Get the post_id
             $post_id = $row['post_id'];
-        
-            echo "POST ID" . $post_id;
             // Add a delete button
             echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
             
