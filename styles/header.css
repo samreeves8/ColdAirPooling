@@ -40,7 +40,8 @@ a{
     border: none;
     flex: 0;
     color: rgb(178, 0, 0);
-    padding: 10px 20px;
+    padding: 5px 10px;
+    border-radius: 25px;
 }
 
 .login-link:hover {
