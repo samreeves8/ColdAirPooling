@@ -78,7 +78,7 @@ function deletePost(post_id) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
+                if (xhr.status == 200) {
                     alert(xhr.responseText);
                     location.reload();
                 } else {
