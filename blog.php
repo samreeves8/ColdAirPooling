@@ -52,7 +52,7 @@
             mysqli_close($conn);
 
             $response = array('success' => true, 'message' => 'Post deleted successfully!');
-            echo "Post deleted successfully!";
+            // header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
             exit();
         } 
 ?>
@@ -78,19 +78,15 @@
 <!-- Deletes Post -->
 <script>
     function deletePost(post_id) {
-        console.log(post_id);
         if (confirm("Are you sure you want to delete this post?")) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
-                console.log(xhr.status);
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                    console.log(xhr.status);
-                    console.log(xhr.status + ': ' + xhr.statusText);
                     if (xhr.status == 200) {
                         var response = JSON.parse(xhr.responseText);
                         if (response.success) {
                             alert(response.message);
-                            location.reload();
+                            location.href = '<?php echo $_SERVER['REQUEST_URI']; ?>';
                         } else {
                             alert(response.message);
                         }
@@ -118,7 +114,7 @@
         echo '<p>Posted successfully!</p>';
     }
 
-    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts";
+    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
     $result_main = $stmt_main->get_result();
@@ -151,8 +147,6 @@
         if($_SESSION['name'] == $curr_member){
             // Get the post_id
             $post_id = $row['post_id'];
-        
-            echo "POST ID" . $post_id;
             // Add a delete button
             echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
             
