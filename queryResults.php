@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/Western Logo.png">
     <link rel="stylesheet" href="styles/nav.css">
     <link rel = "stylesheet" href = "styles/query.css">
     <link rel = "stylesheet" href = "styles/table.css">
@@ -49,16 +50,8 @@
     <title>Query Results</title>
 </head>
 <body>
-    <div class="navbar">
-         <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="query.php">Query</a></li>
-            <li><a href="#">Members</a></li>
-            <li><a href="login.php">Log In</a></li>
-         </ul>
-    </div>
+<?include 'header.php'?>
+<?include 'navBar.php'?>
 </body>
 </html>
 

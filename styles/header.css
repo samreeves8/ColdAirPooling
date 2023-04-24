@@ -32,15 +32,15 @@ header {
 
 a{
     text-decoration: none;
+    color: rgb(178, 0, 0);
 }
 
 .login-link{
-    text-transform: uppercase;
     background-color:rgb(168, 164, 164);
     border: none;
     flex: 0;
-    color: rgb(178, 0, 0);
-    padding: 10px 20px;
+    padding: 5px 10px;
+    border-radius: 25px;
 }
 
 .login-link:hover {
