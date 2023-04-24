@@ -52,7 +52,7 @@
             mysqli_close($conn);
 
             $response = array('success' => true, 'message' => 'Post deleted successfully!');
-            echo "Post deleted successfully!";
+            header("Location: {$_SERVER['REQUEST_URI']}?success=true");
             exit();
         } 
 ?>
@@ -78,14 +78,10 @@
 <!-- Deletes Post -->
 <script>
     function deletePost(post_id) {
-        console.log(post_id);
         if (confirm("Are you sure you want to delete this post?")) {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
-                console.log(xhr.status);
                 if (xhr.readyState === XMLHttpRequest.DONE) {
-                    console.log(xhr.status);
-                    console.log(xhr.status + ': ' + xhr.statusText);
                     if (xhr.status == 200) {
                         var response = JSON.parse(xhr.responseText);
                         if (response.success) {
