@@ -27,6 +27,7 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include 'header.php';?>
     <?php include 'navBar.php';?>
 
     <h2>Add a new Sensor</h2>

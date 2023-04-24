@@ -44,13 +44,17 @@
 
         if (isset($_POST['post_id'])) {
             $post_id = $_POST['post_id'];
-            $query = "DELETE FROM BlogPosts WHERE id = ?";
+            $query = "DELETE FROM BlogPosts WHERE post_id = ?";
             $stmt = mysqli_prepare($conn, $query);
             mysqli_stmt_bind_param($stmt, "i", $post_id);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
-            echo "Post deleted successfully!";
+
+            $response = array('success' => true, 'message' => 'Post deleted successfully!');
+            echo json_encode($response);
+            header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
+            exit();
         } 
 ?>
 
@@ -67,30 +71,36 @@
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <?php include 'navBar.php';?>
 </body>
 
 
 <!-- Deletes Post -->
 <script>
-function deletePost(post_id) {
-    if (confirm("Are you sure you want to delete this post?")) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    alert(xhr.responseText);
-                    location.reload();
-                } else {
-                    alert('There was a problem with the request.');
+    function deletePost(post_id) {
+        if (confirm("Are you sure you want to delete this post?")) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            alert(response.message);
+                            location.href = '<?php echo $_SERVER['REQUEST_URI']; ?>';
+                        } else {
+                            alert(response.message);
+                        }
+                    } else {
+                        alert('There was a problem with the request.');
+                    }   
                 }
-            }
-        };
+            };
         xhr.open('POST', 'blog.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.send('post_id=' + post_id);
+        }
     }
-}
 </script>
 
 
@@ -101,11 +111,8 @@ function deletePost(post_id) {
         include ("blog.html");
     }
 
-    if (isset($_GET['success'])) {
-        echo '<p>Posted successfully!</p>';
-    }
 
-    $query_main = "SELECT title, content, member_id FROM BlogPosts";
+    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
     $result_main = $stmt_main->get_result();
@@ -138,7 +145,6 @@ function deletePost(post_id) {
         if($_SESSION['name'] == $curr_member){
             // Get the post_id
             $post_id = $row['post_id'];
-        
             // Add a delete button
             echo '<button onclick="deletePost(' . $post_id . ')">Delete</button>';
             
