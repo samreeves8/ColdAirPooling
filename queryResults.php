@@ -62,10 +62,6 @@
 </body>
 </html>
 
-
-
-
-
 <?php
     //predefine arrays used for Query/graphs
     $temps = array();  
@@ -146,7 +142,7 @@
             }
         }
        
-        //code to display table and graph
+        //code to display graph
         $allArrays = array();
         $longestDateArray = array();
         $hasAddedFirstDateTime = false;
@@ -223,7 +219,6 @@
             echo "No Data Found";
         } else {
             $data = json_encode($allArrays);
-            
             echo '<canvas id="myChart"></canvas>';
             echo'<script>
             var allArrays = '.$data.';
@@ -292,7 +287,6 @@
                 }
             });
             
-            
             function getRandomColor() {
                 var letters = "0123456789ABCDEF";
                 var color = "#";
@@ -302,11 +296,10 @@
                 return color;
             }
             
-        </script>';
+            </script>';
     
-
             echo "<div class='tab-container'>
-                <ul class='tab-list'> ";
+                  <ul class='tab-list'> ";
 
             foreach ($sensorSet as $sensor){
                 echo "<li><a href='#$sensor'>$sensor</a></li>";
