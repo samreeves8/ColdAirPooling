@@ -52,7 +52,7 @@
             mysqli_close($conn);
 
             $response = array('success' => true, 'message' => 'Post deleted successfully!');
-            // header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
+            header("Location: {$_SERVER['REQUEST_URI']}?success=true"); 
             exit();
         } 
 ?>
@@ -111,7 +111,7 @@
     }
 
     if (isset($_GET['success'])) {
-        echo '<p>Posted successfully!</p>';
+        echo '<p>alert(Posted successfully!)</p>';
     }
 
     $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
