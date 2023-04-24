@@ -110,6 +110,7 @@ if (isset($_POST['toDelete'])) {
     <title>Document</title>
 </head>
 <body>
+<?php include 'header.php'; ?>
 <?php include 'navBar.php';?>
 
 <h1>Welcome, <?php echo $_SESSION['name']; ?>!</h1><br>

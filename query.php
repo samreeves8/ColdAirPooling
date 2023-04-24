@@ -19,6 +19,9 @@
     <title>Document</title>
 </head>
 <body>
+<?php include 'header.php'; ?>
+<?php include 'navBar.php';?>
+
     <script>
 
         var markers = [];
@@ -136,8 +139,6 @@
             document.getElementById('myForm').submit();
         }
     </script>
-
-    <?php include 'navBar.php';?>
     
     <form  id="myForm" action = 'queryResults.php' method = 'POST'>
         <?php

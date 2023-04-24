@@ -70,6 +70,7 @@
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
     <?php include 'navBar.php';?>
 </body>
 

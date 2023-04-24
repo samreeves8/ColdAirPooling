@@ -19,6 +19,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1) {
 </head>
 <body>
 <div class="container">
+    <?php include 'header.php'; ?>
     <?php include 'navBar.php';?>
 
     <form action="login.php" method="POST" id="login">
