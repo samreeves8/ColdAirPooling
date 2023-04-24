@@ -55,6 +55,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== 1) {
   </script>
 </head>
 <body>
+<?php include 'header.php';?>
 <?php include 'navBar.php';?>
 
 <div id="form">
