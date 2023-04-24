@@ -15,12 +15,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/nav.css">
     <link rel="stylesheet" href="styles/login.css">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
 <?php include 'header.php'; ?>
 <?php include 'navBar.php';?>
-
 
 <div class="container">
 
@@ -79,7 +78,7 @@ if (isset($_POST['username'], $_POST['password']) ) {
             // Account exists -> verify the password.
             if (password_verify($_POST['password'], $hashed_password)) {
                 // Verification success
-                // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
+                // Create sessions, so we know the user is logged in.
                 $_SESSION['loggedin'] = 1;
                 $_SESSION['name'] = $_POST['username'];
                 $_SESSION['id'] = $id;
