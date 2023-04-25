@@ -34,7 +34,7 @@
     
     <form id="myForm" action="delete.php" method="POST">
   <div class="form">
-    <h1>Select Sesnors and time range for data you want to <span id="DELETE">Delete</span>:</h1>
+    <h1>Select Sensors and time range for data you want to <span id="DELETE">Delete</span>:</h1>
     <?php
     $sensorList = array();
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
