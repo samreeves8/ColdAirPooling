@@ -32,15 +32,15 @@
     <?php include 'navBar.php';?>
 
     <h2>Add a new Sensor</h2>
-    <form action="addSensor.php" method="POST" enctype="multipart/form-data">
+    <form action="addSensor.php?action=add" method="POST" enctype="multipart/form-data">
     <label for="sensor-name">Sensor Name:</label>
     <input type="text" id="sensor-name" name="sensor-name"><br><br>
 
     <label for="latitude">Latitude:</label>
-    <input type="number" id="latitude" name="latitude"><br><br>
+    <input type="number" id="latitude" name="latitude" step="any"><br><br>
 
     <label for="longitude">Longitude:</label>
-    <input type="number" id="longitude" name="longitude"><br><br>
+    <input type="number" id="longitude" name="longitude" step="any"><br><br>
 
     <label for="elevation">Elevation:</label>
     <input type="number" id="elevation" name="elevation"><br><br>
@@ -52,8 +52,8 @@
     <input type="checkbox" id="humidity" name="humidity" value="1">Yes
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
-    <label for="sensor-image">Sensor Image:</label>
-    <input type="file" id="sensor-image" name="sensor-image"><br><br>
+    <!-- <label for="sensor-image">Sensor Image:</label>
+    <input type="file" id="sensor-image" name="picture"><br><br> -->
 
     <input type="submit" value="Submit">
     </form>
@@ -93,7 +93,28 @@
 </html>
 
 <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    function delete()
+{
+    global $conn;
+
+    $sensor = $_POST['sensor-name'];
+    $sql = "DELETE FROM SensorData WHERE Sensor = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $sensor);
+    if ($stmt->execute()) {
+        echo "Sensor deleted successfully";
+    } else {
+        echo "Error deleting sensor: " . $stmt->error;
+    }
+}
+
+    function add(){
         $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -105,16 +126,30 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
+        // $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
+        // if($file){
+        //     $fileName = $file['name'];
+        // }
 
-
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity) VALUES (?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sddds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
+        $stmt->bind_param("sdddsd", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {
             echo "Error adding new sensor: " . $stmt->error;
         }
+    }
+
+    // Route the request to the appropriate function based on the URL
+    $action = isset($_GET['action']) ? $_GET['action'] : 'index';
+    switch ($action) {
+        case 'add':
+            add();
+            break;
+        case 'delete':
+            delete();
+            break;
     }
 ?>
