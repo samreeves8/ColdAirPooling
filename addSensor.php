@@ -103,7 +103,7 @@
 {
     global $conn;
 
-    $sensor = $_POST['sensor'];
+    $sensor = $_POST['sensor-name'];
     $sql = "DELETE FROM SensorData WHERE Sensor = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $sensor);
