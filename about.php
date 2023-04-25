@@ -58,25 +58,23 @@ session_start();
 
 <div class="about-wrapper">
   <h1>Team Members</h1>
-  <p>
-    Bruce Bartleson, Professor Emeritus – Geology 
-    Kevin Cabral, Computer Science Student 
-    David Marchetti, Professor of Geology 
-    Michael Matthews, Computer Science Student 
-    Sam Reeves, Computer Science Student 
-    David Primus, WCU Chemistry/Physics Graduate & Community Member
-    Suzanne Taylor, Professor of Physics 
-    Zachary Treisman, Assistant Professor of Mathematics 
-    Jacob Vogel, Computer Science Student 
-    Nathan Zimmerman, Chemistry Student 
-  </p>
+  <ul>
+    <li>Bruce Bartleson, Professor Emeritus – Geology</li>
+    <li>Kevin Cabral, Computer Science Student</li>
+    <li>David Marchetti, Professor of Geology</li>
+    <li>Michael Matthews, Computer Science Student</li>
+    <li>Sam Reeves, Computer Science Student</li>
+    <li>David Primus, WCU Chemistry/Physics Graduate & Community Member</li>
+    <li>Suzanne Taylor, Professor of Physics</li>
+    <li>Zachary Treisman, Assistant Professor of Mathematics</li>
+    <li>Jacob Vogel, Computer Science Student</li>
+    <li>Nathan Zimmerman, Chemistry Student</li>
+  </ul>
 </div>
+ 
 
 <footer>
-  <p>    
-    This project was made possible by the generous contributions of local donors, grants from 
-    Western Colorado University, and local landowners hosting sensors.
-  </p>
+
   <h3>References</h3>
   <p>
     AMS, American Meteorological Society, Glossary of Meteorology, 
@@ -84,6 +82,10 @@ session_start();
 
     Burns, P., & Chemel, C., 2013, Evolution of Cold-Air-Pooling Processes in Complex Terrain. 
     Boundary-Layer Meteorology, 150, 423-447.
+  </p>
+  <p>    
+    This project was made possible by the generous contributions of local donors, grants from 
+    Western Colorado University, and local landowners hosting sensors.
   </p>
 </footer>
 
