@@ -52,8 +52,9 @@
     <input type="checkbox" id="humidity" name="humidity" value="1">Yes
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
-    <!-- <label for="sensor-image">Sensor Image:</label>
-    <input type="file" id="sensor-image" name="picture"><br><br> -->
+    <br>
+    <label for="sensor-image">Sensor Image:</label>
+    <input type="file" id="sensor-image" name="picture"><br><br> 
 
     <input type="submit" value="Submit">
     </form>
