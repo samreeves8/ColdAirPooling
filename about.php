@@ -21,7 +21,7 @@ session_start();
 
 <div class="about-wrapper">
     <h1>
-      About Us
+      Introduction
     </h1>
     <p>
       Gunnison, Colorado is frequently one of the coldest inhabited locations in the contiguous United States.
@@ -56,10 +56,34 @@ session_start();
   </p>
 </div>
 
+<div class="about-wrapper">
+  <h1>Team Members</h1>
+  <p>
+    Bruce Bartleson, Professor Emeritus – Geology 
+    Kevin Cabral, Computer Science Student 
+    David Marchetti, Professor of Geology 
+    Michael Matthews, Computer Science Student 
+    Sam Reeves, Computer Science Student 
+    David Primus, WCU Chemistry/Physics Graduate & Community Member
+    Suzanne Taylor, Professor of Physics 
+    Zachary Treisman, Assistant Professor of Mathematics 
+    Jacob Vogel, Computer Science Student 
+    Nathan Zimmerman, Chemistry Student 
+  </p>
+</div>
+
 <footer>
   <p>    
     This project was made possible by the generous contributions of local donors, grants from 
-    Western Colorado University, and local landowners hosting sensors. 
+    Western Colorado University, and local landowners hosting sensors.
+  </p>
+  <h3>References</h3>
+  <p>
+    AMS, American Meteorological Society, Glossary of Meteorology, 
+    (https://glossary.ametsoc.org/wiki/Welcome), last searched 10/17/2021. 
+
+    Burns, P., & Chemel, C., 2013, Evolution of Cold-Air-Pooling Processes in Complex Terrain. 
+    Boundary-Layer Meteorology, 150, 423-447.
   </p>
 </footer>
 
