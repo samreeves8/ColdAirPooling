@@ -52,8 +52,8 @@
     <input type="checkbox" id="humidity" name="humidity" value="1">Yes
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
-    <label for="sensor-image">Sensor Image:</label>
-    <input type="file" id="sensor-image" name="picture"><br><br>
+    <!-- <label for="sensor-image">Sensor Image:</label>
+    <input type="file" id="sensor-image" name="picture"><br><br> -->
 
     <input type="submit" value="Submit">
     </form>
@@ -99,20 +99,20 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-    function delete(){
-        global $conn;
+    function delete()
+{
+    global $conn;
 
-        $sensor = $_POST['sensor'];
-        $sql = "DELETE FROM SensorData WHERE Sensor = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $sensor);
-        if ($stmt->execute()) {
-            echo "Sensor deleted successfully";
-        } else {
-            echo "Error deleting sensor: " . $stmt->error;
-        }
-
+    $sensor = $_POST['sensor'];
+    $sql = "DELETE FROM SensorData WHERE Sensor = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $sensor);
+    if ($stmt->execute()) {
+        echo "Sensor deleted successfully";
+    } else {
+        echo "Error deleting sensor: " . $stmt->error;
     }
+}
 
     function add(){
         global $conn;
@@ -123,12 +123,12 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
-        $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
-        if($file){
-            $fileName = $file['name'];
-        }
+        // $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
+        // if($file){
+        //     $fileName = $file['name'];
+        // }
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity, Picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity) VALUES (?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sdddsss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $file);
