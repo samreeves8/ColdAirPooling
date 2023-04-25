@@ -21,25 +21,72 @@ session_start();
 
 <div class="about-wrapper">
     <h1>
-      About Us
+      Introduction
     </h1>
     <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
-    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
-    cursus mattis. Condimentum mattis pellentesque id nibh tortor. Pulvinar pellentesque habitant morbi tristique
-    senectus et. Aliquam malesuada bibendum arcu vitae. Mauris rhoncus aenean vel elit scelerisque mauris
-    pellentesque pulvinar pellentesque. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor.
-    Massa id neque aliquam vestibulum morbi blandit cursus risus at. Nec nam aliquam sem et tortor consequat
-    id porta.
+      Gunnison, Colorado is frequently one of the coldest inhabited locations in the contiguous United States.
+      Those who have lived in the Gunnison Valley for a winter will recognize that some places in the valley 
+      are colder than others. This ongoing professional research project uses a set of sensitive temperature 
+      data loggers distributed throughout the Gunnison Valley to monitor the formation and spatial extent of 
+      these pockets of cold air (called cold-air pools). Through this project we are attempting to identify the 
+      larger scale climatological and geographical factors that enhance cold-air pooling.  
+
+      The initial 25 temperature sensors were installed in February 2022. Another five sensors were added in
+      October 2022. Six of the sensors also record humidity. All sensors are set to record every three minutes, 
+      24 hours a day. The data is downloaded every two months for analysis and display on this website. See the 
+      sensor locations here. 
     </p>
 </div>
+<img src="images/29CAB.JPG" alt="Sensor 29CAB" class="img29">
+
+<div class="about-wrapper">
+  <h1>Cold Air Pooling</h1>
+  <p>
+    Outside of cold arctic air masses, which can make the larger region bitterly cold, Gunnison is 
+    particularly and persistently cold because of its location and geography. Gunnison rests in a high 
+    elevation valley and is nearly encircled by mountain ranges between 10,000 and 13,000 ft in elevation. 
+    On clear winter nights, and especially those with significant snow cover, radiative cooling or heat loss 
+    from the surrounding mountains generates parcels of cold air that are denser than the air in the valley 
+    bottoms. This cold, dense air flows downslope, replacing the air in the valleys, and ‘pools’ in the valley 
+    bottoms, often creating well stratified temperature inversions where the surface temperatures are colder 
+    than the atmosphere above. In the meteorological literature this process is called ‘cold-air-pooling’ 
+    (AMS; Burns and Chemil, 2014) and has been well studied in a few locations. These cold air pools and 
+    associated temperature inversions can persist for extended periods of time, and in valleys with large 
+    atmospheric pollution loads, can lead to significantly diminished air quality.  
+  </p>
+</div>
+
+<div class="about-wrapper">
+  <h1>Team Members</h1>
+  <ul>
+    <li>Bruce Bartleson, Professor Emeritus – Geology</li>
+    <li>Kevin Cabral, Computer Science Student</li>
+    <li>David Marchetti, Professor of Geology</li>
+    <li>Michael Matthews, Computer Science Student</li>
+    <li>Sam Reeves, Computer Science Student</li>
+    <li>David Primus, WCU Chemistry/Physics Graduate & Community Member</li>
+    <li>Suzanne Taylor, Professor of Physics</li>
+    <li>Zachary Treisman, Assistant Professor of Mathematics</li>
+    <li>Jacob Vogel, Computer Science Student</li>
+    <li>Nathan Zimmerman, Chemistry Student</li>
+  </ul>
+</div>
+ 
 
 <footer>
-  <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
-    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
-    cursus mattis.</p>
+
+  <h3>References</h3>
+  <p>
+    AMS, American Meteorological Society, Glossary of Meteorology, 
+    (https://glossary.ametsoc.org/wiki/Welcome), last searched 10/17/2021. 
+
+    Burns, P., & Chemel, C., 2013, Evolution of Cold-Air-Pooling Processes in Complex Terrain. 
+    Boundary-Layer Meteorology, 150, 423-447.
+  </p>
+  <p>    
+    This project was made possible by the generous contributions of local donors, grants from 
+    Western Colorado University, and local landowners hosting sensors.
+  </p>
 </footer>
 
 </body>
