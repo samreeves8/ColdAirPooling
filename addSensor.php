@@ -126,15 +126,19 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
-        // $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
-        // if($file){
-        //     $fileName = $file['name'];
-        // }
+        $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity) VALUES (?, ?, ?, ?, ?, ?)";
+        if($file != null) {
+            $file_name = uniqid() . '-' . $_FILES['image']['name'];
+            $file_path = 'images/' . $file_name;
+            
+            move_uploaded_file($_FILES['image']['tmp_name'], $file_path);
+              // insert file path into database
+        }
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity, picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdddsd", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
+        $stmt->bind_param("sdddsds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $file_path);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {
