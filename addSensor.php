@@ -53,7 +53,7 @@
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
     <label for="sensor-image">Sensor Image:</label>
-    <input type="file" id="sensor-image" name="sensor-image"><br><br>
+    <input type="file" id="sensor-image" name="picture"><br><br>
 
     <input type="submit" value="Submit">
     </form>
@@ -123,13 +123,15 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
-        $picture = "";
-
+        $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
+        if($file){
+            $fileName = $file['name'];
+        }
 
         $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity, Picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdddss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $picture);
+        $stmt->bind_param("sdddss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $file);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {
