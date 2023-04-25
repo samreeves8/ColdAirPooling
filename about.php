@@ -59,14 +59,14 @@ session_start();
 <div class="about-wrapper">
   <h1>Team Members</h1>
   <ul>
+    <li>Suzanne Taylor, Professor of Physics</li>
     <li>Bruce Bartleson, Professor Emeritus – Geology</li>
-    <li>Kevin Cabral, Computer Science Student</li>
     <li>David Marchetti, Professor of Geology</li>
+    <li>David Primus, WCU Chemistry/Physics Graduate & Community Member</li>
+    <li>Zachary Treisman, Assistant Professor of Mathematics</li>
+    <li>Kevin Cabral, Computer Science Student</li>
     <li>Michael Matthews, Computer Science Student</li>
     <li>Sam Reeves, Computer Science Student</li>
-    <li>David Primus, WCU Chemistry/Physics Graduate & Community Member</li>
-    <li>Suzanne Taylor, Professor of Physics</li>
-    <li>Zachary Treisman, Assistant Professor of Mathematics</li>
     <li>Jacob Vogel, Computer Science Student</li>
     <li>Nathan Zimmerman, Chemistry Student</li>
   </ul>
