@@ -131,7 +131,7 @@
         //     $fileName = $file['name'];
         // }
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity) VALUES (?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sdddsd", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
