@@ -134,7 +134,7 @@
         $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity) VALUES (?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdddss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
+        $stmt->bind_param("sdddsd", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {
