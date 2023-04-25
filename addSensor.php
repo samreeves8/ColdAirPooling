@@ -32,7 +32,7 @@
     <?php include 'navBar.php';?>
 
     <h2>Add a new Sensor</h2>
-    <form action="addSensor.php" method="POST" enctype="multipart/form-data">
+    <form action="addSensor.php?action=add" method="POST" enctype="multipart/form-data">
     <label for="sensor-name">Sensor Name:</label>
     <input type="text" id="sensor-name" name="sensor-name"><br><br>
 
@@ -93,11 +93,29 @@
 </html>
 
 <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+
+    $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    function delete(){
+        global $conn;
+
+        $sensor = $_POST['sensor'];
+        $sql = "DELETE FROM SensorData WHERE Sensor = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $sensor);
+        if ($stmt->execute()) {
+            echo "Sensor deleted successfully";
+        } else {
+            echo "Error deleting sensor: " . $stmt->error;
         }
+
+    }
+
+    function add(){
+        global $conn;
 
         $sensorName = $_POST['sensor-name'];
         $latitude = $_POST['latitude'];
@@ -105,16 +123,28 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
+        $picture = "";
 
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, DateTime, Humidity, Picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sddds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
+        $stmt->bind_param("sdddss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $picture);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {
             echo "Error adding new sensor: " . $stmt->error;
         }
+    }
+
+    // Route the request to the appropriate function based on the URL
+    $action = isset($_GET['action']) ? $_GET['action'] : 'index';
+    switch ($action) {
+        case 'add':
+            add();
+            break;
+        case 'delete':
+            delete();
+            break;
     }
 ?>
