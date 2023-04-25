@@ -115,7 +115,10 @@
 }
 
     function add(){
-        global $conn;
+        $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
 
         $sensorName = $_POST['sensor-name'];
         $latitude = $_POST['latitude'];
