@@ -37,10 +37,10 @@
     <input type="text" id="sensor-name" name="sensor-name"><br><br>
 
     <label for="latitude">Latitude:</label>
-    <input type="number" id="latitude" name="latitude"><br><br>
+    <input type="number" id="latitude" name="latitude" step="any"><br><br>
 
     <label for="longitude">Longitude:</label>
-    <input type="number" id="longitude" name="longitude"><br><br>
+    <input type="number" id="longitude" name="longitude" step="any"><br><br>
 
     <label for="elevation">Elevation:</label>
     <input type="number" id="elevation" name="elevation"><br><br>
