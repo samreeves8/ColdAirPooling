@@ -52,7 +52,7 @@
     <input type="checkbox" id="humidity" name="humidity" value="1">Yes
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
-    <br>
+    <br><br>
     <label for="sensor-image">Sensor Image:</label>
     <input type="file" id="sensor-image" name="picture"><br><br> 
 
@@ -130,10 +130,10 @@
         $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
 
         if($file != null) {
-            $file_name = uniqid() . '-' . $_FILES['image']['name'];
+            $file_name = uniqid() . '-' . $_FILES['picture']['name'];
             $file_path = 'images/' . $file_name;
             
-            move_uploaded_file($_FILES['image']['tmp_name'], $file_path);
+            move_uploaded_file($_FILES['picture']['tmp_name'], $file_path);
               // insert file path into database
         } else {
             $file_path = "no picture";
