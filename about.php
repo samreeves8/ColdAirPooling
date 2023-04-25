@@ -24,22 +24,26 @@ session_start();
       About Us
     </h1>
     <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
-    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
-    cursus mattis. Condimentum mattis pellentesque id nibh tortor. Pulvinar pellentesque habitant morbi tristique
-    senectus et. Aliquam malesuada bibendum arcu vitae. Mauris rhoncus aenean vel elit scelerisque mauris
-    pellentesque pulvinar pellentesque. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor.
-    Massa id neque aliquam vestibulum morbi blandit cursus risus at. Nec nam aliquam sem et tortor consequat
-    id porta.
+      Gunnison, Colorado is frequently one of the coldest inhabited locations in the contiguous United States.
+      Those who have lived in the Gunnison Valley for a winter will recognize that some places in the valley 
+      are colder than others. This ongoing professional research project uses a set of sensitive temperature 
+      data loggers distributed throughout the Gunnison Valley to monitor the formation and spatial extent of 
+      these pockets of cold air (called cold-air pools). Through this project we are attempting to identify the 
+      larger scale climatological and geographical factors that enhance cold-air pooling.  
+
+      The initial 25 temperature sensors were installed in February 2022. Another five sensors were added in
+      October 2022. Six of the sensors also record humidity. All sensors are set to record every three minutes, 
+      24 hours a day. The data is downloaded every two months for analysis and display on this website. See the 
+      sensor locations here. 
     </p>
 </div>
+<img src="images/29CAB.JPG" alt="Sensor 29CAB">
 
 <footer>
-  <p>    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-    et dolore magna aliqua. Dignissim sodales ut eu sem integer. Lorem mollis aliquam ut porttitor leo.
-    Suspendisse faucibus interdum posuere lorem. Eros in cursus turpis massa tincidunt. Ante in nibh mauris
-    cursus mattis.</p>
+  <p>    
+    This project was made possible by the generous contributions of local donors, grants from 
+    Western Colorado University, and local landowners hosting sensors. 
+  </p>
 </footer>
 
 </body>
