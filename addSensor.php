@@ -134,6 +134,8 @@
             
             move_uploaded_file($_FILES['image']['tmp_name'], $file_path);
               // insert file path into database
+        } else {
+            $file_path = "no picture";
         }
         $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity, picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
