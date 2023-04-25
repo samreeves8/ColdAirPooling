@@ -1,5 +1,5 @@
 .about-wrapper {
-  background-color:rgb(168, 164, 164);
+  background-color:rgb(180, 175, 175);
 }
 
 h1 {
@@ -10,7 +10,7 @@ h1 {
 
 p{
   text-align: center;
-  padding: 20px 80px;
+  padding: 10px 80px;
   line-height: 2 ;
 }
 
@@ -22,6 +22,9 @@ footer {
 }
 
 .img29 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
   height: auto;
 }
