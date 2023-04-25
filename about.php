@@ -37,7 +37,24 @@ session_start();
       sensor locations here. 
     </p>
 </div>
-<img src="images/29CAB.JPG" alt="Sensor 29CAB">
+<img src="images/29CAB.JPG" alt="Sensor 29CAB" class="img29">
+
+<div class="about-wrapper">
+  <h1>Cold Air Pooling</h1>
+  <p>
+    Outside of cold arctic air masses, which can make the larger region bitterly cold, Gunnison is 
+    particularly and persistently cold because of its location and geography. Gunnison rests in a high 
+    elevation valley and is nearly encircled by mountain ranges between 10,000 and 13,000 ft in elevation. 
+    On clear winter nights, and especially those with significant snow cover, radiative cooling or heat loss 
+    from the surrounding mountains generates parcels of cold air that are denser than the air in the valley 
+    bottoms. This cold, dense air flows downslope, replacing the air in the valleys, and ‘pools’ in the valley 
+    bottoms, often creating well stratified temperature inversions where the surface temperatures are colder 
+    than the atmosphere above. In the meteorological literature this process is called ‘cold-air-pooling’ 
+    (AMS; Burns and Chemil, 2014) and has been well studied in a few locations. These cold air pools and 
+    associated temperature inversions can persist for extended periods of time, and in valleys with large 
+    atmospheric pollution loads, can lead to significantly diminished air quality.  
+  </p>
+</div>
 
 <footer>
   <p>    

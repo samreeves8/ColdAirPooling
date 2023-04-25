@@ -1,25 +1,27 @@
-
-
 .about-wrapper {
-    background-color:rgb(168, 164, 164);
+  background-color:rgb(168, 164, 164);
 }
 
 h1 {
-    color: rgb(178, 0, 0);
-    text-align: center;
-    padding-top: 20px;
+  color: rgb(178, 0, 0);
+  text-align: center;
+  padding-top: 20px;
 }
 
 p{
-    text-align: center;
-    padding: 20px 80px;
-    line-height: 2 ;
+  text-align: center;
+  padding: 20px 80px;
+  line-height: 2 ;
 }
 
 footer {
-    text-align: center;
-    padding: 3px;
-    background-color: white;
-    color: black;
-  }
+  text-align: center;
+  padding: 3px;
+  background-color: white;
+  color: black;
+}
 
+.img29 {
+  width: 100%;
+  height: auto;
+}
