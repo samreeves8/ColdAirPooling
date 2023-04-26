@@ -41,7 +41,7 @@ form {
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
-    height: 100px;
+    height: auto;
 }
 
 .container-main h2 {
