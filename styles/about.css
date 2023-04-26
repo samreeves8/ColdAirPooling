@@ -42,14 +42,14 @@ ul{
 
 .team-wrapper{
   background-color:rgb(180, 175, 175);
-  width: 40%;
+  width: 45%;
   float: left;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .contact-wrapper{
   background-color:rgb(180, 175, 175);
-  width: 40%;
+  width: 45%;
   float: right;
-  margin-left: 10px;
+  margin-left: 5px;
 }
