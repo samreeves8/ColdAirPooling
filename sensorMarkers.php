@@ -21,7 +21,7 @@
                 "elevation" => $row['Elevation'],
                 "dateInstalled" => $row['Date'],
                 "recordsHumidity" => $row['humidity'],
-                "description" => $row['Description'];
+                "description" => $row['Description']
             );
         }
     }
