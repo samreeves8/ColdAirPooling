@@ -20,7 +20,8 @@
                 "lng" => $row['Longitude'],
                 "elevation" => $row['Elevation'],
                 "dateInstalled" => $row['Date'],
-                "recordsHumidity" => $row['humidity']
+                "recordsHumidity" => $row['humidity'],
+                "description" => $row['Description'];
             );
         }
     }
