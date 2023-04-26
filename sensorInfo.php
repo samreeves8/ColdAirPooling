@@ -47,7 +47,7 @@
         }
         echo"<h2>".$sensor."</h2>
         <div style='display: flex; flex-wrap: wrap;'>";
-          if(isset($file)) {
+          if($picture != NULL)) {
             echo "<div style='flex: 1; margin-right: 20px;'>
             <img src=".$picture." style='width: 100%; height: auto;'>
           </div>";
