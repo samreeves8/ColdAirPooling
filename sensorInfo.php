@@ -45,10 +45,18 @@
                 $description = $row['Description'];
             }
         }
-        echo "<h2>".$sensor."</h2>";
-        echo "<h3>Elevation: " .$elevation. "  Latitude: " .$lat. "  Longitude: ".$lon."</h3>";
-        echo "<h3>Date Installed: " .$date."</h3>";
-        echo "<img src=" . $picture . "><br>";
-        echo "<p>".$description."</p>";
+        echo"<h2>".$sensor."</h2>
+        <div style='display: flex; flex-wrap: wrap;'>
+          <div style='flex: 1; margin-right: 20px;'>
+            <img src=".$picture." style='width: 100%; height: auto;'>
+          </div>
+          <div style='flex: 2;'>
+            <h3 style='margin-top: 0;'>Elevation: ". $elevation ."</h3>
+            <p>Latitude: ".$lat."</p>
+            <p>Longitude: " . $lon . "</p>
+            <p>Date Installed: ". $date ."</p>
+            <p>".$description."</p>
+          </div>
+        </div>";
     }
 ?>
