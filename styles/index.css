@@ -21,7 +21,7 @@ table {
   }
 
   .container-main {
-    width: 40%; 
+    width: 50%; 
     border: 1px solid #000;
     padding: 10px;
     margin-bottom: 10px;
@@ -49,9 +49,14 @@ table {
     display: flex; /* This will make the two divs display side by side */
     flex-wrap: wrap; /* This will wrap the content to the next line if the container is too narrow */
   }
+
+  #main {
+    width: 25%;
+    display: inline-block;
+    box-sizing: border-box;
+  }
   
-#main, #table {
-    
+#table {
     width: 50%;
     display: inline-block; /* or inline-flex */
     box-sizing: border-box; /* This will make sure that padding and border do not increase the total width */
