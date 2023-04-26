@@ -296,30 +296,19 @@
 
             foreach ($sensorSet as $sensor){
                 echo "<li><a href='#$sensor'>$sensor</a></li>";
-                //Determine which table to query 
-                $table = null;
-                if(in_array($sensor, $humidity)){
-                    $table = "HumidData";
-                }else{
-                    $table = "TempData";
-                }
             }
             echo "</ul>";
             foreach ($sensorSet as $sensor){
             echo "<div id='$sensor' class='tab-panel'>
                 <table>";
-                if($table == "TempData"){
-                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
-                } else if($table == "HumidData") {
-                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th><th>Average Humidity</th></tr>";
-                }
-                
                 //Determine which table to query 
                 $table = null;
                 if(in_array($sensor, $humidity)){
                     $table = "HumidData";
+                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
                 }else{
                     $table = "TempData";
+                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th><th>Average Humidity</th></tr>";
                 }
 
                 //Determine which query to use based on minute or hour intervals
