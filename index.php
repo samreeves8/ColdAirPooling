@@ -35,7 +35,7 @@ session_start();
     $result_main = $stmt_main->get_result();
     mysqli_stmt_close($stmt_main);
 
-
+    echo "<div id=main>"
     // Loop through the result set and display data in containers
     while ($row = $result_main->fetch_assoc()) {
         echo '<div class="container-main">';
@@ -66,6 +66,7 @@ session_start();
     $result = $conn->query($sql);
 
     //creates a table with headers for each column
+    echo "<div id=table>"
     echo "<table>";
     echo "<tr><th>Sensor</th><th>Elevation</th><th>Location</th></tr>";
 
@@ -81,6 +82,8 @@ session_start();
     }
     
     echo "</table>";
+    echo "</div>";
+    echo "</div>";
     
     //defines constant humidity array for all sensors located in different table
     //gather sensors that gather humidity
