@@ -11,7 +11,7 @@ session_start();
     <link rel="icon" type="image/png" href="images/Western Logo.png">
     <title>Home</title>
     <link rel="stylesheet" href="styles/nav.css">
-    <link rel = "stylesheet" href = "styles/query.css">
+    <link rel = "stylesheet" href = "styles/index.css">
 </head>
 <body>
     <?php include 'header.php'; ?>
