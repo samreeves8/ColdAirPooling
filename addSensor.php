@@ -79,6 +79,8 @@
     <form action="addSensor.php?action=delete" method="POST" enctype="multipart/form-data">
     <label for="sensor-list">Select Sensor:</label>
     <select id="sensor-list" name="sensor-name">
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea>
         <?php
         // Loop through the sensor list and add each sensor as an option in the dropdown menu
         foreach ($sensorList as $sensor) {
@@ -127,6 +129,7 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
+        $description = $_POST['description'];
         $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
 
         if($file == NULL) {
@@ -136,10 +139,10 @@
             $file_path = 'images/' . $file_name;
             move_uploaded_file($_FILES['picture']['tmp_name'], $file_path);
         }
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity, picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity, Picture, Description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdddsds", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $file_path);
+        $stmt->bind_param("sdddsdss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $file_path, $description);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {

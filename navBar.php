@@ -7,7 +7,7 @@
             echo '<li><a href="admin.php">Admin</a></li>';
             echo '<li><a href="fileUpload.php">Upload Data</a></li>';
             echo '<li><a href="delete.php">Delete Data</a></li>';
-            echo '<li><a href="addSensor.php">Add Sensor</a></li>';
+            echo '<li><a href="addSensor.php">Manage Sensors</a></li>';
         }
     ?>
     <li><a href="query.php">Query</a></li>
