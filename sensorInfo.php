@@ -29,6 +29,26 @@
 
     if($_SERVER['REQUEST_METHOD']==='GET'){
         $sensor =  $_GET['sensor'];
-        
+        $sql = "SELECT * FROM SensorData WHERE sensor = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $sensor);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $lat = $row['Latitude'];
+                $lon = $row['Longitude'];
+                $date = $row['date'];
+                $humidity = $row['humidity'];
+                $picture = $row['picture'];
+                $description = $row['description'];
+            }
+        }
+        echo $lat . "<br>";
+        echo $lon . "<br>";
+        echo $date . "<br>";
+        echo $humidity . "<br>";
+        echo $picture . "<br>";
+        echo $description . "<br>";
     }
 ?>
