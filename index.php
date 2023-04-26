@@ -21,11 +21,45 @@ session_start();
 </html>
 
 <?php
+
+
     //get's connection to database
     $conn = new mysqli('localhost', 'gunniso1_Admin', 'gunnisoncoldair', 'gunniso1_SensorData');
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+
+    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
+    $stmt_main = mysqli_prepare($conn, $query_main);
+    mysqli_stmt_execute($stmt_main);
+    $result_main = $stmt_main->get_result();
+    mysqli_stmt_close($stmt_main);
+
+
+    // Loop through the result set and display data in containers
+    while ($row = $result_main->fetch_assoc()) {
+        echo '<div class="container-main">';
+        echo '<h2>' . $row['title'] . '</h2>';
+        echo '<p>' . $row['content'] . '</p>';
+
+
+        //query's for member   
+        $query_member = "SELECT username FROM accounts WHERE id = ?";
+        $stmt_member = mysqli_prepare($conn, $query_member);
+        mysqli_stmt_bind_param($stmt_member, "i", $row['member_id']);
+        mysqli_stmt_execute($stmt_member);
+        $result_member = $stmt_member->get_result();
+        mysqli_stmt_close($stmt_member);
+        $curr_member = null;
+        while($row2 = $result_member->fetch_assoc()){
+            //Set's member
+            $curr_member = $row2["username"];
+        }
+        echo '<p class="member">Posted by: ' . $curr_member . '</p>';
+        echo '</div>';
+    }
+
+    
 
     //develops query
     $sql = "SELECT * FROM SensorData";
@@ -99,6 +133,8 @@ session_start();
             }
         }
     }
+
+    
     
     
 ?>
