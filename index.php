@@ -66,7 +66,7 @@ session_start();
     $result = $conn->query($sql);
 
     //creates a table with headers for each column
-    echo "<div id=table>"
+    echo "<div id=table>";
     echo "<table>";
     echo "<tr><th>Sensor</th><th>Elevation</th><th>Location</th></tr>";
 
