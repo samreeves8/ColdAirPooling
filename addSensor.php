@@ -55,6 +55,8 @@
     <br><br>
     <label for="sensor-image">Sensor Image:</label>
     <input type="file" id="sensor-image" name="picture"><br><br> 
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea>
 
     <input type="submit" value="Submit">
     </form>
@@ -79,8 +81,6 @@
     <form action="addSensor.php?action=delete" method="POST" enctype="multipart/form-data">
     <label for="sensor-list">Select Sensor:</label>
     <select id="sensor-list" name="sensor-name">
-    <label for="description">Description:</label>
-    <textarea name="description" id="description"></textarea>
         <?php
         // Loop through the sensor list and add each sensor as an option in the dropdown menu
         foreach ($sensorList as $sensor) {
