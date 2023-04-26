@@ -129,14 +129,12 @@
         $humidity = $_POST['humidity'];
         $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
 
-        if($file != null) {
+        if($file == NULL) {
+            $file_path = "no picture";
+        } else {
             $file_name = uniqid() . '-' . $_FILES['picture']['name'];
             $file_path = 'images/' . $file_name;
-            
             move_uploaded_file($_FILES['picture']['tmp_name'], $file_path);
-              // insert file path into database
-        } else {
-            $file_path = "no picture";
         }
         $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity, picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
