@@ -26,14 +26,27 @@
 
 
     // Initialize the map
-    var mymap = L.map('map').setView([38.64955, -106.94685], 11);
-          
-    // Add the tile layer
+    var windowHeight = window.innerHeight;
+    var windowWidth = window.innerWidth;
+    var mapHeight = windowHeight * 0.8;
+    var mapWidth = windowWidth;
+
+    // Initialize the Leaflet map
+    var mymap = L.map('map', {
+    center: [38.64955, -106.94685],
+    zoom: 11
+    });
+
+    // Set the size of the map container
+    var mapContainer = document.getElementById('map');
+    mapContainer.style.height = mapHeight + 'px';
+    mapContainer.style.width = mapWidth + 'px';
+
+    // Add the tile layer to the map
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-        maxZoom: 18,
+    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18
     }).addTo(mymap);
-          
 
     // Adds markers to map based on inputs
     function addMarker(id, lat, lng, elevation, dateInstalled, recordsHumidity,description, map){
