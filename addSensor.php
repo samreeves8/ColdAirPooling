@@ -56,7 +56,7 @@
     <label for="sensor-image">Sensor Image:</label>
     <input type="file" id="sensor-image" name="picture"><br><br> 
     <label for="description">Description:</label>
-    <textarea name="description" id="description"></textarea>
+    <textarea name="description" id="description"></textarea><br><br>
 
     <input type="submit" value="Submit">
     </form>
