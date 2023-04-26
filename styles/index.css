@@ -40,9 +40,6 @@ table {
 .container-main .member {
     text-align: right;
 }
-.container-main .date {
-  text-align: right;
-}
 
 .container {
     align-self: flex-end;
