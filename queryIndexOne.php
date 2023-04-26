@@ -29,7 +29,11 @@
     var windowHeight = window.innerHeight;
     var windowWidth = window.innerWidth;
     var mapHeight = windowHeight * 0.8;
-    var mapWidth = windowWidth;
+    var mapWidth = windowWidth * 0.5;
+
+    var mapContainer = document.getElementById('map');
+    mapContainer.style.height = mapHeight + 'px';
+    mapContainer.style.width = mapWidth + 'px';
 
     // Initialize the Leaflet map
     var mymap = L.map('map', {
