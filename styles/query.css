@@ -5,11 +5,11 @@
 
 #map {
   float: none;
-  background-color: #7b2a2a;
-  padding: 2%;
   width: 50%;
   margin: auto; /* Center the content horizontally */
+  border: 1px solid black; /* Add a 1 pixel solid black border */
 }
+
 
 #sidebarContainer {
   width: 40%;
