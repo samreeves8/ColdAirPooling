@@ -44,14 +44,14 @@ ul{
 
 .team-wrapper{
   background-color:rgb(180, 175, 175);
-  width: 48%;
+  width: 50%;
   float: left;
   margin-right: 5px;
 }
 
 .contact-wrapper{
   background-color:rgb(180, 175, 175);
-  width: 48%;
+  width: 50%;
   float: right;
   margin-left: 5px;
 }
