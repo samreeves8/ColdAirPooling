@@ -35,7 +35,7 @@ session_start();
     $result_main = $stmt_main->get_result();
     mysqli_stmt_close($stmt_main);
 
-    echo "<div id=main>"
+    echo "<div id=main>";
     // Loop through the result set and display data in containers
     while ($row = $result_main->fetch_assoc()) {
         echo '<div class="container-main">';
