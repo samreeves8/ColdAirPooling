@@ -53,7 +53,7 @@
           </div>";
           }
           echo "<div style='flex: 2;'>
-            <h3 style='margin-top: 0;'>Elevation: ". $elevation ."</h3>
+            <p style='margin-top: 0;'>Elevation: ". $elevation ."ft</p>
             <p>Latitude: ".$lat."</p>
             <p>Longitude: " . $lon . "</p>
             <p>Date Installed: ". $date ."</p>
