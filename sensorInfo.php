@@ -40,7 +40,11 @@
                 $lon = $row['Longitude'];
                 $elevation = $row['Elevation'];
                 $date = $row['Date'];
-                $humidity = $row['humidity'];
+                if($row['humidity'] == 0){
+                    $humidity = "No";
+                } else {
+                    $humidity = "Yes";
+                }
                 $picture = $row['picture'];
                 $description = $row['Description'];
             }
@@ -57,6 +61,7 @@
             <p>Latitude: ".$lat."</p>
             <p>Longitude: " . $lon . "</p>
             <p>Date Installed: ". $date ."</p>
+            <p>Records Humidity: ".$humidity. "</p>
             <p>".$description."</p>
           </div>
         </div>";
