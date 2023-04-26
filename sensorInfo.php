@@ -50,7 +50,7 @@
         echo $elevation . "<br>";
         echo $date . "<br>";
         echo $humidity . "<br>";
-        echo $picture . "<br>";
+        echo "<img src=" . $picture . ">";
         echo $description . "<br>";
     }
 ?>
