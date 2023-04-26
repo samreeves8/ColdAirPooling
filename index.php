@@ -34,7 +34,7 @@ session_start();
     mysqli_stmt_execute($stmt_main);
     $result_main = $stmt_main->get_result();
     mysqli_stmt_close($stmt_main);
-
+    echo "<div id=wrapper>";
     echo "<div id=main>";
     // Loop through the result set and display data in containers
     while ($row = $result_main->fetch_assoc()) {
@@ -58,6 +58,8 @@ session_start();
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         echo '</div>';
     }
+    echo '</div>';
+    
 
     
 
