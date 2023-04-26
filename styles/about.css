@@ -43,6 +43,7 @@ ul{
 .team-wrapper{
   background-color:rgb(180, 175, 175);
   width: 50%;
+  float: left;
 }
 
 .contact-wrapper{
