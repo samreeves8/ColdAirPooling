@@ -17,7 +17,6 @@ session_start();
     <?php include 'header.php'; ?>
     <?php include 'navBar.php';?>
     <div id="title">
-        <img src="images/Western.jpg">
         <h1>Gunnison Cold Air Pooling Project</h1>
     </div>
 </body>
