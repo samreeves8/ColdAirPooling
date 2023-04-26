@@ -47,6 +47,7 @@
         }
         echo $lat . "<br>";
         echo $lon . "<br>";
+        echo $elevation . "<br>";
         echo $date . "<br>";
         echo $humidity . "<br>";
         echo $picture . "<br>";
