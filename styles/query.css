@@ -5,9 +5,11 @@
 
 #map {
   float: none; /* Remove the float property */
+  width: 50%;
 }
 
 #sidebarContainer {
+  width: 100%;
   float: none; /* Remove the float property */
 }
 
