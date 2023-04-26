@@ -46,11 +46,13 @@
             }
         }
         echo"<h2>".$sensor."</h2>
-        <div style='display: flex; flex-wrap: wrap;'>
-          <div style='flex: 1; margin-right: 20px;'>
+        <div style='display: flex; flex-wrap: wrap;'>";
+          if(isset($file)) {
+            echo "<div style='flex: 1; margin-right: 20px;'>
             <img src=".$picture." style='width: 100%; height: auto;'>
-          </div>
-          <div style='flex: 2;'>
+          </div>";
+          }
+          echo "<div style='flex: 2;'>
             <h3 style='margin-top: 0;'>Elevation: ". $elevation ."</h3>
             <p>Latitude: ".$lat."</p>
             <p>Longitude: " . $lon . "</p>

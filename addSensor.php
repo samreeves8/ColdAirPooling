@@ -135,7 +135,7 @@
         if($file == NULL) {
             $file_path = "no picture";
         } else {
-            $file_name = uniqid() . '-' . $_FILES['picture']['name'];
+            $file_name = $_FILES['picture']['name'];
             $file_path = 'images/' . $file_name;
             move_uploaded_file($_FILES['picture']['tmp_name'], $file_path);
         }
