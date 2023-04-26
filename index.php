@@ -74,7 +74,7 @@ session_start();
 
     //creates a table with headers for each column
     echo "<div id=table>";
-    echo "<h3>Click a sensor name to learn more</h3>"
+    echo "<h3>Click a sensor name to learn more</h3>";
     echo "<table>";
     echo "<tr><th>Sensor</th><th>Elevation</th><th>Location</th></tr>";
 
