@@ -21,12 +21,11 @@ table {
   }
 
   .container-main {
-    width: 300px; 
+    width: 50%; 
     border: 1px solid #000;
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
-    align-items: flex-end;
     height: auto;
   }
 
