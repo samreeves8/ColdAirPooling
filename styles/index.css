@@ -26,6 +26,7 @@ table {
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
+    align-items: flex-end;
     height: auto;
   }
 
