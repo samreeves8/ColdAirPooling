@@ -66,3 +66,9 @@ table {
     display: inline-block; /* or inline-flex */
     box-sizing: border-box; /* This will make sure that padding and border do not increase the total width */
 }
+
+#title{
+    text-align: center;
+    color: rgb(178, 0, 0);
+    background-color: rgb(180, 175, 175);
+}
