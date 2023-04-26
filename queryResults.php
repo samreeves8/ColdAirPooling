@@ -337,7 +337,7 @@
                         FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
                         FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
                         FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature,
-                        FORMAT(AVG(humidity), 2) AS Humidity
+                        FORMAT(AVG(RH), 2) AS Humidity
                         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                         GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
                         ORDER BY DateTime ASC;";
@@ -358,7 +358,7 @@
                         FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
                         FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
                         FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature,
-                        FORMAT(AVG(humidity), 2) AS Humidity
+                        FORMAT(AVG(RH), 2) AS Humidity
                         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                         GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
                         ORDER BY DateTime ASC;";
