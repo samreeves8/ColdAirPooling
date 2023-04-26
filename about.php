@@ -58,7 +58,7 @@ session_start();
   </p>
 </div>
 
-<div class="about-wrapper">
+<div class="contact-wrapper">
   <h1>Team Members</h1>
   <ul>
     <li>Suzanne Taylor, Professor of Physics</li>
@@ -72,6 +72,11 @@ session_start();
     <li>Jacob Vogel, Computer Science Student</li>
     <li>Nathan Zimmerman, Chemistry Student</li>
   </ul>
+</div>
+
+<div class="contact-wrapper">
+  <h1>Contact Us</h1>
+  <p>asdklfjaslkdfja;lskdjf</p>
 </div>
  
 
