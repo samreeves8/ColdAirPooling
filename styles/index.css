@@ -46,18 +46,20 @@ table {
 }
 
 #wrapper {
+    margin-left: 5%;
+    margin-right: 5%;
     display: flex; /* This will make the two divs display side by side */
     flex-wrap: wrap; /* This will wrap the content to the next line if the container is too narrow */
   }
 
   #main {
-    width: 25%;
+    width: 20%;
     display: inline-block;
     box-sizing: border-box;
   }
   
 #table {
-    width: 75%;
+    width: 70%;
     display: inline-block; /* or inline-flex */
     box-sizing: border-box; /* This will make sure that padding and border do not increase the total width */
 }
