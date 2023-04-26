@@ -16,6 +16,7 @@ session_start();
 <body>
     <?php include 'header.php'; ?>
     <?php include 'navBar.php';?>
+    <iframe src="https://www.google.com/maps/d/embed?mid=1QKCUJdVptPLWD9xI8WVnY4fxXUM5NmBl&ehbc=2E312F" width="640" height="480"></iframe>
 </body>
 </html>
 
