@@ -152,7 +152,7 @@
 
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
-        echo '<p class="member">Posted on: ' . $row['date'] . '</p>';
+        echo '<p class="date">Posted on: ' . $row['date'] . '</p>';
         
         
         if($_SESSION['name'] == $curr_member){
