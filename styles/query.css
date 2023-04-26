@@ -1,9 +1,13 @@
 #container {
+  height:100%;
+  width:100%;
   display: flex;
   flex-wrap: wrap;
 }
 
 #map {
+  height: 80%;
+  width: 100%;
   float: none; /* Remove the float property */
   margin: 2% 0 0 5%; /* Adjust the margins to center the map */
   width: 65%;
@@ -12,7 +16,8 @@
 #sidebarContainer {
   float: none; /* Remove the float property */
   margin: 5% 5% 0 0; /* Adjust the margins to center the sidebar */
-  width: 30%;
+  height: 20%;
+  width: 100%;
 }
 
 .form {
