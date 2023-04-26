@@ -76,12 +76,12 @@ session_start();
 
 <div class="contact-wrapper">
   <h1>Contact Us</h1>
-  <p>asdklfjaslkdfja;lskdjf</p>
+  <h4>Suzanne Taylor</h4>
+  <p>mstaylor@western.edu</p>
 </div>
  
 
 <footer>
-
   <h3>References</h3>
   <p>
     AMS, American Meteorological Society, Glossary of Meteorology, 
