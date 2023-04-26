@@ -29,7 +29,7 @@ session_start();
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
+    $query_main = "SELECT post_id, title, content, member_id, date FROM BlogPosts LIMIT 5";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
     $result_main = $stmt_main->get_result();
