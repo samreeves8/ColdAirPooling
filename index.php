@@ -56,8 +56,9 @@ session_start();
             $curr_member = $row2["username"];
         }
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
+        echo '</div>';
     }
-    echo '</div>';
+    
 
     
 
