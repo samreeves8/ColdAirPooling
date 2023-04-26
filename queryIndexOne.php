@@ -1,7 +1,7 @@
 
 <body>
-    <div id="container">
-    <div id="map"></div>
+    <div id="container" style="height: 100%; width: 100%;">
+    <div id="map" style="height: 540px; width: 760px;"></div>
     <div id="sidebarContainer">
         <div id="sidebar"><h2>Click on a sensor to learn more.</h2></div>
         <div id="sidebarList"></div>
