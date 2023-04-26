@@ -37,7 +37,9 @@ session_start();
       sensor locations here. 
     </p>
 </div>
-<img src="images/29CAB.JPG" alt="Sensor 29CAB" class="img29">
+<div class="imgcontainer">
+  <img src="images/29CAB.JPG" alt="Sensor 29CAB" class="img29">
+</div>
 
 <div class="about-wrapper">
   <h1>Cold Air Pooling</h1>
