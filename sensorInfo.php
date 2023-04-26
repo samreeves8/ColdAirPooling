@@ -45,12 +45,10 @@
                 $description = $row['Description'];
             }
         }
-        echo $lat . "<br>";
-        echo $lon . "<br>";
-        echo $elevation . "<br>";
-        echo $date . "<br>";
-        echo $humidity . "<br>";
-        echo "<img src=" . $picture . ">";
-        echo $description . "<br>";
+        echo "<h2>".$sensor."</h2>";
+        echo "<h3>Elevation: " .$elevation. "  Latitude: " .$lat. "  Longitude: ".$lon."</h3>";
+        echo "<h3>Date Installed: " .$date."</h3>";
+        echo "<img src=" . $picture . "><br>";
+        echo "<p>".$description."</p>";
     }
 ?>
