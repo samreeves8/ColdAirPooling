@@ -19,4 +19,29 @@ table {
   tr:hover {
     background-color: #ddd;
   }
+
+  .container-main {
+    width: 300px; 
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+    height: auto;
+  }
+
+.container-main h2 {
+    margin-top: 0;
+}
+
+.container-main p {
+    margin-bottom: 0;
+}
+
+.container-main .member {
+    text-align: right;
+}
+
+.container {
+    align-self: flex-end;
+}
   
