@@ -1,6 +1,6 @@
 table {
     border-collapse: collapse;
-    width: 50%;
+    width: 100%;
   }
   
   th, td {
@@ -45,3 +45,10 @@ table {
     align-self: flex-end;
 }
   
+#main {
+    width: 50%;
+}
+
+#table {
+    width: 50%;
+}

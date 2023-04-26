@@ -58,6 +58,7 @@ session_start();
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
         echo '</div>';
     }
+    echo '</div>';
     
 
     
@@ -83,7 +84,6 @@ session_start();
     }
     
     echo "</table>";
-    echo "</div>";
     echo "</div>";
     
     //defines constant humidity array for all sensors located in different table
