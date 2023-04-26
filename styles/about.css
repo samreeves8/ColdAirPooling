@@ -40,7 +40,13 @@ ul{
   height:600px;
 }
 
+.team-wrapper{
+  background-color:rgb(180, 175, 175);
+  width: 50%;
+}
+
 .contact-wrapper{
   background-color:rgb(180, 175, 175);
   width: 50%;
+  float: right;
 }

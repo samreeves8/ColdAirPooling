@@ -58,7 +58,7 @@ session_start();
   </p>
 </div>
 
-<div class="contact-wrapper">
+<div class="team-wrapper">
   <h1>Team Members</h1>
   <ul>
     <li>Suzanne Taylor, Professor of Physics</li>
