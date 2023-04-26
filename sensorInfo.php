@@ -38,6 +38,7 @@
             while ($row = $result->fetch_assoc()) {
                 $lat = $row['Latitude'];
                 $lon = $row['Longitude'];
+                $elevation = $row['Elevation'];
                 $date = $row['date'];
                 $humidity = $row['humidity'];
                 $picture = $row['picture'];
