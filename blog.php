@@ -28,11 +28,18 @@
             }
 
 
-            $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id) VALUES (?, ?, ?)";
+
+            $current_date = date('Y-m-d');
+            $date = new DateTime();
+            $date_string = $date->format('Y-m-d');
+
+
+
+            $sqlBlog = "INSERT INTO BlogPosts (title, content, member_id, date) VALUES (?, ?, ?, ?)";
 
             //insert blog post
             $stmt_blog = mysqli_prepare($conn, $sqlBlog);
-            mysqli_stmt_bind_param($stmt_blog, "ssd", $blogTitle, $blogContent, $m_id);
+            mysqli_stmt_bind_param($stmt_blog, "ssds", $blogTitle, $blogContent, $m_id, $date_string);
             mysqli_stmt_execute($stmt_blog);
             mysqli_stmt_close($stmt_blog);
             mysqli_close($conn);
@@ -113,7 +120,7 @@
     }
 
 
-    $query_main = "SELECT post_id, title, content, member_id FROM BlogPosts LIMIT 5";
+    $query_main = "SELECT post_id, title, content, member_id, date FROM BlogPosts LIMIT 5";
     $stmt_main = mysqli_prepare($conn, $query_main);
     mysqli_stmt_execute($stmt_main);
     $result_main = $stmt_main->get_result();
@@ -126,6 +133,9 @@
         echo '<h2>' . $row['title'] . '</h2>';
         echo '<p>' . $row['content'] . '</p>';
 
+
+
+        
 
         //query's for member   
         $query_member = "SELECT username FROM accounts WHERE id = ?";
@@ -142,6 +152,8 @@
 
 
         echo '<p class="member">Posted by: ' . $curr_member . '</p>';
+        echo '<p class="date">Posted on: ' . $row['date'] . '</p>';
+        
         
         if($_SESSION['name'] == $curr_member){
             // Get the post_id
