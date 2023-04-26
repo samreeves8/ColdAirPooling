@@ -305,10 +305,10 @@
                 $table = null;
                 if(in_array($sensor, $humidity)){
                     $table = "HumidData";
-                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
+                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th><th>Average Humidity</th></tr>";
                 }else{
                     $table = "TempData";
-                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th><th>Average Humidity</th></tr>";
+                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
                 }
 
                 //Determine which query to use based on minute or hour intervals
