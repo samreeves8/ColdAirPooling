@@ -57,7 +57,7 @@ table {
   }
   
 #table {
-    width: 50%;
+    width: 75%;
     display: inline-block; /* or inline-flex */
     box-sizing: border-box; /* This will make sure that padding and border do not increase the total width */
 }
