@@ -14,7 +14,8 @@
 #sidebarContainer {
   width: 40%;
   float: none;
-  margin: auto; /* Center the content horizontally */
+  margin-left: auto; 
+  margin-right: auto;
 }
 
 .form {
