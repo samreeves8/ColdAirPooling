@@ -64,7 +64,7 @@ session_start();
     <li>Suzanne Taylor, Professor of Physics</li>
     <li>Bruce Bartleson, Professor Emeritus – Geology</li>
     <li>David Marchetti, Professor of Geology</li>
-    <li>David Primus, WCU Chemistry/Physics Graduate & Community Member</li>
+    <li>David Primus, WCU Graduate & Community Member</li>
     <li>Zachary Treisman, Assistant Professor of Mathematics</li>
     <li>Kevin Cabral, Computer Science Student</li>
     <li>Michael Matthews, Computer Science Student</li>
