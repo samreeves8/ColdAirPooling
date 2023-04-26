@@ -39,6 +39,7 @@ session_start();
     mysqli_stmt_close($stmt_main);
     echo "<div id=wrapper>";
     echo "<div id=main>";
+    echo "<h3>Updates: </h3>";
     // Loop through the result set and display data in containers
     while ($row = $result_main->fetch_assoc()) {
         echo '<div class="container-main">';
