@@ -57,6 +57,8 @@
             }
             sidebar.innerHTML = "<h2>Sensor " + id + "</h2>\
             <p>\
+            Description: " + description + "\
+            <br>\
             Latitude: " + lat + "\
             <br>\
             Longitude: " + lng + "\
@@ -66,8 +68,6 @@
             Date installed: " + dateInstalled + "\
             <br>\
             Records humidity: " + value + "\
-            <br>\
-            Description: " + description + "\
             <br>\
             <br>\
             <button type = \'button\' id=\'remove-btn\'>Remove</button>\
