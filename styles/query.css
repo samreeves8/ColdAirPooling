@@ -4,13 +4,15 @@
 }
 
 #map {
-  float: none; /* Remove the float property */
+  float: none;
   width: 50%;
+  margin: auto; /* Center the content horizontally */
 }
 
 #sidebarContainer {
-  width: 100%;
-  float: none; /* Remove the float property */
+  width: 50%;
+  float: none;
+  margin: auto; /* Center the content horizontally */
 }
 
 .form {
