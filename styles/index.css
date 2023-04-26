@@ -11,6 +11,11 @@ table {
   th {
     background-color: #f2f2f2;
   }
+
+  iframe {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
   
   tr:nth-child(even) {
     background-color: #f2f2f2;
