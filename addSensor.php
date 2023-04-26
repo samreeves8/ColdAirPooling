@@ -52,8 +52,11 @@
     <input type="checkbox" id="humidity" name="humidity" value="1">Yes
     <input type="checkbox" id="humidity" name="humidity" value="0">No
 
-    <!-- <label for="sensor-image">Sensor Image:</label>
-    <input type="file" id="sensor-image" name="picture"><br><br> -->
+    <br><br>
+    <label for="sensor-image">Sensor Image:</label>
+    <input type="file" id="sensor-image" name="picture"><br><br> 
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea><br><br>
 
     <input type="submit" value="Submit">
     </form>
@@ -126,15 +129,20 @@
         $elevation = $_POST['elevation'];
         $dateInstalled = $_POST['date-installed'];
         $humidity = $_POST['humidity'];
-        // $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
-        // if($file){
-        //     $fileName = $file['name'];
-        // }
+        $description = $_POST['description'];
+        $file = isset($_FILES['picture']) ? $_FILES['picture'] : NULL;
 
-        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity) VALUES (?, ?, ?, ?, ?, ?)";
+        if($file == NULL) {
+            $file_path = "no picture";
+        } else {
+            $file_name = uniqid() . '-' . $_FILES['picture']['name'];
+            $file_path = 'images/' . $file_name;
+            move_uploaded_file($_FILES['picture']['tmp_name'], $file_path);
+        }
+        $sql = "INSERT INTO SensorData (Sensor, Latitude, Longitude, Elevation, Date, humidity, Picture, Description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         //prepare the query to prevent sql injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sdddsd", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity);
+        $stmt->bind_param("sdddsdss", $sensorName, $latitude, $longitude, $elevation, $dateInstalled, $humidity, $file_path, $description);
         if ($stmt->execute()) {
             echo "New sensor added successfully";
         } else {

@@ -154,8 +154,9 @@
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     markers = JSON.parse(xhr.responseText);
+                    console.log(markers);
                     markers.forEach(marker => {
-                        addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, mymap);
+                        addMarker(marker.id, marker.lat, marker.lng, marker.elevation, marker.dateInstalled, marker.recordsHumidity, marker.description, mymap);
                     });
                 }
             };

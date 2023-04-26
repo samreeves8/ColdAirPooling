@@ -300,35 +300,59 @@
             echo "</ul>";
             foreach ($sensorSet as $sensor){
             echo "<div id='$sensor' class='tab-panel'>
-                <table>
-                <tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
-                
+                <table>";
                 //Determine which table to query 
                 $table = null;
                 if(in_array($sensor, $humidity)){
                     $table = "HumidData";
+                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th><th>Average Humidity</th></tr>";
                 }else{
                     $table = "TempData";
+                    echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
                 }
 
                 //Determine which query to use based on minute or hour intervals
                 if($minute == true){
-                    $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, 
-                    FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
-                    FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
-                    FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature
-                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
-                    ORDER BY DateTime ASC;";
+                    if($table == "TempData"){
+                        $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, 
+                        FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
+                        FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
+                        FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature
+                        FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                        GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
+                        ORDER BY DateTime ASC;";
+                    }else if($table == "HumidData"){
+                        $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, 
+                        FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
+                        FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
+                        FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature,
+                        FORMAT(AVG(RH), 2) AS Humidity
+                        FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                        GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
+                        ORDER BY DateTime ASC;";
+                    }
 
                 } else if($hour == true){
-                    $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, 
-                    FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
-                    FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
-                    FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature
-                    FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
-                    GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
-                    ORDER BY DateTime ASC;";
+                    if($table == "TempData"){
+                        $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, 
+                        FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
+                        FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
+                        FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature
+                        FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                        GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
+                        ORDER BY DateTime ASC;";
+                        
+                    }else if($table == "HumidData") {
+                        $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, 
+                        FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
+                        FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
+                        FORMAT(MIN(temperature * 1.8 + 32), 2) AS MinTemperature,
+                        FORMAT(AVG(RH), 2) AS Humidity
+                        FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
+                        GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
+                        ORDER BY DateTime ASC;";
+                    }
+                    
                 }    
 
                 //prepare the query to prevent sql injection
@@ -354,6 +378,9 @@
                         echo "<td>" . $row["Temperature"] . "</td>";
                         echo "<td>" . $row["MaxTemperature"] . "</td>";
                         echo "<td>" . $row["MinTemperature"] . "</td>";
+                        if($table == "HumidData"){
+                            echo "<td>" . $row["Humidity"] . "</td>";
+                        }
                         echo "</tr>";
 
                         $temp[] = $row['Temperature'];

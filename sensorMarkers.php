@@ -7,7 +7,7 @@
 
     $markers = array();
     
-    $sql = "SELECT Sensor, ROUND(Latitude, 2) as Latitude, ROUND(Longitude, 2) as Longitude, Elevation, DATE_FORMAT(Date, '%Y-%m-%d') as Date, humidity FROM SensorData";
+    $sql = "SELECT Sensor, ROUND(Latitude, 2) as Latitude, ROUND(Longitude, 2) as Longitude, Elevation, DATE_FORMAT(Date, '%Y-%m-%d') as Date, humidity, Description FROM SensorData";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -20,7 +20,8 @@
                 "lng" => $row['Longitude'],
                 "elevation" => $row['Elevation'],
                 "dateInstalled" => $row['Date'],
-                "recordsHumidity" => $row['humidity']
+                "recordsHumidity" => $row['humidity'],
+                "description" => $row['Description']
             );
         }
     }
