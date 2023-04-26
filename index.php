@@ -33,14 +33,14 @@ session_start();
 
     //creates a table with headers for each column
     echo "<table>";
-    echo "<tr><th>Sensor</th><th>Latitude</th><th>Longitude</th><th>Elevation</th><th>Date</th></tr>";
+    echo "<tr><th>Sensor</th><th>Elevation</th><th>Location</th></tr>";
 
 
     //creates a row for each sensor and adds a link to each row that will allow the user to query each sensor
     if ($result->num_rows > 0) {
         // output data of each row as a table row
         while($row = $result->fetch_array()) {
-            echo "<tr><td><a href='sensorInfo.php?sensor=" . $row["Sensor"] . "'>" . $row["Sensor"] . "</a></td><td>" . $row["Latitude"]. "</td><td>". $row["Longitude"]. "</td><td>". $row["Elevation"]. "</td><td>" . $row["Date"]. "</td></tr>";
+            echo "<tr><td><a href='sensorInfo.php?sensor=" . $row["Sensor"] . "'>" . $row["Sensor"] . "</a></td><td>". $row["Elevation"]. "</td><td>" . $row["Description"]. "</td></tr>";
         }
     } else {
         echo "<tr><td colspan='5'>0 results</td></tr>";
