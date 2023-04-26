@@ -5,13 +5,10 @@
 
 #map {
   float: none; /* Remove the float property */
-  margin: 2% 0 0 5%; /* Adjust the margins to center the map */
-  width: 65%;
 }
 
 #sidebarContainer {
   float: none; /* Remove the float property */
-  margin: 5% 5% 0 0; /* Adjust the margins to center the sidebar */
 }
 
 .form {
