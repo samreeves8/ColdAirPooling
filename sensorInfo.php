@@ -39,10 +39,10 @@
                 $lat = $row['Latitude'];
                 $lon = $row['Longitude'];
                 $elevation = $row['Elevation'];
-                $date = $row['date'];
+                $date = $row['Date'];
                 $humidity = $row['humidity'];
                 $picture = $row['picture'];
-                $description = $row['description'];
+                $description = $row['Description'];
             }
         }
         echo $lat . "<br>";
