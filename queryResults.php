@@ -310,7 +310,7 @@
                 <table>";
                 if($table == "TempData"){
                     echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th></tr>";
-                } else {
+                } else if($table == "HumidData") {
                     echo "<tr><th>Sensor</th><th>Start DateTime</th><th>Average Temperature (F)</th><th>Max Temperature (F)</th><th>Min Temperature (F)</th><th>Average Humidity</th></tr>";
                 }
                 
@@ -332,7 +332,7 @@
                         FROM ".$table." WHERE Sensor = ? AND dateTime BETWEEN ? AND ?
                         GROUP BY Sensor, TIMESTAMPDIFF(MINUTE, '2000-01-01 00:00:00', dateTime) DIV ? 
                         ORDER BY DateTime ASC;";
-                    }else{
+                    }else if($table == "HumidData"){
                         $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:%i:00') AS DateTime, 
                         FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
                         FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
@@ -353,7 +353,7 @@
                         GROUP BY Sensor, TIMESTAMPDIFF(HOUR, '2000-01-01 00:00:00', dateTime) DIV ? 
                         ORDER BY DateTime ASC;";
                         
-                    }else {
+                    }else if($table == "HumidData") {
                         $sql = "SELECT Sensor, DATE_FORMAT(dateTime, '%Y-%m-%d %H:00:00') AS DateTime, 
                         FORMAT(AVG(temperature * 1.8 + 32), 2) AS Temperature, 
                         FORMAT(MAX(temperature * 1.8 + 32), 2) AS MaxTemperature,
