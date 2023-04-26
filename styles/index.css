@@ -27,17 +27,21 @@ table {
     margin-bottom: 10px;
     align-self: flex-start;
     height: auto;
+    background-color:rgb(180, 175, 175);
   }
 
 .container-main h2 {
+    color: rgb(178, 0, 0);
     margin-top: 0;
 }
 
 .container-main p {
+    color: rgb(178, 0, 0);
     margin-bottom: 0;
 }
 
 .container-main .member {
+    color: rgb(178, 0, 0);
     text-align: right;
 }
 
