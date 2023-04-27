@@ -61,6 +61,10 @@ button[type="button"]:hover {
 
 }
 
+p{
+  font-family: Arial, sans-serif;
+}
+
 
 table {
     border-collapse: collapse;
