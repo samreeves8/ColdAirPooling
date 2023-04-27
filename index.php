@@ -39,7 +39,7 @@ session_start();
     mysqli_stmt_close($stmt_main);
     echo "<div id=wrapper>";
     echo "<div id=main>";
-    echo "<h3>News</h3>";
+    echo "<h2>News</h2>";
     // Loop through the result set and display data in containers
     while ($row = $result_main->fetch_assoc()) {
         echo '<div class="container-main">';
@@ -74,7 +74,7 @@ session_start();
 
     //creates a table with headers for each column
     echo "<div id=table>";
-    echo "<h3>Click a sensor name to learn more</h3>";
+    echo "<h2>Click a sensor name to learn more</h2>";
     echo "<table>";
     echo "<tr><th>Sensor</th><th>Elevation</th><th>Location</th></tr>";
 
