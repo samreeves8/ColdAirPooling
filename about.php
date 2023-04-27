@@ -77,7 +77,9 @@ session_start();
 <div class="contact-wrapper">
   <h1>Contact Us</h1>
   <h4>Suzanne Taylor</h4>
-  <p>mstaylor@western.edu</p>
+  <a href="mailto:mstaylor@western.edu">mstaylor@western.edu</a>
+  <h4>David Primus</h4>
+  <a href="mailto:dprimus@gmail.com">dprimus@gmail.com</a>
 </div>
  
 
