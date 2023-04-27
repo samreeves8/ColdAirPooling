@@ -49,7 +49,7 @@
                 $description = $row['Description'];
             }
         }
-        echo"<h2>".$sensor."</h2>
+        echo"<h2>".$sensor.": ".$description."</h2>
         <div style='display: flex; flex-wrap: wrap;'>";
           if($picture != NULL) {
             echo "<div style='flex: 1; margin-right: 20px;'>
@@ -62,7 +62,6 @@
             <p>Longitude: " . $lon . "</p>
             <p>Date Installed: ". $date ."</p>
             <p>Records Humidity: ".$humidity. "</p>
-            <p>".$description."</p>
           </div>
         </div>";
     }
