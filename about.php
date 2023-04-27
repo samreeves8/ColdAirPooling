@@ -82,6 +82,7 @@ session_start();
     </p>
     <h4>Suzanne Taylor</h4>
     <a href="mailto:mstaylor@western.edu">mstaylor@western.edu</a>
+    <br>
     <h4>David Primus</h4>
     <a href="mailto:dprimus@gmail.com">dprimus@gmail.com</a>
   </div>
