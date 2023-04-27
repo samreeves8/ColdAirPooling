@@ -75,6 +75,9 @@ session_start();
 </div>
 
 <div class="contact-wrapper">
+  <p>If you are interseted in learning more about our project and research, please reach 
+    out to one of the emails listed below for more information. 
+  </p>
   <div class="contact-info">
     <h1>Contact Us</h1>
     <h4>Suzanne Taylor</h4>
