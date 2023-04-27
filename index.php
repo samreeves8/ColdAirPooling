@@ -19,7 +19,9 @@ session_start();
     <div id="title">
         <h1>Gunnison Cold Air Pooling Project</h1>
     </div>
+    <div class = "hidemapbar">
     <iframe style="position:relative; top:-30px; border:none;" src="https://www.google.com/maps/d/embed?mid=1QKCUJdVptPLWD9xI8WVnY4fxXUM5NmBl&ehbc=2E312F&t=k" width="90%" height="640"></iframe>
+    </div>
 </body>
 </html>
 

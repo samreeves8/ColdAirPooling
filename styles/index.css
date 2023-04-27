@@ -81,3 +81,10 @@ table {
     margin-bottom: 1%;
     padding: 2%;
 }
+
+.hidemapbar {
+    position: relative;
+    clip-path: polygon(0% 12%, 100% 12%, 100% 100%, 0% 100%);
+    top: -1em;
+    border: inherit;
+  }
