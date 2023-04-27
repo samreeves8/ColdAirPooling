@@ -85,6 +85,6 @@ table {
 .hidemapbar {
     position: relative;
     clip-path: polygon(0% 12%, 100% 12%, 100% 100%, 0% 100%);
-    top: -1em;
+    top: -.5em;
     border: inherit;
   }
