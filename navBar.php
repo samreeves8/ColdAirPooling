@@ -8,6 +8,7 @@
             echo '<li><a href="fileUpload.php">Upload Data</a></li>';
             echo '<li><a href="delete.php">Delete Data</a></li>';
             echo '<li><a href="addSensor.php">Manage Sensors</a></li>';
+            echo '<li><a href="blog.php">Manage Blog</a></li>';
         }
     ?>
     <li><a href="query.php">Query</a></li>

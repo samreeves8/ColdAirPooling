@@ -11,6 +11,12 @@ table {
   th {
     background-color: #f2f2f2;
   }
+
+  iframe {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 1%;
+  }
   
   tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -21,7 +27,7 @@ table {
   }
 
   .container-main {
-    width: 75%; 
+    width: 90%; 
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
@@ -65,4 +71,17 @@ table {
     width: 75%;
     display: inline-block; /* or inline-flex */
     box-sizing: border-box; /* This will make sure that padding and border do not increase the total width */
+}
+
+#title{
+    text-align: center;
+    color: rgb(178, 0, 0);
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 2%;
+}
+
+.hidemapbar{
+    overflow:hidden;
+    clip-path: polygon(0 5.5%, 100% 5.5%, 100% 100%, 0% 100%);
 }
