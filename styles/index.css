@@ -27,7 +27,7 @@ table {
   }
 
   .container-main {
-    width: 75%; 
+    width: 100%; 
     padding: 10px;
     margin-bottom: 10px;
     align-self: flex-start;
@@ -62,7 +62,7 @@ table {
   }
 
   #main {
-    width: 30%;
+    width: 25%;
     display: inline-block;
     box-sizing: border-box;
   }
