@@ -26,6 +26,10 @@ table {
     background-color: #ddd;
   }
 
+  h1, h2, h3 {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
   .container-main {
     width: 90%; 
     padding: 10px;
