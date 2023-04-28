@@ -9,6 +9,10 @@ form input[type="password"] {
   margin-bottom: 1rem;
 }
 
+h1, h2, h3 {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 form input[type="submit"] {
   background-color:#7b2a2a;
   color: #fff;

@@ -11,3 +11,7 @@
     width: calc(50% - 10px); /* Set a width for the checkboxes */
     margin-right: 5px;
 }
+
+h1, h2, h3 {
+    font-family: Helvetica, Arial, sans-serif;
+  }
