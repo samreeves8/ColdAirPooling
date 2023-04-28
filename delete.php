@@ -55,6 +55,9 @@
     <label for="dateStart">Select a start date:</label>
     <input type="date" id="dateStart" name="dateStart">
 
+    <br>
+    <br>
+
     <label for="timeStart">Select a start time:</label>
     <input type="time" id="timeStart" name="timeStart" value="00:00">
 
@@ -64,6 +67,9 @@
     <label for="dateEnd">Select an end date:</label>
     <input type="date" id="dateEnd" name="dateEnd" value="<?php echo date('Y-m-d'); ?>">
 
+    <br>
+    <br>
+    
     <label for="timeEnd">Select an end time:</label>
     <input type="time" id="timeEnd" name="timeEnd" value="00:00">
 
