@@ -46,6 +46,7 @@ ul{
 
 .team-wrapper{
   background-color:rgb(180, 175, 175);
+  width: 50%;
   margin-right: 5%;
   margin-left: 5%;
   margin-bottom: 10px;
@@ -53,7 +54,7 @@ ul{
 
 .contact-wrapper{
   background-color:rgb(180, 175, 175);
-
+  width: 50%;
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 10px; 
