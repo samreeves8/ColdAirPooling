@@ -72,6 +72,10 @@ label {
 select, option {
   font-family: Arial, sans-serif;
 }
+
+.checkbox {
+  font-family: Arial, sans-serif;
+}
 table {
     border-collapse: collapse;
     width: 100%;
