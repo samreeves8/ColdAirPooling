@@ -23,3 +23,20 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background-color: #905e5e;
 }
+
+.create{
+  margin-bottom: 50px;
+  margin-left: 20px;
+}
+
+label{
+  display: inline-block;
+  float: left;
+  clear: left;
+  width: 250px;
+  text-align: right;
+}
+input {
+display: inline-block;
+float: left;
+}
