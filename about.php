@@ -58,6 +58,7 @@ session_start();
   </p>
 </div>
 
+<div class="teamcontactwrapper">
 <div class="team-wrapper">
   <h1>Team Members</h1>
   <ul>
@@ -86,6 +87,7 @@ session_start();
     <h4>David Primus</h4>
     <a href="mailto:dprimus@gmail.com">dprimus@gmail.com</a>
   </div>
+</div>
 </div>
  
 
