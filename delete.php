@@ -22,6 +22,7 @@
     <link rel="icon" type="image/png" href="images/Western Logo.png">
     <link rel="stylesheet" href="styles/nav.css">
     <link rel="stylesheet" href="styles/delete.css">
+    <link rel="stylesheet" href="styles/import.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <title>Delete</title>
