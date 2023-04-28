@@ -29,12 +29,12 @@
         tabLinks.forEach(function(link) {
             link.addEventListener('click', function(e) {
             e.preventDefault();
-
+            
             // remove active class from all tabs
             tabLinks.forEach(function(link) {
                 link.classList.remove('active');
             });
-
+            
             // add active class to clicked tab
             link.classList.add('active');
 
