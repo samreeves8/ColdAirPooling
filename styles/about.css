@@ -52,7 +52,7 @@ ul{
 .team-wrapper{
   float: none;
   background-color:rgb(180, 175, 175);
-  width: 40%;
+  width: auto;
   margin-left: 5%;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -61,7 +61,7 @@ ul{
 .contact-wrapper{
   float: none;
   background-color:rgb(180, 175, 175);
-  width: 40%;
+  width: auto;
   margin-right: 5%;
   margin-left: 10px;
   margin-bottom: 10px; 
