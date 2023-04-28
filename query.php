@@ -168,14 +168,12 @@
         </script>
         <div class = "form">
         <h1> Insert date and time range for data you want to see: </h1>
-        <label for="dateStart">Select a start date:</label>
+        <label for="dateStart">Select a start date & time:</label>
         <input type="date" id="dateStart" name="dateStart">
-        <label for="timeStart">Select a start time:</label>
         <input type="time" id="timeStart" name="timeStart" value = "00:00">
         <br>
-        <label for="dateEnd">Select an end date:</label>
+        <label for="dateEnd">Select an end date & time:</label>
         <input type="date" id="dateEnd" name="dateEnd">
-        <label for="timeEnd">Select an end time:</label>
         <input type="time" id="timeEnd" name="timeEnd" value = "00:00">
         <input type="hidden" id="interval" name="interval" value="3 Minutes">
         <br>
