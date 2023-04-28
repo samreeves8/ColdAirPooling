@@ -71,3 +71,7 @@ ul{
   text-align: left;
   padding: 10px 80px;
 }
+
+h1, h2, h3  {
+  font-family: Helvetica, Arial, sans-serif;
+}
