@@ -45,19 +45,26 @@ ul{
 .team-wrapper{
   background-color:rgb(180, 175, 175);
   width: 49%;
-  height: 50%;
+  height: 500px;
   float: left;
   margin-right: 5px;
+  margin-left: 5px;
 }
 
 .contact-wrapper{
   background-color:rgb(180, 175, 175);
   width: 49%;
-  height: 50%;
+  height: 500px;
   float: right;
   margin-left: 5px;
+  margin-right: 5px;
 }
 
+.contact-wrapper p{
+  text-align: center;
+  padding: 10px 20px;
+  line-height: 2 ;
+}
 .contact-info{
   text-align: left;
   padding: 10px 80px;
