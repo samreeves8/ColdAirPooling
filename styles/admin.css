@@ -5,7 +5,7 @@ form input[type="password"] {
   font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 100%;
+  width: 30%;
   margin-bottom: 1rem;
 }
 
@@ -26,4 +26,9 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
   background-color: #905e5e;
+}
+
+.create{
+  margin-bottom: 50px;
+  margin-left: 20px;
 }

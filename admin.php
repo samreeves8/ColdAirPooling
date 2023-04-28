@@ -115,6 +115,7 @@ if (isset($_POST['toDelete'])) {
 
 <h1>Welcome, <?php echo $_SESSION['name']; ?>!</h1><br>
 
+<div class="create">
 <h2>Create New Admin User</h2><br>
 <form method="POST">
     <label for="new_username">Username:</label>
@@ -125,13 +126,12 @@ if (isset($_POST['toDelete'])) {
     <br>
     <input type="submit" name="submit" value="Create User">
 </form>
-
+</div>
 <h2>Existing Admin Users</h2><br>
     <form method="POST">
     <table>
         <tr>
             <th>Username</th>
-            <th>Password Hash</th>
             <th>Select</th>
         </tr>
         <?php
@@ -144,7 +144,6 @@ if (isset($_POST['toDelete'])) {
         foreach ($result as $row) {
             echo "<tr>";
             echo "<td>" . $row['username'] . "</td>";
-            echo "<td>" . $row['password'] . "</td>";
             echo "<td><input type='checkbox' id='delete' name='delete[]' value='" . $row['id'] . "'></td>"; 
             echo "</tr>";
         }
