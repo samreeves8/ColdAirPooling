@@ -17,6 +17,9 @@ p {
   font-family: Arial, sans-serif;
 }
 
+label {
+  font-family: Arial, sans-serif;
+}
 form input[type="submit"] {
   background-color:#7b2a2a;
   color: #fff;
