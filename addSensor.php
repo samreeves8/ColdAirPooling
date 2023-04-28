@@ -49,8 +49,8 @@
     <input type="date" id="date-installed" name="date-installed"><br><br>
 
     <label for="humidity">Humidity Sensor:</label>
-    <input type="checkbox" id="humidity" name="humidity" value="1">Yes
-    <input type="checkbox" id="humidity" name="humidity" value="0">No
+    <input id = "checkbox" type="checkbox" id="humidity" name="humidity" value="1">Yes
+    <input id = "checkbox" type="checkbox" id="humidity" name="humidity" value="0">No
 
     <br><br>
     <label for="sensor-image">Sensor Image:</label>
