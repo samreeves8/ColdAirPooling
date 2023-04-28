@@ -12,6 +12,14 @@
     margin-right: 5px;
 }
 
+p {
+    font-family: Arial, sans-serif;
+}
+
+label {
+    font-family: Arial, sans-serif;
+}
+
 h1, h2, h3 {
     font-family: Helvetica, Arial, sans-serif;
   }
