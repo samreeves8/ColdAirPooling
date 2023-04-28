@@ -38,7 +38,7 @@ session_start();
     </p>
 </div>
 <div class="imgcontainer">
-  <img src="images/29CAB2.JPG" alt="Sensor 29CAB" class="img29">
+  <img src="images/29CAB2.jpg" alt="Sensor 29CAB" class="img29">
 </div>
 
 <div class="about-wrapper">
