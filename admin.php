@@ -131,7 +131,6 @@ if (isset($_POST['toDelete'])) {
     <table>
         <tr>
             <th>Username</th>
-            <th>Password Hash</th>
             <th>Select</th>
         </tr>
         <?php
@@ -144,7 +143,6 @@ if (isset($_POST['toDelete'])) {
         foreach ($result as $row) {
             echo "<tr>";
             echo "<td>" . $row['username'] . "</td>";
-            echo "<td>" . $row['password'] . "</td>";
             echo "<td><input type='checkbox' id='delete' name='delete[]' value='" . $row['id'] . "'></td>"; 
             echo "</tr>";
         }
