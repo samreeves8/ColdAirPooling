@@ -28,8 +28,8 @@ footer {
 .img29 {
   display: block;
   margin:auto;
-  width: 70%;
-  height: 100%;
+  width: 100%;
+  
 }
 
 ul{
@@ -41,6 +41,8 @@ ul{
 
 .imgcontainer{
   width:100%;
+  margin-left: 5%;
+  margin-right: 5%;
   height:600px;
 }
 
