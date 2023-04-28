@@ -67,6 +67,7 @@
     <input type="time" id="timeEnd" name="timeEnd" value="00:00">
 
     <br>
+    <br>
 
     <div class="checkbox-container">
     <?php foreach ($sensorList as $sensor) { ?>
