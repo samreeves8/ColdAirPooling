@@ -53,8 +53,8 @@ ul{
   float: none;
   background-color:rgb(180, 175, 175);
   width: 40%;
-  margin-right: 5%;
   margin-left: 5%;
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
@@ -62,8 +62,8 @@ ul{
   float: none;
   background-color:rgb(180, 175, 175);
   width: 40%;
-  margin-left: 5%;
   margin-right: 5%;
+  margin-left: 10px;
   margin-bottom: 10px; 
 }
 
