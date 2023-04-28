@@ -65,7 +65,13 @@ p{
   font-family: Arial, sans-serif;
 }
 
+label {
+  font-family: Arial, sans-serif;
+}
 
+select, option {
+  font-family: Arial, sans-serif;
+}
 table {
     border-collapse: collapse;
     width: 100%;
