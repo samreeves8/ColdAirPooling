@@ -52,18 +52,18 @@ ul{
 .team-wrapper{
   float: none;
   background-color:rgb(180, 175, 175);
-  width: auto;
+  width: 44%;
   margin-left: 5%;
-  margin-right: 10px;
+  margin-right: 1%;
   margin-bottom: 10px;
 }
 
 .contact-wrapper{
   float: none;
   background-color:rgb(180, 175, 175);
-  width: auto;
+  width: 44%;
   margin-right: 5%;
-  margin-left: 10px;
+  margin-left: 1%;
   margin-bottom: 10px; 
 }
 
