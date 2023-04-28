@@ -49,6 +49,7 @@ ul{
   float: left;
   margin-right: 5px;
   margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 .contact-wrapper{
@@ -58,6 +59,7 @@ ul{
   float: right;
   margin-left: 5px;
   margin-right: 5px;
+  margin-bottom: 10px; 
 }
 
 .contact-wrapper p{
