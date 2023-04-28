@@ -44,11 +44,8 @@ ul{
   height:600px;
 }
 
-/* .team-wrapper{
+.team-wrapper{
   background-color:rgb(180, 175, 175);
-  width: 49%;
-  height: 500px;
-  float: left;
   margin-right: 5%;
   margin-left: 5%;
   margin-bottom: 10px;
@@ -56,13 +53,11 @@ ul{
 
 .contact-wrapper{
   background-color:rgb(180, 175, 175);
-  width: 49%;
-  height: 500px;
-  float: right;
+
   margin-left: 5%;
   margin-right: 5%;
   margin-bottom: 10px; 
-} */
+}
 
 .contact-wrapper p{
   text-align: center;
