@@ -12,6 +12,18 @@
     margin-right: 5px;
 }
 
+
+button{
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.2em;
+    background-color: #7b2a2a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+  }
 p {
     font-family: Arial, sans-serif;
 }
