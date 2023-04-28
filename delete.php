@@ -69,7 +69,7 @@
 
     <br>
     <br>
-    
+
     <label for="timeEnd">Select an end time:</label>
     <input type="time" id="timeEnd" name="timeEnd" value="00:00">
 
@@ -87,7 +87,7 @@
 
     <input type="hidden" id="interval" name="interval" value="3 Minutes">
     <div id="buttondrop">
-      <input type="submit" value="Submit">
+      <input  id = "button" type="submit" value="Submit">
     </div>
   </div>
 </form>
