@@ -94,3 +94,8 @@ table {
 p{
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+th, tr, td{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  
+}
