@@ -65,6 +65,7 @@ table {
     flex-wrap: wrap; /* This will wrap the content to the next line if the container is too narrow */
   }
 
+
   #main {
     width: 25%;
     display: inline-block;
@@ -88,4 +89,8 @@ table {
 .hidemapbar{
     overflow:hidden;
     clip-path: polygon(0 5.5%, 100% 5.5%, 100% 100%, 0% 100%);
+}
+
+p{
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
