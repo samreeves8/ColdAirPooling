@@ -85,3 +85,15 @@ p{
 h1, h2, h3  {
   font-family: Helvetica, Arial, sans-serif;
 }
+
+li{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h4{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+a{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
