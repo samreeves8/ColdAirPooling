@@ -21,6 +21,14 @@
     
   }
   
+  p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  h1, h2, h3  {
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
   /* Style for the form labels */
   label {
     display: block;
@@ -67,5 +75,7 @@
     text-align: center;
 
   }
+
+
 
   
