@@ -70,10 +70,14 @@
     font-size: 14px;
   }
 
-  h2, h4{
+  h2{
     margin-top: 5%;
     text-align: center;
 
+  }
+
+  h4{
+    text-align: center;
   }
 
 
