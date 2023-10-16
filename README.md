@@ -11,6 +11,5 @@ users to swiftly locate the information they seek. But what truly sets our appli
 we've enabled our users to gain a deeper understanding of their data through dynamic, real-time graphical representations. These automated data visualizations come in the form of 
 interactive graphs, providing invaluable insights with just a few clicks.
 
-# Visit
-# GunnisonColdPooling.net 
-# to see our work
+# Visit GunnisonColdPooling.net to see our work
+
